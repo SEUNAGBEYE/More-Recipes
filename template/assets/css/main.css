@@ -12,20 +12,21 @@ body {
 
 #search{
 	border-radius: 20px;
-    padding: 5px 20px 5px 5px;
+    padding: 1px 20px 5px 15px;
     border: 1px solid orange;
+    color: black;
     /*transition: all 1s ease;*/
    
 }
 
 
 #search-button{
-	margin-left: 15px;
+	/*margin-left: 15px;*/
     color: white;
-    background: orange;
-    border: 1px solid orange;
+    background: red;
+    border: 1px solid red;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 5px 5px;
     font-weight: bold;
     position: relative;
     /*right: -150px;*/
@@ -48,12 +49,12 @@ body {
 
 
 #search-button{
-	margin-left: 15px;
+    margin: 0 40px 4px 5px;
     color: white;
     background: orange;
     border: 1px solid orange;
-    border-radius: 20px;
-    padding: 5px 15px;
+    border-radius: 5px;
+    padding: 2px 5px;
     font-weight: bold;
 }
 
@@ -63,12 +64,12 @@ body {
 }
 
 .auth-button{
-	margin-left: 15px;
+    margin: 0 10px 13px 0;
     color: white;
     background: orange;
     border: 1px solid orange;
     border-radius: 5px;
-    padding: 5px 15px;
+    padding: 2px 4px 4px 4px;
     font-weight: bold;
     float: right;
 

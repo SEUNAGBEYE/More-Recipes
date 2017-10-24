@@ -59,3 +59,12 @@ main{
 	text-decoration-color: none;
 }
 
+input[type = "checkbox"]{
+	background-color: orange;
+	color: #FFF;
+}
+
+#line{
+	text-align: center;
+}
+
