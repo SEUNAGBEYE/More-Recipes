@@ -40,22 +40,33 @@
 					<button class="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
 					</button>
 					<div class="dropdown-menu" aria-labelledby="about-us">
-					<a class="dropdown-item" href="recipes.html">All Recipes</a>
-					<a class="dropdown-item" href="my_recipes.html">My Recipes</a>
-					<a class="dropdown-item" href="favourite_recipe.html">Favourites</a>
-					<a class="dropdown-item" href="#">Profile</a>
-					<a class="dropdown-item" href="index.html">Logout</a>
-					</div>
+						<a class="dropdown-item" href="recipes.html">All Recipes</a>
+						<a class="dropdown-item" href="my_recipes.html">My Recipes</a>
+						<a class="dropdown-item" href="favourite_recipe.html">Favourites</a>
+						<a class="dropdown-item" href="#">Profile</a>
+						<a class="dropdown-item" href="index.html">Logout</a>
 					</div>
 				</div>
-
 			</div>
-		
 		</nav>
 	</header>
 
 	<main style="margin-top: 40px">
 
+		<div class="container">
+			<div class="dropdown" style="float: left;">
+				<button class="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
+				</button>
+				<div class="dropdown-menu" aria-labelledby="about-us">
+					<a class="dropdown-item" href="recipes.html">Dessert</a>
+					<a class="dropdown-item" href="my_recipes.html">Pasta</a>
+					<a class="dropdown-item" href="favourite_recipe.html">Fries</a>
+					<a class="dropdown-item" href="#">Chinese</a>
+					<a class="dropdown-item" href="index.html">Africa</a>
+				</div>
+			</div>
+		</div>
+		
 		<div class="container">
 			<div style="text-align: center; margin-top: 100px;">
 				<a href="" class="fa fa-plus auth-button" data-toggle="modal" data-target="#editModal">Add Recipe</a>
@@ -131,8 +142,13 @@
 										<label for="last_name" class="form-inline">Picture</label>
 										<input type="file" class="form-control" id="last_name" name="last_name">
 									</fieldset>
+
 									<fieldset>
-									<button class="auth-button" style="float: left; width: 90px; height: 20px;font-size: 12px; padding-top: 0;" id="step">Add steps</button>
+										<button class="auth-button fa fa-plus" style="float: left; width: 90px; height: 20px;font-size: 12px; padding: 0;" id="ingredient"><strong>Ingredients</strong></button>
+									</fieldset>
+
+									<fieldset>
+										<button class="auth-button fa fa-plus" style="float: left; width: 90px; height: 20px;font-size: 12px; padding: 0;" id="step"><strong>Steps</strong></button>
 									</fieldset>
 
 										<div class="modal-footer">
@@ -258,7 +274,7 @@
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-3 my-card">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 my-card">
 
 					<div class="card" style="">
 					  	<img class="card-img-top" src="assets/img/pasta1.jpeg" alt="Card image cap">
