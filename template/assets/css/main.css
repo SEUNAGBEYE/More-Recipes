@@ -20,18 +20,6 @@ body {
 }
 
 
-#search-button{
-	/*margin-left: 15px;*/
-    color: white;
-    background: red;
-    border: 1px solid red;
-    border-radius: 20px;
-    padding: 5px 5px;
-    font-weight: bold;
-    position: relative;
-    /*right: -150px;*/
-    bottom: -2px;
-}
 
 .auth-button{
 	margin-left: 15px;
