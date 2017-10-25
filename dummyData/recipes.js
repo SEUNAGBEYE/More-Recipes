@@ -3,17 +3,19 @@ let recipes = [
 		"id": 1,
 		"name": "Pasta",
 		"image": "assets/img/pasta.jpg",
-		"upvote": 1,
+		"upvotes": 1,
 		"user_likes": [1],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 1,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -26,17 +28,19 @@ let recipes = [
 		"id": 2,
 		"name": "Banana Split",
 		"image": "assets/img/banana_split.jpg",
-		"upvote": 1,
+		"upvotes": 11,
 		"user_likes": [2],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 2,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -49,17 +53,19 @@ let recipes = [
 		"id": 3,
 		"name": "Creme Salad",
 		"image": "assets/img/salad.jpeg",
-		"upvote": 1,
+		"upvotes": 15,
 		"user_likes": [3],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 3,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -72,17 +78,19 @@ let recipes = [
 		"id": 4,
 		"name": "Jollof Rice",
 		"image": "assets/img/jollof_rice.jpeg",
-		"upvote": 1,
+		"upvotes": 1,
 		"user_likes": [4],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 4,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -95,17 +103,19 @@ let recipes = [
 		"id": 5,
 		"name": "Rosted Chicken",
 		"image": "assets/img/rosted_chicken.jpeg",
-		"upvote": 1,
+		"upvotes": 1,
 		"user_likes": [5],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 5,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -118,17 +128,19 @@ let recipes = [
 		"id": 6,
 		"name": "Madrelle Chips",
 		"image": "assets/img/chips.jpeg",
-		"upvote": 1,
+		"upvotes": 21,
 		"user_likes": [6],
-		"downvote": 0,
+		"downvotes": 0,
 		"user_dislike": [],
 		"categories": [],
 		"owner_id": 6,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
