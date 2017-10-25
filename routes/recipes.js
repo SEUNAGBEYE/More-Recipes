@@ -1,16 +1,14 @@
 const express = require('express')
 const recipeRoute = express();
-
+import { recipe } from "../src/recipes";
 import { json, urlencoded } from 'body-parser';
 
-const bodParser = require('body-parser')
-
-recipeRoute.use(express.json())
-
-import { recipe } from "../src/recipes";
+recipeRoute.use(json()); // for parsing application/json
+recipeRoute.use(urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 recipeRoute.route('/')
-	.get(json(), (req, res, next) => {
+
+	.get((req, res, next) => {
 		recipe.all(req, res, next);
 	})
 

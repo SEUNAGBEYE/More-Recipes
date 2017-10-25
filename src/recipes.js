@@ -1,20 +1,26 @@
 import { recipes, categories } from "../dummyData/recipes";
-const express = require('express');
+import express from 'express';
 const app = express();
 
 class Recipe{
 	constructor(express, recipes){
-		// this.name = name;
-		// this.image = image;
-		// this.owner_id = owner_id;
-		// this.description = description;
 		this.recipes = recipes;
-
-		console.log('jo')
 	}
 
 	all(req, res, next){
 		return res.status(200).json(this.recipes);
+	}
+
+	add(req, res, next){
+		let newRecipe = {
+			'id': this.recipes.length + 1 ,
+			'name': req.body.name,
+			'image': req.body.image,
+			'description': req.body.description,
+			'user_id': this.recipes.length + 1
+		}
+		
+		return res.status(200).json(newRecipe);
 	}
 }
 

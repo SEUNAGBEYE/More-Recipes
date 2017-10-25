@@ -1,15 +1,16 @@
-// import "babel-polyfill";
-// import { express } from "express";
-
-
-const express = require('express');
+import express from "express";
 const app = express();
-
 import { recipeRoute } from "../routes/recipes";
 
-app.use('/api/v1/recipes', recipeRoute);
+import { recipe } from "../src/recipes";
+import { json, urlencoded } from 'body-parser';
+const port = process.env.PORT || 5000;
 
 
-app.listen(3000, () => {
-	console.log('listening to port 3000');
+app.use('/api/v1/recipes', recipeRoute)
+
+
+
+app.listen(port, () => {
+	console.log(`listening to port ${port}`);
 })
