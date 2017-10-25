@@ -16,7 +16,7 @@ recipeRoute.route('/')
 		recipe.addRecipe(req, res, next);
 	})
 
-	recipeRoute.route('/:id/reviews?')
+	recipeRoute.route('/:id')
 
 	.get((req, res, next) => {
 		recipe.getRecipe(req, res, next);
@@ -28,6 +28,10 @@ recipeRoute.route('/')
 
 	.post((req, res, next) => {
 		recipe.reviewRecipe(req, res, next);
+	})
+
+	.delete((req, res, next) => {
+		recipe.deleteRecipe(req, res, next);
 	})
 
 

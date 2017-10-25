@@ -8,7 +8,20 @@ class Recipe{
 	}
 
 	allRecipe(req, res, next){
-		return res.status(200).json(this.recipes);
+
+	    let query = req.query.sort;
+	    console.log(query);
+	    if (query){
+			let query = req.query.sort.toLowerCase();
+			let recipes =this.recipes;
+			recipes.sort((a, b) => {
+				return b[query] - a[query];
+			});
+	      	res.status(200).json(recipes);
+	    }else{
+	    	return res.status(200).json(this.recipes);
+	    }
+		
 	}
 
 	addRecipe(req, res, next){
@@ -20,7 +33,7 @@ class Recipe{
 			'user_id': this.recipes.length + 1
 		}
 
-		return res.status(200).json(newRecipe);
+		return res.status(201).json(newRecipe);
 	}
 
 	getRecipe(req, res, next, id = 0){
@@ -31,7 +44,6 @@ class Recipe{
 		}else{
 			console.log(req.params.id)
 			let recipe = this.recipes[req.params.id - 1];
-			console.log(recipe);
 			return res.status(200).json(recipe);
 		}
 		
@@ -46,10 +58,10 @@ class Recipe{
 
 			Object.assign(recipe, req.body);
 			// console.log(this.books);
-			res.status(200).json(recipe);
+			return res.status(200).json(recipe);
 			next();
 		}else{
-			res.status(404).json("Not Found");
+			return res.status(404).json("Not Found");
 		}
 	}
 
@@ -63,7 +75,18 @@ class Recipe{
 			res.status(200).json(recipe);
 			next();
 		}else{
-			res.status(404).json("Not Found");
+			return res.status(404).json("Not Found");
+		}
+	}
+
+	deleteRecipe(req, res, next){
+		let recipe = this.getRecipe(req, res, next, req.params.id);
+
+		if(recipe){
+			this.recipes.splice(recipe.id - 1, 1);
+			return res.status(204).json(this.recipes);
+		}else{
+			return res.status(404).json("Not Found");
 		}
 	}
 
@@ -72,3 +95,5 @@ class Recipe{
 let recipe = new Recipe(app, recipes)
 
 export { recipe };
+
+
