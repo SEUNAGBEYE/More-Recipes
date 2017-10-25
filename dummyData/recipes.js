@@ -10,10 +10,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 1,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -33,10 +35,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 2,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -56,10 +60,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 3,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -79,10 +85,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 4,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -102,10 +110,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 5,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
@@ -125,10 +135,12 @@ let recipes = [
 		"categories": [],
 		"owner_id": 6,
 		"views": 1,
-		"reviews": {
-			"user_id": 1,
-			"body": "lorem_ipsum is good"
-		},
+		"reviews": [
+			{
+				"user_id": 1,
+				"body": "lorem_ipsum is good"
+			}
+		],
 		"ingredients": ["flour", "sugar", "yeast"],
 		"steps": {
 			1: "step1",
