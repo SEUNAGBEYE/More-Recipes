@@ -1,3 +1,6 @@
+env:
+global:
+  - CC_TEST_REPORTER_ID=6301dd4a62498a497ff89bc95cfced7ec6fdfed4315e3054c3a74155a38032ae
 language: node_js
 node_js:
  - "stable"
@@ -5,8 +8,16 @@ node_js:
 install:
  - npm install
 
-script: 
-  - npm test
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rspec
+  -npm test
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 after_success: 
   - npm run coverage
+

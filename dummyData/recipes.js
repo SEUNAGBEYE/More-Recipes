@@ -202,5 +202,5 @@ let categories = [
 	}
 ]
 
-export  { recipes, categories }
+export  { recipes }
 // export default categories;
