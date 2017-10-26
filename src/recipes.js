@@ -4,13 +4,12 @@ const app = express();
 
 class Recipe{
 	constructor(express, recipes){
-		this.recipes = recipes;
+		this.recipes = [...recipes];
 	}
 
 	allRecipe(req, res, next){
 
 	    let query = req.query.sort;
-	    console.log(query);
 	    if (query){
 			let query = req.query.sort.toLowerCase();
 			let recipes =this.recipes;
@@ -32,12 +31,12 @@ class Recipe{
 			'description': req.body.description,
 			'user_id': this.recipes.length + 1
 		}
+		this.recipes.push(newRecipe)
 
-		return res.status(201).json(newRecipe);
+		return res.status(201).json(this.recipes);
 	}
 
 	getRecipe(req, res, next, id = 0){
-		// id = Number(id);
 		if(id){
 			let recipe = this.recipes[id - 1];
 			return recipe;
@@ -46,8 +45,6 @@ class Recipe{
 			let recipe = this.recipes[req.params.id - 1];
 			return res.status(200).json(recipe);
 		}
-		
-
 	}
 
 	updateRecipe(req, res, next){
@@ -93,7 +90,6 @@ class Recipe{
 }
 
 let recipe = new Recipe(app, recipes)
-
 export { recipe };
 
 
