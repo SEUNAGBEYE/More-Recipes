@@ -1,2 +1,4 @@
 /node_modules
 /More-Recipes
+/nyc_output
+/.nyc_output
