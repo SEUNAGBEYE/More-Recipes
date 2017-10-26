@@ -1,5 +1,6 @@
 import { recipes, categories } from "../dummyData/recipes";
 import express from 'express';
+
 const app = express();
 
 class Recipe{
@@ -41,9 +42,13 @@ class Recipe{
 			let recipe = this.recipes[id - 1];
 			return recipe;
 		}else{
-			console.log(req.params.id)
 			let recipe = this.recipes[req.params.id - 1];
-			return res.status(200).json(recipe);
+			if (recipe){
+				return res.status(200).json(recipe);
+			}else{
+				return res.status(404).json("Not Found");
+			}
+			
 		}
 	}
 
@@ -52,9 +57,7 @@ class Recipe{
 		let recipe = this.getRecipe(req, res, next, req.params.id);
 
 		if (recipe){
-
 			Object.assign(recipe, req.body);
-			// console.log(this.books);
 			return res.status(200).json(recipe);
 			next();
 		}else{
@@ -78,7 +81,6 @@ class Recipe{
 
 	deleteRecipe(req, res, next){
 		let recipe = this.getRecipe(req, res, next, req.params.id);
-
 		if(recipe){
 			this.recipes.splice(recipe.id - 1, 1);
 			return res.status(204).json(this.recipes);
@@ -86,10 +88,7 @@ class Recipe{
 			return res.status(404).json("Not Found");
 		}
 	}
-
 }
 
 let recipe = new Recipe(app, recipes)
 export { recipe };
-
-
