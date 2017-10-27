@@ -2,11 +2,10 @@ language: node_js
 node_js:
  - "stable"
 
-install:
- - npm install
+install: npm install
 
-script: 
-  - npm test
+script: npm test
 
-after_success: 
-  - npm run coverage
+after_success: npm run coverage
+
+# after_success: npm run coverage
