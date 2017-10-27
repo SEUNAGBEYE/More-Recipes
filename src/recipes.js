@@ -1,26 +1,26 @@
 import express from 'express';
 import { recipes } from '../dummyData/recipes';
 
-
 const app = express();
 /**
- * ghyhhyhy
+ * This is a representation of the recipes data
  */
 class Recipe {
 /**
- * init c
- * @param {*} expressApp tgt
- * @param {*} recipesArg hh
+ * initialized dummy-in-memory data
+ * @param {obj} expressApp expecting an express app
+ * @param {obj} recipesArg expecting the dummy-data to be passed
  * @returns {null} null
  */
   constructor(expressApp, recipesArg) {
-    this.recipes = [...recipes];
+    this.recipes = [...recipesArg];
   }
+
   /**
- * init c
- * @param {*} req tgt
- * @param {*} res hh
- * @param {*} next jjj
+ * This handles getting all recipes
+ * @param {obj} req request object
+ * @param {obj} res res object
+ * @param {obj} next next function
  * @returns {null} json
  */
   allRecipe(req, res, next) {
@@ -35,6 +35,13 @@ class Recipe {
     }
   }
 
+  /**
+  * This Handles adding a recipe
+  * @param {obj} req request object
+  * @param {obj} res res object
+  * @param {obj} next next function
+  * @returns {null} json
+  */
   addRecipe(req, res, next) {
     const newRecipe = {
       id: this.recipes.length + 1,
@@ -48,29 +55,53 @@ class Recipe {
     return res.status(201).json(this.recipes);
   }
 
+  /**
+  * This Handles getting a recipe
+  * @param {obj} req request object
+  * @param {obj} res res object
+  * @param {obj} next next function
+  * @param {number} id this is the id supplied by other class method when getting a single recipe
+  * @returns {null} json
+  */
   getRecipe(req, res, next, id = 0) {
     if (id) {
       const recipe = this.recipes[id - 1];
       return recipe;
     }
     const recipe = this.recipes[req.params.id - 1];
+    // console.log(recipe, 'g')
     if (recipe) {
       return res.status(200).json(recipe);
-    }
-    return res.status(404).json('Not Found');
+    }else{
+      return res.status(404).json('Not Found');
+    } 
   }
 
+
+  /**
+  * This Handles updating a recipe
+  * @param {obj} req request object
+  * @param {obj} res res object
+  * @param {obj} next next function
+  * @returns {null} json
+  */
   updateRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
 
     if (recipe) {
       Object.assign(recipe, req.body);
       return res.status(200).json(recipe);
-      next();
     }
     return res.status(404).json('Not Found');
   }
 
+  /**
+  * This Handles reviewing a recipe
+  * @param {obj} req request object
+  * @param {obj} res res object
+  * @param {obj} next next function
+  * @returns {null} json
+  */
   reviewRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
 
@@ -84,6 +115,13 @@ class Recipe {
     }
   }
 
+  /**
+  * This Handles deletion a recipe
+  * @param {obj} req request object
+  * @param {obj} res res object
+  * @param {obj} next next function
+  * @returns {null} json
+  */
   deleteRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
     if (recipe) {
