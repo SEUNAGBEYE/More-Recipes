@@ -103,4 +103,41 @@ describe('Test For Recipes Routes', () => {
       done();
     });
   });
+
+  describe('Test For Updating A  Single Recipe Not In Memory', () => {
+    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+      chai.request(recipeRoute)
+        .delete('/2')
+        .end((error, res) => {
+          expect(res).to.have.status(204);
+          expect(res.body.id).equal(undefined);
+          done();
+        });
+    });
+  });
+
+  describe('Test For Updating A  Single Recipe Not In Memory', () => {
+    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+      chai.request(recipeRoute)
+        .delete('/2222')
+        .end((error, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.id).equal(undefined);
+          done();
+        });
+    });
+  });
+
+  describe('Test For Updating A  Single Recipe Not In Memory', () => {
+    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+      chai.request(recipeRoute)
+        .get('/?sort=upvotes&order=desc')
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].upvotes).equal(21);
+          done();
+        });
+    });
+  });
 });
