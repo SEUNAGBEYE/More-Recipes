@@ -1,8 +1,5 @@
 [![Build Status](https://travis-ci.org/SEUNAGBEYE/More-Recipes.svg?branch=server-developing)](https://travis-ci.org/SEUNAGBEYE/More-Recipes)
-[![Maintainability](https://api.codeclimate.com/v1/badges/229bfef666073b6a2385/maintainability)](https://codeclimate.com/github/SEUNAGBEYE/More-Recipes/maintainability)
-
-[![Coverage Status](https://coveralls.io/repos/github/SEUNAGBEYE/More-Recipes/badge.svg?branch=server-developing)](https://coveralls.io/github/SEUNAGBEYE/More-Recipes?branch=server-developing)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/229bfef666073b6a2385/maintainability)](https://codeclimate.com/github/SEUNAGBEYE/More-Recipes/maintainability)[![Coverage Status](https://coveralls.io/repos/github/SEUNAGBEYE/More-Recipes/badge.svg?branch=server-developing)](https://coveralls.io/github/SEUNAGBEYE/More-Recipes?branch=server-developing)
 
 This is a project that allows users to upload, search, review, up-vote and down-vote a recipe.
 

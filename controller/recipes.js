@@ -5,7 +5,7 @@ const app = express();
 /**
  * This is a representation of the recipes data
  */
-class Recipe {
+class RecipeController {
 /**
  * initialized dummy-in-memory data
  * @param {obj} expressApp expecting an express app
@@ -29,9 +29,9 @@ class Recipe {
       req.query.sort.toLowerCase();
       const recipes = this.recipes;
       recipes.sort((a, b) => b[query] - a[query]);
-      res.status(200).json(recipes);
+      res.status(200).json({ message: 'success', recipes });
     } else {
-      return res.status(200).json(this.recipes);
+      return res.status(200).json({ message: 'success', recipes: this.recipes });
     }
   }
 
@@ -52,7 +52,7 @@ class Recipe {
     };
     this.recipes.push(newRecipe);
 
-    return res.status(201).json(this.recipes);
+    return res.status(201).json({ message: 'success', recipes: this.recipes });
   }
 
   /**
@@ -69,12 +69,11 @@ class Recipe {
       return recipe;
     }
     const recipe = this.recipes[req.params.id - 1];
-    // console.log(recipe, 'g')
+
     if (recipe) {
-      return res.status(200).json(recipe);
-    }else{
-      return res.status(404).json('Not Found');
-    } 
+      return res.status(200).json({ message: 'success', recipe });
+    }
+    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
   }
 
 
@@ -90,9 +89,9 @@ class Recipe {
 
     if (recipe) {
       Object.assign(recipe, req.body);
-      return res.status(200).json(recipe);
+      return res.status(200).json({ message: 'success', recipe });
     }
-    return res.status(404).json('Not Found');
+    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
   }
 
   /**
@@ -108,10 +107,10 @@ class Recipe {
     if (recipe) {
       recipe.reviews.push({ user_id: recipe.reviews.length, body: req.body.review });
 
-      res.status(200).json(recipe);
+      res.status(200).json({ message: 'success', recipe });
       next();
     } else {
-      return res.status(404).json('Not Found');
+      return res.status(404).json({ message: 'success', recipe: 'Not Found' });
     }
   }
 
@@ -126,11 +125,11 @@ class Recipe {
     const recipe = this.getRecipe(req, res, next, req.params.id);
     if (recipe) {
       this.recipes.splice(recipe.id - 1, 1);
-      return res.status(204).json(this.recipes);
+      return res.status(200).json({ message: 'success', recipe: this.recipes });
     }
-    return res.status(404).json('Not Found');
+    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
   }
 }
 
-const recipe = new Recipe(app, recipes);
+const recipe = new RecipeController(app, recipes);
 export { recipe };

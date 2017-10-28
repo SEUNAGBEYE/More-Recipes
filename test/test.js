@@ -10,7 +10,7 @@ describe('Test For Recipes Routes', () => {
         .get('/')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          assert.isArray(res.body, 'respone return array of object');
+          assert.isArray(res.body.recipes, 'respone return array of object');
         });
         done();
     });
@@ -22,8 +22,8 @@ describe('Test For Recipes Routes', () => {
         .get('/2')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.id).equal(2);
-          assert.isObject(res.body, 'respone return an object');
+          expect(res.body.recipe.id).equal(2);
+          assert.isObject(res.body.recipe, 'respone return an object');
           done();
         });
     });
@@ -35,7 +35,7 @@ describe('Test For Recipes Routes', () => {
         .get('/2333333')
         .end((error, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.id).equal(undefined);
+          expect(res.body.recipe.id).equal(undefined);
           done();
         });
     });
@@ -52,7 +52,7 @@ describe('Test For Recipes Routes', () => {
         })
         .then((res) => {
           expect(res).to.have.status(200);
-          assert.isObject(res.body, 'respone return an object');
+          assert.isObject(res.body.recipe, 'respone return an object');
           done();
         })
         .catch((error) => {
@@ -80,6 +80,7 @@ describe('Test For Recipes Routes', () => {
         .catch((error) => {
           throw error;
         });
+      done();
     });
   });
 
@@ -94,7 +95,7 @@ describe('Test For Recipes Routes', () => {
         })
         .then((res) => {
           expect(res).to.have.status(404);
-          expect(res.body.id).equal(undefined);
+          expect(res.body.recipe.id).equal(undefined);
           done();
         })
         .catch((error) => {
@@ -104,38 +105,38 @@ describe('Test For Recipes Routes', () => {
     });
   });
 
-  describe('Test For Updating A  Single Recipe Not In Memory', () => {
-    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+  describe('Test For Deleting A  Single Recipe In Memory', () => {
+    it('body should return an object and it should have a statusCode of 200 when trying to delete a recipe in memory', (done) => {
       chai.request(recipeRoute)
         .delete('/2')
         .end((error, res) => {
-          expect(res).to.have.status(204);
-          expect(res.body.id).equal(undefined);
+          expect(res).to.have.status(200);
+          expect(res.body.recipe.id).equal(undefined);
           done();
         });
     });
   });
 
-  describe('Test For Updating A  Single Recipe Not In Memory', () => {
-    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+  describe('Test For Deleting A  Single Recipe Not In Memory', () => {
+    it('body should return an object and it should have a statusCode of 404 when trying to delete a recipe not in memory', (done) => {
       chai.request(recipeRoute)
         .delete('/2222')
         .end((error, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.id).equal(undefined);
+          expect(res.body.recipe.id).equal(undefined);
           done();
         });
     });
   });
 
-  describe('Test For Updating A  Single Recipe Not In Memory', () => {
-    it('body should return an object and it should have a statusCode of 404 when trying to get all recipes', (done) => {
+  describe('Test For Getting All Recipes By Votes', () => {
+    it('body should return an object and it should have a statusCode of 200 when trying to get all recipes', (done) => {
       chai.request(recipeRoute)
         .get('/?sort=upvotes&order=desc')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an('array');
-          expect(res.body[0].upvotes).equal(21);
+          expect(res.body.recipes).to.be.an('array');
+          expect(res.body.recipes[0].upvotes).equal(21);
           done();
         });
     });

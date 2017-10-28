@@ -1,6 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import { recipe } from '../src/recipes';
+import { recipe } from '../controller/recipes';
 
 const recipeRoute = express();
 
@@ -33,16 +33,15 @@ recipeRoute.route('/:id')
   })
 
 
-
   .delete((req, res, next) => {
     recipe.deleteRecipe(req, res, next);
     next();
   });
 
-  recipeRoute.route('/:id/reviews')
-  
+recipeRoute.route('/:id/reviews')
+
   .post((req, res, next) => {
     recipe.reviewRecipe(req, res, next);
     next();
-  })
+  });
 export { recipeRoute };
