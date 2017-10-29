@@ -12,7 +12,6 @@ recipeRoute.route('/')
 
   .get((req, res, next) => {
     recipe.allRecipe(req, res, next);
-    next();
   })
 
   .post((req, res, next) => {
