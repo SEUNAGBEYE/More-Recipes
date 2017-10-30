@@ -1,6 +1,5 @@
-/node_modules
-/More-Recipes
-/nyc_output
-/.nyc_output
-/coverage
-/.env
+node_modules
+nyc_output
+.nyc_output
+coverage
+.env

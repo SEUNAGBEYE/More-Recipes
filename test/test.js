@@ -1,6 +1,6 @@
 import chai, { assert, expect } from 'chai';
 import chaiHtpp from 'chai-http';
-import { recipeRoute } from '../routes/recipes';
+import { recipeRoute } from '../server/routes/recipes';
 
 chai.use(chaiHtpp);
 describe('Test For Recipes Routes', () => {
