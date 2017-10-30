@@ -11,6 +11,9 @@ recipeRoute.use(urlencoded({ extended: true })); // for parsing application/x-ww
 recipeRoute.route('/')
   .get(Recipe.allRecipe)
   .post(Recipe.addRecipe)
+
+recipeRoute.route('/:id')
+  .get(Recipe.getRecipe)
   .put(Recipe.updateRecipe)
   .delete(Recipe.deleteRecipe);
 

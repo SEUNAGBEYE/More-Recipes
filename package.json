@@ -9,7 +9,9 @@
     "start": "nodemon --exec npm run babel-node -- ./server/src/index.js",
     "startProduction": "npm run babel-node -- ./server/src/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
+    "build": "./node_modules/.bin/babel server/src/index.js -d build",
+    "dist": "./node_modules/.bin/babel server/app.js -d dist --presets=babili"
   },
   "author": "Seun Agbeye",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.19.0",
+    "sqlite3": "^3.1.13",
     "validator": "^9.1.1"
   },
   "devDependencies": {
