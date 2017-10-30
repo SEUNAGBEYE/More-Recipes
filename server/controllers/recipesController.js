@@ -1,4 +1,3 @@
-// import Recipe from '../models/index';
 import db from '../models/index';
 
 
@@ -25,7 +24,6 @@ class RecipeController {
         ]
       })
       .then(recipes => {
-        console.log(recipes.get(orderBy.toUpperCase()))
         return res.status(200).json({ message: 'success', data: recipes });
       })
       .catch(error => {
@@ -71,17 +69,20 @@ class RecipeController {
   * @param {number} id this is the id supplied by other class method when getting a single recipe
   * @returns {null} json
   */
-  static getRecipe(req, res, next, id = 0) {
-    if (id) {
-      const recipe = this.recipes[id - 1];
-      return recipe;
-    }
-    const recipe = this.recipes[req.params.id - 1];
+  static getRecipe(req, res) {
 
-    if (recipe) {
-      return res.status(200).json({ message: 'success', recipe });
-    }
-    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
+    db.Recipe.findById(req.params.id)
+    .then(recipe => {
+      if(!recipe){
+        return res.status(404).send({
+          message: "Recipe Not Found",
+        });
+      }
+      return res.status(200).json({message: "success", data: recipe})
+    })
+    .catch(error => {
+      return res.status(400).send(error)
+    });
   }
 
 
@@ -92,14 +93,26 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  static updateRecipe(req, res, next) {
-    const recipe = this.getRecipe(req, res, next, req.params.id);
-
-    if (recipe) {
-      Object.assign(recipe, req.body);
-      return res.status(200).json({ message: 'success', recipe });
-    }
-    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
+  static updateRecipe(req, res) {
+    db.Recipe.findById(req.params.id)
+    .then(recipe => {
+      if(!recipe){
+        return res.status(404).send({
+          message: "Recipe Not Found",
+        });
+      }
+      return recipe
+        .update(req.body, {fields: Object.keys(req.body)})
+        .then(updatedRecipe => {
+          return res.status(200).json(updatedRecipe);
+        })
+        .catch(error => {
+          return res.status(400).json(error);
+        })
+    })
+    .catch(error => {
+      return res.status(400).json(error)
+    })
   }
 
   /**
@@ -109,7 +122,7 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  static reviewRecipe(req, res, next) {
+  static reviewRecipe(req, res) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
 
     if (recipe) {
@@ -129,13 +142,21 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  static deleteRecipe(req, res, next) {
-    const recipe = this.getRecipe(req, res, next, req.params.id);
-    if (recipe) {
-      this.recipes.splice(recipe.id - 1, 1);
-      return res.status(200).json({ message: 'success', recipe: this.recipes });
-    }
-    return res.status(404).json({ message: 'success', recipe: 'Not Found' });
+  static deleteRecipe(req, res) {
+    db.Recipe.findById(req.params.id)
+    .then(recipe => {
+      if(!recipe){
+        return res.status(404).send({
+          message: "Recipe Not Found",
+        });
+      }
+
+      return recipe
+        .destroy()
+        .then(() => res.status(204).send())
+        .catch(error => res.status(400).json(error));
+    })
+    .catch(error => res.status(400).json(error));
   }
 }
 
