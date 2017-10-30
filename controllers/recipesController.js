@@ -1,21 +1,11 @@
-import express from 'express';
-import { recipes } from '../dummyData/recipes';
+// import Recipe from '../models/index';
+import db from '../models/index';
 
-const app = express();
+
 /**
  * This is a representation of the recipes data
  */
 class RecipeController {
-/**
- * initialized dummy-in-memory data
- * @param {obj} expressApp expecting an express app
- * @param {obj} recipesArg expecting the dummy-data to be passed
- * @returns {null} null
- */
-  constructor(expressApp, recipesArg) {
-    this.recipes = [...recipesArg];
-  }
-
   /**
  * This handles getting all recipes
  * @param {obj} req request object
@@ -23,15 +13,35 @@ class RecipeController {
  * @param {obj} next next function
  * @returns {null} json
  */
-  allRecipe(req, res, next) {
-    const query = req.query.sort;
-    if (query) {
+  static allRecipe(req, res) {
+    const sortBy = req.query.sort;
+    const orderBy = req.query.order;
+    if (sortBy) {
       req.query.sort.toLowerCase();
-      const recipes = this.recipes;
-      recipes.sort((a, b) => b[query] - a[query]);
-      res.status(200).json({ message: 'success', recipes });
+      
+      db.Recipe.all({
+        order: [
+          db.sequelize.fn('max', db.sequelize.col(sortBy)), orderBy.toUpperCase(),
+        ]
+      })
+      .then(recipes => {
+        console.log(recipes.get(orderBy.toUpperCase()))
+        return res.status(200).json({ message: 'success', data: recipes });
+      })
+      .catch(error => {
+        return res.status(200).json(error);
+      });
+      
     } else {
-      return res.status(200).json({ message: 'success', recipes: this.recipes });
+
+      db.Recipe.all()
+      .then(recipes => {
+        return res.status(200).json({ message: 'success', recipes: recipes });
+      })
+      .catch(error => {
+        return res.status(200).json(error);
+      })
+      
     }
   }
 
@@ -42,17 +52,15 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  addRecipe(req, res, next) {
-    const newRecipe = {
-      id: this.recipes.length + 1,
+  static addRecipe(req, res) {
+    return db.Recipe.create({
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
-      user_id: this.recipes.length + 1
-    };
-    this.recipes.push(newRecipe);
-
-    return res.status(201).json({ message: 'success', recipes: this.recipes });
+      ownerId: req.body.ownerId
+    })
+      .then(recipe => res.status(200).json(recipe))
+      .catch(error => res.status(400).json(error));
   }
 
   /**
@@ -63,7 +71,7 @@ class RecipeController {
   * @param {number} id this is the id supplied by other class method when getting a single recipe
   * @returns {null} json
   */
-  getRecipe(req, res, next, id = 0) {
+  static getRecipe(req, res, next, id = 0) {
     if (id) {
       const recipe = this.recipes[id - 1];
       return recipe;
@@ -84,7 +92,7 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  updateRecipe(req, res, next) {
+  static updateRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
 
     if (recipe) {
@@ -101,7 +109,7 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  reviewRecipe(req, res, next) {
+  static reviewRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
 
     if (recipe) {
@@ -121,7 +129,7 @@ class RecipeController {
   * @param {obj} next next function
   * @returns {null} json
   */
-  deleteRecipe(req, res, next) {
+  static deleteRecipe(req, res, next) {
     const recipe = this.getRecipe(req, res, next, req.params.id);
     if (recipe) {
       this.recipes.splice(recipe.id - 1, 1);
@@ -131,5 +139,4 @@ class RecipeController {
   }
 }
 
-const recipe = new RecipeController(app, recipes);
-export { recipe };
+export default RecipeController;

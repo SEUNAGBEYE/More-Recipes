@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.createTable('Recipes', {
@@ -19,6 +18,18 @@ module.exports = {
       },
       description: {
         type: Sequelize.TEXT
+      },
+      upvotes : {
+        type: Sequelize.INTEGER
+      },
+      downvotes :{
+        type: Sequelize.INTEGER
+      },
+      categoryId: {
+        type: Sequelize.INTEGER
+      },
+      views: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
