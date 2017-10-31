@@ -1,10 +1,15 @@
 import express from 'express';
-import { recipeRoute } from '../routes/recipes';
+import { recipeRoute, userRoute } from '../routes/index';
+import config from 'dotenv';
 
-const port = process.env.PORT || 8000;
+config.config()
+
+const port = process.env.PORT || 7000;
 const app = express();
 
 app.use('/api/v1/recipes', recipeRoute);
+
+app.use('/api/v1/users', userRoute);
 
 app.listen(port, () => {
   console.log(`listening to port ${port}`);

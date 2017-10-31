@@ -20,7 +20,7 @@ class RecipeController {
       
       db.Recipe.all({
         order: [
-          db.sequelize.fn('max', db.sequelize.col(sortBy)), orderBy.toUpperCase(),
+          db.sequelize.fn('max', db.sequelize.col('upvotes')), 'DESC'
         ]
       })
       .then(recipes => {
@@ -47,7 +47,6 @@ class RecipeController {
   * This Handles adding a recipe
   * @param {obj} req request object
   * @param {obj} res res object
-  * @param {obj} next next function
   * @returns {null} json
   */
   static addRecipe(req, res) {
