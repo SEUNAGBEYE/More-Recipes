@@ -4,7 +4,6 @@ import RecipeController from '../controllers/recipesController';
 import UserController from '../controllers/usersController';
 import authMiddleware from '../middlewares/authMiddleware';
 
-
 const recipeRoute = express();
 const userRoute = express();
 
@@ -17,12 +16,19 @@ userRoute.use(urlencoded({ extended: true })); // for parsing application/x-www-
 
 recipeRoute.route('/')
   .get(RecipeController.allRecipe)
-  .post(RecipeController.addRecipe)
+  .post(authMiddleware, RecipeController.addRecipe)
 
 recipeRoute.route('/:id')
   .get(RecipeController.getRecipe)
-  .put(RecipeController.updateRecipe)
-  .delete(RecipeController.deleteRecipe);
+  .put(authMiddleware, RecipeController.updateRecipe)
+  .delete(authMiddleware, RecipeController.deleteRecipe)
+  .post(authMiddleware, RecipeController.upVoteRecipe)
+
+recipeRoute.route('/:id/upvotes')
+  .put(authMiddleware, RecipeController.upVoteRecipe)
+
+recipeRoute.route('/:id/downvotes')
+  .put(authMiddleware, RecipeController.downVoteRecipe)
 
 userRoute.route('/signup')
   .get((req, res) => {
@@ -34,6 +40,7 @@ userRoute.route('/signin')
   .get((req, res) => {
     res.send("Please Sign In");
   })
-  .post(UserController.signIn, authMiddleware)
+  .post(UserController.signIn)
+
 
 export { recipeRoute, userRoute };

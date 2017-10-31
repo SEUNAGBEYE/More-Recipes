@@ -13,7 +13,7 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      ownerId: {
+      userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         reference: {
@@ -26,16 +26,19 @@ module.exports = {
         type: Sequelize.TEXT
       },
       upvotes : {
-        type: Sequelize.INTEGER
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       downvotes :{
-        type: Sequelize.INTEGER
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       categoryId: {
         type: Sequelize.INTEGER
       },
       views: {
-        type: Sequelize.INTEGER
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
+      },
+      steps: {
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,

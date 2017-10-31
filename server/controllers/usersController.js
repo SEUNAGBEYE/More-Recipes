@@ -4,33 +4,27 @@ import jwt from 'jsonwebtoken';
 
 class UserController{
   /**
-  * This Handles adding a recipe
+  * This Handles User Registration
   * @param {obj} req request object
-  * @param {obj} res res object
-  * @param {obj} next next function
+  * @param {obj} res response object
   * @returns {null} json
   */
   static signUp(req, res) {
-
-    bcrypt.hash(req.body.password, 10).then(function(hash) {
-        // Store hash in your password DB.
       return db.User.create({
-        firsName: req.body.firsName,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: hash,
+        password: req.body.password,
         profilePicture: req.body.profilePicture
       })
         .then(user => res.status(200).json({message: 'success', data: user}))
         .catch(error => res.status(400).json(error));
-    });
-
   }
 
   /**
-  * This Handles adding a recipe
+  * This Handles User Authentication
   * @param {obj} req request object
-  * @param {obj} res res object
+  * @param {obj} res response object
   * @param {obj} next next function
   * @returns {null} json
   */
@@ -47,8 +41,10 @@ class UserController{
           return res.status(200).send(token)
         }
         return res.status(200).send('Invalid Password or Email?')
-      });
+      })
+      .catch(error => res.status(404).json(error))
     })
+    .catch(error => res.status(200).json(error))
     
   }
 }
