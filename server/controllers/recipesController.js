@@ -20,7 +20,7 @@ class RecipeController {
       
       db.Recipe.all({
         order: [
-          db.sequelize.fn('max', db.sequelize.col('upvotes')), 'DESC'
+          db.sequelize.fn('max', db.sequelize.col('Recipe.upvotes')), 'DESC'
         ]
       })
       .then(recipes => {
@@ -34,6 +34,7 @@ class RecipeController {
 
       db.Recipe.all()
       .then(recipes => {
+        // console.log(recipes.dataValues, 'kell')
         return res.status(200).json({ message: 'success', recipes: recipes });
       })
       .catch(error => {
@@ -54,7 +55,8 @@ class RecipeController {
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
-      ownerId: req.body.ownerId
+      userId: req.token.userId,
+      upvotes: [req.token.userId]
     })
       .then(recipe => res.status(200).json(recipe))
       .catch(error => res.status(400).json(error));
@@ -77,6 +79,7 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
+      // console.log(recipe.dataValues.upvotes.push(10), 'kell')
       return res.status(200).json({message: "success", data: recipe})
     })
     .catch(error => {
@@ -100,14 +103,19 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
-      return recipe
-        .update(req.body, {fields: Object.keys(req.body)})
-        .then(updatedRecipe => {
-          return res.status(200).json(updatedRecipe);
-        })
-        .catch(error => {
-          return res.status(400).json(error);
-        })
+
+      if (recipe.ownerId === req.token.userId){
+        return recipe
+          .update(req.body, {fields: Object.keys(req.body)})
+          .then(updatedRecipe => {
+            return res.status(200).json(updatedRecipe);
+          })
+          .catch(error => {
+            return res.status(400).json(error);
+          })
+      }else{
+        return res.status(401).send('Not Authorize');
+      }
     })
     .catch(error => {
       return res.status(400).json(error)
@@ -150,12 +158,58 @@ class RecipeController {
         });
       }
 
-      return recipe
-        .destroy()
-        .then(() => res.status(204).send())
-        .catch(error => res.status(400).json(error));
+      if (recipe.userId === req.token.userId){
+        return recipe
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).json(error));
+      }else{
+        return res.status(401).send('Not Authorize');
+      }
     })
     .catch(error => res.status(400).json(error));
+  }
+
+  static upVoteRecipe(req, res) {
+    
+    db.Recipe.findById(req.params.id)
+    .then(recipe => {
+      if(!recipe){
+        return res.status(404).send({
+          message: "Recipe Not Found",
+        });
+      }
+      else{
+        // return res.send(recipe.upvotes)
+        recipe.upvotes.push(req.token.userId)
+        recipe.update({
+          upvotes: recipe.upvotes
+        })
+        .then(recipe => res.status(200).send(recipe))
+      }
+    })
+    .catch(error => res.status(400).send(error))
+  }
+
+  static downVoteRecipe(req, res) {
+    
+    db.Recipe.findById(req.params.id)
+    .then(recipe => {
+      if(!recipe){
+        return res.status(404).send({
+          message: "Recipe Not Found",
+        });
+      }
+      else{
+        // return res.send(recipe.upvotes)
+        recipe.downvotes.push(req.token.userId)
+        recipe.update({
+          downvotes: recipe.downvotes
+        })
+        .then(recipe => res.status(200).send(recipe))
+      }
+    })
+    .catch(error => res.status(400).send(error))
   }
 }
 

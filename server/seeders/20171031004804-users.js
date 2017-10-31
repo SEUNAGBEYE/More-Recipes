@@ -1,5 +1,4 @@
-'use strict';
-
+const bcrypt  = require('bcrypt');
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
@@ -18,7 +17,7 @@ module.exports = {
       "firstName": "Adam",
       "lastName": "Fortuna",
       "email": "adam@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -30,7 +29,7 @@ module.exports = {
       "firstName": "Kenneth",
       "lastName": "John",
       "email": "john@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -42,7 +41,7 @@ module.exports = {
       "firstName": "Free",
       "lastName": "Man",
       "email": "free@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -54,7 +53,7 @@ module.exports = {
       "firstName": "Lockwood",
       "lastName": "Raymond",
       "email": "lock@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -66,7 +65,7 @@ module.exports = {
       "firstName": "Joe",
       "lastName": "Lake",
       "email": "joe@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -78,7 +77,7 @@ module.exports = {
       "firstName": "joseph",
       "lastName": "Right",
       "email": "joseph@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -90,7 +89,7 @@ module.exports = {
       "firstName": "Jeremy",
       "lastName": "Fortuna",
       "email": "jeremy@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -102,7 +101,7 @@ module.exports = {
       "firstName": "Smith",
       "lastName": "Richard",
       "email": "smith@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -114,7 +113,7 @@ module.exports = {
       "firstName": "Michael",
       "lastName": "Rays",
       "email": "mikey@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
@@ -126,7 +125,7 @@ module.exports = {
       "firstName": "Phillip",
       "lastName": "James",
       "email": "phillip@mail.ng",
-      "password": "password",
+      "password": bcrypt.hashSync("password", 10),
       "profilePicture": "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/21192484_1469560569803045_4692177961833149142_n.jpg?oh=ca20dcc8dcd5891ad05b253fff7789c4&oe=5A5CAA85",
       "createdAt": new Date(),
       "updatedAt": new Date()
