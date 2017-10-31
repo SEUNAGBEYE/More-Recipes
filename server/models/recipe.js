@@ -5,8 +5,8 @@ module.exports =  (sequelize, DataTypes) => {
     views: DataTypes.INTEGER,
     upvotes: DataTypes.INTEGER,
     downvotes: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
-    ownerId: DataTypes.INTEGER,
+    // categoryId: DataTypes.INTEGER,
+    // ownerId: DataTypes.INTEGER,
     description: DataTypes.TEXT
 
   });
