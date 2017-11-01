@@ -3,3 +3,4 @@ nyc_output
 .nyc_output
 coverage
 .env
+servergitignore

@@ -47,6 +47,48 @@ class UserController{
     .catch(error => res.status(200).json(error))
     
   }
+
+  static getFavoriteRecipes(req, res){
+
+    db.User.findById(req.token.userId)
+    .then(user => {
+      db.Recipe.findAll({
+        where: {
+          id: {
+            [db.Sequelize.Op.in]: user.favoriteRecipe
+          }
+        }
+      })
+      .then(recipe => res.status(200).send(recipe))     
+    })
+    .catch(error => res.status(400).send(error))
+  }
+
+  static addFavoriteRecipe(req, res){
+
+    db.User.findById(req.token.userId)
+    .then(user => {
+      db.Recipe.findById(req.params.id)
+      .then(recipe => {
+          if(!recipe){
+            return res.status(404).send({
+              message: "Recipe Not Found",
+            });
+          }
+          else{
+            // return res.send(recipe.upvotes)
+            user.favoriteRecipe.push(recipe.id)
+            user.update({
+              favoriteRecipe: user.favoriteRecipe
+            })
+            .then(recipe => res.status(200).send(user))
+          }
+        })
+      .catch(error => res.status(400).send(error))         
+      })
+    .catch(error => res.status(400).send(error))
+  }
+
 }
 
 export default UserController;

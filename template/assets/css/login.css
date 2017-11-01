@@ -68,3 +68,7 @@ input[type = "checkbox"]{
 	text-align: center;
 }
 
+main{
+	margin: 0 auto;
+}
+
