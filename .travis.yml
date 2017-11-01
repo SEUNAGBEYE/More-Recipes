@@ -9,7 +9,6 @@ services:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - cd server
   - sequelize db:migrate
   - sequelize db:seed:all
 
