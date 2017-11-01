@@ -14,13 +14,13 @@ class RecipeController {
  */
   static allRecipe(req, res) {
     const sortBy = req.query.sort;
-    const orderBy = req.query.order;
+    const orderBy = req.query.order.toUpperCase();
     if (sortBy) {
       req.query.sort.toLowerCase();
       
-      db.Recipe.all({
-        order: [
-          db.sequelize.fn('max', db.sequelize.col('Recipe.upvotes')), 'DESC'
+      db.Recipe.findAll({
+        order: [ 
+          [sortBy, orderBy]
         ]
       })
       .then(recipes => {
@@ -34,7 +34,6 @@ class RecipeController {
 
       db.Recipe.all()
       .then(recipes => {
-        // console.log(recipes.dataValues, 'kell')
         return res.status(200).json({ message: 'success', recipes: recipes });
       })
       .catch(error => {
@@ -55,11 +54,10 @@ class RecipeController {
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
-      userId: req.token.userId,
-      upvotes: [req.token.userId]
+      userId: req.token.userId
     })
       .then(recipe => res.status(200).json(recipe))
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(400).json(error.message));
   }
 
   /**
@@ -71,7 +69,6 @@ class RecipeController {
   * @returns {null} json
   */
   static getRecipe(req, res) {
-
     db.Recipe.findById(req.params.id)
     .then(recipe => {
       if(!recipe){
@@ -79,7 +76,6 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
-      // console.log(recipe.dataValues.upvotes.push(10), 'kell')
       return res.status(200).json({message: "success", data: recipe})
     })
     .catch(error => {
@@ -104,7 +100,7 @@ class RecipeController {
         });
       }
 
-      if (recipe.ownerId === req.token.userId){
+      if (recipe.userId === req.token.userId){
         return recipe
           .update(req.body, {fields: Object.keys(req.body)})
           .then(updatedRecipe => {
@@ -130,16 +126,24 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
-    const recipe = this.getRecipe(req, res, next, req.params.id);
-
-    if (recipe) {
-      recipe.reviews.push({ user_id: recipe.reviews.length, body: req.body.review });
-
-      res.status(200).json({ message: 'success', recipe });
-      next();
-    } else {
-      return res.status(404).json({ message: 'success', recipe: 'Not Found' });
-    }
+      db.Recipe.findById(req.params.id)
+      .then(recipe => {
+        if(!recipe){
+          return res.status(404).send({
+            message: "Recipe Not Found",
+          });
+        } 
+        return db.Review.create({
+          userId: req.token.userId,
+          recipeId: recipe.id,
+          body: req.body.body
+        })
+        .then(review => res.status(200).json({message: 'success', data: review}))   
+        .catch(error => res.status(200).json({message: "error", data: error}))
+      })
+      .catch(error => {
+        return res.status(400).send(error)
+      });
   }
 
   /**
@@ -157,7 +161,6 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
-
       if (recipe.userId === req.token.userId){
         return recipe
           .destroy()
@@ -180,8 +183,10 @@ class RecipeController {
         });
       }
       else{
-        // return res.send(recipe.upvotes)
-        recipe.upvotes.push(req.token.userId)
+
+        recipe.upvotes === null ? recipe.upvotes = [] : ''
+        // res.json({votes: recipe.upvotes, id: req.token.userId, token: req.token})
+        !recipe.upvotes.includes(req.token.userId) ? recipe.upvotes.push(req.token.userId): res.status(200).json({message: 'success', data: 'You already Voted!!!'}) 
         recipe.update({
           upvotes: recipe.upvotes
         })
@@ -201,8 +206,9 @@ class RecipeController {
         });
       }
       else{
-        // return res.send(recipe.upvotes)
-        recipe.downvotes.push(req.token.userId)
+        recipe.downvotes === null ? recipe.downvotes = [] : res.status(200).json({message: 'success', data: 'You Down Voted Already!!!'})
+        recipe.downvotes.includes(req.token.userId) ? recipe.downvotes.push(req.token.userId): ''
+        
         recipe.update({
           downvotes: recipe.downvotes
         })

@@ -3,7 +3,11 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     password: {
       type: DataTypes.STRING,
       set(val) {
@@ -16,17 +20,17 @@ module.exports = (sequelize, DataTypes) => {
     profilePicture: DataTypes.STRING
   });
 
-  // User.associate = (models) => {
-  //   // associations can be defined here
-  //   User.hasMany(models.Recipe, {
-  //     foreignKey: 'userId',
-  //     as: 'userRecipes'
-  //   });
+  User.associate = (models) => {
+    // associations can be defined here
+    User.hasMany(models.Recipe, {
+      foreignKey: 'userId',
+      as: 'userRecipes'
+    });
 
   //   User.hasMany(models.Review, {
   //     foreignKey: 'userId',
   //     as: 'userReviews'
   //   });
-  // }
+  }
   return User;
 }

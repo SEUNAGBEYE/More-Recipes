@@ -3,12 +3,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
 });
 
-  // Category.associate = (models) => {
-  //   // associations can be defined here
-  //   Category.hasMany(models.Recipe, {
-  //     foreignKey: 'recipeId',
-  //     onDelete: 'CASCADE',
-  //   });
-  // };
+  Category.associate = (models) => {
+    // associations can be defined here
+    // Category.hasMany(models.Recipe, {
+    //   foreignKey: 'recipeId',
+    //   onDelete: 'CASCADE',
+    // });
+  };
   return Category;
 }
