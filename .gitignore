@@ -3,14 +3,4 @@ nyc_output
 .nyc_output
 coverage
 .env
-server
-.babelrc
-.eslintrc
-.hound.yml
-.sequelizer
-package.json
-procfile
-.codeclimate.yml
-.coveralls.yml
-.travis.yml
-templategitignore
+servergitignore

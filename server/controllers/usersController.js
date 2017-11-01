@@ -75,14 +75,31 @@ class UserController{
               message: "Recipe Not Found",
             });
           }
+
           else{
-            // return res.send(recipe.upvotes)
-            user.favoriteRecipe.push(recipe.id)
-            user.update({
-              favoriteRecipe: user.favoriteRecipe
-            })
-            .then(recipe => res.status(200).send(user))
+            console.log('helllllllowwww')
+            console.log(user.favoriteRecipe, 'before')
+            console.log(user.favoriteRecipe, 'before')
+            // user.favoriteRecipe.push(recipe.id)
+            console.log(user.favoriteRecipe, 'after')
+            if (user.favoriteRecipe === null){
+              user.update({
+                favoriteRecipe: [recipe.id]
+              })
+              .then(recipe => res.status(200).send(user))
+              .catch(error => res.status(400).send('error'))
+            }else{
+              user.favoriteRecipe.push(recipe.id)
+              console.log(user.favoriteRecipe, 'seun')
+              user.update({
+                favoriteRecipe: user.favoriteRecipe               
+              })
+              .then(recipe => res.status(200).send(user))
+              .catch(error => res.status(400).send('error'))
+            }
           }
+          console.log([1,2].includes(2))
+          console.log(user.favoriteRecipe, 'after')
         })
       .catch(error => res.status(400).send(error))         
       })
