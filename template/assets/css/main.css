@@ -10,7 +10,7 @@ body {
 	/*font-size: ;*/
 }
 
-.title-link{
+.title-link, .title-link:hover{
  color: orange; 
  text-decoration: none;
 }
