@@ -10,16 +10,22 @@ body {
 	/*font-size: ;*/
 }
 
+.title-link{
+ color: orange; 
+ text-decoration: none;
+}
+
 #search{
 	border-radius: 20px;
     padding: 1px 20px 5px 15px;
     border: 1px solid orange;
     color: black;
+    margin: 7px 30px 0 0;
     /*transition: all 1s ease;*/
    
 }
 .dropdown-item{
-    padding: 0 0 5px 5px;
+    padding: 0 0 5px 3px;
 }
 
 .auth-button{
@@ -34,6 +40,10 @@ body {
     bottom: -7px;
     /*float: right;*/
 
+}
+
+.card-img-top{
+    height: 150px;
 }
 
 
@@ -161,9 +171,32 @@ body {
 
 
 footer {
-	margin: 0 auto;
+/*	margin: 0 auto;
 	height: 50px;
 	background: orange;
 	text-align: center;
-	color: white;
+	color: white;*/
+
+   position: relative;
+   left: 0;
+   bottom: -10px;
+   width: 100%;
+   background-color: #f8f9fa;
+   color: orange;
+   text-align: center;
+   font-size: 1.2em;
+   font-weight: bold;
+}
+
+main{
+    margin: 0 auto;
+}
+
+.auth-form{
+    position: relative;
+    margin: 400px 0 400px 0;
+}
+
+#brand{
+    font-size: 2em;
 }

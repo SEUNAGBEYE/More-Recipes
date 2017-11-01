@@ -42,5 +42,10 @@ userRoute.route('/signin')
   })
   .post(UserController.signIn)
 
+userRoute.route('/favoriterecipes')
+  .get(authMiddleware, UserController.getFavoriteRecipes)
+
+userRoute.route('/favoriterecipes/:id')
+  .post(authMiddleware, UserController.addFavoriteRecipe)
 
 export { recipeRoute, userRoute };
