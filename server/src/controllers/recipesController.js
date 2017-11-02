@@ -186,7 +186,6 @@ class RecipeController {
       else{
 
         recipe.upvotes === null ? recipe.upvotes = [] : ''
-        // res.json({votes: recipe.upvotes, id: req.token.userId, token: req.token})
         !recipe.upvotes.includes(req.token.userId) ? recipe.upvotes.push(req.token.userId): res.status(200).json({message: 'success', data: 'You already Voted!!!'}) 
         recipe.update({
           upvotes: recipe.upvotes
