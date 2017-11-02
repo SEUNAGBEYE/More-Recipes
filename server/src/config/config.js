@@ -1,3 +1,5 @@
+let DATABASE_URL = process.env.DATABASE_URL['dialect'] = 'postgres'
+
 export default {
   development: {
     username: "root",
