@@ -18,6 +18,6 @@ export default {
     dialect: "postgres"
   },
   production: {
-    use_env_variable: "postgres://bthaddaurywhrt:a77576a4ba391101f7a6fd3a08993556a3bcf1f9e42d2d0acc83c3e5c96e2553@ec2-107-20-250-195.compute-1.amazonaws.com:5432/dduvbobv0s3vfu"
+    use_env_variable: process.env.DATABASE_URL
   }
 }
