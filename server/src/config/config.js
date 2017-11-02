@@ -22,6 +22,6 @@ export default {
   production: {
     use_env_variable: process.env.DATABASE_URL
     // environment: "production",
-    // dialect: "postgres"
+    dialect: "postgres"
   }
 }
