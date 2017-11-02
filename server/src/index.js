@@ -1,5 +1,5 @@
 import express from 'express';
-import { recipeRoute, userRoute } from '../routes/index';
+import { recipeRoute, userRoute } from './routes/index';
 import config from 'dotenv';
 
 config.config()

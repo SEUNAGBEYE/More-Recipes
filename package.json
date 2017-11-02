@@ -4,14 +4,14 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test&& nyc mocha ./server/test/test.js --compilers js:babel-core/register --exit",
+    "test": "set NODE_ENV=test&& nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "start": "nodemon --exec npm run babel-node -- ./server/src/index.js",
-    "startProduction": "npm run babel-node -- ./server/src/index.js",
+    "build": "babel server -d dist",
+    "heroku-postbuild": "npm run build",
+    "startProduction": "node dist/src/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "build": "babel server/src/index.js -d build",
-    "dist": "babel server/src/index.js -d dist --presets=babili"
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"   
   },
   "author": "Seun Agbeye",
   "license": "ISC",

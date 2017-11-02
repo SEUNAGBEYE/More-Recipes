@@ -25,8 +25,8 @@ describe('Test For Recipes Routes', () => {
           expect(res).to.have.status(200);
           expect(res.body.data.id).equal(2);
           assert.isObject(res.body.data, 'respone return an object');
-          done();
         });
+        done();
     });
   });
 
