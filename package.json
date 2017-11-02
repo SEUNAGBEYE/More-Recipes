@@ -49,6 +49,7 @@
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "request": "^2.83.0",
-    "sequelize-cli": "^3.0.0"
+    "sequelize-cli": "^3.0.0",
+    "validatorjs": "^3.13.5"
   }
 }
