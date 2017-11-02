@@ -4,7 +4,7 @@ import config from 'dotenv';
 
 config.config()
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 8000;
 const app = express();
 
 app.use('/api/v1/recipes', recipeRoute);
