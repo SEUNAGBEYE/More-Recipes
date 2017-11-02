@@ -14,7 +14,7 @@ class RecipeController {
  */
   static allRecipe(req, res) {
     const sortBy = req.query.sort;
-    const orderBy = req.query.order.toUpperCase();
+    const orderBy = req.query.order.toUpperCase()|| 'ASC';
     if (sortBy) {
       req.query.sort.toLowerCase();
       
