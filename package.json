@@ -4,14 +4,14 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha ./test/test.js --compilers js:babel-core/register --exit",
+    "test": "set NODE_ENV=test&& nyc mocha ./server/test/test.js --compilers js:babel-core/register --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "start": "nodemon --exec npm run babel-node -- ./server/src/index.js",
     "startProduction": "npm run babel-node -- ./server/src/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "build": "./node_modules/.bin/babel server/src/index.js -d build",
-    "dist": "./node_modules/.bin/babel server/app.js -d dist --presets=babili"
+    "build": "babel server/src/index.js -d build",
+    "dist": "babel server/src/index.js -d dist --presets=babili"
   },
   "author": "Seun Agbeye",
   "license": "ISC",
@@ -49,6 +49,7 @@
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "request": "^2.83.0",
-    "sequelize-cli": "^3.0.0"
+    "sequelize-cli": "^3.0.0",
+    "validatorjs": "^3.13.5"
   }
 }

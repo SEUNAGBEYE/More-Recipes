@@ -22,6 +22,18 @@ module.exports = {
           as: 'userRecipes'
         }
       },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        reference: {
+          model: 'Categories',
+          key: 'id',
+          as: 'recipesCategories'
+        }
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       description: {
         type: Sequelize.TEXT
       },
@@ -30,6 +42,9 @@ module.exports = {
       },
       downvotes :{
         type: Sequelize.ARRAY(Sequelize.INTEGER)
+      },
+      estimatedTime: {
+        type: Sequelize.INTEGER
       },
       categoryId: {
         type: Sequelize.INTEGER

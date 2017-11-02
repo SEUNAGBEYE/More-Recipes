@@ -37,9 +37,9 @@ class UserController{
     }).then(user => {
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
-          const token = jwt.sign({userId: user.id, expiresIn: 60 * 60 }, process.env.SECRET_KEY);
+          const token = jwt.sign({userId: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: '1h'});
           return res.status(200).send(token)
-        }
+        } 
         return res.status(200).send('Invalid Password or Email?')
       })
       .catch(error => res.status(404).json(error))
@@ -49,7 +49,8 @@ class UserController{
   }
 
   static getFavoriteRecipes(req, res){
-
+    console.log(req.token.userId)
+    console.log({} == {}, 'hiooo')
     db.User.findById(req.token.userId)
     .then(user => {
       db.Recipe.findAll({
@@ -59,7 +60,8 @@ class UserController{
           }
         }
       })
-      .then(recipe => res.status(200).send(recipe))     
+      .then(recipes => recipes.length > 0 ? res.status(200).json({message: 'success', data: recipes}) : res.status(404).send('No favorited Recipes Yet, Please Add Some!!!')) 
+      .catch(error => res.status(404).send('No favorited Recipes Yet, Please Add Some!!!'))    
     })
     .catch(error => res.status(400).send(error))
   }
@@ -75,18 +77,40 @@ class UserController{
               message: "Recipe Not Found",
             });
           }
+
           else{
-            // return res.send(recipe.upvotes)
-            user.favoriteRecipe.push(recipe.id)
-            user.update({
-              favoriteRecipe: user.favoriteRecipe
-            })
-            .then(recipe => res.status(200).send(user))
+
+            if (user.favoriteRecipe === null){
+              user.update({
+                favoriteRecipe: [recipe.id]
+              })
+              .then(recipe => res.status(200).send(user))
+              .catch(error => res.status(400).send('error'))
+            }else{
+              !user.favoriteRecipe.includes(recipe.id) ? user.favoriteRecipe.push(recipe.id) : ''
+
+              user.update({
+                favoriteRecipe: user.favoriteRecipe               
+              })
+              .then(recipe => res.status(200).send(user))
+              .catch(error => res.status(400).send('error'))
+            }
           }
         })
       .catch(error => res.status(400).send(error))         
       })
     .catch(error => res.status(400).send(error))
+  }
+
+  static getRecipes(req, res){
+
+      db.Recipe.findAll({
+        where: {
+          id: req.token.userId
+        }
+      })
+      .then(recipes => res.status(200).send(recipes))     
+      .catch(error => res.status(400).send(error))
   }
 
 }

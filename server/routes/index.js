@@ -30,6 +30,11 @@ recipeRoute.route('/:id/upvotes')
 recipeRoute.route('/:id/downvotes')
   .put(authMiddleware, RecipeController.downVoteRecipe)
 
+recipeRoute.route('/:id/reviews')
+  .post(authMiddleware, RecipeController.reviewRecipe)
+
+// User Routes Starts Here
+
 userRoute.route('/signup')
   .get((req, res) => {
     res.send("Please Sign Up");
@@ -42,10 +47,13 @@ userRoute.route('/signin')
   })
   .post(UserController.signIn)
 
-userRoute.route('/favoriterecipes')
+userRoute.route('/:id/recipes')
   .get(authMiddleware, UserController.getFavoriteRecipes)
 
-userRoute.route('/favoriterecipes/:id')
+userRoute.route('/:id/recipes/:id')
   .post(authMiddleware, UserController.addFavoriteRecipe)
+
+userRoute.route('/myrecipes')
+  .get(authMiddleware, UserController.getRecipes)
 
 export { recipeRoute, userRoute };
