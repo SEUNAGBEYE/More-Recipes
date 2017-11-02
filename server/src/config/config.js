@@ -21,6 +21,17 @@ export default {
   },
   production: {
     use_env_variable: process.env.DATABASE_URL,
-    dialect: "postgres"
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASS,{
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      dialect: 'postgres',
+      dialectOption: {
+        ssl: true,
+        native: false
+      },
+      logging: true
+    }
   }
 }
