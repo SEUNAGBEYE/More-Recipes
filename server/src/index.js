@@ -17,6 +17,4 @@ db.sequelize.sync().then(() => {
 	});
 });
 
-
-
 export { app };
