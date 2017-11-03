@@ -19,10 +19,10 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
     * Add a recipe
     * View or modify the recipe he/she added
     * Delete the recipe he/she added
-    * Retrieve recipes from the catalog
-    * Modify a recipe in the catalog, including upvoting, downvoting, favoriting e.t.c
-    * Delete a recipe from the catalog
-    * Retrieve favorited recipes from the catalog
+    * Retrieve recipes from the app
+    * Modify a recipe in the app,
+    * Delete a recipe from the app
+    * Retrieve favorited recipes from the app
     * Add a review for a recipe
     * Retrieve recipes with the most upvotes
     
@@ -90,8 +90,15 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
    <tr>
       <td>GET</td>
       <td>/api/v1/users/:id/recipes</td>
-      <td>Get all your favorite recipes</td>
+      <td>Get all your users recipes</td>
   </tr>
+
+   <tr>
+      <td>GET</td>
+      <td>/api/v1/users/myrecipes</td>
+      <td>Get all users recipes</td>
+  </tr>
+
     <tr>
       <td>GET</td>
       <td>/api/recipes/:id</td>
