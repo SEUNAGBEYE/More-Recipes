@@ -5,22 +5,12 @@
 This is a project that allows users to upload, search, review, up-vote and down-vote a recipe.
 
 
-<p align="center">
-    <img src="https://fuchodeveloper.github.io/assets/images/logo.png" alt='more recipes logo'/>
-</p>
-
-<p align="center">
-    <img src="https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=master" alt="travis ci build test badge" />
-    <a href='https://coveralls.io/github/fuchodeveloper/more-recipes?branch=master'><img src='https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=master' alt='Coverage Status' /></a>
-    <a href="https://codeclimate.com/github/fuchodeveloper/more-recipes"><img src="https://codeclimate.com/github/fuchodeveloper/more-recipes/badges/gpa.svg" /></a>
-</p>
-
 ## More-recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
 
 
 ## How it works 
-* User can see recips uploaded by the users of the app,
+* User can see recipes uploaded by the users of the app,
 
 * Users can:
 	* view a recipe, 
