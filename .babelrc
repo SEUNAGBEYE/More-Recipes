@@ -3,8 +3,7 @@
  "plugins": [
 	"add-module-exports",
 		"transform-es2015-modules-commonjs",
-		"transform-es2015-classes",
-		"transform-es2015-modules-umd"
+		"transform-es2015-classes"
 		]
 
 }

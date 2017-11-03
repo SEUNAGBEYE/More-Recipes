@@ -1,0 +1,202 @@
+
+body { 
+	padding-top: 2px; 
+}
+
+#brand{
+	color: orange;
+	margin-left: 10px;
+	font-weight: bold;
+	/*font-size: ;*/
+}
+
+.title-link, .title-link:hover{
+ color: orange; 
+ text-decoration: none;
+}
+
+#search{
+	border-radius: 20px;
+    padding: 1px 20px 5px 15px;
+    border: 1px solid orange;
+    color: black;
+    margin: 7px 30px 0 0;
+    /*transition: all 1s ease;*/
+   
+}
+.dropdown-item{
+    padding: 0 0 5px 3px;
+}
+
+.auth-button{
+	margin-left: 15px;
+    color: white;
+    background: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: bold;
+    position: relative;
+    bottom: -7px;
+    /*float: right;*/
+
+}
+
+.card-img-top{
+    height: 150px;
+}
+
+
+#search-button{
+    margin: 0 40px 4px 5px;
+    color: white;
+    background: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-weight: bold;
+}
+
+#search-button:hover, .auth-button:hover {
+	background: #FFF;
+	color: orange;
+}
+
+.auth-button{
+    margin: 0 10px 13px 0;
+    color: white;
+    background: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 2px 4px 4px 4px;
+    font-weight: bold;
+    float: right;
+
+}
+
+
+.banner {
+	height: 500px;
+    background-image: url('../img/pasta1.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /*Used to make it fixed when scrolling*/
+
+    background-attachment: fixed;  
+    position: relative;
+}
+
+/*Rules style alphabeticaly and to html mackup*/
+
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0,0.3);
+	color: #FFF;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.overlay h3 {
+	font-size: 35px;
+    letter-spacing: 2px;
+    padding: 12px
+}
+
+
+.box {
+	/*background: grey;*/
+	height: 250px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.circle {
+	height: 200px;
+	width: 200px;
+	border-radius: 100%;
+	border: 2px solid #DDD;
+	background: #EEE;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+}
+
+
+#profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+#profile-button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: orange;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+#edit-profile {
+	margin: 0 0 30px 10px;
+	background-color: orange;
+	color: white;
+}
+
+#edit-profile:hover{
+	background-color: white;
+	color: orange;
+	border-color: orange;
+}
+
+
+footer {
+/*	margin: 0 auto;
+	height: 50px;
+	background: orange;
+	text-align: center;
+	color: white;*/
+
+   position: relative;
+   left: 0;
+   bottom: -10px;
+   width: 100%;
+   background-color: #f8f9fa;
+   color: orange;
+   text-align: center;
+   font-size: 1.2em;
+   font-weight: bold;
+}
+
+main{
+    margin: 0 auto;
+}
+
+.auth-form{
+    position: relative;
+    margin: 200px 0 200px 0;
+}
+
+#brand{
+    font-size: 2em;
+}
