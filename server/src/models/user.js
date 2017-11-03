@@ -6,13 +6,28 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: {
+          args: true,
+          msg: 'User already exist with this email'
+      },
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Please provide a valid email address'
+        }        
+      }
+
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
       set(val) {
         this.setDataValue('password', bcrypt.hashSync(val, 10))
-      }
+      },
+      min: 5
+      // validate: {
+      //   min: 5
+      // }
     },
     // facebookUrl: DataTypes.STRING,
     // twitterUrl: DataTypes.STRING,

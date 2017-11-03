@@ -28,7 +28,7 @@ class RecipeController {
         return res.status(200).json({ message: 'success', data: recipes });
       })
       .catch(error => {
-        return res.status(200).json(error);
+        return res.status(200).json(error.message);
       });
       
     } else {
@@ -38,7 +38,7 @@ class RecipeController {
         return res.status(200).json({ message: 'success', recipes: recipes });
       })
       .catch(error => {
-        return res.status(200).json(error);
+        return res.status(200).json(error.message);
       })
       
     }
@@ -51,6 +51,7 @@ class RecipeController {
   * @returns {null} json
   */
   static addRecipe(req, res) {
+
     return db.Recipe.create({
       name: req.body.name,
       image: req.body.image,
@@ -70,6 +71,12 @@ class RecipeController {
   * @returns {null} json
   */
   static getRecipe(req, res) {
+
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
+
+
     db.Recipe.findById(req.params.id)
     .then(recipe => {
       if(!recipe){
@@ -80,7 +87,7 @@ class RecipeController {
       return res.status(200).json({message: "success", data: recipe})
     })
     .catch(error => {
-      return res.status(400).send(error)
+      return res.status(400).send(error.message)
     });
   }
 
@@ -93,6 +100,11 @@ class RecipeController {
   * @returns {null} json
   */
   static updateRecipe(req, res) {
+
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
+
     db.Recipe.findById(req.params.id)
     .then(recipe => {
       if(!recipe){
@@ -127,6 +139,11 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
+
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
+
       db.Recipe.findById(req.params.id)
       .then(recipe => {
         if(!recipe){
@@ -155,6 +172,11 @@ class RecipeController {
   * @returns {null} json
   */
   static deleteRecipe(req, res) {
+
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
+
     db.Recipe.findById(req.params.id)
     .then(recipe => {
       if(!recipe){
@@ -175,6 +197,10 @@ class RecipeController {
   }
 
   static upVoteRecipe(req, res) {
+
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
     
     db.Recipe.findById(req.params.id)
     .then(recipe => {
@@ -198,6 +224,10 @@ class RecipeController {
 
   static downVoteRecipe(req, res) {
     
+    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+      return res.status(400).send('Please input a valid ID')
+    }
+
     db.Recipe.findById(req.params.id)
     .then(recipe => {
       if(!recipe){

@@ -10,6 +10,10 @@ class UserController{
   * @returns {null} json
   */
   static signUp(req, res) {
+
+    if (req.body.password === undefined || req.body.password.length < 6){
+      return res.status(400).send('Password must be greater than 6')
+    }
       return db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -35,6 +39,9 @@ class UserController{
         email: req.body.email
       }
     }).then(user => {
+      if(!user){
+        return res.status(404).send('User not found')
+      }
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
           const token = jwt.sign({userId: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: '1h'});
@@ -42,7 +49,7 @@ class UserController{
         } 
         return res.status(200).send('Invalid Password or Email?')
       })
-      .catch(error => res.status(404).json(error))
+      .catch(error => res.status(404).send('Password required'))
     })
     .catch(error => res.status(200).json(error.message))
     
