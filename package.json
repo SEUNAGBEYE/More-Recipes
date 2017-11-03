@@ -1,17 +1,21 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "engines": {
+    "npm": "3.10.10",
+    "node": "6.11.0"
+  },
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test&& nyc mocha ./server/test/test.js --compilers js:babel-core/register --exit",
+    "test": "set NODE_ENV=test&& nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
-    "start": "nodemon --exec npm run babel-node -- ./server/src/index.js",
-    "startProduction": "npm run babel-node -- ./server/src/index.js",
+    "startDev": "nodemon --exec npm run babel-node -- ./server/src/index.js",
+    "build": "babel server/src -d server/dist",
+    "heroku-postbuild": "npm run build",
+    "start": "node server/dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "build": "babel server/src/index.js -d build",
-    "dist": "babel server/src/index.js -d dist --presets=babili"
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"   
   },
   "author": "Seun Agbeye",
   "license": "ISC",
@@ -27,9 +31,7 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.19.0",
     "sqlite3": "^3.1.13",
-    "validator": "^9.1.1"
-  },
-  "devDependencies": {
+    "validator": "^9.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -40,16 +42,17 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
+    "validatorjs": "^3.13.5",
+    "sequelize-cli": "^3.0.0"
+  },
+  "devDependencies": {
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
-    "node-mocks-http": "^1.6.6",
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
-    "request": "^2.83.0",
-    "sequelize-cli": "^3.0.0",
-    "validatorjs": "^3.13.5"
+    "request": "^2.83.0"
   }
 }
