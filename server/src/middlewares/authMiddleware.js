@@ -9,8 +9,7 @@ const authMiddleware = (req, res, next) => {
 				req.token = decode;
 				next();	
 			}else{
-				// console.lo(user.favoriteRecipe, 'hello')
-				return res.status(400).send(error.message);
+				return res.status(400).json({status: 'fail', message: 'Token Not Valid'});
 			}	
 		});		
 	}else{

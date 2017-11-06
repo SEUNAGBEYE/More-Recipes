@@ -21,7 +21,7 @@ class UserController{
         password: req.body.password,
         profilePicture: req.body.profilePicture
       })
-        .then(user => res.status(200).json({message: 'success', data: user}))
+        .then(user => res.status(201).json({message: 'success', data: user}))
         .catch(error => res.status(400).json(error.message));
   }
 
@@ -47,7 +47,7 @@ class UserController{
           const token = jwt.sign({userId: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: '1h'});
           return res.status(200).send(token)
         } 
-        return res.status(200).send('Invalid Password or Email?')
+        return res.status(200).send('Invalid Password or Email')
       })
       .catch(error => res.status(404).send('Password required'))
     })
@@ -56,8 +56,6 @@ class UserController{
   }
 
   static getFavoriteRecipes(req, res){
-    console.log(req.token.userId)
-    console.log({} == {}, 'hiooo')
     db.User.findById(req.token.userId)
     .then(user => {
       db.Recipe.findAll({
