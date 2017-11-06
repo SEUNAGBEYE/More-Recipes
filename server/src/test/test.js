@@ -38,8 +38,8 @@ describe('Test For Recipes Routes', () => {
           // console.log(error);
           expect(res).to.have.status(404);
           expect(res.body.message).equal('Recipe Not Found');
-          done();
         });
+        done();
     });
   });
 
