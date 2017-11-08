@@ -116,8 +116,8 @@ class UserController{
           userId: req.token.userId
         }
       })
-      .then(recipes => res.status(200).send(recipes))     
-      .catch(error => res.status(400).send(error))
+      .then(recipes => res.status(200).json({status: 'success', data: recipes}))     
+      .catch(error => res.status(400).json({status: 'fail', message:error.message}));
   }
 
   static myProfile(req, res){

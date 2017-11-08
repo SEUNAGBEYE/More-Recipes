@@ -146,6 +146,38 @@ describe('Test For Recipes Routes', () => {
     });
   });
 
+  describe('Test For Voting A Recipe', () => {
+    it('body should return an object and it should have a statusCode of 400 when trying to downvote a recipes', (done) => {
+      chai.request(recipeRoute)
+        .put('/""/downvotes')
+        .send({
+          userId: 1
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          // expect(res.body.data.downvotes).that.include(1);
+          // assert.isObject(res.body, 'respone return an object');
+          done();
+        })
+    });
+  });
+
+  describe('Test For Voting A Recipe', () => {
+    it('body should return an object and it should have a statusCode of 400 when trying to downvote a recipes', (done) => {
+      chai.request(recipeRoute)
+        .put('/100/downvotes')
+        .send({
+          userId: 1
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(404);
+          // expect(res.body.data.downvotes).that.include(1);
+          // assert.isObject(res.body, 'respone return an object');
+          done();
+        })
+    });
+  });
+
   describe('Test For Reviewing A Recipe', () => {
     it('body should return an object and it should have a statusCode of 200 when trying to review a recipes', (done) => {
       chai.request(recipeRoute)
@@ -274,6 +306,18 @@ describe('Test For Users Routes', () => {
     it('the body should be an array and it should have a statusCode of 200 when a user get their favorited recipe', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          assert.isArray(res.body.data, 'respone return array of object');
+          done();
+        });
+    });
+  });
+
+  describe('Test For Getting User Recipes', () => {
+    it('the body should be an array and it should have a statusCode of 200 when a user get their recipe', (done) => {
+      chai.request(userRoute)
+        .get('/myrecipes/')
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'respone return array of object');
