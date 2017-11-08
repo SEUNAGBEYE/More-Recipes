@@ -151,7 +151,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({
-          userId: 2,
+          userId: 1,
           body: 'Hi this is my review'
         })
         .end((error, res) => {
@@ -167,7 +167,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .delete('/2')
         .send({
-          userId: 1
+          userId: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(401);

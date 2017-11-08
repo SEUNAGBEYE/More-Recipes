@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const authMiddleware = (req, res, next) => {
 	const token = req.headers['token'] || req.body.token
 	if (process.env.NODE_ENV === 'test'){
-    let userId = req.body.userId || 2
+    let userId = req.body.userId || 1
     console.log(userId);
     req.token = {userId: userId}
     next();
