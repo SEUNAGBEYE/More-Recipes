@@ -80,7 +80,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Updating A  Single Recipe', () => {
-    it('body should return an object and it should have a statusCode of 200 when trying to get all recipes', (done) => {
+    it('body should return an object and it should have a statusCode of 200 when trying to update a recipes', (done) => {
       chai.request(recipeRoute)
         .put('/2')
         .send({

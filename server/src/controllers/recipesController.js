@@ -108,7 +108,7 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
-
+      console.log(recipe)
       if (recipe.userId === req.token.userId){
         return recipe
           .update(req.body, {fields: Object.keys(req.body)})
@@ -180,6 +180,8 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
+      console.log(recipe)
+
       if (recipe.userId === req.token.userId){
         return recipe
           .destroy()
