@@ -182,7 +182,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .delete('/2')
         .send({
-          userId: 2
+          userId: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(204);
