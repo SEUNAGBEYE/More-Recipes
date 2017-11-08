@@ -8,7 +8,7 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test&& nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --exit",
+    "test": "set NODE_ENV=test&& sequelize db:migrate:undo:all&& sequelize db:migrate&& sequelize db:seed:all&& nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "startDev": "nodemon --exec npm run babel-node -- ./server/src/index.js",
     "build": "babel server/src -d server/dist",

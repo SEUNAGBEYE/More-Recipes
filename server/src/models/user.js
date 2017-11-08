@@ -14,18 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: 'Please provide a valid email address'
-        },
-        notNull: {msg: 'Email required'}      
+        }
       }
 
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notNull: {msg: 'Password required'}
-      },
       set(val) {
         this.setDataValue('password', bcrypt.hashSync(val, 10))
       },

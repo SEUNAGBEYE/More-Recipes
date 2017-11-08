@@ -47,13 +47,16 @@ userRoute.route('/signin')
   })
   .post(UserController.signIn)
 
-userRoute.route('/:id/recipes')
+userRoute.route('/fav-recipes')
   .get(authMiddleware, UserController.getFavoriteRecipes)
 
-userRoute.route('/:id/recipes/:id')
+userRoute.route('/fav-recipes/:id/add')
   .post(authMiddleware, UserController.addFavoriteRecipe)
 
 userRoute.route('/myrecipes')
   .get(authMiddleware, UserController.getRecipes)
+
+userRoute.route('/profile')
+  .get(authMiddleware, UserController.myProfile)
 
 export { recipeRoute, userRoute };

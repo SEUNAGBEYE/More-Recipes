@@ -14,7 +14,9 @@ class UserController{
     if (req.body.password === undefined || req.body.password.length < 6){
       return res.status(400).send('Password must be greater than 6')
     }
+
       return db.User.create({
+        id: req.body.id,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -34,13 +36,14 @@ class UserController{
   */
   static signIn(req, res, next) {
 
+
     db.User.find({
       where: {
         email: req.body.email
       }
     }).then(user => {
-      if(!user){
-        return res.status(404).send('User not found')
+       if(!user){
+        res.status(404).send('User not found')
       }
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
@@ -72,50 +75,56 @@ class UserController{
   }
 
   static addFavoriteRecipe(req, res){
-
+    console.log(req.params.id, req.token.userId)
     db.User.findById(req.token.userId)
     .then(user => {
       db.Recipe.findById(req.params.id)
       .then(recipe => {
           if(!recipe){
+            console.log(recipe)
             return res.status(404).send({
               message: "Recipe Not Found",
             });
           }
-
           else{
-
             if (user.favoriteRecipe === null){
               user.update({
                 favoriteRecipe: [recipe.id]
               })
-              .then(recipe => res.status(200).send(user))
-              .catch(error => res.status(400).send('error'))
+              .then(recipe => res.status(200).json({status:'success', data: user}))
+              .catch(error => res.status(400).json({status: 'fail', message: error}));
             }else{
               !user.favoriteRecipe.includes(recipe.id) ? user.favoriteRecipe.push(recipe.id) : ''
 
               user.update({
                 favoriteRecipe: user.favoriteRecipe               
               })
-              .then(recipe => res.status(200).send(user))
-              .catch(error => res.status(400).send('error'))
+              .then(recipe => res.status(200).json({status: 'success', data: user}))
+              .catch(error => res.status(400).json({status: 'fail', message: error}));
             }
           }
         })
-      .catch(error => res.status(400).send(error))         
+      .catch(error => res.status(400).json({status: 'fail', message: error}))         
       })
-    .catch(error => res.status(400).send(error))
+    .catch(error => res.status(400).json({status: 'fail', message: error}));
   }
 
   static getRecipes(req, res){
 
       db.Recipe.findAll({
         where: {
-          id: req.token.userId
+          userId: req.token.userId
         }
       })
       .then(recipes => res.status(200).send(recipes))     
       .catch(error => res.status(400).send(error))
+  }
+
+  static myProfile(req, res){
+
+    db.User.findById(req.token.userId)
+    .then(user => res.status(200).json({status: 'success', data: user}))
+    .catch(error=> res.status(400).json({status: 'fail', message:error.message}));
   }
 
 }

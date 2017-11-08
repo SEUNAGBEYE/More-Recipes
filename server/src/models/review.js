@@ -4,10 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     recipeId: DataTypes.INTEGER,
     body: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        notNull: {msg: 'Body required'}
-      }
+      allowNull: false
     }
   });
 

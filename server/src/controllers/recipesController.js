@@ -48,13 +48,14 @@ class RecipeController {
   static addRecipe(req, res) {
 
     return db.Recipe.create({
+      id: req.body.id,
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
       userId: req.token.userId
     })
-      .then(recipe => res.status(201).json({status: 'success', recipe: recipe}))
-      .catch(error => res.status(400).json({status: 'fail', error: error.message}));
+      .then(recipe => res.status(201).json({status: 'success', data: recipe}))
+      .catch(error => res.status(400).json({status: 'fail', error: error}));
   }
 
   /**
@@ -112,7 +113,7 @@ class RecipeController {
         return recipe
           .update(req.body, {fields: Object.keys(req.body)})
           .then(updatedRecipe => {
-            return res.status(200).json(updatedRecipe);
+            return res.status(200).json({status: 'success', data: updatedRecipe});
           })
           .catch(error => {
             return res.status(400).json({status: "error", error: error.message});
@@ -182,13 +183,13 @@ class RecipeController {
       if (recipe.userId === req.token.userId){
         return recipe
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.status(204).json({status: 'success', message: 'No Content'}))
           .catch(error => res.status(400).json({status: "error", error: error.message}));
       }else{
         return res.status(401).send('Not Authorize');
       }
     })
-    .catch(error => res.status(400).json({status: "error", error: error.message}));
+    .catch(error => console.log(error.message));
   }
 
   static upVoteRecipe(req, res) {
@@ -205,13 +206,14 @@ class RecipeController {
         });
       }
       else{
-
+      
         recipe.upvotes === null ? recipe.upvotes = [] : ''
         !recipe.upvotes.includes(req.token.userId) ? recipe.upvotes.push(req.token.userId): res.status(200).json({status: 'success', data: 'You already Voted!!!'}) 
         recipe.update({
           upvotes: recipe.upvotes
         })
         .then(recipe => res.status(200).json({status: "success", data: recipe}))
+        .catch(error => res.status(400).json({status: "error", error: error.message}))
       }
     })
     .catch(error => res.status(400).json({status: "error", error: error.message}))
@@ -219,7 +221,8 @@ class RecipeController {
 
   static downVoteRecipe(req, res) {
     
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === undefined){
+
       return res.status(400).send('Please input a valid ID')
     }
 
@@ -231,8 +234,8 @@ class RecipeController {
         });
       }
       else{
-        recipe.downvotes === null ? recipe.downvotes = [] : res.status(200).json({status: 'success', message: 'You Down Voted Already!!!'})
-        recipe.downvotes.includes(req.token.userId) ? recipe.downvotes.push(req.token.userId): ''
+        recipe.downvotes === null ? recipe.downvotes = [] : ''
+        !recipe.downvotes.includes(req.token.userId) ? recipe.downvotes.push(req.token.userId): res.status(200).json({status: 'success', data: 'You already Down Voted!!!'}) 
         
         recipe.update({
           downvotes: recipe.downvotes
