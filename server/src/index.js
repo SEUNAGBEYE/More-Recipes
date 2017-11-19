@@ -2,10 +2,17 @@ import express from 'express';
 import { recipeRoute, userRoute } from './routes/index';
 import config from 'dotenv';
 import db from './models/index.js';
+
 config.config()
 
-const port = process.env.PORT || 8000;
+console.log('ji');
+
+const port = process.env.PORT || 5000;
 const app = express();
+
+app.get('/', (req, res) => {
+  res.sendFile(`${__dirname}../client/src/index.html`);
+});
 
 app.use('/api/v1/recipes', recipeRoute);
 
