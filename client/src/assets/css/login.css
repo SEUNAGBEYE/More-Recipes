@@ -1,0 +1,74 @@
+main{
+	margin-top: 170px; 
+}
+
+
+#login{
+	color: white;
+	background: orange;
+	border: 1px solid orange;
+	position: relative;
+	/*top: -30px;*/
+}
+
+#login:hover{
+	color: orange;
+	background: white;
+}
+
+.icons{
+	padding: 10px; 
+	font-size: 1.5em; 
+	text-decoration: none;
+	color: orange;
+}
+
+.icons:hover{
+	text-decoration: none;
+	color: orange;	
+}
+
+.page-link{
+	color: orange;
+}
+
+.card-title{
+	color: orange;
+	margin: 10px;
+}
+
+.card{
+	margin: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.facebook{
+	background: white;
+	color: blue;
+	border: orange;
+}
+
+.google{
+	background: white;
+	color: red;
+	border: orange;
+}
+
+.google a:hover, facebook a{
+	text-decoration-color: none;
+}
+
+input[type = "checkbox"]{
+	background-color: orange;
+	color: #FFF;
+}
+
+#line{
+	text-align: center;
+}
+
+main{
+	margin: 0 auto;
+}
+
