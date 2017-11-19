@@ -2,11 +2,11 @@ module.exports =  (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     views: {
       type: DataTypes.ARRAY(DataTypes.INTEGER)
@@ -22,7 +22,7 @@ module.exports =  (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     steps: {
       type: DataTypes.JSON,

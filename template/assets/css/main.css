@@ -186,6 +186,7 @@ footer {
    text-align: center;
    font-size: 1.2em;
    font-weight: bold;
+   margin-top: 40px;
 }
 
 main{
@@ -199,4 +200,13 @@ main{
 
 #brand{
     font-size: 2em;
+}
+
+.review{
+    float: left;
+}
+
+.col-md-1{
+    width: 0;
+    margin: 5px 10px 0 0;
 }
