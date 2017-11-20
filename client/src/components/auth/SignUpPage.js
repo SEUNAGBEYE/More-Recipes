@@ -28,6 +28,7 @@ export default class SignUpPage extends Component{
             </div><br />
           </div>
         </main>
+        <Footer />
       </div>
     )
   }

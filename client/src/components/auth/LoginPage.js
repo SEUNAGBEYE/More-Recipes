@@ -20,7 +20,7 @@ export default class LoginPage extends Component{
     return (
       <div>
           <Navbar />
-        	<main style={{marginBottom: 87}}>
+        	<main style={{marginBottom: 0}}>
             <div className="container">
               <div className="row">
                 <div className="col-md-4"></div>

@@ -2,12 +2,18 @@
 	.pagination{
 		margin-left: 1.2em;
 	}
+	.container__myrecipes{
+		font-size: 18px;
+	}
 }
 
 
 @media (min-width: 324px) and (max-width: 426px){
 	.pagination{
 		margin-left: 40px;
+	}
+	.container__myrecipes{
+		font-size: 20px;
 	}
 
 }

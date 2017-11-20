@@ -8,6 +8,13 @@ a, a:hover {
     text-decoration: none;
 }
 
+h1,h2, h3, h4, h5, h6 {
+    color: orange;
+}
+
+.overlay__h3{
+    color: white
+}
 
 #brand{
 	color: orange;
@@ -177,11 +184,6 @@ a, a:hover {
 
 
 footer {
-/*	margin: 0 auto;
-	height: 50px;
-	background: orange;
-	text-align: center;
-	color: white;*/
 
    position: relative;
    left: 0;
@@ -192,7 +194,7 @@ footer {
    text-align: center;
    font-size: 1.2em;
    font-weight: bold;
-   margin-top: 40px;
+   margin-top: 0;
 }
 
 main{
@@ -201,7 +203,7 @@ main{
 
 .auth-form{
     position: relative;
-    margin: 200px 0 200px 0;
+    margin: 200px 0 35px 0;
 }
 
 #brand{
@@ -215,4 +217,8 @@ main{
 .col-md-1{
     width: 0;
     margin: 5px 10px 0 0;
+}
+
+.page-link{
+    color: orange;
 }

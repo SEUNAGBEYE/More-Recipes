@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <div>
-      <footer>
+      <footer style={props.style}>
         <div>
           <strong>&copy; Recipes</strong>
         </div>
