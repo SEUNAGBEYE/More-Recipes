@@ -61,6 +61,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
 import Recipe from '../actions/Recipes';
@@ -50,36 +51,36 @@ export default class Homepage extends Component {
         <main>
           <section className="banner">
             <div className="overlay">
-              <h3> Welcome To Recipes. All About Reciping</h3>
+              <h3 className='overlay__h3'> Welcome To Recipes. All About Reciping</h3>
             </div>	
           </section>
 
           <section>
             <div className="container">
 
-              <h3 className='title' style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><a href="category.html" className="title__link">Recipes</a></h3>
+              <h3 className='title' style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><Link to="/my_recipes" className="title__link">Recipes</Link></h3>
               
               <div className="row">
 
                 <div className="col-sm-6 col-md-4" style={{fontWeight: 'bold', textAlign: 'center'}}>
-                  <a href="recipe_detail.html">
+                  <Link to="recipe_details">
                   
                     <div className="box">
                       <div className="circle"><img className ="circle" src= {pasta} /></div>
                     </div>
                     Pasta
-                  </a>
+                  </Link>
 
                 </div>
 
                 <div className="col-sm-6 col-md-4" style={{fontWeight: 'bold', textAlign: 'center'}}>
-                  <a href="recipe_detail.html">
+                  <Link to="my_recipes">
                   
                     <div className="box">
                       <div className="circle"><img className ="circle" src={ banana_split } /></div>
                     </div>
                     Banana Split
-                  </a>
+                  </Link>
 
                 </div>
 
@@ -126,7 +127,7 @@ export default class Homepage extends Component {
                 </div>
               </div>
 
-              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 3 }}><a href="recipes.html" className="title-link">Categories</a></h3>
+              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><a href="recipes.html" className="title-link">Categories</a></h3>
               
               <div className="row">
 
@@ -194,7 +195,7 @@ export default class Homepage extends Component {
                 </div>
               </div>
 
-              <h3 style={{textAlign: 'center', color: 'orange', marginTop: 40, fontSize: 3}}><a href="popular.html" className="title-link">Popular</a></h3>
+              <h3 style={{textAlign: 'center', marginTop: 40, fontSize: 32}}><a href="#" className="title-link">Popular</a></h3>
 
               <div className="row">
 

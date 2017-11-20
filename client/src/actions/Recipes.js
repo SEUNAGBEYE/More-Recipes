@@ -10,8 +10,8 @@ export default class Recipe {
    * return {object} object
    */
   static allRecipes(){
-    axious.get('/api/v1/recipes')
-    .then((res.data) => res.data) // Transform the data into json
+    axios.get('/api/v1/recipes')
+    .then((res) => res.data) // Transform the data into json
     .then((data) => {
       console.log(data)
       return data;
