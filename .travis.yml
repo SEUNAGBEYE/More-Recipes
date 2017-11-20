@@ -8,6 +8,8 @@ services:
   - postgresql
 env:
   - NODE_ENV=test
+  global:
+    - CC_TEST_REPORTER_ID=a2940e57e00f54e47670e155bec059300094f33861f43f3ea5458d385458e76f
 
 
 before_script:
@@ -16,9 +18,13 @@ before_script:
   - npm run build
   - sequelize db:migrate
   - sequelize db:seed:all
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - cc-test-reporter before-build
 
 script: npm test
 
 after_success: npm run coverage
 
-# after_success: npm run coverage
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
