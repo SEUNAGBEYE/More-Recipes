@@ -1,17 +1,36 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import {Link, withRouter} from 'react-router-dom';
+import {logout} from '../../actions/auth/LoginRequest'
 
 /**
  * @class Navbar
  * @extends Component
  */
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
 
+  constructor(props){
+    super(props)
+    console.log(this.props)
+    console.log(props)
+
+    this.logout = this.logout.bind(this)
+  }
+
+  logout(e) {
+    e.preventDefault();
+    this.props.logout();
+    console.log('============',this.props)
+    //this.props.history.push('/login')
+    window.location=('/login')
+  }
   /**
    * returns {obeject} object
    * @memberOf Navbar
    */
   render(){
+    console.log('============',this.props)
+    const isAuthenticated = this.props.auth.isAuthenticated;
     return (
       <div>
         <header className='header'>
@@ -30,10 +49,25 @@ export default class Navbar extends React.Component {
                   <input type="text" name="" className="form-control" id="search" placeholder="search" /> 
                 
               </form>
-
-              <Link className="btn btn-default auth-button" to='/login'>Login</Link>
-
-              <Link className="btn btn-default auth-button" to="signup">Signup</Link>
+              {isAuthenticated
+               ?
+               <div className="dropdown">
+               <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
+               </button>
+               <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
+                 <Link className="dropdown-item" to="/">All Recipes</Link>
+                 <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
+                 <Link className="dropdown-item" to="/">Favorites</Link>
+                 <Link className="dropdown-item" to="/">Profile</Link>
+                 <Link className="dropdown-item" onClick={this.logout} to='/'>Logout</Link>
+               </div>
+             </div>
+               : 
+              <div> 
+               <Link className="btn btn-default auth-button" to='/login'>Login</Link>
+                <Link className="btn btn-default auth-button" to="/signup">Signup</Link>
+              </div>
+              }
             </div>
           
           </nav>
@@ -42,3 +76,21 @@ export default class Navbar extends React.Component {
     )
   }
 }
+
+// Navbar.contextTypes = {
+//   router: React.PropTypes.object.isRequired
+// };
+
+/**
+ * mapStateToProps
+ * @param {any} state
+ * @returns {object} object
+ */
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+}
+
+
+export default connect(mapStateToProps, { logout })(Navbar);

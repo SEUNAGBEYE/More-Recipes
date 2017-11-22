@@ -36,6 +36,7 @@ import {
 export default class Homepage extends Component {
 
   componentDidMount(){
+    console.log(this.history)
     Recipe.allRecipes();
   }
 
