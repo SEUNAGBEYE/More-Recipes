@@ -5,6 +5,10 @@
 	.container__myrecipes{
 		font-size: 18px;
 	}
+	.dropdown-menu-nav {
+		left: 45%!important;
+		top: 40px!important;
+}
 }
 
 
@@ -16,11 +20,29 @@
 		font-size: 20px;
 	}
 
+	.dropdown-menu-nav {
+    left: 53%!important;
+    top: 40px!important;
+}
+
 }
 
 @media (min-width: 767px) and (max-width: 1442px){
 	.pagination{
 		margin-left: 50px;
 	}
+	.dropdown-menu-nav {
+		top: 140%!important;
+    left: -120%!important;
+}
+
+@media (min-width: 768px) and (max-width: 769px){
+	.pagination{
+		margin-left: 50px;
+	}
+	.dropdown-menu-nav {
+		left: 78%!important;
+    top: 47px!important;
+}
 
 }

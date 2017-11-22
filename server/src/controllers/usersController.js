@@ -47,14 +47,15 @@ class UserController{
       }
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
-          const token = jwt.sign({userId: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: '1h'});
+          const {id, email, firstName, lastName } = user
+          const token = jwt.sign({id, email, firstName, lastName }, process.env.SECRET_KEY, {expiresIn: '1h'});
           return res.status(200).send(token)
         } 
-        return res.status(200).send('Invalid Password or Email')
+        return res.status(401).send('Invalid Password or Email')
       })
-      .catch(error => res.status(404).send('Password required'))
+      .catch(error => res.status(404).send(error.message))
     })
-    .catch(error => res.status(200).json(error.message))
+    .catch(error => res.status(401).json(error.message))
     
   }
 
