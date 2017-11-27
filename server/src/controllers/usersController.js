@@ -117,7 +117,6 @@ class UserController{
         }
       })
       .then(recipes => {
-        console.log('recipes', req.token, recipes)
         res.status(200).json({status: 'success', recipes})
       })    
       .catch(error => res.status(400).json({status: 'fail', message:error.message}));
