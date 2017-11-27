@@ -52,10 +52,11 @@ class RecipeController {
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
+      steps: req.body.steps,
       userId: req.token.userId
     })
-      .then(recipe => res.status(201).json({status: 'success', data: recipe}))
-      .catch(error => res.status(400).json({status: 'fail', error: error}));
+      .then(recipe => res.status(201).json({status: 'success', recipe}))
+      .catch(error => res.status(400).json({status: 'fail', error}));
   }
 
   /**
@@ -67,6 +68,7 @@ class RecipeController {
   * @returns {null} json
   */
   static getRecipe(req, res) {
+    console.log('server responding')
 
     if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
       return res.status(400).send('Please input a valid ID')
@@ -80,6 +82,7 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
+
       return res.status(200).json({status: "success", data: recipe})
     })
     .catch(error => {
@@ -108,7 +111,6 @@ class RecipeController {
           message: "Recipe Not Found",
         });
       }
-      console.log(recipe)
       if (recipe.userId === req.token.userId){
         return recipe
           .update(req.body, {fields: Object.keys(req.body)})

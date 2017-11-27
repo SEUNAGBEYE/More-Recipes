@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import {allRecipes} from '../actions/Recipes';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
 import Recipe from '../actions/Recipes';
@@ -37,7 +38,7 @@ export default class Homepage extends Component {
 
   componentDidMount(){
     console.log(this.history)
-    Recipe.allRecipes();
+    allRecipes();
   }
 
   /**

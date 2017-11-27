@@ -4,30 +4,30 @@ import StepInput from './StepInput';
 import IngredientInput from './IngredientInput';
 import {editRecipe} from '../../actions/Recipes'
 
-export default class EditModal  extends Component {
+export default class RecipeModal  extends Component {
 	constructor(props){
 		super(props);
-		console.log('propss', this.props, props)
 		this.state = {
-			name: this.props.recipe.name ||'',
-			description: this.props.recipe.description ||'',
+			name: '',
+			description:'',
 			image: 'hello image',
-			ingredients: this.props.recipe.ingredients ||[],
-			steps:  this.props.recipe.steps ||[],
+			ingredients: [],
+			steps:  [],
       errors: {},
 			stepsTimes: [...Array(0)],
 			ingredientsTimes: [...Array(0)]
 		}
+
+		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.stepClick = this.stepClick.bind(this);
 		this.ingredientClick = this.ingredientClick.bind(this);
-    this.editClick = this.editClick.bind(this);
-    this.updateRecipe = this.updateRecipe.bind(this);
+		this.editClick = this.editClick.bind(this);
 	}
 	
 	stepClick(e){
 		e.preventDefault();
-		this.setState({steps: [...Array(this.state.steps.length + 1)]})
+		this.setState({stepsTimes: [...this.state.stepsTimes, Array(this.state.stepsTimes.length)]})
 	}
 
 	ingredientClick(e){
@@ -40,6 +40,10 @@ export default class EditModal  extends Component {
 	}
 
 
+	onSubmit(e){
+		this.props.addRecipe(this.state)
+		document.getElementById("form").reset();
+	}
 
 	onChange(e){
 		e.preventDefault();
@@ -62,16 +66,12 @@ export default class EditModal  extends Component {
 			this.setState({ [e.target.name]: e.target.value})
 		}
 	}
-  
-  updateRecipe(e){
-		this.props.editRecipe(this.props.recipe.id, this.state)
-	}
 
 	render(){
 		return(
 			<div>
 					
-					<div className="modal fade" id={`editModal${this.props.id}`} tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+					<div className="modal fade" id="addModal" tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 						<div className="modal-dialog" role="document">
 							<div className="modal-content">
 								<div className="modal-header">
@@ -82,15 +82,15 @@ export default class EditModal  extends Component {
 								</div>
 
 								<div className="modal-body">
-									<form>
+									<form id='form'>
 										<fieldset className="form-group">
 											<label htmlFor="name" className="form-inline">Name</label>
-											<input type="text" className="form-control" id="recipeName" name="name"  onChange={this.onChange} defaultValue={this.props.recipe.name}/>
+											<input type="text" className="form-control" id="recipeName" name="name"  onChange={this.onChange} value={this.state.name}/>
 										</fieldset>
 
 										<fieldset className="form-group">
 											<label htmlFor="recipeDescription" className="form-inline">Description</label>
-											<textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} defaultValue={this.props.recipe.description}></textarea>
+											<textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description}></textarea>
 										</fieldset>
 
 										<fieldset className="form-group">
@@ -103,17 +103,13 @@ export default class EditModal  extends Component {
 											<button className="auth-button fa fa-plus" style={{float: 'left', width: 90, height: 20, fontSize: 12, padding: 0}} id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
 										</fieldset>
 
-										{this.state.steps.length > 0 
-										? this.state.steps.map((step, index) => <StepInput key={index} onChange={this.onChange} number={index + 1} id={index} step={step}/>)
-										: 
-										this.state.stepsTimes.map((step, index) => <StepInput key={index} onChange={this.onChange} number={this.state.steps.length > 0 ? index + 1 + this.state.steps.length: index + 1} id={this.state.steps.length > 0 ? this.state.steps.length: index} step={step}/>)
-										}
+										{this.state.stepsTimes.map((element, index) => <StepInput key={index} onChange={this.onChange} number={index + 1} id={index} />)}
 										<fieldset>
 											<button className="auth-button fa fa-plus" style={{float: 'left', width: 90, height: 20, fontSize: 12, padding: 0}} id="step" onClick={this.stepClick}><strong>Steps</strong></button>
 										</fieldset>
 
 											<div className="modal-footer">
-												<button className="btn btn-secondary auth-button" data-dismiss="modal" id='submit' onClick={this.updateRecipe}>Update</button>
+												<button className="btn btn-secondary auth-button" data-dismiss="modal" id='submit' onClick={this.onSubmit}>Submit</button>
 												<button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
 													Cancel
 												</button>
