@@ -11,17 +11,12 @@ class Navbar extends React.Component {
 
   constructor(props){
     super(props)
-    console.log(this.props)
-    console.log(props)
-
     this.logout = this.logout.bind(this)
   }
 
   logout(e) {
     e.preventDefault();
     this.props.logout();
-    console.log('============',this.props)
-    //this.props.history.push('/login')
     window.location=('/login')
   }
   /**
@@ -29,7 +24,6 @@ class Navbar extends React.Component {
    * @memberOf Navbar
    */
   render(){
-    console.log('============',this.props)
     const isAuthenticated = this.props.auth.isAuthenticated;
     return (
       <div>
@@ -59,7 +53,7 @@ class Navbar extends React.Component {
                  <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
                  <Link className="dropdown-item" to="/">Favorites</Link>
                  <Link className="dropdown-item" to="/">Profile</Link>
-                 <Link className="dropdown-item" onClick={this.logout} to='/'>Logout</Link>
+                 <Link className="dropdown-item" onClick={this.logout} to='#'>Logout</Link>
                </div>
              </div>
                : 

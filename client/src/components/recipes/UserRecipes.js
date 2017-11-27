@@ -1,19 +1,77 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import Recipe from '../../actions/Recipes';
+import {addRecipe, getUserRecipes, deleteRecipe, editRecipe} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
+import Exclamation from './Exclamation';
+import RecipeModal from './RecipeModal';
+
+
 
 /**
  * @class UserRecipes
  */
-export default class UserRecipes extends Component{
+class UserRecipes extends Component{
 
-    state = {
-      times: [...'Univelcityyy']
-    }
+	constructor(props){
+		super(props);
+		this.state = {
+			name: '',
+			description: '',
+			image: 'hello image',
+			ingredients: [],
+			steps: [],
+      errors: {},
+      categoryId: '',
+      downvotes: [],
+      upvotes:[],
+      userRecipes: []
+		}
+    this.onSubmit = this.onSubmit.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.editRecipe = this.editRecipe.bind(this);
+  }
+  
+
+  componentDidMount(){
+    this.props.getUserRecipes()
+    .then(res => {
+      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
+    })
+  }
+  
+  componenDidUpdate(){
+    this.props.getUserRecipes()
+    .then(res => {
+      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
+    })
+    
+  }
+
+  onSubmit(data){
+    this.props.addRecipe(data)
+    .then(res => {
+      this.setState({userRecipes: [...this.state.userRecipes, res.recipe]})
+    })
+  }
+
+  deleteRecipe(id){
+    this.props.deleteRecipe(id)
+    .then(res => {
+      this.setState({userRecipes: this.state.userRecipes.filter( recipe => recipe.id !== id) })
+    })
+  }
+
+  editRecipe(id, recipe){
+    this.props.editRecipe(id, recipe)
+    .then(res => {
+      this.setState({userRecipes: [...this.state.userRecipes.filter( recipe => recipe.id === id)] })
+    })
+  }
+
 
   /**
    * @memberOf UserRecipes
@@ -41,15 +99,20 @@ export default class UserRecipes extends Component{
           
           <div className="container">
             <div style={{textAlign: 'center', marginTop: 100}}>
-              <a href="" className="auth-button" data-toggle="modal" data-target="#editModal">Add Recipe</a>
+              <a href="" className="auth-button" data-toggle="modal" data-target="#addModal">Add Recipe</a>
               <h4 className='container__myrecipes'>My Recipes</h4><br /><br />
+              <RecipeModal addRecipe={this.onSubmit}/>
             </div>
 
             <div className='row'>
               {
-                this.state.times.map((elem, index) => {
-                return (<RecipeCard key={index}/>)
+                this.state.userRecipes.length > 0
+                ?
+                this.state.userRecipes.reverse().map((elem, index) => {
+                return (<RecipeCard key={index} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
                 })
+                :
+                <Exclamation />
               }
             </div>
           </div>
@@ -60,4 +123,17 @@ export default class UserRecipes extends Component{
     )
   }
 }
+
+/**
+ * mapStateToProps
+ * @param {any} state
+ * @returns {object} object
+ */
+const mapStateToProps = (state) => {
+  return {
+    recipes: state.recipes
+  };
+}
+
+export default connect(mapStateToProps, { addRecipe, getUserRecipes, deleteRecipe, editRecipe })(UserRecipes);
 

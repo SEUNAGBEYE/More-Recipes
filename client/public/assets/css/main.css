@@ -91,6 +91,19 @@ h1,h2, h3, h4, h5, h6 {
     left: -100px!important;
 } */
 
+.center-exclamation{
+    color: orange;
+    font-size: 150px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.exclamation-container{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
 
 .errors{
     color: red;

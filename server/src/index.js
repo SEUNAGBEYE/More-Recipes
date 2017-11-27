@@ -18,6 +18,8 @@ app.use('/api/v1/recipes', recipeRoute);
 
 app.use('/api/v1/users', userRoute);
 
+app.use(express.static(path.join(__dirname, 'client/public')));
+
 db.sequelize.sync().then(() => {
 	app.listen(port, () => {
 	  console.log(`listening to port ${port}`);

@@ -47,8 +47,8 @@ class UserController{
       }
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
-          const {id, email, firstName, lastName } = user
-          const token = jwt.sign({id, email, firstName, lastName }, process.env.SECRET_KEY, {expiresIn: '1h'});
+          const {id: userId, email, firstName, lastName } = user
+          const token = jwt.sign({userId, email, firstName, lastName }, process.env.SECRET_KEY, {expiresIn: '1h'});
           return res.status(200).send(token)
         } 
         return res.status(401).send('Invalid Password or Email')
@@ -111,13 +111,15 @@ class UserController{
   }
 
   static getRecipes(req, res){
-
       db.Recipe.findAll({
         where: {
           userId: req.token.userId
         }
       })
-      .then(recipes => res.status(200).json({status: 'success', data: recipes}))     
+      .then(recipes => {
+        console.log('recipes', req.token, recipes)
+        res.status(200).json({status: 'success', recipes})
+      })    
       .catch(error => res.status(400).json({status: 'fail', message:error.message}));
   }
 

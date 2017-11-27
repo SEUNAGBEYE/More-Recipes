@@ -1,12 +1,35 @@
 import React, { Component } from 'react';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import { pasta, seun } from '../../helpers/Images';
+import { connect } from 'react-redux';
+import {getRecipe} from '../../actions/Recipes';
+import { pastries, seun } from '../../helpers/Images';
 
 /**
  * @class RecipeDetail
  */ 
-export default class RecipeDetail extends Component {
+class RecipeDetail extends Component {
+
+  constructor(props){
+		super(props);
+		this.state = {
+			name: '',
+			description: '',
+			image: 'hello image',
+			ingredients: [],
+			steps: [],
+      errors: {},
+      categoryId: '',
+      downvotes: [],
+      upvotes:[],
+      userRecipes: []
+		}
+  }
+  
+
+  componentDidMount(){
+    this.props.getRecipe(this.props.match.params.id)
+  }
 
   /**
    * @memberOf RecipeDetail
@@ -25,11 +48,11 @@ export default class RecipeDetail extends Component {
           </ul>
 
           <div className="container">
-            <h4 style={{color: 'orange', textAalign: 'center', marginTop: 50}}>Pasta</h4><br /><br />
+            <h4 style={{textAlign: 'center', marginTop: 50}}>{this.props.recipe.name || 'Pasta'}</h4><br /><br />
 
             <div>
               <div className="box">
-                <div className="circle"><img className ="circle" src={pasta} /></div>
+                <div className="circle"><img className ="circle" src={pastries} /></div>
               </div>
               <div className="text-center">
                 <a href="" className="fa fa-star icons"></a>
@@ -46,8 +69,8 @@ export default class RecipeDetail extends Component {
             </div>
             
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
-              <h5>Short Description</h5>
-              Making pasta at home is much easier than most people would imagine. By making your own pasta dough, you have an unlimited number of options available to you to create your own personal pasta dishes. Imagine delicate layers of egg pasta nestled between a spicy tomato sauce and meltingly tender cheese for unforgettable lasagna. Or maybe you do prefer soft pillows of ravioli stuffed with a tasty ricotta and spinach filling. You too can prepare dishes like this, and many others once you learn the basic technique of making your own pasta.
+              <h5>Description</h5>
+              {this.props.recipe.description || 'Making pasta at home is much easier than most people would imagine. By making your own pasta dough, you have an unlimited number of options available to you to create your own personal pasta dishes. Imagine delicate layers of egg pasta nestled between a spicy tomato sauce and meltingly tender cheese for unforgettable lasagna. Or maybe you do prefer soft pillows of ravioli stuffed with a tasty ricotta and spinach filling. You too can prepare dishes like this, and many others once you learn the basic technique of making your own pasta.'}
             </div>
 
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
@@ -66,6 +89,8 @@ export default class RecipeDetail extends Component {
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
               <h5>Steps</h5>
               <ul style={{fontSize: 20}}>
+                { this.props.recipe.steps.map((step, index) => <li key={index}>{step}</li>) || 
+                <div>
                 <li>
                   Egg pasta is super simple ingredient wise: flour, salt, eggs and olive oil. Begin by whisking together 2 cups of flour and 1/2 teaspoon of salt in a large bowl. Make a well in the center of the flour and add three large eggs and one tablespoon of extra virgin olive oil.
                 </li>
@@ -95,6 +120,8 @@ export default class RecipeDetail extends Component {
                 <li>
                   Keep in mind that fresh or fresh-frozen pasta cooks much faster than dried pasta. A quick three- to four-minute boil in lightly salted water is all you need for a plateful of springy, flavorful homemade pasta. The sky's the limit with shapes and flavors, so take this base recipe and make it your own.
                 </li>
+                </div>
+                }
               </ul>
             </div>
 
@@ -154,3 +181,18 @@ export default class RecipeDetail extends Component {
     )
   }
 }
+
+/**
+ * mapStateToProps
+ * @param {any} state
+ * @return {object} object
+ */
+const mapStateToProps = (state, props) => {
+  return {
+    recipe: state.recipes.find((recipe) => recipe.id == props.match.params.id)
+  };
+}
+
+export default connect(mapStateToProps, {getRecipe })(RecipeDetail);
+
+
