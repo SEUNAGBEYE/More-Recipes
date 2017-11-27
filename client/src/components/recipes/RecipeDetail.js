@@ -185,7 +185,7 @@ class RecipeDetail extends Component {
 /**
  * mapStateToProps
  * @param {any} state
- * @returns {object} object
+ * @return {object} object
  */
 const mapStateToProps = (state, props) => {
   return {
@@ -194,3 +194,5 @@ const mapStateToProps = (state, props) => {
 }
 
 export default connect(mapStateToProps, {getRecipe })(RecipeDetail);
+
+

@@ -9,7 +9,7 @@ import webpackConfig from './webpack.config';
 config.config()
 
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(express.static('client/public'));
