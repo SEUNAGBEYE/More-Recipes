@@ -47,7 +47,7 @@ userRoute.route('/signin')
   })
   .post(UserController.signIn)
 
-userRoute.route('/fav-recipes')
+userRoute.route('/fav-recipes/:actionType?')
   .get(authMiddleware, UserController.getFavoriteRecipes)
 
 userRoute.route('/fav-recipes/:id/add')

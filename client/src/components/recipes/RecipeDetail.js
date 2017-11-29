@@ -17,13 +17,14 @@ class RecipeDetail extends Component {
 			description: '',
 			image: 'hello image',
 			ingredients: [],
-			steps: [],
+			steps: this.props.recipe.steps || [],
       errors: {},
       categoryId: '',
       downvotes: [],
       upvotes:[],
       userRecipes: []
-		}
+    }
+    console.log('details props', this.props)
   }
   
 
@@ -89,7 +90,8 @@ class RecipeDetail extends Component {
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
               <h5>Steps</h5>
               <ul style={{fontSize: 20}}>
-                { this.props.recipe.steps.map((step, index) => <li key={index}>{step}</li>) || 
+                {
+                  this.state.steps.map((step, index) => <li key={index}>{step}</li>) || 
                 <div>
                 <li>
                   Egg pasta is super simple ingredient wise: flour, salt, eggs and olive oil. Begin by whisking together 2 cups of flour and 1/2 teaspoon of salt in a large bowl. Make a well in the center of the flour and add three large eggs and one tablespoon of extra virgin olive oil.
@@ -188,11 +190,12 @@ class RecipeDetail extends Component {
  * @return {object} object
  */
 const mapStateToProps = (state, props) => {
+  console.log('state match', state.recipes)
+  // let id = props.match.params.id
   return {
-    recipe: state.recipes.find((recipe) => recipe.id == props.match.params.id)
-  };
+    recipe: state.recipes.find(recipe => recipe.id == props.match.params.id)
+  }
 }
 
 export default connect(mapStateToProps, {getRecipe })(RecipeDetail);
-
 

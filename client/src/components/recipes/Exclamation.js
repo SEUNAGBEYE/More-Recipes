@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function(){
+export default function(props){
   return(
       <div className='text-center exclamation-container'>
-        <p className='text-muted'>Sorry you haven't added any recipe yet, please add to get started</p>
+        {props.children}
         <div className='fa fa-exclamation-circle center-exclamation'></div>
       </div>
   )

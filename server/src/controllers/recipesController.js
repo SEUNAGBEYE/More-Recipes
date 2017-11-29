@@ -25,7 +25,7 @@ class RecipeController {
         ]
       })
       .then(recipes => {
-        return res.status(200).json({status: 'success', data: recipes });
+        return res.status(200).json({status: 'success', recipes });
       })
       .catch(error => res.status(200).json({status: 'fail', error: error.message}));
       
@@ -33,7 +33,7 @@ class RecipeController {
 
       db.Recipe.all()
       .then(recipes => {
-        return res.status(200).json({status: 'success', data: recipes });
+        return res.status(200).json({status: 'success', recipes });
       })
       .catch(error => res.status(200).json({status: 'fail', error: error.message}))
     }
@@ -52,7 +52,7 @@ class RecipeController {
       name: req.body.name,
       image: req.body.image,
       description: req.body.description,
-      steps: req.body.steps,
+      steps: req.body.steps || [],
       userId: req.token.userId
     })
       .then(recipe => res.status(201).json({status: 'success', recipe}))

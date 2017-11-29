@@ -7,7 +7,6 @@ import {editRecipe} from '../../actions/Recipes'
 export default class EditModal  extends Component {
 	constructor(props){
 		super(props);
-		console.log('propss', this.props, props)
 		this.state = {
 			name: this.props.recipe.name ||'',
 			description: this.props.recipe.description ||'',

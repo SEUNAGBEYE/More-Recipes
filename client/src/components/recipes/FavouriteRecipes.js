@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import {addRecipe, getUserRecipes, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import { getFavouritedRecipes, getFavouritedRecipesIds, makeFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -14,7 +14,7 @@ import RecipeModal from './RecipeModal';
 /**
  * @class UserRecipes
  */
-class UserRecipes extends Component{
+class FavoruriteRecipes extends Component{
 
 	constructor(props){
 		super(props);
@@ -28,47 +28,66 @@ class UserRecipes extends Component{
       categoryId: '',
       downvotes: [],
       upvotes:[],
-      userRecipes: []
+      favouritedRecipes: [],
+      favouritedRecipesIds: []
 		}
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
+    this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this)
   }
   
 
   componentDidMount(){
-    this.props.getUserRecipes()
+    this.props.getFavouritedRecipes()
     .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
+      console.log(res)
+      this.setState({favouritedRecipes: [...this.state.favouritedRecipes, ...res.favouriteRecipes]})
     })
+
+    // console.log('component Mounted')
+    // this.props.getFavouritedRecipesIds()
+    // .then(res => {
+		// 	console.log('component Mounted for me', res)
+    //   this.setState({favouritedRecipeId: [...res]})
+    // })
   }
   
-  componenDidUpdate(){
-    this.props.getUserRecipes()
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
-    })
-    
-  }
+  // componenDidUpdate(){
+  //   getFavouritedRecipesIds()
+  //   .then(res => {
+	// 		console.log('component updated', res)
+  //     this.setState({favouritedRecipesIds: [...res]})
+  //   })
+  // }
 
   onSubmit(data){
     this.props.addRecipe(data)
     .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, res.recipe]})
+      this.setState({allRecipes: [...this.state.allRecipes, res.recipe]})
     })
   }
 
   deleteRecipe(id){
     this.props.deleteRecipe(id)
     .then(res => {
-      this.setState({userRecipes: this.state.userRecipes.filter( recipe => recipe.id !== id) })
+      this.setState({allRecipes: this.state.allRecipes.filter( recipe => recipe.id !== id) })
     })
   }
+
+	makeFavouriteRecipe(id){
+		makeFavouriteRecipe(id)
+		.then(res => {
+			console.log('alldata',res.data.favouritedRecipesId
+    )
+      this.setState({favouritedRecipesIds: [...res.data.favouritedRecipesId]})
+    })
+	}
 
   editRecipe(id, recipe){
     this.props.editRecipe(id, recipe)
     .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes.filter( recipe => recipe.id === id)] })
+      this.setState({allRecipes: [...this.state.allRecipes.filter( recipe => recipe.id === id)] })
     })
   }
 
@@ -99,21 +118,27 @@ class UserRecipes extends Component{
           
           <div className="container">
             <div style={{textAlign: 'center', marginTop: 100}}>
-              <a href="" className="auth-button" data-toggle="modal" data-target="#addModal">Add Recipe</a>
-              <h4 className='container__myrecipes'>My Recipes</h4><br /><br />
+              <h4 className='container__myrecipes'>Favourite Recipes</h4><br /><br />
               <RecipeModal addRecipe={this.onSubmit}/>
             </div>
 
             <div className='row'>
               {
-                this.state.userRecipes.length > 0
+                this.state.favouritedRecipes.length > 0
                 ?
-                this.state.userRecipes.reverse().map((elem, index) => {
-                return (<RecipeCard key={index} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
+                this.state.favouritedRecipes.reverse().map((elem, index) => {
+                return (<RecipeCard key={index} 
+                user={this.props.user}
+                recipe={elem}
+                id={elem.id} 
+                onDelete={this.deleteRecipe} 
+                editRecipe={this.editRecipe} 
+                makeFavouriteRecipe={this.makeFavouriteRecipe}
+                />)
                 })
                 :
                 <Exclamation>
-                  <p className='text-muted'>Sorry you haven't added any recipe yet, please add to get started</p>
+                  <p className='text-muted text-center'>Sorry you have not favourited any recipe yet!</p>
                 </Exclamation>
               }
             </div>
@@ -133,10 +158,9 @@ class UserRecipes extends Component{
  */
 const mapStateToProps = (state) => {
   return {
-    recipes: state.recipes,
-    user: state.auth.user
+    // favouritedRecipes: state.auth.user.favouriteRecipes
   };
 }
 
-export default connect(mapStateToProps, { addRecipe, getUserRecipes, deleteRecipe, editRecipe })(UserRecipes);
+export default connect(mapStateToProps, { getFavouritedRecipes, getFavouritedRecipesIds, makeFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(FavoruriteRecipes);
 
