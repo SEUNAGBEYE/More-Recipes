@@ -4,8 +4,9 @@ import isEmpty from 'lodash/isEmpty';
 const initialState = {
   isAuthenticated: false,
   user: {},
-  userFavouritedRecipeId: [],
-  favoriteRecipes: []
+  userFavouritedRecipeId: '',
+  favouriteRecipes: '',
+  favouritedRecipesCount: ''
 };
 
 export default (state = initialState, action = {}) => {
@@ -14,7 +15,7 @@ export default (state = initialState, action = {}) => {
       return {
         isAuthenticated: !isEmpty(action.user),
         user: action.user,
-        userFavouritedRecipeId: !isEmpty(action.user) ? [...action.user.favoriteRecipe] : []
+        userFavouritedRecipeId: !isEmpty(action.user && action.user.favoriteRecipe) ? [...action.user.favoriteRecipe] : []
       };
     
     case 'MAKE_FAVOURITE_RECIPE':
@@ -27,16 +28,19 @@ export default (state = initialState, action = {}) => {
         }
       }
 
-    case 'GET_FAVOURITED_RECIPED':
-      console.log('fav here too')
+    case 'GET_FAVOURITED_RECIPES':
+      let {favouriteRecipes, favouritedRecipesCount} = action
+      console.log('fav here too', action.favouriteRecipes, action.favouritedRecipesCount)
       return {...state, ...{
-        favouritedRecipes: [...state.favoriteRecipes, ...action.favoriteRecipes]
+        favouriteRecipes: [...state.favouriteRecipes, ...action.favouriteRecipes],
+        favouritedRecipesCount: action.favouritedRecipesCount
         }
       }
     
     case 'GET_USER_FAVOURITED_RECIPES_ID':
-      return { ...state, ...favouritedRecipesIds}
-      
+    let { favouritedRecipesIds: userFavouritedRecipeId}  = action
+      return {...state, ...{userFavouritedRecipeId}}
+     
     default: return state;
   }
 };

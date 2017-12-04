@@ -21,7 +21,7 @@ class AllRecipes extends Component{
 		this.state = {
 			name: '',
 			description: '',
-			image: 'hello image',
+			image: '',
 			ingredients: [],
 			steps: [],
       errors: {},
@@ -35,30 +35,27 @@ class AllRecipes extends Component{
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this)
+    this.paginateRecipes = this.paginateRecipes.bind(this)
   }
   
 
   componentDidMount(){
-    this.props.allRecipes()
-    .then(res => {
-      this.setState({allRecipes: [...this.state.allRecipes, ...res.allRecipes]})
-    });
+    this.paginateRecipes(0)
 
-    // console.log('component Mounted')
-    // this.props.getFavouritedRecipesIds()
-    // .then(res => {
-		// 	console.log('component Mounted for me', res)
-    //   this.setState({favouritedRecipeId: [...res]})
-    // })
+    this.props.getFavouritedRecipesIds()
+    .then(res => {
+			console.log('component Mounted for me', res)
+      this.setState({favouritedRecipeIds: [...res.favouritedRecipesIds]})
+    })
+  }
+
+  paginateRecipes(page){
+    this.props.allRecipes(page)
+    .then(res => {
+      this.setState({allRecipes: [...res.allRecipes]})
+    });
   }
   
-  // componenDidUpdate(){
-  //   getFavouritedRecipesIds()
-  //   .then(res => {
-	// 		console.log('component updated', res)
-  //     this.setState({favouritedRecipesIds: [...res]})
-  //   })
-  // }
 
   onSubmit(data){
     this.props.addRecipe(data)
@@ -125,7 +122,7 @@ class AllRecipes extends Component{
               {
                 this.state.allRecipes.length > 0
                 ?
-                this.state.allRecipes.reverse().map((elem, index) => {
+                this.state.allRecipes.map((elem, index) => {
                 return (<RecipeCard key={index} 
                 user={this.props.user}
                 recipe={elem}
@@ -133,6 +130,7 @@ class AllRecipes extends Component{
                 onDelete={this.deleteRecipe} 
                 editRecipe={this.editRecipe} 
                 makeFavouriteRecipe={this.makeFavouriteRecipe}
+                favouritedRecipeIds={ this.state.favouritedRecipeIds}
                 />)
                 })
                 :
@@ -143,7 +141,7 @@ class AllRecipes extends Component{
             </div>
           </div>
         </main>
-        <Pagination />
+        <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
         <Footer />
       </div>
     )
@@ -157,8 +155,10 @@ class AllRecipes extends Component{
  */
 const mapStateToProps = (state) => {
   return {
-    recipes: state.recipes,
-    user: state.auth.user
+    recipes: state.recipes.allRecipes,
+    recipesCount: state.recipes.recipesCount,
+    user: state.auth.user,
+    favouritedRecipesIds: state.auth.userFavouritedRecipeId || []
   };
 }
 

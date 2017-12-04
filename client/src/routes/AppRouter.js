@@ -8,6 +8,7 @@ import RecipeDetail from '../components/recipes/RecipeDetail';
 import FavouriteRecipes from '../components/recipes/FavouriteRecipes';
 import UserRecipes from '../components/recipes/UserRecipes';
 import AllRecipes from '../components/recipes/AllRecipes';
+import UserProfile from '../components/UserProfile';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import NotFoundPage from '../components/common/NotFoundPage';
@@ -26,6 +27,7 @@ const AppRouter = () => {
           <Route path='/recipe/:id' component={RecipeDetail}/>
           <Route path='/my_recipes' component={UserRecipes}/>
           <Route path='/my_favourites' component={FavouriteRecipes}/>
+          <Route path='/profile' component={UserProfile}/>
           <Route path='/recipes' component={AllRecipes}/>
           {<Route component={NotFoundPage}/>}
         </Switch>

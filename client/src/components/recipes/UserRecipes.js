@@ -21,7 +21,7 @@ class UserRecipes extends Component{
 		this.state = {
 			name: '',
 			description: '',
-			image: 'hello image',
+			image: '',
 			ingredients: [],
 			steps: [],
       errors: {},
@@ -109,6 +109,7 @@ class UserRecipes extends Component{
                 this.state.userRecipes.length > 0
                 ?
                 this.state.userRecipes.reverse().map((elem, index) => {
+                  console.log('element', elem)
                 return (<RecipeCard key={index} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
                 })
                 :

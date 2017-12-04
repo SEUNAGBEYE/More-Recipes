@@ -44,17 +44,19 @@ export function favouritedRecipesIdsAction(favouritedRecipesIds){
   }
 }
 
-export function favouritedRecipesAction(favouriteRecipes){
+export function favouritedRecipesAction(favouriteRecipes, favouritedRecipesCount){
   return {
     type: 'GET_FAVOURITED_RECIPES',
-    favouriteRecipes
+    favouriteRecipes,
+    favouritedRecipesCount
   }
 }
 
-export function allRecipesAction(allRecipes){
+export function allRecipesAction(allRecipes, recipesCount){
   return {
     type: 'GET_RECIPES',
-    allRecipes
+    allRecipes,
+    recipesCount
   }
 }
 
@@ -66,12 +68,15 @@ export function makeFavouriteRecipeAction(userFavouritedRecipeId){
 }
 
 
-export function allRecipes(){
+export function allRecipes(page){
+  console.log('recipes', page)
   return (dispatch) => {
-      return axios.get('/api/v1/recipes')
+      return axios.get(`/api/v1/recipes?limit=8&page=${page}`)
       .then(res => {
-        let allRecipes = res.data.recipes
-        return dispatch(allRecipesAction(allRecipes))
+        
+        const { recipes: allRecipes, recipesCount} = res.data
+        console.log('recipes', allRecipes)
+        return dispatch(allRecipesAction(allRecipes, recipesCount))
       })
     .catch(error => console.log(error));
   }
@@ -79,31 +84,35 @@ export function allRecipes(){
 
 export function getFavouritedRecipesIds(){
     return (dispatch) => {
-      return axios.get('/api/v1/users/fav-recipes/getIds')
+      return axios.get('api/v1/users/fav-recipes/getIds')
       .then(res => {
-        let favouriteRecipes = res.data.favouriteRecipes
-        return dispatch(favouritedRecipesAction({favouriteRecipes}))
+        let favouritedRecipesIds = res.data.favouritedRecipesIds
+        return dispatch(favouritedRecipesIdsAction(favouritedRecipesIds))
       })
       .catch(error => console.log(error))
     }
 }
 
-export function getFavouritedRecipes(){
+export function getFavouritedRecipes(page){
+  console.log('fav', page)
   return (dispatch) => {
-    return axios.get('/api/v1/users/fav-recipes')
+    return axios.get(`/api/v1/users/fav-recipes?limit=8&page=${page}`)
     .then(res => {
-      let favouritedRecipes = res.data.favouritedRecipes
-      return dispatch(favouritedRecipesAction(favouritedRecipes))
+      console.log('res', res)
+      let {favouritedRecipes, favouritedRecipesCount} = res.data
+      return dispatch(favouritedRecipesAction(favouritedRecipes, favouritedRecipesCount))
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error.message))
   }
 }
 
 export function addRecipe(data){
   return (dispatch) => {
+    console.log(data, 'data')
     return axios.post('api/v1/recipes', data)
     .then(res => {
       const recipe = res.data.recipe
+      console.log('recipeeeeeeeeeeeeeeeeeeeeeeeee', recipe)
       toastr.success('Recipe Added', 'Success')
       return dispatch(setRecipe(recipe)) 
     })
@@ -185,6 +194,7 @@ export function getUserRecipes(){
     return axios.get('api/v1/users/myrecipes')
     .then(res => {
       const recipes = res.data.recipes
+      console.log(recipes, 'user recipesssssssssssssssssssssssss')
       return dispatch(userRecipes(recipes))
     })
     .catch(error => {

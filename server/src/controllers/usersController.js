@@ -48,7 +48,7 @@ class UserController{
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
           const {id: userId, email, firstName, lastName, favoriteRecipe, } = user
-          const token = jwt.sign({userId, email, firstName, lastName, favoriteRecipe }, process.env.SECRET_KEY, {expiresIn: '1h'});
+          const token = jwt.sign({userId, email, firstName, lastName, favoriteRecipe }, process.env.SECRET_KEY, {expiresIn: 86400});
           return res.status(200).send(token)
         } 
         return res.status(401).send('Invalid Password or Email')
@@ -71,15 +71,25 @@ class UserController{
     console.log('i got here wrongly')
     db.User.findById(req.token.userId)
     .then(user => {
-      db.Recipe.findAll({
-        where: {
-          id: {
-            [db.Sequelize.Op.in]: user.favoriteRecipe
-          }
-        }
-      })
-      .then(recipes => res.status(200).json({message: 'success', favouritedRecipes: recipes}))
-      .catch(error => res.status(404).send('No favorited Recipes Yet, Please Add Some!!!'))    
+      db.Recipe.findAndCountAll()
+      .then(recipesWithCount => {
+        db.Recipe.findAll({
+          where: {
+            id: {
+              [db.Sequelize.Op.in]: user.favoriteRecipe
+            }
+          },
+          order: [ [ 'createdAt', 'DESC' ]],
+          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page: 0,
+          limit: req.query.limit
+        })
+        .then(recipes => {
+          let remainder = recipesWithCount.count%req.query.limit === 0 ? 0 : 1 
+          let page = Math.floor(recipesWithCount.count/req.query.limit) + remainder
+          res.status(200).json({status: 'success', favouritedRecipes: recipes, favouritedRecipesCount:  page})
+        })
+        .catch(error => res.status(404).json({status: 'fail', error: error.message}))
+      })   
     })
     .catch(error => res.status(400).send(error))
   }

@@ -14,6 +14,7 @@ class RecipeController {
  */
   static allRecipe(req, res) {
     const sortBy = req.query.sort;
+    console.log(parseInt(req.query.page) === 1)
 
     if (sortBy) {
       const orderBy = req.query.order.toUpperCase()
@@ -22,7 +23,9 @@ class RecipeController {
       db.Recipe.findAll({
         order: [ 
           [sortBy, orderBy]
-        ]
+        ],
+        offset: parseInt(req.query.page) === 1 ? 0: req.query.limit * req.query.page,
+        limit: req.query.limit
       })
       .then(recipes => {
         return res.status(200).json({status: 'success', recipes });
@@ -31,11 +34,21 @@ class RecipeController {
       
     } else {
 
-      db.Recipe.all()
-      .then(recipes => {
-        return res.status(200).json({status: 'success', recipes });
-      })
-      .catch(error => res.status(200).json({status: 'fail', error: error.message}))
+      db.Recipe.findAndCountAll()
+      .then(recipesWithCount => {
+        db.Recipe.findAll({
+          order: [ [ 'createdAt', 'DESC' ]],
+          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page: 0,
+          limit: req.query.limit
+        })
+        .then(recipes => {
+          let remainder = recipesWithCount.count%req.query.limit === 0 ? 0 : 1 
+          let page = Math.floor(recipesWithCount.count/req.query.limit) + remainder
+          // recipes = recipes.reverse();
+          res.status(200).json({status: 'success', recipes, recipesCount:  page})
+        })
+        .catch(error => res.status(200).json({status: 'fail', error: error.message}))
+      }) 
     }
   }
 
@@ -46,11 +59,10 @@ class RecipeController {
   * @returns {null} json
   */
   static addRecipe(req, res) {
-
     return db.Recipe.create({
       id: req.body.id,
       name: req.body.name,
-      image: req.body.image,
+      image: req.body.image || '',
       description: req.body.description,
       steps: req.body.steps || [],
       userId: req.token.userId

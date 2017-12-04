@@ -9,7 +9,10 @@ import isEmpty from 'lodash/isEmpty';
 //   steps: []
 // }];
 
-const initialState = []
+const initialState = {
+  allRecipes: [],
+  recipesCount: ''
+}
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -24,7 +27,8 @@ export default (state = initialState, action = {}) => {
       return [...state, ...action.recipes];
 
     case 'GET_RECIPES':
-      return [...state, ...action.allRecipes];
+      const {allRecipes, recipesCount} = action
+      return {...state, ...{allRecipes, recipesCount}};
 
     case 'DELETE_RECIPE':
       return state.filter(recipe => recipe.id !== action.id);

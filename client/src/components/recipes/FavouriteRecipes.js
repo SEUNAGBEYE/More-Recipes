@@ -35,15 +35,31 @@ class FavoruriteRecipes extends Component{
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this)
+    this.paginateRecipes = this.paginateRecipes.bind(this)
   }
   
 
-  componentDidMount(){
-    this.props.getFavouritedRecipes()
-    .then(res => {
-      console.log(res)
-      this.setState({favouritedRecipes: [...this.state.favouritedRecipes, ...res.favouriteRecipes]})
-    })
+  // componentDidMount(){
+  //   this.props.getFavouritedRecipes()
+  //   .then(res => {
+  //     console.log(res)
+  //     this.setState({favouritedRecipes: [...this.state.favouritedRecipes, ...res.favouriteRecipes]})
+  //   })
+  // }
+
+    componentDidMount(){
+      this.paginateRecipes(0)
+    }
+  
+    paginateRecipes(page){
+      this.props.getFavouritedRecipes(page)
+      .then(res => {
+        console.log('component Mounted for me', res)
+        this.setState({favouritedRecipes: [...res.favouriteRecipes]})
+      })
+    }
+
+    
 
     // console.log('component Mounted')
     // this.props.getFavouritedRecipesIds()
@@ -51,7 +67,7 @@ class FavoruriteRecipes extends Component{
 		// 	console.log('component Mounted for me', res)
     //   this.setState({favouritedRecipeId: [...res]})
     // })
-  }
+  // }
   
   // componenDidUpdate(){
   //   getFavouritedRecipesIds()
@@ -78,8 +94,7 @@ class FavoruriteRecipes extends Component{
 	makeFavouriteRecipe(id){
 		makeFavouriteRecipe(id)
 		.then(res => {
-			console.log('alldata',res.data.favouritedRecipesId
-    )
+			console.log('alldata',res.data.favouritedRecipesId)
       this.setState({favouritedRecipesIds: [...res.data.favouritedRecipesId]})
     })
 	}
@@ -144,7 +159,7 @@ class FavoruriteRecipes extends Component{
             </div>
           </div>
         </main>
-        <Pagination />
+        <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
         <Footer />
       </div>
     )
@@ -158,7 +173,7 @@ class FavoruriteRecipes extends Component{
  */
 const mapStateToProps = (state) => {
   return {
-    // favouritedRecipes: state.auth.user.favouriteRecipes
+    recipesCount: state.recipes.recipesCount,
   };
 }
 

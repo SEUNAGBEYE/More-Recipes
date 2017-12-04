@@ -52,7 +52,7 @@ class Navbar extends React.Component {
                  <Link className="dropdown-item" to="/recipes">All Recipes</Link>
                  <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
                  <Link className="dropdown-item" to="/my_favourites">Favourites</Link>
-                 <Link className="dropdown-item" to="/">Profile</Link>
+                 <Link className="dropdown-item" to="/profile">Profile</Link>
                  <Link className="dropdown-item" onClick={this.logout} to='#'>Logout</Link>
                </div>
              </div>

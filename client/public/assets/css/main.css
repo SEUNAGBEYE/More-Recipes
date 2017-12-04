@@ -59,6 +59,41 @@ h1,h2, h3, h4, h5, h6 {
     height: 150px;
 }
 
+.card-title{
+	color: orange;
+	margin: 10px;
+}
+
+.recipe-icons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+}
+
+.page-link-active{
+    color: white!important; 
+    background: orange!important; 
+    border-color: orange!important;
+}
+
+.card-text{
+    height: 80px;
+    color: black;
+    margin: 0 0 25px 0;
+}
+
+.card{
+    height: 100%;
+	margin: 0 10px 0 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.my-card{
+    margin-bottom: 15px;
+}
+
 
 #search-button{
     margin: 0 40px 4px 5px;
@@ -190,6 +225,11 @@ h1,h2, h3, h4, h5, h6 {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+}
+
+.profile-picture{
+    width:100%;
+    height: 200px;
 }
 
 #edit-profile {

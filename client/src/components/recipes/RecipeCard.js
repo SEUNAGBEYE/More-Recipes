@@ -25,7 +25,7 @@ class RecipeCard extends Component{
 			toggleHeart: true,
 			toggleThumbsUp: true,
 			toggleThumbsDown: true,
-			favouritedRecipeId: this.props.userFavouritedRecipeId || this.props.user.favoriteRecipe
+			favouritedRecipeId: this.props.favouritedRecipeIds || this.props.user.favoriteRecipe || []
 		}
 
 	}
@@ -34,15 +34,6 @@ class RecipeCard extends Component{
 		event.preventDefault();
 		this.props.makeFavouriteRecipe(event.target.id)
 	}
-
-	// componenDidMount(){
-	// 	console.log('component Mounted')
-  //   getFavouritedRecipesIds()
-  //   .then(res => {
-	// 		console.log('component Mounted for me', res)
-  //     this.setState({favouritedRecipeId: [...res]})
-  //   })
-  // }
 		
   // componentWillReceiveProps(nextProps){
 	// 	if(this.props != nextProps){
@@ -83,22 +74,22 @@ class RecipeCard extends Component{
     return (
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
 					<Link to={`/recipe/${this.props.id}`}>
-					<div className="card">
-					  	<img className="card-img-top" src={pasta} alt="Card image cap" />
+					<div className="card recipe-card">
+					  	<img className="card-img-top" src={this.props.recipe.image || pasta} alt="Card image cap" />
 						<div className="container">
 							<div className="card-block">
-					    		<h4 className="card-title">{this.props.recipe.name}</h4>
-					    		<p className="card-text">{this.props.recipe.description || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
+					    		<h4 className="card-title">{this.props.recipe.name.slice(0, 20)}</h4>
+					    		<p className="card-text">{this.props.recipe.description.slice(0, 90) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
 				
 										{ this.props.recipe.userId === this.props.user.userId
 											?
-											<div className="d-flex justify-content-between">
+											<div className="d-flex justify-content-between recipe-icons">
 												<Link to="/" className="fa fa-eye icons">10</Link>
 												<Link to="/" className="fa fa-pencil icons" data-toggle="modal" data-target={`#editModal${this.props.id}`}></Link>
 												<Link to="/" className="fa fa-trash icons" data-toggle="modal" data-target={`#deleteModal${this.props.id}`}></Link>
 											</div>
 											:
-											<div className="d-flex justify-content-between">
+											<div className="d-flex justify-content-between recipe-icons">
 						
 												{ this.state.toggleThumbsDown ?
 												<Link to="/"><i className="fa fa-thumbs-o-down icons" onClick={this.thumbsdownRecipe} id={this.props.recipe.id} style={{color:'black'}}>{this.props.recipe.downvotes ? this.props.recipe.downvotes.length : 0}</i></Link>
@@ -140,10 +131,10 @@ class RecipeCard extends Component{
 const mapStateToProps = (state) => {
   return {
 		user: state.auth.user,
-		favouritedRecipesIds: state.auth.user.favouritedRecipesIds || []
+		favouritedRecipesIds: state.auth.userFavouritedRecipeId || []
   };
 }
 
-export default connect(mapStateToProps, { makeFavouriteRecipe})(RecipeCard)
+export default connect(mapStateToProps, { makeFavouriteRecipe, getFavouritedRecipesIds})(RecipeCard)
 
 
