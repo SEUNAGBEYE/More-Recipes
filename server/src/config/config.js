@@ -1,7 +1,7 @@
 export default {
   development: {
-    username: "root",
-    password: "password",
+    username: "SeunAgbeye",
+    password: "",
     database: "more_recipes",
     host: "127.0.0.1",
     port: 5432,
@@ -9,8 +9,8 @@ export default {
     dialect: "postgres"
   },
   test: {
-    username: "root",
-    password: "password",
+    username: "seun",
+    password: "",
     database: "more_recipes_test",
     host: "127.0.0.1",
     port: 5432,

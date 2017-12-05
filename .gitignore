@@ -6,3 +6,4 @@ coverage
 build
 server/dist
 servergitignore
+.DS_STORE
