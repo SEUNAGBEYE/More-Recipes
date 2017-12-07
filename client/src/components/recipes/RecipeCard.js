@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux';
+import classnames from 'classnames'
 import Recipe from '../../actions/Recipes';
 import { pasta, seun } from '../../helpers/Images';
 import RecipeModal from './RecipeModal';
 import DeleteModal from './DeleteModal';
 import {editRecipe} from '../../actions/Recipes'
 import EditModal from './EditModal';
-import { getFavouritedRecipesIds, makeFavouriteRecipe } from '../../actions/Recipes';
+import { getFavouritedRecipesIds, toggleFavouriteRecipe } from '../../actions/Recipes';
 
 
 /**
@@ -17,7 +18,7 @@ class RecipeCard extends Component{
 
 	constructor(props){
 		super(props)
-		this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this);
+		this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
 		this.thumbsdownRecipe = this.thumbsdownRecipe.bind(this);
 		this.thumbsUpRecipe = this.thumbsUpRecipe.bind(this);
 
@@ -25,52 +26,34 @@ class RecipeCard extends Component{
 			toggleHeart: true,
 			toggleThumbsUp: true,
 			toggleThumbsDown: true,
-			favouritedRecipeId: this.props.favouritedRecipeIds || this.props.user.favoriteRecipe || []
+			favouritedRecipeIds: []
 		}
 
 	}
 
-	makeFavouriteRecipe(event){
+	toggleFavouriteRecipe(event){
 		event.preventDefault();
-		this.props.makeFavouriteRecipe(event.target.id)
+		this.props.toggleFavouriteRecipe(parseInt(event.target.id))
 	}
-		
-  // componentWillReceiveProps(nextProps){
-	// 	if(this.props != nextProps){
-	// 		console.log('componentWillReceiveProps Afterprops', this.props.favouritedRecipesIds)
-	// 		this.setState({favouritedRecipesIds: [...this.props.favouritedRecipesIds]})
-	// 	}
-	// }
-
-
-
-  // componenDidUpdate(){
-  //   getFavouritedRecipesIds()
-  //   .then(res => {
-	// 		console.log('mounted', res)
-  //     this.setState({favouritedRecipesIds: [...res]})
-  //   })
-  // }
 
 	thumbsUpRecipe(event){
 		event.preventDefault();
-		console.log('event', event)
 		this.setState({toggleThumbsUp: !this.state.toggleThumbsUp})
 			// this.makeFavouriteRecipe(event.target.id)
 	}
 
 	thumbsdownRecipe(event){
-		event.preventDefault();
-		console.log('event', event)
 		this.setState({toggleThumbsDown: !this.state.toggleThumbsDown})
 			// this.makeFavouriteRecipe(event.target.id)
 	}
+
 
   /**
    * @memberOf RecipeCard
    * return {object} object
    */
   render(){
+    const isFavorited = this.props.myFavs.includes(parseInt(this.props.recipe.id));
     return (
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
 					<Link to={`/recipe/${this.props.id}`}>
@@ -103,11 +86,15 @@ class RecipeCard extends Component{
 												<Link to="/"><i className="fa fa-thumbs-up icons" onClick={this.thumbsUpRecipe} id={this.props.recipe.id}>{this.props.recipe.upvotes ? this.props.recipe.upvotes.length : 0}</i></Link>
 												}
 
-												{!this.state.favouritedRecipeId.includes(this.props.recipe.id) ?
-												<Link to="/"><i className="fa fa-heart-o icons" onClick={this.makeFavouriteRecipe} id={this.props.recipe.id} style={{color:'black'}}></i></Link>
-												:
-												<Link to="/"><i className="fa fa-heart icons" onClick={this.makeFavouriteRecipe} id={this.props.recipe.id}></i></Link> 
-												}
+                        <Link
+                         to="/">
+                         <i 
+                         className={classnames("fa icons",
+                         {"fa-heart-o text-black": !isFavorited, 
+                          "fa-heart text-warning": isFavorited })} 
+                         onClick={this.toggleFavouriteRecipe} 
+                         id={this.props.recipe.id}></i></Link>
+												
 											</div>
 										}
 			
@@ -131,10 +118,10 @@ class RecipeCard extends Component{
 const mapStateToProps = (state) => {
   return {
 		user: state.auth.user,
-		favouritedRecipesIds: state.auth.userFavouritedRecipeId || []
+		myFavs: state.recipes.userFavouritedRecipeId || []
   };
 }
 
-export default connect(mapStateToProps, { makeFavouriteRecipe, getFavouritedRecipesIds})(RecipeCard)
+export default connect(mapStateToProps, { toggleFavouriteRecipe, getFavouritedRecipesIds})(RecipeCard)
 
 

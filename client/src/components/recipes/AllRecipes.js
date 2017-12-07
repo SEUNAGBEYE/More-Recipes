@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import { getFavouritedRecipesIds, makeFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -18,23 +18,11 @@ class AllRecipes extends Component{
 
 	constructor(props){
 		super(props);
-		this.state = {
-			name: '',
-			description: '',
-			image: '',
-			ingredients: [],
-			steps: [],
-      errors: {},
-      categoryId: '',
-      downvotes: [],
-      upvotes:[],
-      allRecipes: [],
-      favouritedRecipesIds: []
-		}
+
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
-    this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this)
+    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this)
     this.paginateRecipes = this.paginateRecipes.bind(this)
   }
   
@@ -44,7 +32,6 @@ class AllRecipes extends Component{
 
     this.props.getFavouritedRecipesIds()
     .then(res => {
-			console.log('component Mounted for me', res)
       this.setState({favouritedRecipeIds: [...res.favouritedRecipesIds]})
     })
   }
@@ -71,8 +58,8 @@ class AllRecipes extends Component{
     })
   }
 
-	makeFavouriteRecipe(id){
-		makeFavouriteRecipe(id)
+	toggleFavouriteRecipe(id){
+		toggleFavouriteRecipe(id)
 		.then(res => {
 			console.log('alldata',res.data.favouritedRecipesId
     )
@@ -103,11 +90,11 @@ class AllRecipes extends Component{
               <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
               </button>
               <div className="dropdown-menu" aria-labelledby="about-us">
-                <a className="dropdown-item" href="recipes.html">Dessert</a>
-                <a className="dropdown-item" href="my_recipes.html">Pasta</a>
-                <a className="dropdown-item" href="favourite_recipe.html">Fries</a>
-                <a className="dropdown-item" href="#">Chinese</a>
-                <a className="dropdown-item" href="index.html">Africa</a>
+                <Link className="dropdown-item" to="recipes.html">Dessert</Link>
+                <Link className="dropdown-item" to="my_recipes.html">Pasta</Link>
+                <Link className="dropdown-item" to="favourite_recipe.html">Fries</Link>
+                <Link className="dropdown-item" to="#">Chinese</Link>
+                <Link className="dropdown-item" to="index.html">Africa</Link>
               </div>
             </div>
           </div>
@@ -120,17 +107,16 @@ class AllRecipes extends Component{
 
             <div className='row'>
               {
-                this.state.allRecipes.length > 0
+                this.props.recipes.length > 0
                 ?
-                this.state.allRecipes.map((elem, index) => {
-                return (<RecipeCard key={index} 
+                this.props.recipes.map((elem, index) => {
+                return (<RecipeCard key={elem.id} 
                 user={this.props.user}
                 recipe={elem}
                 id={elem.id} 
                 onDelete={this.deleteRecipe} 
                 editRecipe={this.editRecipe} 
-                makeFavouriteRecipe={this.makeFavouriteRecipe}
-                favouritedRecipeIds={ this.state.favouritedRecipeIds}
+                toggleFavouriteRecipe={this.toggleFavouriteRecipe}
                 />)
                 })
                 :
@@ -157,10 +143,9 @@ const mapStateToProps = (state) => {
   return {
     recipes: state.recipes.allRecipes,
     recipesCount: state.recipes.recipesCount,
-    user: state.auth.user,
-    favouritedRecipesIds: state.auth.userFavouritedRecipeId || []
+    user: state.auth.user
   };
 }
 
-export default connect(mapStateToProps, {getFavouritedRecipesIds, makeFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(AllRecipes);
+export default connect(mapStateToProps, {getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(AllRecipes);
 

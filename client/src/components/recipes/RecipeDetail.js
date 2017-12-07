@@ -15,7 +15,7 @@ class RecipeDetail extends Component {
 		this.state = {
 			name: '',
 			description: '',
-			image: 'hello image',
+			image: '',
 			ingredients: [],
 			steps: this.props.recipe.steps || [],
       errors: {},
@@ -24,7 +24,6 @@ class RecipeDetail extends Component {
       upvotes:[],
       userRecipes: []
     }
-    console.log('details props', this.props)
   }
   
 
@@ -53,7 +52,7 @@ class RecipeDetail extends Component {
 
             <div>
               <div className="box">
-                <div className="circle"><img className ="circle" src={pastries} /></div>
+                <div className="circle"><img className ="circle" src={this.props.recipe.image} /></div>
               </div>
               <div className="text-center">
                 <a href="" className="fa fa-star icons"></a>
@@ -190,10 +189,10 @@ class RecipeDetail extends Component {
  * @return {object} object
  */
 const mapStateToProps = (state, props) => {
-  console.log('state match', state.recipes)
+  console.log('state match', state)
   // let id = props.match.params.id
   return {
-    recipe: state.recipes.find(recipe => recipe.id == props.match.params.id)
+    recipe: state.recipes
   }
 }
 

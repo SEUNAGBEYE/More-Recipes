@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import { getFavouritedRecipes, getFavouritedRecipesIds, makeFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import { getFavouritedRecipes, getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -34,18 +34,10 @@ class FavoruriteRecipes extends Component{
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
-    this.makeFavouriteRecipe = this.makeFavouriteRecipe.bind(this)
+    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this)
     this.paginateRecipes = this.paginateRecipes.bind(this)
   }
   
-
-  // componentDidMount(){
-  //   this.props.getFavouritedRecipes()
-  //   .then(res => {
-  //     console.log(res)
-  //     this.setState({favouritedRecipes: [...this.state.favouritedRecipes, ...res.favouriteRecipes]})
-  //   })
-  // }
 
     componentDidMount(){
       this.paginateRecipes(0)
@@ -54,28 +46,14 @@ class FavoruriteRecipes extends Component{
     paginateRecipes(page){
       this.props.getFavouritedRecipes(page)
       .then(res => {
-        console.log('component Mounted for me', res)
         this.setState({favouritedRecipes: [...res.favouriteRecipes]})
       })
+      
+      this.props.getFavouritedRecipesIds()
+
     }
 
     
-
-    // console.log('component Mounted')
-    // this.props.getFavouritedRecipesIds()
-    // .then(res => {
-		// 	console.log('component Mounted for me', res)
-    //   this.setState({favouritedRecipeId: [...res]})
-    // })
-  // }
-  
-  // componenDidUpdate(){
-  //   getFavouritedRecipesIds()
-  //   .then(res => {
-	// 		console.log('component updated', res)
-  //     this.setState({favouritedRecipesIds: [...res]})
-  //   })
-  // }
 
   onSubmit(data){
     this.props.addRecipe(data)
@@ -91,10 +69,9 @@ class FavoruriteRecipes extends Component{
     })
   }
 
-	makeFavouriteRecipe(id){
-		makeFavouriteRecipe(id)
+	toggleFavouriteRecipe(id){
+		toggleFavouriteRecipe(id)
 		.then(res => {
-			console.log('alldata',res.data.favouritedRecipesId)
       this.setState({favouritedRecipesIds: [...res.data.favouritedRecipesId]})
     })
 	}
@@ -122,11 +99,11 @@ class FavoruriteRecipes extends Component{
               <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
               </button>
               <div className="dropdown-menu" aria-labelledby="about-us">
-                <a className="dropdown-item" href="recipes.html">Dessert</a>
-                <a className="dropdown-item" href="my_recipes.html">Pasta</a>
-                <a className="dropdown-item" href="favourite_recipe.html">Fries</a>
-                <a className="dropdown-item" href="#">Chinese</a>
-                <a className="dropdown-item" href="index.html">Africa</a>
+              <Link className="dropdown-item" to="recipes.html">Dessert</Link>
+              <Link className="dropdown-item" to="my_recipes.html">Pasta</Link>
+              <Link className="dropdown-item" to="favourite_recipe.html">Fries</Link>
+              <Link className="dropdown-item" to="#">Chinese</Link>
+              <Link className="dropdown-item" to="index.html">Africa</Link>
               </div>
             </div>
           </div>
@@ -141,14 +118,14 @@ class FavoruriteRecipes extends Component{
               {
                 this.state.favouritedRecipes.length > 0
                 ?
-                this.state.favouritedRecipes.reverse().map((elem, index) => {
+                this.props.favouritedRecipes.map((elem, index) => {
                 return (<RecipeCard key={index} 
                 user={this.props.user}
                 recipe={elem}
                 id={elem.id} 
                 onDelete={this.deleteRecipe} 
                 editRecipe={this.editRecipe} 
-                makeFavouriteRecipe={this.makeFavouriteRecipe}
+                toggleFavouriteRecipe={this.toggleFavouriteRecipe}
                 />)
                 })
                 :
@@ -174,8 +151,9 @@ class FavoruriteRecipes extends Component{
 const mapStateToProps = (state) => {
   return {
     recipesCount: state.recipes.recipesCount,
+    favouritedRecipes: state.recipes.favouriteRecipes
   };
 }
 
-export default connect(mapStateToProps, { getFavouritedRecipes, getFavouritedRecipesIds, makeFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(FavoruriteRecipes);
+export default connect(mapStateToProps, { getFavouritedRecipes, getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(FavoruriteRecipes);
 
