@@ -116,6 +116,19 @@ export function popularRecipesAction(popularRecipe) {
 
 /**
  * @export
+ * @param {any} data
+ * @returns {obj} obj
+ */
+export function searchRecipesAction(data) {
+  return {
+    type: 'SEARCH_RECIPES',
+    recipes: data.recipes,
+    recipesCount: data.recipesCount
+  };
+}
+
+/**
+ * @export
  * @param {any} favouritedRecipe
  * @returns {obj} obj
  */
@@ -174,6 +187,22 @@ export function popularRecipes(limit) {
   console.log('got here');
   return dispatch => axios.get(`api/v1/recipes/popular?limit=${limit}`)
     .then(res => dispatch(popularRecipesAction(res.data.popularRecipes)));
+}
+
+/**
+ * @export
+ * @param {search} search
+ * @param {page} page
+ * @param {limit} limit
+ * @returns {obj} obj
+ */
+export function searchRecipes(search, page = 0, limit = 8) {
+  console.log('search here', search, `api/v1/recipes/search_results${search}&limit=${limit}&page=${page}`);
+  return dispatch => axios.get(`api/v1/recipes/search_results${search}&limit=${limit}&page=${page}`)
+    .then((res) => {
+      console.log('reply', res);
+      dispatch(searchRecipesAction(res.data));
+    });
 }
 
 /**

@@ -289,6 +289,43 @@ class RecipeController {
       }))
       .catch(error => console.log(error.message));
   }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} objk
+   * @memberof RecipeController
+   */
+  static searchRecipes(req, res) {
+    const { search, limit, page } = req.query;
+    console.log('searching', search, page, limit);
+
+    db.Recipe.findAndCountAll({
+      where: {
+        name: {
+          [db.sequelize.Op.iLike]: `%${search}%`
+        }
+      }
+    })
+      .then((recipesWithCount) => {
+        db.Recipe.findAll({
+          order: [['createdAt', 'DESC']],
+          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
+          limit: req.query.limit,
+          where: {
+            name: {
+              [db.sequelize.Op.iLike]: `%${search}%`
+            }
+          }
+        })
+          .then((recipes) => {
+            const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
+            const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
+            res.status(200).json({ status: 'success', recipes, recipesCount: page });
+          });
+      });
+  }
 }
 
 export default RecipeController;

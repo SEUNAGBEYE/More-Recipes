@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import { getFavouritedRecipesIds, searchRecipes, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -12,10 +12,10 @@ import RecipeModal from './RecipeModal';
 
 
 /**
- * @class AllRecipes
+ * @class SearchResults
  * @extends {Component}
  */
-class AllRecipes extends Component{
+class SearchResults extends Component{
 
 	constructor(props){
 		super(props);
@@ -25,6 +25,8 @@ class AllRecipes extends Component{
     this.editRecipe = this.editRecipe.bind(this);
     this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this)
     this.paginateRecipes = this.paginateRecipes.bind(this)
+
+    console.log('props', this.props.location.search)
   }
   
 
@@ -38,8 +40,9 @@ class AllRecipes extends Component{
   }
 
   paginateRecipes(page){
-    this.props.allRecipes(page)
+    this.props.searchRecipes(this.props.location.search, page)
     .then(res => {
+      console.log('respose', res)
       this.setState({allRecipes: [...res.allRecipes]})
     });
   }
@@ -102,7 +105,7 @@ class AllRecipes extends Component{
           
           <div className="container">
             <div style={{textAlign: 'center', marginTop: 100}}>
-              <h4 className='container__myrecipes'>All Recipes</h4><br /><br />
+              <h4 className='container__myrecipes'>Search Results</h4><br /><br />
               <RecipeModal addRecipe={this.onSubmit}/>
             </div>
 
@@ -140,13 +143,13 @@ class AllRecipes extends Component{
  * @param {any} state
  * @returns {object} object
  */
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
     recipes: state.recipes.allRecipes,
     recipesCount: state.recipes.recipesCount,
-    user: state.auth.user
+    user: state.auth.user,
   };
 }
 
-export default connect(mapStateToProps, {getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(AllRecipes);
+export default connect(mapStateToProps, {getFavouritedRecipesIds, searchRecipes, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(SearchResults);
 

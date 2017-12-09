@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 
+/**
+ * @export
+ * @class DeleteModal
+ * @extends {Component}
+ */
 export default class DeleteModal extends Component {
 	constructor(props){
 		super(props)
