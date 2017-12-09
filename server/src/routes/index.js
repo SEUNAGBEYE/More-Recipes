@@ -21,6 +21,9 @@ recipeRoute.route('/')
 recipeRoute.route('/popular')
   .get(RecipeController.popularRecipe);
 
+recipeRoute.route('/search_results')
+  .get(RecipeController.searchRecipes);
+
 recipeRoute.route('/:id')
   .get(RecipeController.getRecipe)
   .put(authMiddleware, RecipeController.updateRecipe)

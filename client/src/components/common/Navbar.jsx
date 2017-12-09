@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
 import {Link, withRouter} from 'react-router-dom';
 import {logout} from '../../actions/auth/LoginRequest'
 
@@ -11,13 +12,27 @@ class Navbar extends React.Component {
 
   constructor(props){
     super(props)
-    this.logout = this.logout.bind(this)
+    this.logout = this.logout.bind(this);
+    this.search = this.search.bind(this);
+
+
+
+
+    this.history = createHistory
+
   }
 
   logout(e) {
     e.preventDefault();
     this.props.logout();
     window.location=('/login')
+  }
+
+  search(e){
+    e.preventDefault();
+    console.log('eventttttttttttt', e.target.search.value, console.log(this.props))
+    window.location=(`/search_results?search=${e.target.search.value}`)
+
   }
   /**
    * returns {obeject} object
@@ -38,9 +53,9 @@ class Navbar extends React.Component {
 
             <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">   
 
-              <form className="form-inline" action="search_results.html" method="GET">
+              <form className="form-inline" action="" method="GET" onSubmit={this.search}>
  
-                  <input type="text" name="" className="form-control" id="search" placeholder="search" /> 
+                  <input type="text" name="search" className="form-control" id="search" placeholder="search" /> 
                 
               </form>
               {isAuthenticated

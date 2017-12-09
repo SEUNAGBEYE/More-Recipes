@@ -46,6 +46,15 @@ export default (state = initialState, action = {}) => {
       }
     };
 
+  case 'SEARCH_RECIPES':
+    return {
+      ...state,
+      ...{
+        allRecipes: [...action.recipes],
+        recipesCount: action.recipesCount
+      }
+    };
+
   case 'DELETE_RECIPE':
     return state.allRecipe.filter(recipe => recipe.id !== action.id);
 
