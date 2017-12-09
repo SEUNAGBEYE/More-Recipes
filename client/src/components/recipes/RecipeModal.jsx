@@ -71,8 +71,6 @@ export default class RecipeModal  extends Component {
 		// imageData.append('public_id', )
 		imageData.append('upload_preset', cloudinaryUploadPreset)
 
-		// headers: { "X-Requested-With": "XMLHttpRequest" }
-
 		delete axios.defaults.headers.common['x-access-token'];
 
 		return axios({
@@ -89,7 +87,6 @@ export default class RecipeModal  extends Component {
 
 	onChange(e){
 		e.preventDefault();
-		console.log('changing', e.target.value)
 		let stateKey = e.target.name
 		if(Array.isArray(this.state[stateKey])){
 			let value = this.state[stateKey].filter((element, index) => index == e.target.id)

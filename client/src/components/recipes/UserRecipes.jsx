@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import {addRecipe, getUserRecipes, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import {addRecipe, getUserRecipes, deleteRecipe, editRecipe, userRecipes} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -66,6 +66,7 @@ class UserRecipes extends Component{
   }
 
   editRecipe(id, recipe){
+    this.props.getUserRecipes()
     this.props.editRecipe(id, recipe)
     .then(res => {
       this.setState({userRecipes: [...this.state.userRecipes.filter( recipe => recipe.id === id)] })
@@ -108,9 +109,9 @@ class UserRecipes extends Component{
               {
                 this.state.userRecipes.length > 0
                 ?
-                this.state.userRecipes.reverse().map((elem, index) => {
+                this.props.userRecipes.map((elem, index) => {
                   console.log('element', elem)
-                return (<RecipeCard key={index} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
+                return (<RecipeCard key={elem.id} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
                 })
                 :
                 <Exclamation>
@@ -135,7 +136,8 @@ class UserRecipes extends Component{
 const mapStateToProps = (state) => {
   return {
     recipes: state.recipes,
-    user: state.auth.user
+    user: state.auth.user,
+    userRecipes: state.recipes.allRecipes
   };
 }
 

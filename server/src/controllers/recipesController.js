@@ -14,41 +14,36 @@ class RecipeController {
  */
   static allRecipe(req, res) {
     const sortBy = req.query.sort;
-    console.log(parseInt(req.query.page) === 1)
 
     if (sortBy) {
-      const orderBy = req.query.order.toUpperCase()
+      const orderBy = req.query.order.toUpperCase();
       req.query.sort.toLowerCase();
-      
+
       db.Recipe.findAll({
-        order: [ 
+        order: [
           [sortBy, orderBy]
         ],
-        offset: parseInt(req.query.page) === 1 ? 0: req.query.limit * req.query.page,
+        offset: parseInt(req.query.page) === 1 ? 0 : req.query.limit * req.query.page,
         limit: req.query.limit
       })
-      .then(recipes => {
-        return res.status(200).json({status: 'success', recipes });
-      })
-      .catch(error => res.status(200).json({status: 'fail', error: error.message}));
-      
+        .then(recipes => res.status(200).json({ status: 'success', recipes }))
+        .catch(error => res.status(200).json({ status: 'fail', error: error.message }));
     } else {
-
       db.Recipe.findAndCountAll()
-      .then(recipesWithCount => {
-        db.Recipe.findAll({
-          order: [ [ 'createdAt', 'DESC' ]],
-          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page: 0,
-          limit: req.query.limit
-        })
-        .then(recipes => {
-          let remainder = recipesWithCount.count%req.query.limit === 0 ? 0 : 1 
-          let page = Math.floor(recipesWithCount.count/req.query.limit) + remainder
-          // recipes = recipes.reverse();
-          res.status(200).json({status: 'success', recipes, recipesCount:  page})
-        })
-        .catch(error => res.status(200).json({status: 'fail', error: error.message}))
-      }) 
+        .then((recipesWithCount) => {
+          db.Recipe.findAll({
+            order: [['createdAt', 'DESC']],
+            offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
+            limit: req.query.limit
+          })
+            .then((recipes) => {
+              const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
+              const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
+              // recipes = recipes.reverse();
+              res.status(200).json({ status: 'success', recipes, recipesCount: page });
+            })
+            .catch(error => res.status(200).json({ status: 'fail', error: error.message }));
+        });
     }
   }
 
@@ -67,8 +62,8 @@ class RecipeController {
       steps: req.body.steps || [],
       userId: req.token.userId
     })
-      .then(recipe => res.status(201).json({status: 'success', recipe}))
-      .catch(error => res.status(400).json({status: 'fail', error}));
+      .then(recipe => res.status(201).json({ status: 'success', recipe }))
+      .catch(error => res.status(400).json({ status: 'fail', error }));
   }
 
   /**
@@ -80,26 +75,24 @@ class RecipeController {
   * @returns {null} json
   */
   static getRecipe(req, res) {
-    console.log('server responding')
+    console.log('server responding');
 
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
-      return res.status(400).send('Please input a valid ID')
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
+      return res.status(400).send('Please input a valid ID');
     }
 
 
     db.Recipe.findById(req.params.id)
-    .then(recipe => {
-      if(!recipe){
-        return res.status(404).send({
-          message: "Recipe Not Found",
-        });
-      }
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            message: 'Recipe Not Found',
+          });
+        }
 
-      return res.status(200).json({status: "success", data: recipe})
-    })
-    .catch(error => {
-      return res.status(400).json({status: "error", error: error.message})
-    });
+        return res.status(200).json({ status: 'success', data: recipe });
+      })
+      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
   }
 
 
@@ -111,34 +104,26 @@ class RecipeController {
   * @returns {null} json
   */
   static updateRecipe(req, res) {
-
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
-      return res.status(400).send('Please input a valid ID')
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
+      return res.status(400).send('Please input a valid ID');
     }
 
     db.Recipe.findById(req.params.id)
-    .then(recipe => {
-      if(!recipe){
-        return res.status(404).send({
-          message: "Recipe Not Found",
-        });
-      }
-      if (recipe.userId === req.token.userId){
-        return recipe
-          .update(req.body, {fields: Object.keys(req.body)})
-          .then(updatedRecipe => {
-            return res.status(200).json({status: 'success', data: updatedRecipe});
-          })
-          .catch(error => {
-            return res.status(400).json({status: "error", error: error.message});
-          })
-      }else{
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            message: 'Recipe Not Found',
+          });
+        }
+        if (recipe.userId === req.token.userId) {
+          return recipe
+            .update(req.body, { fields: Object.keys(req.body) })
+            .then(updatedRecipe => res.status(200).json({ status: 'success', data: updatedRecipe }))
+            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+        }
         return res.status(401).send('Not Authorize');
-      }
-    })
-    .catch(error => {
-      return res.status(400).json({status: "error", error: error.message})
-    })
+      })
+      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
   }
 
   /**
@@ -149,29 +134,26 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
-
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
-      return res.status(400).send('Please input a valid ID')
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
+      return res.status(400).send('Please input a valid ID');
     }
 
-      db.Recipe.findById(req.params.id)
-      .then(recipe => {
-        if(!recipe){
+    db.Recipe.findById(req.params.id)
+      .then((recipe) => {
+        if (!recipe) {
           return res.status(404).json({
-            message: "Recipe Not Found",
+            message: 'Recipe Not Found',
           });
-        } 
+        }
         return db.Review.create({
           userId: req.token.userId,
           recipeId: recipe.id,
           body: req.body.body
         })
-        .then(review => res.status(200).json({status: 'success', data: review}))   
-        .catch(error => res.status(400).json({status: "error", error: error.message}))
+          .then(review => res.status(200).json({ status: 'success', data: review }))
+          .catch(error => res.status(400).json({ status: 'error', error: error.message }));
       })
-      .catch(error => {
-        return res.status(400).json({status: "error", error: error.message})
-      });
+      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
   }
 
   /**
@@ -182,84 +164,130 @@ class RecipeController {
   * @returns {null} json
   */
   static deleteRecipe(req, res) {
-
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
-      return res.status(400).send('Please input a valid ID')
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
+      return res.status(400).send('Please input a valid ID');
     }
 
     db.Recipe.findById(req.params.id)
-    .then(recipe => {
-      if(!recipe){
-        return res.status(404).send({
-          message: "Recipe Not Found",
-        });
-      }
-      console.log(recipe)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            message: 'Recipe Not Found',
+          });
+        }
+        console.log(recipe);
 
-      if (recipe.userId === req.token.userId){
-        return recipe
-          .destroy()
-          .then(() => res.status(204).json({status: 'success', message: 'No Content'}))
-          .catch(error => res.status(400).json({status: "error", error: error.message}));
-      }else{
+        if (recipe.userId === req.token.userId) {
+          return recipe
+            .destroy()
+            .then(() => res.status(204).json({ status: 'success', message: 'No Content' }))
+            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+        }
         return res.status(401).send('Not Authorize');
-      }
-    })
-    .catch(error => console.log(error.message));
+      })
+      .catch(error => console.log(error.message));
   }
 
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
   static upVoteRecipe(req, res) {
-
-    if (isNaN(req.params.id) || req.params.id ==='' || req.params.id === ''){
-      return res.status(400).send('Please input a valid ID')
-    }
-    
-    db.Recipe.findById(req.params.id)
-    .then(recipe => {
-      if(!recipe){
-        return res.status(404).json({
-          message: "Recipe Not Found",
-        });
-      }
-      else{
-      
-        recipe.upvotes === null ? recipe.upvotes = [] : ''
-        !recipe.upvotes.includes(req.token.userId) ? recipe.upvotes.push(req.token.userId): res.status(200).json({status: 'success', data: 'You already Voted!!!'}) 
-        recipe.update({
-          upvotes: recipe.upvotes
-        })
-        .then(recipe => res.status(200).json({status: "success", data: recipe}))
-        .catch(error => res.status(400).json({status: "error", error: error.message}))
-      }
-    })
-    .catch(error => res.status(400).json({status: "error", error: error.message}))
-  }
-
-  static downVoteRecipe(req, res) {
-    
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === undefined){
-
-      return res.status(400).send('Please input a valid ID')
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
+      return res.status(400).send('Please input a valid ID');
     }
 
     db.Recipe.findById(req.params.id)
-    .then(recipe => {
-      if(!recipe){
-        return res.status(404).send({
-          message: "Recipe Not Found",
-        });
-      }
-      else{
-        recipe.downvotes === null ? recipe.downvotes = [] : ''
-        !recipe.downvotes.includes(req.token.userId) ? recipe.downvotes.push(req.token.userId): res.status(200).json({status: 'success', data: 'You already Down Voted!!!'}) 
-        
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).json({
+            message: 'Recipe Not Found',
+          });
+        }
+
+        if (recipe.upvotes === null) {
+          recipe.upvotes = [];
+        }
+
+        if (!recipe.upvotes.includes(req.token.userId)) {
+          console.log(typeof req.token.userId);
+          recipe.upvotes.push(req.token.userId);
+          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+        } else {
+          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+        }
         recipe.update({
+          upvotes: recipe.upvotes,
           downvotes: recipe.downvotes
         })
-        .then(recipe => res.status(200).json({status: "success", data: recipe}))
-      }
+          .then(recipe => res.status(200).json({ status: 'success', recipe }))
+          .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      })
+      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static downVoteRecipe(req, res) {
+    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === undefined) {
+      return res.status(400).send('Please input a valid ID');
+    }
+
+    db.Recipe.findById(req.params.id)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            message: 'Recipe Not Found',
+          });
+        }
+        if (recipe.downvotes === null) {
+          recipe.downvotes = [];
+        }
+
+        if (!recipe.downvotes.includes(req.token.userId)) {
+          recipe.downvotes.push(req.token.userId);
+          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+        } else {
+          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+        }
+
+        recipe.update({
+          downvotes: recipe.downvotes,
+          upvotes: recipe.upvotes
+        })
+          .then(recipe => res.status(200).json({ status: 'success', recipe }));
+      })
+      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static popularRecipe(req, res) {
+    db.Recipe.findAll({
+      where: {
+        upvotes: {
+          [db.sequelize.Op.ne]: []
+        }
+      },
     })
-    .catch(error => res.status(400).json({status: "error", error: error.message}))
+      .then(popularRecipes => res.status(200).json({
+        status: 'success',
+        popularRecipes: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+      }))
+      .catch(error => console.log(error.message));
   }
 }
 

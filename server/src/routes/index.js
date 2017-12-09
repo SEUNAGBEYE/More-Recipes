@@ -16,47 +16,50 @@ userRoute.use(urlencoded({ extended: true })); // for parsing application/x-www-
 
 recipeRoute.route('/')
   .get(RecipeController.allRecipe)
-  .post(authMiddleware, RecipeController.addRecipe)
+  .post(authMiddleware, RecipeController.addRecipe);
+
+recipeRoute.route('/popular')
+  .get(RecipeController.popularRecipe);
 
 recipeRoute.route('/:id')
   .get(RecipeController.getRecipe)
   .put(authMiddleware, RecipeController.updateRecipe)
   .delete(authMiddleware, RecipeController.deleteRecipe)
-  .post(authMiddleware, RecipeController.upVoteRecipe)
+  .post(authMiddleware, RecipeController.upVoteRecipe);
 
 recipeRoute.route('/:id/upvotes')
-  .put(authMiddleware, RecipeController.upVoteRecipe)
+  .put(authMiddleware, RecipeController.upVoteRecipe);
 
 recipeRoute.route('/:id/downvotes')
-  .put(authMiddleware, RecipeController.downVoteRecipe)
+  .put(authMiddleware, RecipeController.downVoteRecipe);
 
 recipeRoute.route('/:id/reviews')
-  .post(authMiddleware, RecipeController.reviewRecipe)
+  .post(authMiddleware, RecipeController.reviewRecipe);
 
 // User Routes Starts Here
 
 userRoute.route('/signup')
   .get((req, res) => {
-    res.send("Please Sign Up");
+    res.send('Please Sign Up');
   })
-  .post(UserController.signUp)
+  .post(UserController.signUp);
 
 userRoute.route('/signin')
   .get((req, res) => {
-    res.send("Please Sign In");
+    res.send('Please Sign In');
   })
-  .post(UserController.signIn)
+  .post(UserController.signIn);
 
 userRoute.route('/fav-recipes/:actionType?')
-  .get(authMiddleware, UserController.getFavoriteRecipes)
+  .get(authMiddleware, UserController.getFavoriteRecipes);
 
 userRoute.route('/fav-recipes/:id/add')
-  .post(authMiddleware, UserController.addFavoriteRecipe)
+  .post(authMiddleware, UserController.addFavoriteRecipe);
 
 userRoute.route('/myrecipes')
-  .get(authMiddleware, UserController.getRecipes)
+  .get(authMiddleware, UserController.getRecipes);
 
 userRoute.route('/profile')
-  .get(authMiddleware, UserController.myProfile)
+  .get(authMiddleware, UserController.myProfile);
 
 export { recipeRoute, userRoute };

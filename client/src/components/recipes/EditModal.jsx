@@ -10,7 +10,7 @@ export default class EditModal  extends Component {
 		this.state = {
 			name: this.props.recipe.name ||'',
 			description: this.props.recipe.description ||'',
-			image: 'hello image',
+			image: this.props.image,
 			ingredients: this.props.recipe.ingredients ||[],
 			steps:  this.props.recipe.steps ||[],
       errors: {},

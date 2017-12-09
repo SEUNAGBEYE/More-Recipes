@@ -25,15 +25,6 @@ const jsx = (
   </Provider>
 );
 
-//  const jsx = (
-//  <Provider store={store}>
-//   <ConnectedRouter history={history} >
-//     <AppRouter />
-//   </ConnectedRouter>
-// </Provider>
-//  );
-
- console.log(jsx)
         
 ReactDOM.render(jsx, document.getElementById('app'));
     
