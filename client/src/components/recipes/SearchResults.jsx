@@ -125,7 +125,7 @@ class SearchResults extends Component{
                 })
                 :
                 <Exclamation>
-                  <p className='text-muted text-center'>Sorry no recipe has been added yet, please add to get started</p>
+                  <p className='text-muted text-center'>Sorry no results, try searching something else</p>
                 </Exclamation>
               }
             </div>
