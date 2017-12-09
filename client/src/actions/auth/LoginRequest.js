@@ -18,12 +18,14 @@ const login = (data, history = []) => {
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
       const decoded = jwt.decode(token)
+      console.log(decoded)
       dispatch(setCurrentUser(decoded));
       toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
       history.push('/')
     })
     .catch(error => {
         if (error){
+          console.log(error)
           toastr.error('Invalid password or email', 'Error');
         } 
       })

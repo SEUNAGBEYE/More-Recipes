@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {connect} from 'react-redux';
+import  config from '../../config/config';
+import setAuthorizationToken from '../../../utils/setAuthorizationToken';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import StepInput from './StepInput';
 import IngredientInput from './IngredientInput';
 import {editRecipe} from '../../actions/Recipes'
+
+const { cloudinaryUploadUrl, cloudinaryUploadPreset } = config;
 
 export default class RecipeModal  extends Component {
 	constructor(props){
@@ -10,19 +16,19 @@ export default class RecipeModal  extends Component {
 		this.state = {
 			name: '',
 			description:'',
-			image: 'hello image',
+			image: '',
 			ingredients: [],
 			steps:  [],
       errors: {},
 			stepsTimes: [...Array(0)],
 			ingredientsTimes: [...Array(0)]
 		}
-
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.stepClick = this.stepClick.bind(this);
 		this.ingredientClick = this.ingredientClick.bind(this);
 		this.editClick = this.editClick.bind(this);
+		this.imageUpload = this.imageUpload.bind(this);
 	}
 	
 	stepClick(e){
@@ -41,8 +47,44 @@ export default class RecipeModal  extends Component {
 
 
 	onSubmit(e){
-		this.props.addRecipe(this.state)
-		document.getElementById("form").reset();
+		const file = document.getElementById('recipePicture').files[0]
+		console.log(file)
+		file ? this.imageUpload()
+		.then(res => {
+			console.log(res.data.secure_url)
+			this.setState({image: res.data.secure_url}, () => {
+				setAuthorizationToken(localStorage.token);
+				this.props.addRecipe(this.state)
+			})
+		})
+		.catch(error => console.log(error))
+		: this.props.addRecipe(this.state)
+	}
+
+	imageUpload(){
+
+		console.log(cloudinaryUploadUrl, cloudinaryUploadPreset)
+		let newState;
+		const file = document.getElementById('recipePicture').files[0]
+		const imageData = new FormData();
+		imageData.append('file', file)
+		// imageData.append('public_id', )
+		imageData.append('upload_preset', cloudinaryUploadPreset)
+
+		// headers: { "X-Requested-With": "XMLHttpRequest" }
+
+		delete axios.defaults.headers.common['x-access-token'];
+
+		return axios({
+			url: cloudinaryUploadUrl,
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form.urlencoded',
+				"X-Requested-With": "XMLHttpRequest"
+			},
+			data: imageData,
+			return_delete_token: 1
+		})
 	}
 
 	onChange(e){
@@ -94,8 +136,10 @@ export default class RecipeModal  extends Component {
 										</fieldset>
 
 										<fieldset className="form-group">
-											<label htmlFor="image" className="form-inline">Picture</label>
-											<input type="file" className="form-control" id="recipePicture" name="image"  onChange={this.onChange}/>
+											<label htmlFor="image" className="form-inline">
+											<input type="file" className="form-control" id="recipePicture" name="image"/>
+											Click to add image
+											</label>
 										</fieldset>
 
 										{this.state.ingredientsTimes.map((element, index) => <IngredientInput key={index} onChange={this.onChange} ingredients={index + 1} id={index} />)}

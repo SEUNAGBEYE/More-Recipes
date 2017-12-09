@@ -47,8 +47,8 @@ class UserController{
       }
       bcrypt.compare(req.body.password, user.password).then(response => {
         if (response){
-          const {id: userId, email, firstName, lastName } = user
-          const token = jwt.sign({userId, email, firstName, lastName }, process.env.SECRET_KEY, {expiresIn: '1h'});
+          const {id: userId, email, firstName, lastName, favoriteRecipe, } = user
+          const token = jwt.sign({userId, email, firstName, lastName, favoriteRecipe }, process.env.SECRET_KEY, {expiresIn: 86400});
           return res.status(200).send(token)
         } 
         return res.status(401).send('Invalid Password or Email')
@@ -60,17 +60,36 @@ class UserController{
   }
 
   static getFavoriteRecipes(req, res){
+
+    console.log('i got here man')
+    if(req.params.actionType === 'getIds'){
+      console.log('correct placeeeeeeeeeeeeeeeeeeeeeeeeee')
+      db.User.findById(req.token.userId)
+      .then(user => res.status(200).json({message: 'success', favouritedRecipesIds: user.favoriteRecipe}))
+    }
+
+    console.log('i got here wrongly')
     db.User.findById(req.token.userId)
     .then(user => {
-      db.Recipe.findAll({
-        where: {
-          id: {
-            [db.Sequelize.Op.in]: user.favoriteRecipe
-          }
-        }
-      })
-      .then(recipes => recipes.length > 0 ? res.status(200).json({message: 'success', data: recipes}) : res.status(404).send('No favorited Recipes Yet, Please Add Some!!!')) 
-      .catch(error => res.status(404).send('No favorited Recipes Yet, Please Add Some!!!'))    
+      db.Recipe.findAndCountAll()
+      .then(recipesWithCount => {
+        db.Recipe.findAll({
+          where: {
+            id: {
+              [db.Sequelize.Op.in]: user.favoriteRecipe
+            }
+          },
+          order: [ [ 'createdAt', 'DESC' ]],
+          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page: 0,
+          limit: req.query.limit
+        })
+        .then(recipes => {
+          let remainder = recipesWithCount.count%req.query.limit === 0 ? 0 : 1 
+          let page = Math.floor(recipesWithCount.count/req.query.limit) + remainder
+          res.status(200).json({status: 'success', favouritedRecipes: recipes, favouritedRecipesCount:  page})
+        })
+        .catch(error => res.status(404).json({status: 'fail', error: error.message}))
+      })   
     })
     .catch(error => res.status(400).send(error))
   }
@@ -95,12 +114,12 @@ class UserController{
               .then(recipe => res.status(200).json({status:'success', data: user}))
               .catch(error => res.status(400).json({status: 'fail', message: error}));
             }else{
-              !user.favoriteRecipe.includes(recipe.id) ? user.favoriteRecipe.push(recipe.id) : ''
+              !user.favoriteRecipe.includes(recipe.id) ? user.favoriteRecipe.push(recipe.id) : user.favoriteRecipe = user.favoriteRecipe.filter((id) => id !== parseInt(recipe.id))
 
               user.update({
                 favoriteRecipe: user.favoriteRecipe               
               })
-              .then(recipe => res.status(200).json({status: 'success', data: user}))
+              .then(recipe => res.status(200).json({status: 'success', favouritedRecipes: user.favoriteRecipe}))
               .catch(error => res.status(400).json({status: 'fail', message: error}));
             }
           }

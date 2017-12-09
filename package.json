@@ -36,6 +36,7 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "cloudinary-react": "^1.0.4",
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",

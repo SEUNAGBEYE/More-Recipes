@@ -27,8 +27,8 @@ class SignUpForm extends Component {
     })
     .catch((errors) => {
       console.log(errors)
-      toastr.error(errors.response.data, 'Error!')
-      this.setState({errors: errors.response.data})
+      toastr.error(errors.response, 'Error!')
+      this.setState({errors: errors.response})
     })
   }
 

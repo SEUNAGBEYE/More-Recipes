@@ -49,10 +49,10 @@ class Navbar extends React.Component {
                <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
                </button>
                <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
-                 <Link className="dropdown-item" to="/">All Recipes</Link>
+                 <Link className="dropdown-item" to="/recipes">All Recipes</Link>
                  <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
-                 <Link className="dropdown-item" to="/">Favorites</Link>
-                 <Link className="dropdown-item" to="/">Profile</Link>
+                 <Link className="dropdown-item" to="/my_favourites">Favourites</Link>
+                 <Link className="dropdown-item" to="/profile">Profile</Link>
                  <Link className="dropdown-item" onClick={this.logout} to='#'>Logout</Link>
                </div>
              </div>
@@ -85,6 +85,5 @@ const mapStateToProps = (state) => {
     auth: state.auth
   };
 }
-
 
 export default connect(mapStateToProps, { logout })(Navbar);

@@ -13,7 +13,7 @@ describe('Test For Recipes Routes', () => {
         .get('/')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          assert.isArray(res.body.data, 'respone return array of object');
+          assert.isArray(res.body.recipes, 'respone return array of object');
           done();
         });
     });
