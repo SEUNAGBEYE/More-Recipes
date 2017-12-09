@@ -5,12 +5,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
-    publicPath:'/'
+    publicPath: '/'
   },
   module: {
     rules: [{
-      loader: 'babel-loader',
-      test: /\.js$/,
+      use: ['babel-loader'],
+      test: /\.jsx?$/,
       exclude: /node_modules/
     },
     {
@@ -20,14 +20,17 @@ module.exports = {
         'css-loader',
         'sass-loader'
       ]
-    },{
+    }, {
       test: /\.(png|jpg|gif|jpeg)$/,
-      use: ['file-loader',]
+      use: ['file-loader']
     }]
   },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.jsx', '.js']
   },
   watch: true
 };

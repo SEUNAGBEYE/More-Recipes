@@ -118,11 +118,10 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .update(req.body, { fields: Object.keys(req.body) })
-            .then((updatedRecipe) => res.status(200).json({status: 'success', data: updatedRecipe}))
-            .catch((error) => res.status(400).json({status: "error", error: error.message}));
-        } 
-          return res.status(401).send('Not Authorize');
-        
+            .then(updatedRecipe => res.status(200).json({ status: 'success', data: updatedRecipe }))
+            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+        }
+        return res.status(401).send('Not Authorize');
       })
       .catch(error => res.status(400).json({ status: 'error', error: error.message }));
   }
@@ -183,13 +182,19 @@ class RecipeController {
             .destroy()
             .then(() => res.status(204).json({ status: 'success', message: 'No Content' }))
             .catch(error => res.status(400).json({ status: 'error', error: error.message }));
-        } 
-          return res.status(401).send('Not Authorize');
-        
+        }
+        return res.status(401).send('Not Authorize');
       })
       .catch(error => console.log(error.message));
   }
 
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
   static upVoteRecipe(req, res) {
     if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
       return res.status(400).send('Please input a valid ID');
@@ -201,19 +206,36 @@ class RecipeController {
           return res.status(404).json({
             message: 'Recipe Not Found',
           });
-        } 
-          recipe.upvotes === null ? recipe.upvotes = [] : '';
-          !recipe.upvotes.includes(req.token.userId) ? recipe.upvotes.push(req.token.userId) : res.status(200).json({ status: 'success', data: 'You already Voted!!!' });
-          recipe.update({
-            upvotes: recipe.upvotes
-          })
-            .then(recipe => res.status(200).json({ status: 'success', data: recipe }))
-            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
-        
+        }
+
+        if (recipe.upvotes === null) {
+          recipe.upvotes = [];
+        }
+
+        if (!recipe.upvotes.includes(req.token.userId)) {
+          console.log(typeof req.token.userId);
+          recipe.upvotes.push(req.token.userId);
+          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+        } else {
+          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+        }
+        recipe.update({
+          upvotes: recipe.upvotes,
+          downvotes: recipe.downvotes
+        })
+          .then(recipe => res.status(200).json({ status: 'success', recipe }))
+          .catch(error => res.status(400).json({ status: 'error', error: error.message }));
       })
       .catch(error => res.status(400).json({ status: 'error', error: error.message }));
   }
 
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
   static downVoteRecipe(req, res) {
     if (isNaN(req.params.id) || req.params.id === '' || req.params.id === undefined) {
       return res.status(400).send('Please input a valid ID');
@@ -225,17 +247,47 @@ class RecipeController {
           return res.status(404).send({
             message: 'Recipe Not Found',
           });
-        } 
-          recipe.downvotes === null ? recipe.downvotes = [] : '';
-          !recipe.downvotes.includes(req.token.userId) ? recipe.downvotes.push(req.token.userId) : res.status(200).json({ status: 'success', data: 'You already Down Voted!!!' });
+        }
+        if (recipe.downvotes === null) {
+          recipe.downvotes = [];
+        }
 
-          recipe.update({
-            downvotes: recipe.downvotes
-          })
-            .then(recipe => res.status(200).json({ status: 'success', data: recipe }));
-        
+        if (!recipe.downvotes.includes(req.token.userId)) {
+          recipe.downvotes.push(req.token.userId);
+          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+        } else {
+          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+        }
+
+        recipe.update({
+          downvotes: recipe.downvotes,
+          upvotes: recipe.upvotes
+        })
+          .then(recipe => res.status(200).json({ status: 'success', recipe }));
       })
       .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static popularRecipe(req, res) {
+    db.Recipe.findAll({
+      where: {
+        upvotes: {
+          [db.sequelize.Op.ne]: []
+        }
+      },
+    })
+      .then(popularRecipes => res.status(200).json({
+        status: 'success',
+        popularRecipes: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+      }))
+      .catch(error => console.log(error.message));
   }
 }
 

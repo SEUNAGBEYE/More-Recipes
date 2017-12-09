@@ -13,22 +13,26 @@ class RecipeDetail extends Component {
   constructor(props){
 		super(props);
 		this.state = {
+      recipe:{
 			name: '',
 			description: '',
 			image: '',
 			ingredients: [],
-			steps: this.props.recipe.steps || [],
+			steps: [],
       errors: {},
       categoryId: '',
       downvotes: [],
       upvotes:[],
       userRecipes: []
+      }
     }
   }
   
 
   componentDidMount(){
+    console.log(this.props.match.params.id)
     this.props.getRecipe(this.props.match.params.id)
+    .then(res => this.setState({recipe: res.recipe}))
   }
 
   /**
@@ -48,11 +52,11 @@ class RecipeDetail extends Component {
           </ul>
 
           <div className="container">
-            <h4 style={{textAlign: 'center', marginTop: 50}}>{this.props.recipe.name || 'Pasta'}</h4><br /><br />
+            <h4 style={{textAlign: 'center', marginTop: 50}}>{this.state.recipe.name || 'Pasta'}</h4><br /><br />
 
             <div>
               <div className="box">
-                <div className="circle"><img className ="circle" src={this.props.recipe.image} /></div>
+                <div className="circle"><img className ="circle" src={this.state.recipe.image} /></div>
               </div>
               <div className="text-center">
                 <a href="" className="fa fa-star icons"></a>
@@ -64,13 +68,13 @@ class RecipeDetail extends Component {
             <br />
             <div className="container-fluid">
                 <a href="" className="fa fa-eye icons">1000</a>
-                  <a href="" className="fa fa-thumbs-up icons">200</a>
-                  <a href="#" className="fa fa-thumbs-down icons">10</a>
+                  <a href="" className="fa fa-thumbs-up icons">{this.state.recipe.upvotes.length}</a>
+                  <a href="#" className="fa fa-thumbs-down icons">{this.state.recipe.downvotes.length}</a>
             </div>
             
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
               <h5>Description</h5>
-              {this.props.recipe.description || 'Making pasta at home is much easier than most people would imagine. By making your own pasta dough, you have an unlimited number of options available to you to create your own personal pasta dishes. Imagine delicate layers of egg pasta nestled between a spicy tomato sauce and meltingly tender cheese for unforgettable lasagna. Or maybe you do prefer soft pillows of ravioli stuffed with a tasty ricotta and spinach filling. You too can prepare dishes like this, and many others once you learn the basic technique of making your own pasta.'}
+              {this.state.recipe.description || 'Making pasta at home is much easier than most people would imagine. By making your own pasta dough, you have an unlimited number of options available to you to create your own personal pasta dishes. Imagine delicate layers of egg pasta nestled between a spicy tomato sauce and meltingly tender cheese for unforgettable lasagna. Or maybe you do prefer soft pillows of ravioli stuffed with a tasty ricotta and spinach filling. You too can prepare dishes like this, and many others once you learn the basic technique of making your own pasta.'}
             </div>
 
             <div className="jumbotron" style={{backgroundColor: '#f8f9fa'}}>
@@ -90,7 +94,7 @@ class RecipeDetail extends Component {
               <h5>Steps</h5>
               <ul style={{fontSize: 20}}>
                 {
-                  this.state.steps.map((step, index) => <li key={index}>{step}</li>) || 
+                  this.state.recipe.steps.map((step, index) => <li key={index}>{step}</li>) || 
                 <div>
                 <li>
                   Egg pasta is super simple ingredient wise: flour, salt, eggs and olive oil. Begin by whisking together 2 cups of flour and 1/2 teaspoon of salt in a large bowl. Make a well in the center of the flour and add three large eggs and one tablespoon of extra virgin olive oil.
@@ -189,12 +193,12 @@ class RecipeDetail extends Component {
  * @return {object} object
  */
 const mapStateToProps = (state, props) => {
-  console.log('state match', state)
+  console.log('state match', state.recipes.allRecipes)
   // let id = props.match.params.id
   return {
-    recipe: state.recipes
+    recipe: state.recipes.allRecipes[0]
   }
 }
 
-export default connect(mapStateToProps, {getRecipe })(RecipeDetail);
+export default connect(null, {getRecipe })(RecipeDetail);
 

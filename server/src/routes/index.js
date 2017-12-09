@@ -18,6 +18,9 @@ recipeRoute.route('/')
   .get(RecipeController.allRecipe)
   .post(authMiddleware, RecipeController.addRecipe);
 
+recipeRoute.route('/popular')
+  .get(RecipeController.popularRecipe);
+
 recipeRoute.route('/:id')
   .get(RecipeController.getRecipe)
   .put(authMiddleware, RecipeController.updateRecipe)

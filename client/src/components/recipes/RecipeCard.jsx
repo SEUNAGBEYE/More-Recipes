@@ -8,7 +8,7 @@ import RecipeModal from './RecipeModal';
 import DeleteModal from './DeleteModal';
 import {editRecipe} from '../../actions/Recipes'
 import EditModal from './EditModal';
-import { getFavouritedRecipesIds, toggleFavouriteRecipe } from '../../actions/Recipes';
+import { toggleThumbsDownRecipe, toggleThumbsUpRecipe, getFavouritedRecipesIds, toggleFavouriteRecipe } from '../../actions/Recipes';
 
 
 /**
@@ -19,14 +19,39 @@ class RecipeCard extends Component{
 	constructor(props){
 		super(props)
 		this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
-		this.thumbsdownRecipe = this.thumbsdownRecipe.bind(this);
-		this.thumbsUpRecipe = this.thumbsUpRecipe.bind(this);
+		this.toggleThumbsDownRecipe = this.toggleThumbsDownRecipe.bind(this);
+		this.toggleThumbsUpRecipe = this.toggleThumbsUpRecipe.bind(this);
 
 		this.state = {
-			toggleHeart: true,
-			toggleThumbsUp: true,
-			toggleThumbsDown: true,
+			recipe: {
+				name: '',
+				description: '',
+				upvotes: [],
+				downvotes: []
+			},
+			isDownVoted: '',
+			isUpVoted: '',
 			favouritedRecipeIds: []
+		}
+
+	}
+
+	componentDidMount(){
+		console.log(this.props.recipe, this.props.userId)
+		this.setState({
+			recipe: this.props.recipe,
+			isUpVoted: this.props.recipe.upvotes.includes(parseInt(this.props.user.userId)),
+			isDownVoted: this.props.recipe.downvotes.includes(parseInt(this.props.user.userId))
+		})
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(this.props.recipe !== nextProps.recipe){
+			this.setState({
+				recipe: nextProps.recipe,
+				isUpVoted: nextProps.recipe.upvotes.includes(parseInt(this.props.user.userId)),
+				isDownVoted: nextProps.recipe.downvotes.includes(parseInt(this.props.user.userId))
+			})
 		}
 
 	}
@@ -36,16 +61,20 @@ class RecipeCard extends Component{
 		this.props.toggleFavouriteRecipe(parseInt(event.target.id))
 	}
 
-	thumbsUpRecipe(event){
+	toggleThumbsUpRecipe(event){
 		event.preventDefault();
+		this.props.toggleThumbsUpRecipe(event.target.id)
 		this.setState({toggleThumbsUp: !this.state.toggleThumbsUp})
-			// this.makeFavouriteRecipe(event.target.id)
 	}
 
-	thumbsdownRecipe(event){
+	toggleThumbsDownRecipe(event){
+		event.preventDefault();
+		this.props.toggleThumbsDownRecipe(event.target.id)
 		this.setState({toggleThumbsDown: !this.state.toggleThumbsDown})
-			// this.makeFavouriteRecipe(event.target.id)
+
 	}
+
+
 
 
   /**
@@ -53,16 +82,16 @@ class RecipeCard extends Component{
    * return {object} object
    */
   render(){
-    const isFavorited = this.props.myFavs.includes(parseInt(this.props.recipe.id));
+		const isFavorited = this.props.myFavs.includes(parseInt(this.props.recipe.id));
     return (
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
 					<Link to={`/recipe/${this.props.id}`}>
 					<div className="card recipe-card">
-					  	<img className="card-img-top" src={this.props.recipe.image || pasta} alt="Card image cap" />
+					  	<img className="card-img-top" src={this.state.recipe.image || pasta} alt="Card image cap" />
 						<div className="container">
 							<div className="card-block">
-					    		<h4 className="card-title">{this.props.recipe.name.slice(0, 20)}</h4>
-					    		<p className="card-text">{this.props.recipe.description.slice(0, 90) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
+					    		<h4 className="card-title">{this.state.recipe.name.slice(0, 20)}</h4>
+					    		<p className="card-text">{this.state.recipe.description.slice(0, 90) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
 				
 										{ this.props.recipe.userId === this.props.user.userId
 											?
@@ -74,17 +103,15 @@ class RecipeCard extends Component{
 											:
 											<div className="d-flex justify-content-between recipe-icons">
 						
-												{ this.state.toggleThumbsDown ?
-												<Link to="/"><i className="fa fa-thumbs-o-down icons" onClick={this.thumbsdownRecipe} id={this.props.recipe.id} style={{color:'black'}}>{this.props.recipe.downvotes ? this.props.recipe.downvotes.length : 0}</i></Link>
-												:
-												<Link to="/"><i className="fa fa-thumbs-down icons" onClick={this.thumbsdownRecipe} id={this.props.recipe.id}>{this.props.recipe.downvotes ? this.props.recipe.downvotes.length : 0}</i></Link>
-												}
+												<Link to="/"><i className={classnames("fa icons", {
+													'fa-thumbs-o-down text-black':  !this.state.isDownVoted,
+													'fa-thumbs-down text-warning': this.state.isDownVoted })} 
+													onClick={this.toggleThumbsDownRecipe} id={this.props.recipe.id} >{this.state.recipe.downvotes ? this.state.recipe.downvotes.length : 0}</i></Link>
 												
-												{ this.state.toggleThumbsUp ?
-												<Link to="/"><i className="fa fa-thumbs-o-up icons" onClick={this.thumbsUpRecipe} id={this.props.recipe.id} style={{color:'black'}}>{this.props.recipe.upvotes ? this.props.recipe.upvotes.length : 0}</i></Link>
-												:
-												<Link to="/"><i className="fa fa-thumbs-up icons" onClick={this.thumbsUpRecipe} id={this.props.recipe.id}>{this.props.recipe.upvotes ? this.props.recipe.upvotes.length : 0}</i></Link>
-												}
+												<Link to="/"><i className={classnames("fa icons", {
+													'fa-thumbs-o-up text-black':  !this.state.isUpVoted,
+													'fa-thumbs-up text-warning': this.state.isUpVoted })} 
+												onClick={this.toggleThumbsUpRecipe} id={this.props.recipe.id} >{this.state.recipe.upvotes ? this.state.recipe.upvotes.length : 0}</i></Link>
 
                         <Link
                          to="/">
@@ -93,7 +120,7 @@ class RecipeCard extends Component{
                          {"fa-heart-o text-black": !isFavorited, 
                           "fa-heart text-warning": isFavorited })} 
                          onClick={this.toggleFavouriteRecipe} 
-                         id={this.props.recipe.id}></i></Link>
+                         id={this.state.recipe.id}></i></Link>
 												
 											</div>
 										}
@@ -118,10 +145,11 @@ class RecipeCard extends Component{
 const mapStateToProps = (state) => {
   return {
 		user: state.auth.user,
-		myFavs: state.recipes.userFavouritedRecipeId || []
+		myFavs: state.recipes.userFavouritedRecipeId || [],
+
   };
 }
 
-export default connect(mapStateToProps, { toggleFavouriteRecipe, getFavouritedRecipesIds})(RecipeCard)
+export default connect(mapStateToProps, { toggleFavouriteRecipe, getFavouritedRecipesIds, toggleThumbsUpRecipe, toggleThumbsDownRecipe})(RecipeCard)
 
 

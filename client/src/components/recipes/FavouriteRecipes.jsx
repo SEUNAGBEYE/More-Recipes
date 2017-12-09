@@ -19,15 +19,6 @@ class FavoruriteRecipes extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			name: '',
-			description: '',
-			image: 'hello image',
-			ingredients: [],
-			steps: [],
-      errors: {},
-      categoryId: '',
-      downvotes: [],
-      upvotes:[],
       favouritedRecipes: [],
       favouritedRecipesIds: []
 		}
@@ -119,7 +110,7 @@ class FavoruriteRecipes extends Component{
                 this.state.favouritedRecipes.length > 0
                 ?
                 this.props.favouritedRecipes.map((elem, index) => {
-                return (<RecipeCard key={index} 
+                return (<RecipeCard key={elem.id} 
                 user={this.props.user}
                 recipe={elem}
                 id={elem.id} 

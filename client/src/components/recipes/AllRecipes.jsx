@@ -61,11 +61,11 @@ class AllRecipes extends Component{
 	toggleFavouriteRecipe(id){
 		toggleFavouriteRecipe(id)
 		.then(res => {
-			console.log('alldata',res.data.favouritedRecipesId
-    )
       this.setState({favouritedRecipesIds: [...res.data.favouritedRecipesId]})
     })
-	}
+  }
+  
+  
 
   editRecipe(id, recipe){
     this.props.editRecipe(id, recipe)

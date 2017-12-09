@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'util';
 
 /**
  * @param {*} recipe
@@ -13,13 +14,14 @@ export function setRecipe(recipe) {
 
 /**
  * @export
- * @param {any} id
+ * @param {any} recipe
  * @returns {obj} obj
  */
-export function getRecipeAction(id) {
+export function getRecipeAction(recipe) {
   return {
     type: 'GET_RECIPE',
-    id
+    id: recipe.id,
+    recipe
   };
 }
 
@@ -102,6 +104,18 @@ export function allRecipesAction(allRecipes, recipesCount) {
 
 /**
  * @export
+ * @param {any} popularRecipe
+ * @returns {obj} obj
+ */
+export function popularRecipesAction(popularRecipe) {
+  return {
+    type: 'GET_POPULAR_RECIPES',
+    popularRecipe
+  };
+}
+
+/**
+ * @export
  * @param {any} favouritedRecipe
  * @returns {obj} obj
  */
@@ -114,16 +128,52 @@ export function toggleFavouriteRecipeAction(favouritedRecipe) {
 
 /**
  * @export
- * @param {any} page
+ * @param {recipe} recipe
  * @returns {obj} obj
  */
-export function allRecipes(page) {
-  return dispatch => axios.get(`/api/v1/recipes?limit=8&page=${page}`)
+export function toggleThumbsUpRecipeAction(recipe) {
+  return {
+    type: 'TOGGLE_THUMBS_UP_RECIPE',
+    recipe
+  };
+}
+
+/**
+ * @export
+ * @param {recipe} recipe
+ * @returns {obj} obj
+ */
+export function toggleThumbsDownRecipeAction(recipe) {
+  return {
+    type: 'TOGGLE_THUMBS_DOWN_RECIPE',
+    recipe
+  };
+}
+
+/**
+ * @export
+ * @param {any} page
+ * @param {any} limit
+ * @returns {obj} obj
+ */
+export function allRecipes(page = 0, limit = 8) {
+  return dispatch => axios.get(`/api/v1/recipes?limit=${limit}&page=${page}`)
     .then((res) => {
       const { recipes: allRecipes, recipesCount } = res.data;
       return dispatch(allRecipesAction(allRecipes, recipesCount));
     })
     .catch(error => console.log(error));
+}
+
+/**
+ * @export
+ * @param {limit} limit
+ * @returns {obj} obj
+ */
+export function popularRecipes(limit) {
+  console.log('got here');
+  return dispatch => axios.get(`api/v1/recipes/popular?limit=${limit}`)
+    .then(res => dispatch(popularRecipesAction(res.data.popularRecipes)));
 }
 
 /**
@@ -196,6 +246,28 @@ export function toggleFavouriteRecipe(id) {
 
 /**
  * @export
+ * @param {id} id
+ * @returns {obj} obj
+ */
+export function toggleThumbsDownRecipe(id) {
+  return dispatch => axios.put(`api/v1/recipes/${id}/downvotes`)
+    .then(res => dispatch(toggleThumbsDownRecipeAction(res.data.recipe)))
+    .catch(error => console.log(error));
+}
+
+/**
+ * @export
+ * @param {id} id
+ * @returns {obj} obj
+ */
+export function toggleThumbsUpRecipe(id) {
+  return dispatch => axios.put(`api/v1/recipes/${id}/upvotes`)
+    .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.recipe)))
+    .catch(error => console.log(error));
+}
+
+/**
+ * @export
  * @param {any} id
  * @returns {obj} obj
  */
@@ -244,7 +316,10 @@ export function editRecipe(id, recipe) {
  */
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
-    .then(res => dispatch(getRecipeAction(id)))
+    .then((res) => {
+      console.log('data', res.data.data);
+      return dispatch(getRecipeAction(res.data.data));
+    })
     .catch((error) => {
       if (error) {
         console.log('error', error);

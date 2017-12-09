@@ -1,19 +1,12 @@
 
 import isEmpty from 'lodash/isEmpty';
 
-// const initialState = [{
-//   name: '',
-//   description: '',
-//   picture: '',
-//   ingredrent: {},
-//   steps: []
-// }];
-
 const initialState = {
   allRecipes: [],
   recipesCount: '',
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
+  popularRecipes: []
   // favouritedRecipesCount: '',
   // userRecipes: []
 };
@@ -24,8 +17,7 @@ export default (state = initialState, action = {}) => {
     return [...state, action.recipe];
 
   case 'GET_RECIPE':
-    console.log('staterrrrrrrrr', state);
-    return state.allRecipe.find(recipe => recipe.id === action.id);
+    return { ...state, ...{ allRecipes: [...state.allRecipes.filter(recipe => recipe.id === parseInt(action.id))] || action.recipe } };
 
   case 'GET_USER_RECIPES':
     return {
@@ -37,27 +29,42 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_RECIPES':
-    const { allRecipes, recipesCount } = action;
-    return { ...state, ...{ allRecipes, recipesCount } };
+
+    return {
+      ...state,
+      ...{
+        allRecipes: action.allRecipes,
+        recipesCount: action.recipesCount
+      }
+    };
+  case 'GET_POPULAR_RECIPES':
+    console.log('popular', action.popularRecipe);
+    return {
+      ...state,
+      ...{
+        popularRecipes: [...action.popularRecipe]
+      }
+    };
 
   case 'DELETE_RECIPE':
     return state.allRecipe.filter(recipe => recipe.id !== action.id);
 
 
   case 'EDIT_RECIPE':
-    console.log('editting', action.recipe);
 
-    const allRecipe = state.allRecipes.filter(recipe => recipe.id != action.recipe.id);
-    console.log('recipes', state.allRecipes);
-    return { ...state, ...{ allRecipes: [...allRecipe, action.recipe] } };
-
-    // case 'GET_USER_FAVOURITED_RECIPES_ID':
-    //   return {...state, ...action.favouritedRecipesIds};
+    return {
+      ...state,
+      ...{
+        allRecipes: [...state.allRecipes.map((recipe) => {
+          if (recipe.id == action.recipe.id) {
+            recipe = action.recipe;
+          }
+          return recipe;
+        })]
+      }
+    };
 
   case 'TOGGLE_FAVOURITE_RECIPE':
-    console.log('got here too', action.favouritedRecipe, action.favouritedRecipe.id);
-    // state.userFavouritedRecipeId.filter(id => {
-    //   console.log(id !=action.favouritedRecipe.id, id , action.favoriteRecipe.id)})
     return {
       ...state,
       ...{
@@ -71,8 +78,48 @@ export default (state = initialState, action = {}) => {
       }
     };
 
+  case 'TOGGLE_THUMBS_UP_RECIPE':
+
+
+    return {
+      ...state,
+      ...{
+        allRecipes: [...state.allRecipes.map((recipe) => {
+          if (recipe.id === action.recipe.id) {
+            recipe = action.recipe;
+          }
+          return recipe;
+        })],
+        favouriteRecipes: [...state.favouriteRecipes.map((recipe) => {
+          if (recipe.id === action.recipe.id) {
+            recipe = action.recipe;
+          }
+          return recipe;
+        })],
+      }
+    };
+
+  case 'TOGGLE_THUMBS_DOWN_RECIPE':
+
+    return {
+      ...state,
+      ...{
+        allRecipes: [...state.allRecipes.map((recipe) => {
+          if (recipe.id === action.recipe.id) {
+            recipe = action.recipe;
+          }
+          return recipe;
+        })],
+        favouriteRecipes: [...state.favouriteRecipes.map((recipe) => {
+          if (recipe.id === action.recipe.id) {
+            recipe = action.recipe;
+          }
+          return recipe;
+        })],
+      }
+    };
+
   case 'GET_FAVOURITED_RECIPES':
-    // const { favouriteRecipes, favouritedRecipesCount } = action;
     return {
       ...state,
       favouriteRecipes: [...action.favouriteRecipes],
@@ -80,8 +127,10 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_USER_FAVOURITED_RECIPES_ID':
-    const { favouritedRecipesIds: userFavouritedRecipeId } = action;
-    return { ...state, ...{ userFavouritedRecipeId: action.favouritedRecipesIds } };
+    return {
+      ...state,
+      ...{ userFavouritedRecipeId: action.favouritedRecipesIds }
+    };
 
   default: return state;
   }
