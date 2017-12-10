@@ -1,9 +1,10 @@
 import express from 'express';
+import path from 'path';
 import { recipeRoute, userRoute } from './routes/index';
 import config from 'dotenv';
 import db from './models/index.js';
 
-config.config()
+config.config();
 
 console.log('ji');
 
@@ -21,9 +22,9 @@ app.use('/api/v1/users', userRoute);
 app.use(express.static(path.join(__dirname, 'client/public')));
 
 db.sequelize.sync().then(() => {
-	app.listen(port, () => {
+  app.listen(port, () => {
 	  console.log(`listening to port ${port}`);
-	});
+  });
 });
 
 export { app };
