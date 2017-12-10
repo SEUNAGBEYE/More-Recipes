@@ -92,10 +92,8 @@ export default class EditModal  extends Component {
 		})
 	 }else{
 		this.props.editRecipe(this.props.recipe.id, this.state)
-		.then(res => {
 			this.setState({loaded: true})
 			$('.modal').modal('hide');
-		})
 	 }
 
 	}
