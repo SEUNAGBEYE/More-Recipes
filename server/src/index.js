@@ -8,11 +8,11 @@ config.config();
 
 console.log('ji');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 const app = express();
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}../client/src/index.html`);
+  res.sendFile(`${__dirname}, ../client/src/index.html`);
 });
 
 app.use('/api/v1/recipes', recipeRoute);
