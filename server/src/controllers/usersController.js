@@ -26,7 +26,7 @@ class UserController {
       profilePicture: req.body.profilePicture
     })
       .then(user => res.status(201).json({ message: 'success', data: user }))
-      .catch(error => res.status(400).json(error.message));
+      .catch(error => res.status(400).json({ message: 'failure', errors: error.message }));
   }
 
   /**

@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
-import { recipeRoute, userRoute } from './server/src/routes/index';
 import config from 'dotenv';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import db from './server/src/models/index.js';
+import db from './server/src/models/index';
+import { recipeRoute, userRoute } from './server/src/routes/index';
 import webpackConfig from './webpack.config';
 
 config.config();

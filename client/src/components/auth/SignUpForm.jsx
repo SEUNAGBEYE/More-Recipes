@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { error } from 'util';
 
 class SignUpForm extends Component {
 
@@ -35,9 +36,9 @@ class SignUpForm extends Component {
       window.location=('/login');
     })
     .catch((errors) => {
-      console.log(errors)
-      toastr.error(errors.response, 'Error!')
-      this.setState({errors: errors.response})
+      console.log(errors.response.data.errors)
+      toastr.error(errors.response.data.errors, 'Error!')
+      this.setState({errors: errors.response.data.errors})
     })
   }
 
