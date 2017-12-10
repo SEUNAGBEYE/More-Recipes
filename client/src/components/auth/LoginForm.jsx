@@ -11,13 +11,22 @@ export default class LoginForm extends Component {
       email: '',
       password: ''
     }
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange = (e) => {
+  /**
+   * @memberof LoginForm
+   */
+  onChange(e){
     this.setState({ [e.target.name]: e.target.value, errors: '' });
   }
 
-  onSubmit = (e) => {
+  /**
+   * @memberof LoginForm
+   */
+  onSubmit(e){
     e.preventDefault();
     this.props.login(this.state)
   }

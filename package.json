@@ -4,7 +4,7 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test&& npm run build&& sequelize db:migrate:undo:all&& sequelize db:migrate&& sequelize db:seed:all&& nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --exit",
+    "test": "NODE_ENV=test npm run build && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nyc mocha ./server/dist/test/test.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- index.js",
     "client-server": "webpack-dev-server",

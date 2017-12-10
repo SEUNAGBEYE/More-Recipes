@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
@@ -7,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
-          args: true,
-          msg: 'User already exist with this email'
+        args: true,
+        msg: 'User already exist with this email'
       },
       validate: {
         isEmail: {
@@ -22,13 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       set(val) {
-        this.setDataValue('password', bcrypt.hashSync(val, 10))
+        this.setDataValue('password', bcrypt.hashSync(val, 10));
       },
       min: 5
     },
     // facebookUrl: DataTypes.STRING,
     // twitterUrl: DataTypes.STRING,
-    favoriteRecipe: DataTypes.ARRAY(DataTypes.INTEGER),
+    favoriteRecipe: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    },
     profilePicture: DataTypes.STRING
   });
 
@@ -43,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
   //     foreignKey: 'userId',
   //     as: 'userReviews'
   //   });
-  }
+  };
   return User;
 }
+;

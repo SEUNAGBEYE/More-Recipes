@@ -12,10 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     upvotes: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     downvotes: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     categoryId: {
       type: DataTypes.INTEGER,

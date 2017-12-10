@@ -22,12 +22,12 @@ describe('Test For Recipes Routes', () => {
   describe('Test For Getting A  Single Recipe', () => {
     it('body should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
       chai.request(recipeRoute)
-        .get('/2')
+        .get('/11')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.id).equal(2);
+          expect(res.body.data.id).equal(11);
           assert.isObject(res.body.data, 'respone return an object');
-          done()
+          done();
         });
     });
   });
@@ -82,7 +82,7 @@ describe('Test For Recipes Routes', () => {
   describe('Test For Updating A  Single Recipe', () => {
     it('body should return an object and it should have a statusCode of 200 when trying to update a recipes', (done) => {
       chai.request(recipeRoute)
-        .put('/2')
+        .put('/11')
         .send({
           name: 'Amala',
           description: 'This is made from carbonhydrate',
@@ -90,10 +90,10 @@ describe('Test For Recipes Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.id).equal(2);
+          expect(res.body.data.id).equal(11);
           assert.isObject(res.body.data, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
@@ -110,39 +110,39 @@ describe('Test For Recipes Routes', () => {
           expect(res).to.have.status(404);
           // expect(res.body.recipe.id).equal(undefined);
           done();
-        })
+        });
     });
   });
 
   describe('Test For Voting A Recipe', () => {
     it('body should return an object and it should have a statusCode of 200 when trying to upvote a recipes', (done) => {
       chai.request(recipeRoute)
-        .put('/10/upvotes')
+        .put('/11/upvotes')
         .send({
-          userId: 1
+          userId: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.upvotes).that.include(1);
+          expect(res.body.recipe.upvotes).that.include(2);
           assert.isObject(res.body, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
   describe('Test For Voting A Recipe', () => {
     it('body should return an object and it should have a statusCode of 200 when trying to downvote a recipes', (done) => {
       chai.request(recipeRoute)
-        .put('/10/downvotes')
+        .put('/11/downvotes')
         .send({
-          userId: 1
+          userId: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.downvotes).that.include(1);
+          expect(res.body.recipe.downvotes).that.include(2);
           assert.isObject(res.body, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
@@ -158,12 +158,12 @@ describe('Test For Recipes Routes', () => {
           // expect(res.body.data.downvotes).that.include(1);
           // assert.isObject(res.body, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('body should return an object and it should have a statusCode of 400 when trying to downvote a recipes', (done) => {
+    it('body should return an object and it should have a statusCode of 404 when trying to downvote a recipes', (done) => {
       chai.request(recipeRoute)
         .put('/100/downvotes')
         .send({
@@ -174,7 +174,7 @@ describe('Test For Recipes Routes', () => {
           // expect(res.body.data.downvotes).that.include(1);
           // assert.isObject(res.body, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
@@ -190,14 +190,14 @@ describe('Test For Recipes Routes', () => {
           expect(res).to.have.status(200);
           assert.isObject(res.body, 'respone return an object');
           done();
-        })
+        });
     });
   });
 
   describe('Test For Deleting A  Single Recipe In Memory When Not Authorized', () => {
     it('body should return an object and it should have a statusCode of 401 when trying to delete a recipe in memory', (done) => {
       chai.request(recipeRoute)
-        .delete('/2')
+        .delete('/11')
         .send({
           userId: 2
         })
@@ -212,7 +212,7 @@ describe('Test For Recipes Routes', () => {
   describe('Test For Deleting A  Single Recipe In Memory', () => {
     it('body should return an object and it should have a statusCode of 200 when trying to delete a recipe in memory', (done) => {
       chai.request(recipeRoute)
-        .delete('/2')
+        .delete('/11')
         .send({
           userId: 1
         })
@@ -229,7 +229,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .delete('/2222')
         .end((error, res) => {
-          expect(res).to.have.status(404)
+          expect(res).to.have.status(404);
           assert.isObject(res.body, 'respone return an empty object');
           done();
         });
@@ -294,7 +294,7 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/10/add')
         .end((error, res) => {
-          console.log(error)
+          console.log(error);
           expect(res).to.have.status(200);
           assert.isObject(res.body.data, 'respone return array of object');
           done();
@@ -308,7 +308,7 @@ describe('Test For Users Routes', () => {
         .get('/fav-recipes/')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          assert.isArray(res.body.data, 'respone return array of object');
+          assert.isArray(res.body.favouritedRecipes, 'respone return array of object');
           done();
         });
     });

@@ -9,7 +9,7 @@ export default {
     dialect: 'postgres'
   },
   test: {
-    username: 'seun',
+    username: 'SeunAgbeye',
     password: '',
     database: 'more_recipes_test',
     host: '127.0.0.1',
