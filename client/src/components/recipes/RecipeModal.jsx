@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Loader from 'react-loader';
 import {connect} from 'react-redux';
-import  config from '../../config/config';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
+import imageUpload from '../../../utils/ImageUploader';
 import StepInput from './StepInput';
 import IngredientInput from './IngredientInput';
 import {editRecipe} from '../../actions/Recipes'
 
-const { cloudinaryUploadUrl, cloudinaryUploadPreset } = config;
 
 export default class RecipeModal  extends Component {
 	constructor(props){
@@ -21,14 +20,14 @@ export default class RecipeModal  extends Component {
 			steps:  [],
       errors: {},
 			stepsTimes: [...Array(0)],
-			ingredientsTimes: [...Array(0)]
+			ingredientsTimes: [...Array(0)],
+			loaded: true
 		}
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.stepClick = this.stepClick.bind(this);
 		this.ingredientClick = this.ingredientClick.bind(this);
 		this.editClick = this.editClick.bind(this);
-		this.imageUpload = this.imageUpload.bind(this);
 	}
 	
 	stepClick(e){
@@ -47,43 +46,32 @@ export default class RecipeModal  extends Component {
 
 
 	onSubmit(e){
+		console.log(imageUpload)
+		e.preventDefault();
+		e.target.disabled=true;
+		this.setState({loaded: false})
 		const file = document.getElementById('recipePicture').files[0]
-		console.log(file)
-		file ? this.imageUpload()
+		file ? imageUpload(file)
 		.then(res => {
-			console.log(res.data.secure_url)
+			console.log('imageUrl',res.data.secure_url)
 			this.setState({image: res.data.secure_url}, () => {
 				setAuthorizationToken(localStorage.token);
 				this.props.addRecipe(this.state)
+				this.setState({loaded: true})
+				// e.target.disabled=false;
+				$('.modal').modal('hide')
+				
 			})
 		})
-		.catch(error => console.log(error))
+		.catch(error => {
+			this.setState({loaded: true})
+			e.target.disabled=false;
+			console.log(error.message)
+		})
 		: this.props.addRecipe(this.state)
 	}
 
-	imageUpload(){
 
-		console.log(cloudinaryUploadUrl, cloudinaryUploadPreset)
-		let newState;
-		const file = document.getElementById('recipePicture').files[0]
-		const imageData = new FormData();
-		imageData.append('file', file)
-		// imageData.append('public_id', )
-		imageData.append('upload_preset', cloudinaryUploadPreset)
-
-		delete axios.defaults.headers.common['x-access-token'];
-
-		return axios({
-			url: cloudinaryUploadUrl,
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form.urlencoded',
-				"X-Requested-With": "XMLHttpRequest"
-			},
-			data: imageData,
-			return_delete_token: 1
-		})
-	}
 
 	onChange(e){
 		e.preventDefault();
@@ -150,7 +138,8 @@ export default class RecipeModal  extends Component {
 										</fieldset>
 
 											<div className="modal-footer">
-												<button className="btn btn-secondary auth-button" data-dismiss="modal" id='submit' onClick={this.onSubmit}>Submit</button>
+											<Loader loaded={this.state.loaded}></Loader>
+												<button className="btn btn-secondary auth-button"  id='submit' onClick={this.onSubmit}>Submit</button>
 												<button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
 													Cancel
 												</button>

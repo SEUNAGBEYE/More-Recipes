@@ -184,7 +184,6 @@ export function allRecipes(page = 0, limit = 8) {
  * @returns {obj} obj
  */
 export function popularRecipes(limit) {
-  console.log('got here');
   return dispatch => axios.get(`api/v1/recipes/popular?limit=${limit}`)
     .then(res => dispatch(popularRecipesAction(res.data.popularRecipes)));
 }
@@ -238,19 +237,16 @@ export function getFavouritedRecipes(page) {
  * @returns {obj} obj
  */
 export function addRecipe(data) {
-  return (dispatch) => {
-    console.log(data, 'data');
-    return axios.post('api/v1/recipes', data)
-      .then((res) => {
-        toastr.success('Recipe Added', 'Success');
-        return dispatch(setRecipe(recipe));
-      })
-      .catch((error) => {
-        if (error) {
-          console.log(error.response.data);
-        }
-      });
-  };
+  return dispatch => axios.post('api/v1/recipes', data)
+    .then((res) => {
+      toastr.success('Recipe Added', 'Success');
+      return dispatch(setRecipe(res.data.recipe));
+    })
+    .catch((error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
 }
 
 /**
@@ -308,8 +304,7 @@ export function deleteRecipe(id) {
     })
     .catch((error) => {
       if (error) {
-        console.log(error.response);
-        console.log(error.response.data);
+        console.log(error);
       }
     });
 }

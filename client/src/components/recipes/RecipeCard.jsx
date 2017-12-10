@@ -37,7 +37,6 @@ class RecipeCard extends Component{
 	}
 
 	componentDidMount(){
-		console.log(this.props.recipe, this.props.userId)
 		this.setState({
 			recipe: this.props.recipe,
 			isUpVoted: this.props.recipe.upvotes.includes(parseInt(this.props.user.userId)),

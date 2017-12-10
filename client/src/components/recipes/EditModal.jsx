@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Loader from 'react-loader';
 import StepInput from './StepInput';
 import IngredientInput from './IngredientInput';
+import setAuthorizationToken from '../../../utils/setAuthorizationToken';
+import imageUpload from '../../../utils/ImageUploader';
 import {editRecipe} from '../../actions/Recipes'
 
 export default class EditModal  extends Component {
@@ -10,12 +13,13 @@ export default class EditModal  extends Component {
 		this.state = {
 			name: this.props.recipe.name ||'',
 			description: this.props.recipe.description ||'',
-			image: this.props.image,
+			image: '',
 			ingredients: this.props.recipe.ingredients ||[],
 			steps:  this.props.recipe.steps ||[],
       errors: {},
 			stepsTimes: [...Array(0)],
-			ingredientsTimes: [...Array(0)]
+			ingredientsTimes: [...Array(0)],
+			loaded: true
 		}
 		this.onChange = this.onChange.bind(this);
 		this.stepClick = this.stepClick.bind(this);
@@ -46,6 +50,7 @@ export default class EditModal  extends Component {
 		let stateKey = e.target.name
 		if(Array.isArray(this.state[stateKey])){
 			let value = this.state[stateKey].filter((element, index) => index == e.target.id)
+			console.log('value', value);
 			if(this.state[stateKey][(e.target.id)]){
 				this.state[stateKey][(e.target.id)].length === 1 && e.target.value === '' ? this.state[stateKey].splice(e.target.id, 1): ''
 			}
@@ -63,14 +68,44 @@ export default class EditModal  extends Component {
 	}
   
   updateRecipe(e){
+		e.target.disabled=true;
+		this.setState({loaded: false})
+		const file = document.getElementById(`recipePicture${e.target.id}`).files[0]
+		console.log('filing', file)
+		if(file){
+		imageUpload(file)
+		.then(res => {
+			console.log(res.data.secure_url)
+			this.setState({image: res.data.secure_url}, () => {
+				setAuthorizationToken(localStorage.token);
+				this.props.editRecipe(this.props.recipe.id, this.state)
+					this.setState({loaded: true})
+					// e.target.disabled=false;
+					$('.modal').modal('hide');
+					
+			})
+		})
+		.catch(error => {
+			this.setState({loaded: true})
+			e.target.disabled=false;
+			console.log(error.message)
+		})
+	 }else{
 		this.props.editRecipe(this.props.recipe.id, this.state)
+		.then(res => {
+			this.setState({loaded: true})
+			$('.modal').modal('hide');
+		})
+	 }
+
 	}
 
 	render(){
 		return(
+			
 			<div>
 					
-					<div className="modal fade" id={`editModal${this.props.id}`} tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+					<div className="modal fade" id={`editModal${this.props.recipe.id}`} tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 						<div className="modal-dialog" role="document">
 							<div className="modal-content">
 								<div className="modal-header">
@@ -94,7 +129,7 @@ export default class EditModal  extends Component {
 
 										<fieldset className="form-group">
 											<label htmlFor="image" className="form-inline">Picture</label>
-											<input type="file" className="form-control" id="recipePicture" name="image"  onChange={this.onChange}/>
+											<input type="file" className="form-control" id={`recipePicture${this.props.recipe.id}`} name="image"/>
 										</fieldset>
 
 										{this.state.ingredientsTimes.map((element, index) => <IngredientInput key={index} onChange={this.onChange} ingredients={index + 1} id={index} />)}
@@ -112,7 +147,9 @@ export default class EditModal  extends Component {
 										</fieldset>
 
 											<div className="modal-footer">
-												<button className="btn btn-secondary auth-button" data-dismiss="modal" id='submit' onClick={this.updateRecipe}>Update</button>
+											<Loader loaded={this.state.loaded}>
+											</Loader>
+												<button className="btn btn-secondary auth-button" id={this.props.recipe.id} onClick={this.updateRecipe}>Update</button>
 												<button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
 													Cancel
 												</button>
@@ -123,6 +160,7 @@ export default class EditModal  extends Component {
 						</div>
 					</div>
 			</div>
+			
 		)
 	}
 }

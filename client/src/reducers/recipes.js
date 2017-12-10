@@ -14,7 +14,10 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
   case 'ADD_RECIPE':
-    return [...state, action.recipe];
+    return {
+      ...state,
+      ...{ allRecipes: [action.recipe, ...state.allRecipes] }
+    };
 
   case 'GET_RECIPE':
     return { ...state, ...{ allRecipes: [...state.allRecipes.filter(recipe => recipe.id === parseInt(action.id))] || action.recipe } };
@@ -38,7 +41,6 @@ export default (state = initialState, action = {}) => {
       }
     };
   case 'GET_POPULAR_RECIPES':
-    console.log('popular', action.popularRecipe);
     return {
       ...state,
       ...{
@@ -56,7 +58,10 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'DELETE_RECIPE':
-    return state.allRecipe.filter(recipe => recipe.id !== action.id);
+    return {
+      ...state,
+      ...{ allRecipes: state.allRecipes.filter(recipe => recipe.id !== action.id) }
+    };
 
 
   case 'EDIT_RECIPE':

@@ -53,9 +53,6 @@ class UserRecipes extends Component{
 
   onSubmit(data){
     this.props.addRecipe(data)
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, res.recipe]})
-    })
   }
 
   deleteRecipe(id){
@@ -110,7 +107,6 @@ class UserRecipes extends Component{
                 this.state.userRecipes.length > 0
                 ?
                 this.props.userRecipes.map((elem, index) => {
-                  console.log('element', elem)
                 return (<RecipeCard key={elem.id} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
                 })
                 :

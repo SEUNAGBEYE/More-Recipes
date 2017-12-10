@@ -72,7 +72,7 @@ class RecipeController {
   * @param {obj} res res object
   * @param {obj} next next function
   * @param {number} id this is the id supplied by other class method when getting a single recipe
-  * @returns {null} json
+  * @returns {obj} json
   */
   static getRecipe(req, res) {
     console.log('server responding');
