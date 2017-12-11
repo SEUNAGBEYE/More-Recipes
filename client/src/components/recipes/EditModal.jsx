@@ -69,6 +69,7 @@ export default class EditModal  extends Component {
   
   updateRecipe(e){
 		e.target.disabled=true;
+		let id = e.target.id
 		this.setState({loaded: false})
 		const file = document.getElementById(`recipePicture${e.target.id}`).files[0]
 		console.log('filing', file)
@@ -81,18 +82,21 @@ export default class EditModal  extends Component {
 				this.props.editRecipe(this.props.recipe.id, this.state)
 					this.setState({loaded: true})
 					// e.target.disabled=false;
+					console.log(document.getElementById(id), id)
+					document.getElementById(id).disabled=false
 					$('.modal').modal('hide');
 					
 			})
 		})
 		.catch(error => {
 			this.setState({loaded: true})
-			e.target.disabled=false;
+					console.log(document.getElementById(id), id)
+					document.getElementById(id).disabled=false
 			console.log(error.message)
 		})
 	 }else{
 		this.props.editRecipe(this.props.recipe.id, this.state)
-			this.setState({loaded: true})
+			this.setState({loaded: true, image: this.props.recipe.image})
 			$('.modal').modal('hide');
 	 }
 

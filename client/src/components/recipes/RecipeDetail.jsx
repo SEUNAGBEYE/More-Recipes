@@ -3,7 +3,6 @@ import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
 import { connect } from 'react-redux';
 import {getRecipe} from '../../actions/Recipes';
-import { pastries, seun } from '../../helpers/Images';
 
 /**
  * @class RecipeDetail
@@ -154,7 +153,7 @@ class RecipeDetail extends Component {
               <div className="" style={{backgroundColor: '#f8f9fa', border:'1 solid #f8f9fa'}}>
                 
                 <div className="col-md-1 review" style={{paddingTop: 10}}>
-                <img src={seun} style={{width: 30, height: 30, borderRadius: 80}} />
+                <img style={{width: 30, height: 30, borderRadius: 80}} />
                 </div>
                   
                 <div className="col-md-11 review">
@@ -170,7 +169,7 @@ class RecipeDetail extends Component {
               <div className="" style={{backgroundColor: '#f8f9fa', border:'1 solid #f8f9fa'}}>
                 
                 <div className="col-md-1 review" style={{paddingTop: 10}}>
-                <img src={seun} style={{width: 30, height: 30, borderRadius: 80}} />
+                <img style={{width: 30, height: 30, borderRadius: 80}} />
                 </div>
                 <div className="col-md-11 review">
                   <h5 style={{color: 'orange', marginTop: 5}}>Joe</h5>

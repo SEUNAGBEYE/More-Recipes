@@ -316,21 +316,17 @@ export function deleteRecipe(id) {
  * @returns {obj} obj
  */
 export function editRecipe(id, recipe) {
-  return (dispatch) => {
-    console.log('id', id, 'recipeToBeUpdated', recipe);
-    return axios.put(`api/v1/recipes/${id}`, recipe)
-      .then((res) => {
-        toastr.success('Recipe Updated', 'Success');
-        console.log('res', res.data.data);
-        return dispatch(editRecipeAction(res.data.data));
-      })
-      .catch((error) => {
-        if (error) {
-          console.log(error);
-          console.log(error.response.data);
-        }
-      });
-  };
+  return dispatch => axios.put(`api/v1/recipes/${id}`, recipe)
+    .then((res) => {
+      toastr.success('Recipe Updated', 'Success');
+      return dispatch(editRecipeAction(res.data.data));
+    })
+    .catch((error) => {
+      if (error) {
+        console.log(error);
+        console.log(error.response.data);
+      }
+    });
 }
 
 /**

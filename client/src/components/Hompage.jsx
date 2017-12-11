@@ -7,30 +7,6 @@ import Footer from './common/Footer';
 import Recipe from '../actions/Recipes';
 import RecipeCircle from './recipes/RecipeCircle';
 
-import {
-  cappuccino,
-  breakfast,
-  cookies,
-  desserts,
-  dinner,
-  dougnuts,
-  drinks,
-  frozen_desserts,
-  jollof_rice,
-  lunch,
-  noodles,
-  pasta,
-  pastries,
-  pies,
-  chips,
-  pizza,
-  pudding,
-  roasted_chicken,
-  salad,
-  seun,
-  banana_split
-} from '../helpers/Images';
-// import { stat } from 'fs';
 
 
 /**
@@ -87,7 +63,7 @@ class Homepage extends Component {
                   <a href="category.html">
                    
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={breakfast} /></div>
+                      <div className="circle"><img className ="circle"  /></div>
                     </div>
                     Breakfast
                   </a>
@@ -98,7 +74,7 @@ class Homepage extends Component {
                   <a href="category.html">
                     
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={lunch} /></div>
+                      <div className="circle"><img className ="circle" /></div>
                     </div>
                     Lunch
                   </a>
@@ -109,7 +85,7 @@ class Homepage extends Component {
                   <a href="category.html">
                     
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={dinner} /></div>
+                      <div className="circle"><img className ="circle" /></div>
                     </div>
                     Dinner
                   </a>
@@ -120,7 +96,7 @@ class Homepage extends Component {
                   <a href="category.html">
                     
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={desserts} /></div>
+                      <div className="circle"><img className ="circle" /></div>
                     </div>
                     Desserts
                   </a> 
@@ -130,7 +106,7 @@ class Homepage extends Component {
                 <div className="col-sm-6 col-md-4" style={{ fontWeight: 'bold', textAlign: 'center'}}>
                   <a href="category.html">
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={noodles} /></div>
+                      <div className="circle"><img className ="circle"  /></div>
                     </div>
                     Noodles
                   </a>
@@ -139,7 +115,7 @@ class Homepage extends Component {
                 <div className="col-sm-6 col-md-4" style={{ fontWeight: 'bold', textAlign: 'center'}}>
                   <a href="category.html">
                     <div className="box">
-                      <div className="circle"><img className ="circle" src={drinks} /></div>
+                      <div className="circle"><img className ="circle" /></div>
                     </div>
                     Drinks
                   </a>

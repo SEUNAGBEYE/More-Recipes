@@ -23,7 +23,7 @@ class UserProfile extends Component{
 
 
             <div className="card" id="profile-card">
-              <img src="assets/img/seun.jpg" alt="John" className='profile-picture'/>
+              <img src={this.props.auth.user.profilePicture} alt="John" className='profile-picture'/>
               <h1>{`${this.props.auth.user.firstName} ${this.props.auth.user.lastName}`}</h1>
               <p className="title">CEO & Founder, Recipe</p>
               <p style={{color: 'orange'}}>Software Developer</p>

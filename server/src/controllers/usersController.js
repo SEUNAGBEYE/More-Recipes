@@ -49,11 +49,11 @@ class UserController {
       bcrypt.compare(req.body.password, user.password).then((response) => {
         if (response) {
           const {
-            id: userId, email, firstName, lastName, favoriteRecipe
+            id: userId, email, firstName, lastName, favoriteRecipe, profilePicture
           } = user;
           const token = jwt.sign(
             {
-              userId, email, firstName, lastName, favoriteRecipe
+              userId, email, firstName, lastName, favoriteRecipe, profilePicture
             },
             process.env.SECRET_KEY,
             { expiresIn: 86400 }

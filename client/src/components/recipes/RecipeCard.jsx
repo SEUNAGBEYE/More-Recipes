@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux';
 import classnames from 'classnames'
 import Recipe from '../../actions/Recipes';
-import { pasta, seun } from '../../helpers/Images';
 import RecipeModal from './RecipeModal';
 import DeleteModal from './DeleteModal';
 import {editRecipe} from '../../actions/Recipes'
@@ -86,7 +85,7 @@ class RecipeCard extends Component{
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
 					<Link to={`/recipe/${this.props.id}`}>
 					<div className="card recipe-card">
-					  	<img className="card-img-top" src={this.state.recipe.image || pasta} alt="Card image cap" />
+					  	<img className="card-img-top" src={this.state.recipe.image} alt="Card image cap" />
 						<div className="container">
 							<div className="card-block">
 					    		<h4 className="card-title">{this.state.recipe.name.slice(0, 20)}</h4>
