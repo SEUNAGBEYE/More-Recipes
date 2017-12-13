@@ -2,20 +2,34 @@ module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Name is Required'
+        }
+
+      }
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Image is Required'
+        }
+
+      }
     },
     views: {
       type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     upvotes: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     downvotes: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     categoryId: {
       type: DataTypes.INTEGER,
@@ -25,8 +39,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     steps: {
-      type: DataTypes.JSON,
-      allowNull: true
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    },
+    ingredients: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     estimatedTime: {
       type: DataTypes.INTEGER
@@ -35,7 +53,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    description: DataTypes.TEXT
+    description: {
+      type: DataTypes.TEXT,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Description is Required'
+        }
+      }
+    }
   });
 
   Recipe.associate = (models) => {
@@ -43,6 +69,7 @@ module.exports = (sequelize, DataTypes) => {
     Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
+      as: 'user'
     });
 
     // Recipe.belongsTo(models.Category, {

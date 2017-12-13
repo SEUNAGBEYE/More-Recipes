@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { error } from 'util';
 
 class SignUpForm extends Component {
 
@@ -12,23 +13,32 @@ class SignUpForm extends Component {
       password: '',
       errors: ''
     }
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange = (e) => {
+  /**
+   * @memberof SignUpForm
+   */
+  onChange(e){
     this.setState({ [e.target.name]: e.target.value, errors: '' });
   }
 
-  onSubmit = (e) => {
+  /**
+   * @memberof SignUpForm
+   */
+  onSubmit(e){
     e.preventDefault();
     this.props.signUpRequest(this.state)
     .then(res => {
       toastr.success('Account created please login to continue', 'Success!')
-      this.props.history.push('/login');
+      window.location=('/login');
     })
     .catch((errors) => {
-      console.log(errors)
-      toastr.error(errors.response, 'Error!')
-      this.setState({errors: errors.response})
+      console.log(errors.response.data.errors)
+      toastr.error(errors.response.data.errors, 'Error!')
+      this.setState({errors: errors.response.data.errors})
     })
   }
 

@@ -1,15 +1,33 @@
 import bcrypt from 'bcrypt';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'FirstName is Required'
+        }
+
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'LastName is Required'
+        }
+      }
+    },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: {
-          args: true,
-          msg: 'User already exist with this email'
+        args: true,
+        msg: 'User already exist with this email'
       },
+      allowNull: false,
       validate: {
         isEmail: {
           args: true,
@@ -22,14 +40,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       set(val) {
-        this.setDataValue('password', bcrypt.hashSync(val, 10))
+        this.setDataValue('password', bcrypt.hashSync(val, 10));
       },
-      min: 5
     },
-    // facebookUrl: DataTypes.STRING,
-    // twitterUrl: DataTypes.STRING,
-    favoriteRecipe: DataTypes.ARRAY(DataTypes.INTEGER),
-    profilePicture: DataTypes.STRING
+    favoriteRecipe: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      defaultValue: 'https://res.cloudinary.com/seun/image/upload/v1512979224/ctvqx5p0wu3rp0gcozsj.png'
+    }
   });
 
   User.associate = (models) => {
@@ -39,10 +60,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'userRecipes'
     });
 
-  //   User.hasMany(models.Review, {
-  //     foreignKey: 'userId',
-  //     as: 'userReviews'
-  //   });
-  }
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+      as: 'userReviews'
+    });
+  };
   return User;
-}
+};
+

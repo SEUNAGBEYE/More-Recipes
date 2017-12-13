@@ -1,91 +1,112 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import {addRecipe, getUserRecipes, deleteRecipe, editRecipe, userRecipes} from '../../actions/Recipes';
+import { addRecipe, getUserRecipes, deleteRecipe, editRecipe } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
 
 
-
 /**
  * @class UserRecipes
  */
-class UserRecipes extends Component{
-
-	constructor(props){
-		super(props);
-		this.state = {
-			name: '',
-			description: '',
-			image: '',
-			ingredients: [],
-			steps: [],
+class UserRecipes extends Component {
+  /**
+   * Creates an instance of UserRecipes.
+   * @param {any} props
+   * @memberof UserRecipes
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      description: '',
+      image: '',
+      ingredients: [],
+      steps: [],
       errors: {},
       categoryId: '',
       downvotes: [],
-      upvotes:[],
+      upvotes: [],
       userRecipes: []
-		}
+    };
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
   }
-  
 
-  componentDidMount(){
+  /**
+  * @returns {void} void
+  * @memberof UserRecipes
+  */
+  componentDidMount() {
     this.props.getUserRecipes()
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
-    })
+      .then(res => {
+        this.setState({ userRecipes: [...this.state.userRecipes, ...res.recipes] });
+      });
   }
-  
-  componenDidUpdate(){
+
+  /**
+   * @returns {void} void
+   * @memberof UserRecipes
+   */
+  componenDidUpdate() {
     this.props.getUserRecipes()
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, ...res.recipes]})
-    })
-    
+      .then(res => {
+        this.setState({ userRecipes: [...this.state.userRecipes, ...res.recipes] });
+      });
   }
 
-  onSubmit(data){
-    this.props.addRecipe(data)
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes, res.recipe]})
-    })
+  /**
+   * @returns {void} void
+   * @param {any} data
+   * @memberof UserRecipes
+   */
+  onSubmit(data) {
+    this.props.addRecipe(data);
   }
 
-  deleteRecipe(id){
+  /**
+   * @returns {void} void
+   * @param {any} id
+   * @memberof UserRecipes
+   */
+  deleteRecipe(id) {
     this.props.deleteRecipe(id)
-    .then(res => {
-      this.setState({userRecipes: this.state.userRecipes.filter( recipe => recipe.id !== id) })
-    })
+      .then(res => {
+        this.setState({ userRecipes: this.state.userRecipes.filter(recipe => recipe.id !== id) });
+      });
   }
 
-  editRecipe(id, recipe){
-    this.props.getUserRecipes()
+  /**
+   * @returns {void} void
+   * @param {any} id
+   * @param {any} recipe
+   * @memberof UserRecipes
+   */
+  editRecipe(id, recipe) {
     this.props.editRecipe(id, recipe)
-    .then(res => {
-      this.setState({userRecipes: [...this.state.userRecipes.filter( recipe => recipe.id === id)] })
-    })
+      .then(res => {
+        this.setState({ userRecipes: [...this.state.userRecipes.filter(recipe => recipe.id === id)] });
+      });
+    this.props.getUserRecipes();
   }
 
 
   /**
    * @memberOf UserRecipes
-   * return {object}
+   * @returns {jsx} JSX
    */
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <Navbar />
-        <main style={{marginTop: 40}}>
+        <main style={{ marginTop: 40 }}>
 
           <div className="container">
-            <div className="dropdown" style={{float: 'left'}}>
+            <div className="dropdown" style={{ float: 'left' }}>
               <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
               </button>
               <div className="dropdown-menu" aria-labelledby="about-us">
@@ -97,26 +118,21 @@ class UserRecipes extends Component{
               </div>
             </div>
           </div>
-          
+
           <div className="container">
-            <div style={{textAlign: 'center', marginTop: 100}}>
+            <div style={{ textAlign: 'center', marginTop: 100 }}>
               <a href="" className="auth-button" data-toggle="modal" data-target="#addModal">Add Recipe</a>
-              <h4 className='container__myrecipes'>My Recipes</h4><br /><br />
+              <h4 className="container__myrecipes">My Recipes</h4><br /><br />
               <RecipeModal addRecipe={this.onSubmit}/>
             </div>
 
-            <div className='row'>
+            <div className="row">
               {
-                this.state.userRecipes.length > 0
-                ?
-                this.props.userRecipes.map((elem, index) => {
-                  console.log('element', elem)
-                return (<RecipeCard key={elem.id} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)
-                })
-                :
-                <Exclamation>
-                  <p className='text-muted'>Sorry you haven't added any recipe yet, please add to get started</p>
-                </Exclamation>
+                this.props.userRecipes.length > 0 ?
+                  this.props.userRecipes.map((elem, index) => (<RecipeCard key={elem.id} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)) :
+                  <Exclamation>
+                    <p className="text-muted">Sorry you haven't added any recipe yet, please add to get started</p>
+                  </Exclamation>
               }
             </div>
           </div>
@@ -124,7 +140,7 @@ class UserRecipes extends Component{
         <Pagination />
         <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -133,13 +149,13 @@ class UserRecipes extends Component{
  * @param {any} state
  * @returns {object} object
  */
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes,
-    user: state.auth.user,
-    userRecipes: state.recipes.allRecipes
-  };
-}
+const mapStateToProps = (state) => ({
+  recipes: state.recipes,
+  user: state.auth.user,
+  userRecipes: state.recipes.allRecipes
+});
 
-export default connect(mapStateToProps, { addRecipe, getUserRecipes, deleteRecipe, editRecipe })(UserRecipes);
+export default connect(mapStateToProps, {
+  addRecipe, getUserRecipes, deleteRecipe, editRecipe
+})(UserRecipes);
 

@@ -30,7 +30,6 @@ class Navbar extends React.Component {
 
   search(e){
     e.preventDefault();
-    console.log('eventttttttttttt', e.target.search.value, console.log(this.props))
     window.location=(`/search_results?search=${e.target.search.value}`)
 
   }

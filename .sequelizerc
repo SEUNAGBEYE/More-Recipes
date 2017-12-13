@@ -1,15 +1,6 @@
 const path = require('path');
 
 
-if (process.env != 'production'){
-	module.exports = {
-	  "config": path.resolve('./server/src/config', 'config.js'),
-	  "models-path": path.resolve('./server/src/models'),
-	  "seeders-path": path.resolve('./server/src/seeders'),
-	  "migrations-path": path.resolve('./server/src/migrations')
-	};	
-}
-
 module.exports = {
   "config": path.resolve('./server/dist/config', 'config.js'),
   "models-path": path.resolve('./server/dist/models'),

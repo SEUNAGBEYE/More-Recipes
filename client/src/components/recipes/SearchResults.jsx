@@ -41,10 +41,6 @@ class SearchResults extends Component{
 
   paginateRecipes(page){
     this.props.searchRecipes(this.props.location.search, page)
-    .then(res => {
-      console.log('respose', res)
-      this.setState({allRecipes: [...res.allRecipes]})
-    });
   }
   
 

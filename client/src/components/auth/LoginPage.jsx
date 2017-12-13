@@ -12,8 +12,17 @@ import {login} from '../../actions/auth/LoginRequest';
  * @extends Component
  */
 class LoginPage extends Component{
+  constructor(props){
+    super(props)
 
-  onSubmit = (data) => {
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /**
+   * @param {any} data 
+   * @memberof LoginPage
+   */
+  onSubmit(data){
 
       const history =  this.props.history
       this.props.login(data, history)

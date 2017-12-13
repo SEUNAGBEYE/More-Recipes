@@ -1,21 +1,22 @@
 import express from 'express';
 import path from 'path';
-import { recipeRoute, userRoute } from './server/src/routes/index';
 import config from 'dotenv';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import db from './server/src/models/index.js';
+import db from './server/src/models/index';
+import { recipeRoute, userRoute } from './server/src/routes/index';
 import webpackConfig from './webpack.config';
-config.config()
+
+config.config();
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
 const app = express();
 
 app.use(express.static('client/public'));
 
 if (process.env.NODE_ENV !== 'test') {
-	const compiler = webpack(webpackConfig);
+  const compiler = webpack(webpackConfig);
  	app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
 }
 
@@ -29,9 +30,9 @@ app.get('/*', (req, res) => {
 });
 
 db.sequelize.sync().then(() => {
-	app.listen(port, () => {
+  app.listen(port, () => {
 	  console.log(`listening to port ${port}`);
-	});
+  });
 });
 
 export { app };

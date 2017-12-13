@@ -3,91 +3,123 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
-import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe} from '../../actions/Recipes';
+import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
 
 
-
 /**
  * @class AllRecipes
  * @extends {Component}
  */
-class AllRecipes extends Component{
-
-	constructor(props){
-		super(props);
+class AllRecipes extends Component {
+  /**
+   * Creates an instance of AllRecipes.
+   * @param {any} props
+   * @memberof AllRecipes
+   */
+  constructor(props) {
+    super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
-    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this)
-    this.paginateRecipes = this.paginateRecipes.bind(this)
+    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
+    this.paginateRecipes = this.paginateRecipes.bind(this);
   }
-  
 
-  componentDidMount(){
-    this.paginateRecipes(0)
+  /**
+   * @returns {void} void
+ * @memberof AllRecipes
+ */
+  componentDidMount() {
+    this.paginateRecipes(1);
 
     this.props.getFavouritedRecipesIds()
-    .then(res => {
-      this.setState({favouritedRecipeIds: [...res.favouritedRecipesIds]})
-    })
+      .then(res => {
+        this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
+      });
   }
 
-  paginateRecipes(page){
+  /**
+   * @returns {void} void
+   * @param {any} page
+   * @memberof AllRecipes
+   */
+  paginateRecipes(page) {
     this.props.allRecipes(page)
-    .then(res => {
-      this.setState({allRecipes: [...res.allRecipes]})
-    });
+      .then(res => {
+        this.setState({ allRecipes: [...res.allRecipes] });
+      });
   }
-  
 
-  onSubmit(data){
+
+  /**
+   * @param {any} data
+   * @returns {void} void
+   * @memberof AllRecipes
+   */
+  onSubmit(data) {
     this.props.addRecipe(data)
-    .then(res => {
-      this.setState({allRecipes: [...this.state.allRecipes, res.recipe]})
-    })
+      .then(res => {
+        this.setState({ allRecipes: [...this.state.allRecipes, res.recipe] });
+      });
   }
 
-  deleteRecipe(id){
+  /**
+   * @param {any} id
+   * @returns {void} void
+   * @memberof AllRecipes
+   */
+  deleteRecipe(id) {
     this.props.deleteRecipe(id)
-    .then(res => {
-      this.setState({allRecipes: this.state.allRecipes.filter( recipe => recipe.id !== id) })
-    })
+      .then(res => {
+        this.setState({ allRecipes: this.state.allRecipes.filter(recipe => recipe.id !== id) });
+      });
   }
 
-	toggleFavouriteRecipe(id){
-		toggleFavouriteRecipe(id)
-		.then(res => {
-      this.setState({favouritedRecipesIds: [...res.data.favouritedRecipesId]})
-    })
+  /**
+ * @param {any} id
+ * @returns {void} void
+ * @memberof AllRecipes
+ */
+  toggleFavouriteRecipe(id) {
+    toggleFavouriteRecipe(id)
+      .then(res => {
+        this.setState({ favouritedRecipesIds: [...res.data.favouritedRecipesId] });
+      });
   }
-  
-  
 
-  editRecipe(id, recipe){
+
+  /**
+   * @param {any} id
+   * @returns {void} void
+   * @param {any} recipe
+   * @memberof AllRecipes
+   */
+  editRecipe(id, recipe) {
     this.props.editRecipe(id, recipe)
-    .then(res => {
-      this.setState({allRecipes: [...this.state.allRecipes.filter( recipe => recipe.id === id)] })
-    })
+      .then(res => {
+        this.setState({ allRecipes: [...this.state.allRecipes.filter(recipe => recipe.id === id)] });
+      });
   }
 
 
   /**
    * @memberOf UserRecipes
+   * @returns {jsx} JSX
    * return {object}
    */
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <Navbar />
-        <main style={{marginTop: 40}}>
+        <main style={{ marginTop: 40 }}>
 
           <div className="container">
-            <div className="dropdown" style={{float: 'left'}}>
+            <div className="dropdown" style={{ float: 'left' }}>
               <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
               </button>
               <div className="dropdown-menu" aria-labelledby="about-us">
@@ -99,39 +131,35 @@ class AllRecipes extends Component{
               </div>
             </div>
           </div>
-          
+
           <div className="container">
-            <div style={{textAlign: 'center', marginTop: 100}}>
-              <h4 className='container__myrecipes'>All Recipes</h4><br /><br />
+            <div style={{ textAlign: 'center', marginTop: 100 }}>
+              <h4 className="container__myrecipes">All Recipes</h4><br /><br />
               <RecipeModal addRecipe={this.onSubmit}/>
             </div>
 
-            <div className='row'>
+            <div className="row">
               {
-                this.props.recipes.length > 0
-                ?
-                this.props.recipes.map((elem, index) => {
-                return (<RecipeCard key={elem.id} 
-                user={this.props.user}
-                recipe={elem}
-                id={elem.id} 
-                onDelete={this.deleteRecipe} 
-                editRecipe={this.editRecipe} 
-                toggleFavouriteRecipe={this.toggleFavouriteRecipe}
-                />)
-                })
-                :
-                <Exclamation>
-                  <p className='text-muted text-center'>Sorry no recipe has been added yet, please add to get started</p>
-                </Exclamation>
+                this.props.recipes.length > 0 ?
+                  this.props.recipes.map((elem, index) => (<RecipeCard key={elem.id}
+                    user={this.props.user}
+                    recipe={elem}
+                    id={elem.id}
+                    onDelete={this.deleteRecipe}
+                    editRecipe={this.editRecipe}
+                    toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                  />)) :
+                  <Exclamation>
+                    <p className="text-muted text-center">Sorry no recipe has been added yet, please add to get started</p>
+                  </Exclamation>
               }
             </div>
           </div>
         </main>
-        <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
+        <Pagination recipesCount={this.props.pagination} recipesPagination={this.paginateRecipes}/>
         <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -140,13 +168,13 @@ class AllRecipes extends Component{
  * @param {any} state
  * @returns {object} object
  */
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes.allRecipes,
-    recipesCount: state.recipes.recipesCount,
-    user: state.auth.user
-  };
-}
+const mapStateToProps = (state) => ({
+  recipes: state.recipes.allRecipes,
+  pagination: state.recipes.pagination,
+  user: state.auth.user
+});
 
-export default connect(mapStateToProps, {getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe })(AllRecipes);
+export default connect(mapStateToProps, {
+  getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe
+})(AllRecipes);
 

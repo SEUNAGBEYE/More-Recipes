@@ -20,29 +20,32 @@ class RecipeController {
       req.query.sort.toLowerCase();
 
       db.Recipe.findAll({
+        where: {
+          upvotes: {
+            [db.sequelize.Op.ne]: []
+          }
+        },
         order: [
           [sortBy, orderBy]
         ],
-        offset: parseInt(req.query.page) === 1 ? 0 : req.query.limit * req.query.page,
-        limit: req.query.limit
       })
-        .then(recipes => res.status(200).json({ status: 'success', recipes }))
-        .catch(error => res.status(200).json({ status: 'fail', error: error.message }));
+        .then(recipes => res.status(200).send({ status: 'Success', data: recipes }))
+        .catch(error => res.status(400).send({ status: 'Bad Request', errors: error.message }));
     } else {
       db.Recipe.findAndCountAll()
         .then((recipesWithCount) => {
           db.Recipe.findAll({
             order: [['createdAt', 'DESC']],
-            offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
+            offset: (recipesWithCount.count > req.query.limit) ? (req.query.limit * (req.query.page - 1)) : 0,
             limit: req.query.limit
           })
             .then((recipes) => {
+              //  This is for the remainder of the resume if the count is not even
               const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
               const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
-              // recipes = recipes.reverse();
-              res.status(200).json({ status: 'success', recipes, recipesCount: page });
+              res.status(200).send({ status: 'Success', data: recipes, pagination: page });
             })
-            .catch(error => res.status(200).json({ status: 'fail', error: error.message }));
+            .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
         });
     }
   }
@@ -56,14 +59,18 @@ class RecipeController {
   static addRecipe(req, res) {
     return db.Recipe.create({
       id: req.body.id,
-      name: req.body.name,
+      name: req.body.name || '',
       image: req.body.image || '',
-      description: req.body.description,
+      description: req.body.description || '',
       steps: req.body.steps || [],
+      ingredients: req.body.ingredients || [],
       userId: req.token.userId
     })
-      .then(recipe => res.status(201).json({ status: 'success', recipe }))
-      .catch(error => res.status(400).json({ status: 'fail', error }));
+      .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
+      .catch(errors => res.status(400).send({
+        status: 'Bad Request',
+        errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
+      }));
   }
 
   /**
@@ -72,16 +79,9 @@ class RecipeController {
   * @param {obj} res res object
   * @param {obj} next next function
   * @param {number} id this is the id supplied by other class method when getting a single recipe
-  * @returns {null} json
+  * @returns {obj} json
   */
   static getRecipe(req, res) {
-    console.log('server responding');
-
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
-      return res.status(400).send('Please input a valid ID');
-    }
-
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
@@ -90,9 +90,9 @@ class RecipeController {
           });
         }
 
-        return res.status(200).json({ status: 'success', data: recipe });
+        return res.status(200).send({ status: 'Success', data: recipe });
       })
-      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
 
@@ -104,10 +104,6 @@ class RecipeController {
   * @returns {null} json
   */
   static updateRecipe(req, res) {
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
-      return res.status(400).send('Please input a valid ID');
-    }
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
@@ -118,12 +114,18 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .update(req.body, { fields: Object.keys(req.body) })
-            .then(updatedRecipe => res.status(200).json({ status: 'success', data: updatedRecipe }))
-            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+            .then(updatedRecipe => res.status(200).send({ status: 'Success', data: updatedRecipe }))
+            .catch(errors => res.status(400).send({
+              status: 'Bad Request',
+              errors: errors.errors.map(recipeError => ({ description: recipeError.message }))
+            }));
         }
-        return res.status(401).send('Not Authorize');
+        return res.status(401).send({ status: 'Not Authorize', message: 'Not Authorize' });
       })
-      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      .catch(errors => res.status(400).send({
+        status: 'Bad Request',
+        errors: errors.errors.map(recipeError => ({ description: recipeError.message }))
+      }));
   }
 
   /**
@@ -134,26 +136,28 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
-      return res.status(400).send('Please input a valid ID');
-    }
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).json({
+          return res.status(404).send({
             message: 'Recipe Not Found',
           });
         }
         return db.Review.create({
           userId: req.token.userId,
           recipeId: recipe.id,
-          body: req.body.body
+          body: req.body.body || ''
         })
-          .then(review => res.status(200).json({ status: 'success', data: review }))
-          .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+          .then(review => res.status(200).send({ status: 'Success', data: review }))
+          .catch(errors => res.status(400).send({
+            status: 'Bad Request',
+            errors: errors.errors.map(reviewError => ({ description: reviewError.message }))
+          }));
       })
-      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      .catch(errors => res.status(400).send({
+        status: 'Bad Request',
+        errors: errors.errors.map(reviewError => ({ description: reviewError.message }))
+      }));
   }
 
   /**
@@ -164,28 +168,24 @@ class RecipeController {
   * @returns {null} json
   */
   static deleteRecipe(req, res) {
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
-      return res.status(400).send('Please input a valid ID');
-    }
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Not Found',
             message: 'Recipe Not Found',
           });
         }
-        console.log(recipe);
 
         if (recipe.userId === req.token.userId) {
           return recipe
             .destroy()
-            .then(() => res.status(204).json({ status: 'success', message: 'No Content' }))
-            .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+            .then(() => res.status(204).send({ status: 'Deleted', message: 'No Content' }))
+            .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
         }
-        return res.status(401).send('Not Authorize');
+        return res.status(401).send({ status: 'Not Found', message: 'Not Authorize' });
       })
-      .catch(error => console.log(error.message));
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
   /**
@@ -196,14 +196,11 @@ class RecipeController {
    * @memberof RecipeController
    */
   static upVoteRecipe(req, res) {
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === '') {
-      return res.status(400).send('Please input a valid ID');
-    }
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).json({
+          return res.status(404).send({
+            status: 'Not Found',
             message: 'Recipe Not Found',
           });
         }
@@ -213,7 +210,6 @@ class RecipeController {
         }
 
         if (!recipe.upvotes.includes(req.token.userId)) {
-          console.log(typeof req.token.userId);
           recipe.upvotes.push(req.token.userId);
           recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
         } else {
@@ -223,10 +219,10 @@ class RecipeController {
           upvotes: recipe.upvotes,
           downvotes: recipe.downvotes
         })
-          .then(recipe => res.status(200).json({ status: 'success', recipe }))
-          .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }))
+          .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
       })
-      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
   /**
@@ -237,14 +233,11 @@ class RecipeController {
    * @memberof RecipeController
    */
   static downVoteRecipe(req, res) {
-    if (isNaN(req.params.id) || req.params.id === '' || req.params.id === undefined) {
-      return res.status(400).send('Please input a valid ID');
-    }
-
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Not Found',
             message: 'Recipe Not Found',
           });
         }
@@ -254,18 +247,18 @@ class RecipeController {
 
         if (!recipe.downvotes.includes(req.token.userId)) {
           recipe.downvotes.push(req.token.userId);
-          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+          recipe.upvotes = recipe.upvotes.filter(id => id !== req.token.userId);
         } else {
-          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+          recipe.downvotes = recipe.downvotes.filter(id => id !== req.token.userId);
         }
 
         recipe.update({
           downvotes: recipe.downvotes,
           upvotes: recipe.upvotes
         })
-          .then(recipe => res.status(200).json({ status: 'success', recipe }));
+          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }));
       })
-      .catch(error => res.status(400).json({ status: 'error', error: error.message }));
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
   /**
@@ -283,11 +276,11 @@ class RecipeController {
         }
       },
     })
-      .then(popularRecipes => res.status(200).json({
-        status: 'success',
-        popularRecipes: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+      .then(popularRecipes => res.status(200).send({
+        status: 'Success',
+        data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
       }))
-      .catch(error => console.log(error.message));
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
   /**
@@ -298,8 +291,7 @@ class RecipeController {
    * @memberof RecipeController
    */
   static searchRecipes(req, res) {
-    const { search, limit, page } = req.query;
-    console.log('searching', search, page, limit);
+    const { search } = req.query;
 
     db.Recipe.findAndCountAll({
       where: {
@@ -322,9 +314,22 @@ class RecipeController {
           .then((recipes) => {
             const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
             const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
-            res.status(200).json({ status: 'success', recipes, recipesCount: page });
+            res.status(200).send({ status: 'Success', data: recipes, pagination: page });
           });
       });
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static getCategories(req, res) {
+    db.Category.findAll()
+      .then(categories => res.status(200).send({ status: 'Success', data: categories }))
+      .catch(error => res.status(400).send({ status: 'Bad Request', error }));
   }
 }
 
