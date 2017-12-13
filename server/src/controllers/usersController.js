@@ -14,8 +14,8 @@ class UserController {
   * @returns {null} json
   */
   static signUp(req, res) {
-    if (req.body.password === undefined || req.body.password.length < 6) {
-      return res.status(400).send('Password must be greater than 6');
+    if (req.body.password.length < 6) {
+      return res.status(400).send({ status: 'Bad Request', message: 'Password must be greater than 6' });
     }
 
     return db.User.create({

@@ -42,7 +42,6 @@ module.exports = (sequelize, DataTypes) => {
       set(val) {
         this.setDataValue('password', bcrypt.hashSync(val, 10));
       },
-      min: 5
     },
     favoriteRecipe: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),

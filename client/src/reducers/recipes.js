@@ -21,7 +21,7 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_RECIPE':
-    return { ...state, ...{ allRecipes: [...state.allRecipes.filter(recipe => recipe.id === parseInt(action.id))] || action.recipe } };
+    return { ...state, ...{ allRecipes: [...state.allRecipes.filter(recipe => recipe.id === parseInt(action.id, 10))] || action.recipe } };
 
   case 'GET_USER_RECIPES':
     return {
