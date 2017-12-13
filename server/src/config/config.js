@@ -1,6 +1,6 @@
 export default {
   development: {
-    username: 'SeunAgbeye',
+    username: 'postgres',
     password: '',
     database: 'more_recipes',
     host: '127.0.0.1',
@@ -9,7 +9,7 @@ export default {
     dialect: 'postgres'
   },
   test: {
-    username: 'SeunAgbeye',
+    username: 'postgres',
     password: '',
     database: 'more_recipes_test',
     host: '127.0.0.1',
