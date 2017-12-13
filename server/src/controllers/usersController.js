@@ -26,7 +26,15 @@ class UserController {
       password: req.body.password || '',
       profilePicture: req.body.profilePicture
     })
-      .then(user => res.status(201).send({ status: 'Success', data: user }))
+      .then((user) => {
+        const {
+          firstName, lastName, email, profilePicture
+        } = user;
+        const userProfile = {
+          firstName, lastName, email, profilePicture
+        };
+        res.status(201).send({ status: 'Success', data: userProfile });
+      })
       .catch(errors => res.status(400).send({
         status: 'Bad Request',
         message: 'Bad Request',

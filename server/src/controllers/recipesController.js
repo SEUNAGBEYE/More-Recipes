@@ -20,14 +20,17 @@ class RecipeController {
       req.query.sort.toLowerCase();
 
       db.Recipe.findAll({
+        where: {
+          upvotes: {
+            [db.sequelize.Op.ne]: []
+          }
+        },
         order: [
           [sortBy, orderBy]
         ],
-        offset: req.query.limit * (req.query.page - 1),
-        limit: req.query.limit
       })
         .then(recipes => res.status(200).send({ status: 'Success', data: recipes }))
-        .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+        .catch(error => res.status(400).send({ status: 'Bad Request', errors: error.message }));
     } else {
       db.Recipe.findAndCountAll()
         .then((recipesWithCount) => {

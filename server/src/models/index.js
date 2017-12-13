@@ -22,7 +22,6 @@ if (config.environment === 'production') {
         ssl: true,
         native: true
       },
-      logging: true
     }
   );
 } else {
