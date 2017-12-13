@@ -2,7 +2,8 @@ import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import RecipeController from '../controllers/recipesController';
 import UserController from '../controllers/usersController';
-import authMiddleware from '../middlewares/authMiddleware';
+import authMiddleware from '../middleware/authMiddleware';
+import validateId from '../middleware/recipeIdValidation';
 
 const recipeRoute = express();
 const userRoute = express();
@@ -21,23 +22,25 @@ recipeRoute.route('/')
 recipeRoute.route('/popular')
   .get(RecipeController.popularRecipe);
 
+recipeRoute.route('/categories')
+  .get(RecipeController.getCategories);
+
 recipeRoute.route('/search_results')
   .get(RecipeController.searchRecipes);
 
 recipeRoute.route('/:id')
-  .get(RecipeController.getRecipe)
-  .put(authMiddleware, RecipeController.updateRecipe)
-  .delete(authMiddleware, RecipeController.deleteRecipe)
-  .post(authMiddleware, RecipeController.upVoteRecipe);
+  .get(validateId, RecipeController.getRecipe)
+  .put(authMiddleware, validateId, RecipeController.updateRecipe)
+  .delete(authMiddleware, validateId, RecipeController.deleteRecipe);
 
 recipeRoute.route('/:id/upvotes')
-  .put(authMiddleware, RecipeController.upVoteRecipe);
+  .put(authMiddleware, validateId, RecipeController.upVoteRecipe);
 
 recipeRoute.route('/:id/downvotes')
-  .put(authMiddleware, RecipeController.downVoteRecipe);
+  .put(authMiddleware, validateId, RecipeController.downVoteRecipe);
 
 recipeRoute.route('/:id/reviews')
-  .post(authMiddleware, RecipeController.reviewRecipe);
+  .post(authMiddleware, validateId, RecipeController.reviewRecipe);
 
 // User Routes Starts Here
 
@@ -57,7 +60,7 @@ userRoute.route('/fav-recipes/:actionType?')
   .get(authMiddleware, UserController.getFavoriteRecipes);
 
 userRoute.route('/fav-recipes/:id/add')
-  .post(authMiddleware, UserController.addFavoriteRecipe);
+  .post(authMiddleware, validateId, UserController.addFavoriteRecipe);
 
 userRoute.route('/myrecipes')
   .get(authMiddleware, UserController.getRecipes);

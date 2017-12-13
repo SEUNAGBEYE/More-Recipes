@@ -2,13 +2,15 @@ import chai, { assert, expect } from 'chai';
 import chaiHtpp from 'chai-http';
 import { recipeRoute, userRoute } from '../routes/index';
 
+process.env.NODE_ENV = 'test';
+
 
 // Test For Recipes Actions
 
 chai.use(chaiHtpp);
 describe('Test For Recipes Routes', () => {
   describe('Test Getting all recipes', () => {
-    it('the body should be an array and it should have a statusCode of 200 when trying to get all recipes', (done) => {
+    it('should be an array and it should have a statusCode of 200 when trying to get all recipes', (done) => {
       chai.request(recipeRoute)
         .get('/')
         .end((error, res) => {

@@ -3,10 +3,11 @@ import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
   allRecipes: [],
-  recipesCount: '',
+  pagination: '',
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
-  popularRecipes: []
+  popularRecipes: [],
+  recipeCategories: []
   // favouritedRecipesCount: '',
   // userRecipes: []
 };
@@ -37,7 +38,16 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         allRecipes: action.allRecipes,
-        recipesCount: action.recipesCount
+        pagination: action.pagination
+      }
+    };
+
+  case 'RECIPE_CATEGORIES':
+
+    return {
+      ...state,
+      ...{
+        recipeCategories: action.recipeCategories,
       }
     };
   case 'GET_POPULAR_RECIPES':
@@ -53,7 +63,7 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         allRecipes: [...action.recipes],
-        recipesCount: action.recipesCount
+        pagination: action.pagination
       }
     };
 
@@ -82,13 +92,13 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{
-        favouriteRecipes: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id)
-          ? [...state.favouriteRecipes, action.favouritedRecipe]
-          : state.favouriteRecipes.filter(recipe => recipe.id != action.favouritedRecipe.id),
+        favouriteRecipes: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id) ?
+          [...state.favouriteRecipes, action.favouritedRecipe] :
+          state.favouriteRecipes.filter(recipe => recipe.id != action.favouritedRecipe.id),
 
-        userFavouritedRecipeId: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id)
-          ? state.userFavouritedRecipeId.concat(action.favouritedRecipe.id)
-          : state.userFavouritedRecipeId.filter(id => id !== action.favouritedRecipe.id)
+        userFavouritedRecipeId: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id) ?
+          state.userFavouritedRecipeId.concat(action.favouritedRecipe.id) :
+          state.userFavouritedRecipeId.filter(id => id !== action.favouritedRecipe.id)
       }
     };
 
@@ -137,7 +147,7 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       favouriteRecipes: [...action.favouriteRecipes],
-      recipesCount: action.favouritedRecipesCount
+      pagination: action.pagination
     };
 
   case 'GET_USER_FAVOURITED_RECIPES_ID':

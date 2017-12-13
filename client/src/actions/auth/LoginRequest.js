@@ -7,9 +7,9 @@ const setCurrentUser = user => ({
   user
 });
 
-const login = (data, history = []) => dispatch => (axios.post('/api/v1/users/signin', data)
+const login = (data, history = []) => dispatch => (axios.post('api/v1/users/signin', data)
   .then((res) => {
-    const token = res.data;
+    const { token } = res.data;
     localStorage.setItem('token', token);
     setAuthorizationToken(token);
     const decoded = jwt.decode(token);
@@ -19,7 +19,7 @@ const login = (data, history = []) => dispatch => (axios.post('/api/v1/users/sig
   })
   .catch((error) => {
     if (error) {
-      console.log(error);
+      console.log(error, console.log(error.message));
       toastr.error('Invalid password or email', 'Error');
     }
   })

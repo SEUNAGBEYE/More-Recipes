@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-});
+  });
 
   Ingredient.associate = (models) => {
     // associations can be defined here
@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE'
     });
-  }
-  return Ingredient
+  };
+  return Ingredient;
 }
+;

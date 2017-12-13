@@ -37,10 +37,10 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      upvotes : {
+      upvotes: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
-      downvotes :{
+      downvotes: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       estimatedTime: {
@@ -52,8 +52,11 @@ module.exports = {
       views: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
+      ingredients: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
+      },
       steps: {
-        type: Sequelize.JSON
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       createdAt: {
         allowNull: false,

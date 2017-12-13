@@ -122,6 +122,7 @@ export default class RecipeModal  extends Component {
 
 										<fieldset className="form-group">
 											<label htmlFor="image" className="form-inline">
+											The maximum file size allowed is 4mb
 											<input type="file" className="form-control" id="recipePicture" name="image"/>
 											Click to add image
 											</label>

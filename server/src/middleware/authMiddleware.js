@@ -12,11 +12,11 @@ const authMiddleware = (req, res, next) => {
         req.token = decode;
         next();
       } else {
-        return res.status(400).json({ status: 'fail', message: 'Token Not Valid' });
+        return res.status(400).send({ status: 'Bad Request', message: 'Token Not Valid' });
       }
     });
   } else {
-    return res.send('Please send a token!');
+    return res.status(400).send({ status: 'Bad Request', message: 'Please send a token!' });
   }
 };
 

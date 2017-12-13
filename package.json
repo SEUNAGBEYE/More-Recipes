@@ -4,7 +4,7 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test npm run build && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nyc mocha ./server/dist/test/test.js --compilers js:babel-core/register --env test --exit",
+    "test": "NODE_ENV=test && npm run build && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nyc mocha ./server/dist/test/test.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- index.js",
     "client-server": "webpack-dev-server",
@@ -72,10 +72,13 @@
     "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^7.5.1",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.12.1",

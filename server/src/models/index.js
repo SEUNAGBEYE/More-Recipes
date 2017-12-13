@@ -1,20 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import configJson from '../config/config'
+import configJson from '../config/config';
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configJson[env];
 const db = {};
-console.log(env)
+console.log(env);
 let sequelize;
 if (config.environment === 'production') {
   // sequelize = new Sequelize(process.env[config.use_env_variable]);
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
-    process.env.DB_PASS,{
+    process.env.DB_PASS, {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       dialect: 'postgres',
@@ -24,7 +24,7 @@ if (config.environment === 'production') {
       },
       logging: true
     }
-  ); 
+  );
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
