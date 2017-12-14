@@ -39,11 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     steps: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: []
     },
     ingredients: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: []
     },
     estimatedTime: {

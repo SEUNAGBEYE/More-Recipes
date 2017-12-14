@@ -14,7 +14,7 @@ class UserController {
   * @returns {null} json
   */
   static signUp(req, res) {
-    if (req.body.password.length < 6) {
+    if (!req.body.password || req.body.password.length < 6) {
       return res.status(400).send({ status: 'Bad Request', message: 'Password must be greater than 6' });
     }
 
@@ -98,7 +98,7 @@ class UserController {
   static getFavoriteRecipes(req, res) {
     // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
     if (req.params.actionType === 'getIds') {
-      db.User.findById(req.token.userId)
+      return db.User.findById(req.token.userId)
         .then(user => res.status(200).send({ status: 'Success', data: user.favoriteRecipe }))
         .catch(errors => res.status(404).send({ status: 'Not Found', message: 'User Not Found', errors: errors.message }));
     }

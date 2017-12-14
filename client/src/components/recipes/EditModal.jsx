@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader';
-import StepInput from './StepInput';
-import IngredientInput from './IngredientInput';
+import Input from './Input';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
 
@@ -25,14 +24,13 @@ export default class EditModal extends Component {
       ingredients: this.props.recipe.ingredients || [],
       steps: this.props.recipe.steps || [],
       errors: {},
-      stepsTimes: [...Array(0)],
-      ingredientsTimes: [...Array(0)],
+      stepsTimes: this.props.recipe.steps.length,
+      ingredientsTimes: [],
       loaded: true
     };
     this.onChange = this.onChange.bind(this);
     this.stepClick = this.stepClick.bind(this);
     this.ingredientClick = this.ingredientClick.bind(this);
-    this.editClick = this.editClick.bind(this);
     this.updateRecipe = this.updateRecipe.bind(this);
   }
 
@@ -43,7 +41,7 @@ export default class EditModal extends Component {
 	 */
   stepClick(e) {
     e.preventDefault();
-    this.setState({ steps: [...Array(this.state.steps.length + 1)] });
+    this.setState({ steps: [...this.state.steps, ''] });
   }
 
   /**
@@ -53,16 +51,7 @@ export default class EditModal extends Component {
 	 */
   ingredientClick(e) {
     e.preventDefault();
-    this.setState({ ingredientsTimes: [...this.state.ingredientsTimes, Array(this.state.ingredientsTimes.length)] });
-  }
-
-  /**
- * @param {any} e
- *  @returns {void} void
- * @memberof EditModal
- */
-  editClick(e) {
-    this.setState({ ingredientsTimes: [...this.state.ingredientsTimes, Array(this.state.ingredientsTimes.length)] });
+    this.setState({ ingredients: [...this.state.ingredients, ''] });
   }
 
 
@@ -73,24 +62,20 @@ export default class EditModal extends Component {
 	 */
   onChange(e) {
     e.preventDefault();
-    console.log('changing', e.target.value);
-    let stateKey = e.target.name;
-    if (Array.isArray(this.state[stateKey])) {
-      let value = this.state[stateKey].filter((element, index) => index == e.target.id);
-      console.log('value', value);
-      if (this.state[stateKey][(e.target.id)]) {
-        this.state[stateKey][(e.target.id)].length === 1 && e.target.value === '' ? this.state[stateKey].splice(e.target.id, 1) : '';
-      }
-
-      if (!this.state[stateKey].includes(e.target.value) && e.target.value !== '') {
-        if (this.state[stateKey][(e.target.id)]) {
-          this.setState({ [e.target.name]: this.state[stateKey] });
-        } else {
-          this.setState({ [e.target.name]: [...this.state[stateKey], e.target.value] });
-        }
-      }
+    const { name: stateKey, id, value } = e.target;
+    if (stateKey === 'steps' || stateKey === 'ingredients') {
+      this.setState({
+        [e.target.name]: this.state[stateKey].map((step, index) => {
+          if (parseInt(index, 10) === parseInt(id, 10)) {
+            step = value;
+          }
+          return step;
+        })
+      });
     } else {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({
+        [stateKey]: value
+      });
     }
   }
 
@@ -102,9 +87,7 @@ export default class EditModal extends Component {
   updateRecipe(e) {
     e.preventDefault();
     const { id } = e.target;
-
     const file = document.getElementById(`recipePicture${id}`).files[0];
-    console.log('filing', file);
     if (file) {
       if (file.size > 4000000) {
         return toastr.warning('File too Large');
@@ -116,13 +99,11 @@ export default class EditModal extends Component {
               setAuthorizationToken(localStorage.token);
               this.props.editRecipe(this.props.recipe.id, this.state);
               this.setState({ loaded: true });
-              document.getElementById(id).disabled = false;
               $('.modal').modal('hide');
             });
           })
           .catch(error => {
             this.setState({ loaded: true });
-            console.log(error.response);
           });
       }
 	 } else {
@@ -137,6 +118,26 @@ export default class EditModal extends Component {
 	 * @memberof EditModal
 	 */
   render() {
+    const stepFields = this.state.steps.map((step, index) => (
+      <Input key={index}
+        onChange={this.onChange}
+        number={index + 1}
+        id={index}
+        value={step}
+        name={'steps'}
+      />
+    ));
+
+    const ingredientFields = this.state.ingredients.map((ingredient, index) => (
+      <Input key={index}
+        onChange={this.onChange}
+        number={index + 1}
+        id={index}
+        value={ingredient}
+        name={'ingredients'}
+      />
+    ));
+
     return (
 
       <div>
@@ -169,17 +170,14 @@ export default class EditModal extends Component {
                     <input type="file" className="form-control" id={`recipePicture${this.props.recipe.id}`} name="image"/>
                   </fieldset>
 
-                  {this.state.ingredientsTimes.map((element, index) => <IngredientInput key={index} onChange={this.onChange} ingredients={index + 1} id={index} />)}
+                  {ingredientFields}
                   <fieldset>
                     <button className="auth-button fa fa-plus" style={{
                       float: 'left', width: 90, height: 20, fontSize: 12, padding: 0
                     }} id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
                   </fieldset>
 
-                  {this.state.steps.length > 0 ?
-                    this.state.steps.map((step, index) => <StepInput key={index} onChange={this.onChange} number={index + 1} id={index} step={step}/>) :
-                    this.state.stepsTimes.map((step, index) => <StepInput key={index} onChange={this.onChange} number={this.state.steps.length > 0 ? index + 1 + this.state.steps.length : index + 1} id={this.state.steps.length > 0 ? this.state.steps.length : index} step={step}/>)
-                  }
+                  {stepFields}
                   <fieldset>
                     <button className="auth-button fa fa-plus" style={{
                       float: 'left', width: 90, height: 20, fontSize: 12, padding: 0

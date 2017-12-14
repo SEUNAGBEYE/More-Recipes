@@ -67,10 +67,13 @@ class RecipeController {
       userId: req.token.userId
     })
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
-      .catch(errors => res.status(400).send({
-        status: 'Bad Request',
-        errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
-      }));
+      .catch((errors) => {
+        console.log(errors);
+        res.status(400).send({
+          status: 'Bad Request',
+          errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
+        });
+      });
   }
 
   /**

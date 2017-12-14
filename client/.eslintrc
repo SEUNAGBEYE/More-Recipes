@@ -10,7 +10,8 @@
     "document": true,
     "localStorage": true,
     "toastr": true,
-    "$": true
+    "$": true,
+    "window": true
   },
   "settings":{
     "import/resolver":{

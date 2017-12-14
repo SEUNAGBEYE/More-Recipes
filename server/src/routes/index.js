@@ -2,6 +2,7 @@ import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import RecipeController from '../controllers/recipesController';
 import UserController from '../controllers/usersController';
+import userValidation from '../middleware/userValidation';
 import authMiddleware from '../middleware/authMiddleware';
 import validateId from '../middleware/recipeIdValidation';
 
