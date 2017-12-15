@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
-import { toggleThumbsDownRecipe, toggleThumbsUpRecipe, getFavouritedRecipesIds, toggleFavouriteRecipe } from '../../actions/Recipes';
+import {
+  toggleThumbsDownRecipe,
+  toggleThumbsUpRecipe,
+  getFavouritedRecipesIds,
+  toggleFavouriteRecipe
+}
+  from '../../actions/Recipes';
 
 
 /**

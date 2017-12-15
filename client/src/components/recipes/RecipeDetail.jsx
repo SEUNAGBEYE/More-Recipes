@@ -67,6 +67,7 @@ class RecipeDetail extends Component {
    * @memberof RecipeCard
    */
   toggleThumbsUpRecipe(event) {
+    console.log('he;llloooo');
     event.preventDefault();
     this.props.toggleThumbsUpRecipe(event.target.id);
     this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });

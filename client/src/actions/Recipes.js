@@ -305,7 +305,7 @@ export function toggleThumbsDownRecipe(id) {
  * @returns {obj} obj
  */
 export function toggleThumbsUpRecipe(id) {
-  return dispatch => axios.put(`api/v1/recipes/${id}/upvotes`)
+  return dispatch => axios.put(`/api/v1/recipes/${id}/upvotes`)
     .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.data)))
     .catch(error => console.log(error));
 }

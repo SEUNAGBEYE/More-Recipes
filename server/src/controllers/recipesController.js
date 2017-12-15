@@ -298,9 +298,18 @@ class RecipeController {
 
     db.Recipe.findAndCountAll({
       where: {
-        name: {
-          [db.sequelize.Op.iLike]: `%${search}%`
-        }
+        [db.sequelize.Op.or]: [
+          {
+            name: {
+              [db.sequelize.Op.iLike]: `%${search}%`
+            },
+          },
+          {
+            ingredients: {
+              [db.sequelize.Op.contains]: [`${search}`]
+            }
+          }
+        ]
       }
     })
       .then((recipesWithCount) => {
@@ -309,9 +318,18 @@ class RecipeController {
           offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
           limit: req.query.limit,
           where: {
-            name: {
-              [db.sequelize.Op.iLike]: `%${search}%`
-            }
+            [db.sequelize.Op.or]: [
+              {
+                name: {
+                  [db.sequelize.Op.iLike]: `%${search}%`
+                },
+              },
+              {
+                ingredients: {
+                  [db.sequelize.Op.contains]: [`${search}`]
+                }
+              }
+            ]
           }
         })
           .then((recipes) => {
