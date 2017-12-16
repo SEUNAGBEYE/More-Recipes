@@ -109,8 +109,8 @@ describe('Test For Users Routes', () => {
           expect(res.body).to.not.have.property('token');
           expect(res.body).to.not.have.property('userId');
           assert.isObject(res.body, 'respone return array of object');
-          done();
         });
+      done();
     });
   });
 
