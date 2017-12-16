@@ -79,7 +79,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 200 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 201 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -91,13 +91,13 @@ describe('Test For Users Routes', () => {
           expect(res.body).to.have.property('token');
           expect(res.body).to.have.property('userId');
           assert.isObject(res.body, 'respone return array of object');
+          done();
         });
-      done();
     });
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 401 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 201 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -109,13 +109,13 @@ describe('Test For Users Routes', () => {
           expect(res.body).to.not.have.property('token');
           expect(res.body).to.not.have.property('userId');
           assert.isObject(res.body, 'respone return array of object');
+          done();
         });
-      done();
     });
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 400 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 201 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -133,7 +133,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User 404', () => {
-    it('fthe body should be an array and it should have a statusCode of 404 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 404 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -157,24 +157,22 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/10/add')
         .end((error, res) => {
-          if (!error) {
-            expect(res).to.have.status(200);
-            expect(res.body.data).to.have.property('userId');
-            expect(res.body.data).to.have.property('name');
-            expect(res.body.data).to.have.property('image');
-            expect(res.body.data).to.have.property('image');
-            expect(res.body.data).to.have.property('upvotes');
-            expect(res.body.data).to.have.property('steps');
-            expect(res.body.data).to.have.property('ingredients');
-            expect(res.body.data).to.have.property('description');
-            assert.isArray(res.body.data.upvotes);
-            assert.isArray(res.body.data.downvotes);
-            assert.isArray(res.body.data.steps);
-            assert.isArray(res.body.data.ingredients);
-            expect(res.body.data).to.have.property('downvotes');
-            assert.isObject(res.body.data, 'respone return array of object');
-            done();
-          }
+          expect(res).to.have.status(200);
+          expect(res.body.data).to.have.property('userId');
+          expect(res.body.data).to.have.property('name');
+          expect(res.body.data).to.have.property('image');
+          expect(res.body.data).to.have.property('image');
+          expect(res.body.data).to.have.property('upvotes');
+          expect(res.body.data).to.have.property('steps');
+          expect(res.body.data).to.have.property('ingredients');
+          expect(res.body.data).to.have.property('description');
+          assert.isArray(res.body.data.upvotes);
+          assert.isArray(res.body.data.downvotes);
+          assert.isArray(res.body.data.steps);
+          assert.isArray(res.body.data.ingredients);
+          expect(res.body.data).to.have.property('downvotes');
+          assert.isObject(res.body.data, 'respone return array of object');
+          done();
         });
     });
   });
@@ -184,24 +182,22 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/10/add')
         .end((error, res) => {
-          if (!error) {
-            expect(res).to.have.status(200);
-            expect(res.body.data).to.have.property('userId');
-            expect(res.body.data).to.have.property('name');
-            expect(res.body.data).to.have.property('image');
-            expect(res.body.data).to.have.property('image');
-            expect(res.body.data).to.have.property('upvotes');
-            expect(res.body.data).to.have.property('steps');
-            expect(res.body.data).to.have.property('ingredients');
-            expect(res.body.data).to.have.property('description');
-            assert.isArray(res.body.data.upvotes);
-            assert.isArray(res.body.data.downvotes);
-            assert.isArray(res.body.data.steps);
-            assert.isArray(res.body.data.ingredients);
-            expect(res.body.data).to.have.property('downvotes');
-            assert.isObject(res.body.data, 'respone return array of object');
-            done();
-          }
+          expect(res).to.have.status(200);
+          expect(res.body.data).to.have.property('userId');
+          expect(res.body.data).to.have.property('name');
+          expect(res.body.data).to.have.property('image');
+          expect(res.body.data).to.have.property('image');
+          expect(res.body.data).to.have.property('upvotes');
+          expect(res.body.data).to.have.property('steps');
+          expect(res.body.data).to.have.property('ingredients');
+          expect(res.body.data).to.have.property('description');
+          assert.isArray(res.body.data.upvotes);
+          assert.isArray(res.body.data.downvotes);
+          assert.isArray(res.body.data.steps);
+          assert.isArray(res.body.data.ingredients);
+          expect(res.body.data).to.have.property('downvotes');
+          assert.isObject(res.body.data, 'respone return array of object');
+          done();
         });
     });
   });
@@ -239,12 +235,9 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/100/add')
         .end((error, res) => {
-          if (!error) {
-            expect(res).to.have.status(404);
-            expect(res.body.status).to.equal('Not Found');
-            expect(res.body.message).to.equal('Recipe Not Found');
-            assert.isObject(res.body.data, 'respone return array of object');
-          }
+          expect(res).to.have.status(404);
+          expect(res.body.status).to.equal('Not Found');
+          expect(res.body.message).to.equal('Recipe Not Found');
           done();
         });
     });
@@ -304,8 +297,8 @@ describe('Test For Users Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'respone return array of object');
+          done();
         });
-      done();
     });
   });
 
