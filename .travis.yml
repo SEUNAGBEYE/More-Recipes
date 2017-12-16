@@ -8,7 +8,6 @@ services:
   - postgresql
 env:
   - NODE_ENV=test
-  - DB_NAME_TEST=more_recipes_test
 
 
 before_script:
