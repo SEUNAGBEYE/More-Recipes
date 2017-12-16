@@ -57,9 +57,9 @@ class UserController {
     })
       .then((user) => {
         if (!user) {
-          res.status(404).send({ status: 'Not Found', message: 'User not found', data: {} });
+          return res.status(404).send({ status: 'Not Found', message: 'User Not Found', data: {} });
         }
-        bcrypt.compare(req.body.password, user.password).then((response) => {
+        bcrypt.compare(req.body.password || null, user.password).then((response) => {
           if (response) {
             const {
               id: userId, email, firstName, lastName, favoriteRecipe, profilePicture
@@ -75,17 +75,12 @@ class UserController {
           }
           return res.status(401).send({ status: 'UnAuthorized', message: 'Invalid Password or Email' });
         })
-          .catch(errors => res.status(400).send({
+          .catch(() => res.status(400).send({
             status: 'Bad Request',
             message: 'Bad Request',
-            errors: errors.errors.map((loginError => ({ field: loginError.path, description: loginError.message })))
+            errors: 'Please Provide Password'
           }));
-      })
-      .catch(errors => res.status(400).send({
-        status: 'Bad Request',
-        message: 'Bad Request',
-        errors: errors.errors.map((registrationErrorr => ({ field: registrationErrorr.path, description: registrationErrorr.message })))
-      }));
+      });
   }
 
   /**
@@ -140,8 +135,7 @@ class UserController {
               user.update({
                 favoriteRecipe: [recipe.id]
               })
-                .then(() => res.status(200).send({ status: 'Success', data: user }))
-                .catch(error => res.status(400).send({ status: 'Bad Request', message: error }));
+                .then(() => res.status(200).send({ status: 'Success', data: recipe }));
             } else {
               if (!user.favoriteRecipe.includes(recipe.id)) {
                 user.favoriteRecipe.push(recipe.id);
@@ -154,11 +148,9 @@ class UserController {
               })
                 .then(() => {
                   res.status(200).send({ status: 'Success', data: recipe });
-                })
-                .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
+                });
             }
-          })
-          .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
+          });
       })
       .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
   }
