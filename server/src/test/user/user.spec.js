@@ -91,10 +91,10 @@ describe('Test For Users Routes', () => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property('token');
             expect(res.body).to.have.property('userId');
-            done();
           }
-          console.log('errrrrroooooooorrrrrrrrrrrrrr==========================', error);
+          console.log('errrrrroooooooorrrrrrrrrrrrrr==========================', error, res);
         });
+      done();
     });
   });
 

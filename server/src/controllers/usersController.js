@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
+import { error } from 'util';
 
 
 /**
@@ -75,10 +76,10 @@ class UserController {
           }
           return res.status(401).send({ status: 'UnAuthorized', message: 'Invalid Password or Email' });
         })
-          .catch(() => res.status(400).send({
+          .catch(errors => res.status(400).send({
             status: 'Bad Request',
             message: 'Bad Request',
-            errors: 'Please Provide Password'
+            errors
           }));
       });
   }
