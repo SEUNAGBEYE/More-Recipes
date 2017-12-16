@@ -305,7 +305,7 @@ export function toggleThumbsDownRecipe(id) {
  * @returns {obj} obj
  */
 export function toggleThumbsUpRecipe(id) {
-  return dispatch => axios.put(`api/v1/recipes/${id}/upvotes`)
+  return dispatch => axios.put(`/api/v1/recipes/${id}/upvotes`)
     .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.data)))
     .catch(error => console.log(error));
 }
@@ -356,10 +356,7 @@ export function editRecipe(id, recipe) {
  */
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
-    .then((res) => {
-      console.log('data', res.data.data);
-      return dispatch(getRecipeAction(res.data.data));
-    })
+    .then((res) => dispatch(getRecipeAction(res.data.data)))
     .catch((error) => {
       if (error) {
         console.log('error', error);

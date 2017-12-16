@@ -4,7 +4,7 @@ import config from 'dotenv';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import db from './server/src/models/index';
-import { recipeRoute, userRoute } from './server/src/routes/index';
+import { recipeRoute, userRoute, swagger } from './server/src/routes/index';
 import webpackConfig from './webpack.config';
 
 config.config();
@@ -17,13 +17,13 @@ app.use(express.static('client/public'));
 
 if (process.env.NODE_ENV !== 'test') {
   const compiler = webpack(webpackConfig);
- 	app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
+  app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
 }
-
 
 app.use('/api/v1/recipes', recipeRoute);
 
 app.use('/api/v1/users', userRoute);
+app.use('/api-docs', swagger);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/public/index.html'));
@@ -31,8 +31,8 @@ app.get('/*', (req, res) => {
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
-	  console.log(`listening to port ${port}`);
+    console.log(`listening to port ${port}`);
   });
 });
 
-export { app };
+export default app;

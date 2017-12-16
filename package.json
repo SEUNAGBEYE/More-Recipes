@@ -4,7 +4,8 @@
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nyc mocha ./server/src/test/test.js --compilers js:babel-core/register --env test --exit",
+    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
+    "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- index.js",
     "client-server": "webpack-dev-server",
@@ -14,7 +15,7 @@
     "start": "npm run babel-node -- index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "seed": "sequelize db:seed --seed 20171029161037-recipes"
+    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed"
   },
   "author": "Seun Agbeye",
   "license": "ISC",
@@ -64,6 +65,7 @@
     "sequelize-cli": "^3.0.0",
     "sqlite3": "^3.1.13",
     "style-loader": "^0.19.0",
+    "swagger-jsdoc": "^1.9.7",
     "toastr": "^2.1.2",
     "validator": "^9.1.1",
     "validatorjs": "^3.13.5",

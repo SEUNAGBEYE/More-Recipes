@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
-import { toggleThumbsDownRecipe, toggleThumbsUpRecipe, getFavouritedRecipesIds, toggleFavouriteRecipe } from '../../actions/Recipes';
+import {
+  toggleThumbsDownRecipe,
+  toggleThumbsUpRecipe,
+  getFavouritedRecipesIds,
+  toggleFavouriteRecipe
+}
+  from '../../actions/Recipes';
 
 
 /**
@@ -48,27 +54,47 @@ class RecipeCard extends Component {
     });
   }
 
+  /**
+   * @returns {jsx} JSX
+   * @param {any} nextProps
+   * @memberof RecipeCard
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props.recipe !== nextProps.recipe) {
       this.setState({
         recipe: nextProps.recipe,
-        isUpVoted: nextProps.recipe.upvotes.includes(parseInt(this.props.user.userId)),
-        isDownVoted: nextProps.recipe.downvotes.includes(parseInt(this.props.user.userId))
+        isUpVoted: nextProps.recipe.upvotes.includes(parseInt(this.props.user.userId, 10)),
+        isDownVoted: nextProps.recipe.downvotes.includes(parseInt(this.props.user.userId, 10))
       });
     }
   }
 
+  /**
+   * @returns {jsx} JSX
+   * @param {any} event
+   * @memberof RecipeCard
+   */
   toggleFavouriteRecipe(event) {
     event.preventDefault();
     this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
   }
 
+  /**
+   *@returns {void} void
+   * @param {any} event
+   * @memberof RecipeCard
+   */
   toggleThumbsUpRecipe(event) {
     event.preventDefault();
     this.props.toggleThumbsUpRecipe(event.target.id);
     this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
   }
 
+  /**
+   * @returns {jsx} jsx
+   * @param {any} event
+   * @memberof RecipeCard
+   */
   toggleThumbsDownRecipe(event) {
     event.preventDefault();
     this.props.toggleThumbsDownRecipe(event.target.id);
@@ -77,6 +103,7 @@ class RecipeCard extends Component {
 
 
   /**
+   * @returns {jsx} jsx
    * @memberOf RecipeCard
    * return {object} object
    */

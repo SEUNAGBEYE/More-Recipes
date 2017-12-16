@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const authMiddleware = (req, res, next) => {
   const token = req.headers['x-access-token'] || req.headers.token || req.body.token;
   if (process.env.NODE_ENV === 'test') {
-    const userId = req.body.userId || 1;
+    const userId = req.body.userId || req.headers.token || 1;
     req.token = { userId };
     next();
   } else if (token) {

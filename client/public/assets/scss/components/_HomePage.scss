@@ -1,0 +1,36 @@
+
+.banner {
+	height: 500px;
+    background-image: url('../img/pasta1.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /*Used to make it fixed when scrolling*/
+
+    background-attachment: fixed;  
+    position: relative;
+}
+
+/*Rules style alphabeticaly and to html mackup*/
+
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0,0.3);
+	color: #FFF;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.overlay h3 {
+	font-size: 35px;
+    letter-spacing: 2px;
+    padding: 12px
+}
+
+.overlay__h3{
+  color: $white
+}

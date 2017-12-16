@@ -1,20 +1,22 @@
-export default {
+const config = require('dotenv');
+
+config.config();
+
+module.exports = {
   development: {
-    username: 'postgres',
-    password: '',
-    database: 'more_recipes',
-    host: '127.0.0.1',
-    port: 5432,
-    secret_key: 'MYNAMEISSEUNAGBEYEANDYOUCANCALLMESEUNA',
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   test: {
-    username: 'postgres',
-    password: '',
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
     database: 'more_recipes_test',
-    host: '127.0.0.1',
-    port: 5432,
-    secret_key: 'MYNAMEISSEUNAGBEYEANDYOUCANCALLMESEUNA',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   production: {

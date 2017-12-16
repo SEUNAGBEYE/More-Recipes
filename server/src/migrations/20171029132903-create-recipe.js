@@ -46,17 +46,14 @@ module.exports = {
       estimatedTime: {
         type: Sequelize.INTEGER
       },
-      categoryId: {
-        type: Sequelize.INTEGER
-      },
       views: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       ingredients: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       steps: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,

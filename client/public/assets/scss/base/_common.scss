@@ -1,0 +1,218 @@
+body { 
+	padding-top: 2px; 
+}
+
+a, a:hover {
+  color: $orange;
+  text-decoration: none;
+}
+
+.auth-button{
+  margin: 0 10px 13px 0;
+  color: $white;
+  background: $orange;
+  border: 1px solid $orange;
+  border-radius: 5px;
+  padding: 2px 4px 4px 4px;
+  font-weight: bold;
+  float: right;
+
+}
+
+.auth-button:hover {
+	background: #FFF;
+	color: $orange;
+}
+
+.auth-form{
+  position: relative;
+  margin: 200px 0 35px 0;
+}
+
+#brand{
+	color: $orange;
+	margin-left: 10px;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.center-exclamation{
+  color: orange;
+  font-size: 150px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  margin-top: 50px;
+}
+
+.col-md-1{
+  width: 0;
+  margin: 5px 10px 0 0;
+}
+
+.dropdown-item{
+  padding: 0 0 5px 3px;
+}
+
+
+#edit-profile {
+  margin: 0 0 30px 10px;
+  background-color: $orange;
+  color: white;
+  }
+  
+  #edit-profile:hover{
+  background-color: $white;
+  color: $orange;
+  border-color: $orange;
+  }
+
+.errors{
+  color: $red;
+  font-weight: bold;
+}
+
+.exclamation-container{
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.facebook{
+	background: $white;
+	color: $blue;
+	border: $orange;
+}
+
+footer {
+  position: relative;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  background-color: $footer_background;
+  color: $orange;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 0;
+  }
+
+  .google{
+    background: $white;
+    color: $red;
+    border: $orange;
+  }
+  
+.google a:hover, facebook a{
+  text-decoration-color: none;
+}
+
+h1,h2, h3, h4, h5, h6 {
+  color: $orange;
+}
+
+.icons{
+	padding: 10px; 
+	font-size: 1em; 
+	text-decoration: none;
+	color: $orange;
+}
+
+.icons:hover{
+	text-decoration: none;
+	color: $orange;	
+}
+
+input[type = "checkbox"]{
+	background-color: $orange;
+	color: #FFF;
+}
+
+#line{
+	text-align: center;
+}
+
+#login{
+	color: $white;
+	background: $orange;
+	border: 1px solid $orange;
+	position: relative;
+	/*top: -30px;*/
+}
+
+#login:hover{
+	color: $orange;
+	background: $white;
+}
+
+main{
+  margin: 0 auto;
+}
+
+.page-link-active{
+  color: $white!important; 
+  background: $orange!important; 
+  border-color: $orange!important;
+}
+
+.page-link{
+  color: $orange;
+}
+
+#profile-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+#profile-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: $white;
+  background-color: $orange;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.profile-picture{
+  width:100%;
+  height: 200px;
+}
+
+
+.recipe-icons{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+}
+
+.review{
+  float: left;
+}
+ 
+ #search{
+   border-radius: 20px;
+     padding: 1px 20px 5px 15px;
+     border: 1px solid $orange;
+     color: $black;
+     margin: 7px 30px 0 0;
+     /*transition: all 1s ease;*/
+    
+ }
+
+ .title-link, .title-link:hover{
+  color: $orange; 
+  text-decoration: none;
+ }
+

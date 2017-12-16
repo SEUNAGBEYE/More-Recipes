@@ -1,0 +1,21 @@
+.box {
+	/*background: grey;*/
+	height: 250px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.circle {
+	height: 200px;
+	width: 200px;
+	border-radius: 100%;
+	border: 2px solid #DDD;
+	background: #EEE;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+}

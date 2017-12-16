@@ -80,6 +80,11 @@ class FavoruriteRecipes extends Component {
       });
   }
 
+  /**
+   * @returns {void} void
+   * @param {any} id
+   * @memberof FavoruriteRecipes
+   */
   toggleFavouriteRecipe(id) {
     toggleFavouriteRecipe(id)
       .then(res => {
@@ -87,6 +92,12 @@ class FavoruriteRecipes extends Component {
       });
   }
 
+  /**
+   * @returns {void} void
+   * @param {any} id
+   * @param {any} recipe
+   * @memberof FavoruriteRecipes
+   */
   editRecipe(id, recipe) {
     this.props.editRecipe(id, recipe)
       .then(res => {
@@ -96,6 +107,7 @@ class FavoruriteRecipes extends Component {
 
 
   /**
+   * @returns {jsx} JSX
    * @memberOf UserRecipes
    * return {object}
    */

@@ -67,10 +67,13 @@ class RecipeController {
       userId: req.token.userId
     })
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
-      .catch(errors => res.status(400).send({
-        status: 'Bad Request',
-        errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
-      }));
+      .catch((errors) => {
+        console.log(errors);
+        res.status(400).send({
+          status: 'Bad Request',
+          errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
+        });
+      });
   }
 
   /**
@@ -91,8 +94,7 @@ class RecipeController {
         }
 
         return res.status(200).send({ status: 'Success', data: recipe });
-      })
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      });
   }
 
 
@@ -114,18 +116,10 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .update(req.body, { fields: Object.keys(req.body) })
-            .then(updatedRecipe => res.status(200).send({ status: 'Success', data: updatedRecipe }))
-            .catch(errors => res.status(400).send({
-              status: 'Bad Request',
-              errors: errors.errors.map(recipeError => ({ description: recipeError.message }))
-            }));
+            .then(updatedRecipe => res.status(200).send({ status: 'Success', data: updatedRecipe }));
         }
         return res.status(401).send({ status: 'Not Authorize', message: 'Not Authorize' });
-      })
-      .catch(errors => res.status(400).send({
-        status: 'Bad Request',
-        errors: errors.errors.map(recipeError => ({ description: recipeError.message }))
-      }));
+      });
   }
 
   /**
@@ -153,11 +147,7 @@ class RecipeController {
             status: 'Bad Request',
             errors: errors.errors.map(reviewError => ({ description: reviewError.message }))
           }));
-      })
-      .catch(errors => res.status(400).send({
-        status: 'Bad Request',
-        errors: errors.errors.map(reviewError => ({ description: reviewError.message }))
-      }));
+      });
   }
 
   /**
@@ -180,12 +170,10 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .destroy()
-            .then(() => res.status(204).send({ status: 'Deleted', message: 'No Content' }))
-            .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+            .then(() => res.status(204).send({ status: 'Deleted', message: 'No Content' }));
         }
         return res.status(401).send({ status: 'Not Found', message: 'Not Authorize' });
-      })
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      });
   }
 
   /**
@@ -211,18 +199,16 @@ class RecipeController {
 
         if (!recipe.upvotes.includes(req.token.userId)) {
           recipe.upvotes.push(req.token.userId);
-          recipe.downvotes = recipe.downvotes.filter(id => id != req.token.userId);
+          recipe.downvotes = recipe.downvotes.filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
         } else {
-          recipe.upvotes = recipe.upvotes.filter(id => id != req.token.userId);
+          recipe.upvotes = recipe.upvotes.filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
         }
         recipe.update({
           upvotes: recipe.upvotes,
           downvotes: recipe.downvotes
         })
-          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }))
-          .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
-      })
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }));
+      });
   }
 
   /**
@@ -257,8 +243,7 @@ class RecipeController {
           upvotes: recipe.upvotes
         })
           .then(recipe => res.status(200).send({ status: 'Success', data: recipe }));
-      })
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      });
   }
 
   /**
@@ -279,8 +264,7 @@ class RecipeController {
       .then(popularRecipes => res.status(200).send({
         status: 'Success',
         data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
-      }))
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      }));
   }
 
   /**
@@ -295,9 +279,18 @@ class RecipeController {
 
     db.Recipe.findAndCountAll({
       where: {
-        name: {
-          [db.sequelize.Op.iLike]: `%${search}%`
-        }
+        [db.sequelize.Op.or]: [
+          {
+            name: {
+              [db.sequelize.Op.iLike]: `%${search}%`
+            },
+          },
+          {
+            ingredients: {
+              [db.sequelize.Op.contains]: [`${search}`]
+            }
+          }
+        ]
       }
     })
       .then((recipesWithCount) => {
@@ -306,9 +299,18 @@ class RecipeController {
           offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
           limit: req.query.limit,
           where: {
-            name: {
-              [db.sequelize.Op.iLike]: `%${search}%`
-            }
+            [db.sequelize.Op.or]: [
+              {
+                name: {
+                  [db.sequelize.Op.iLike]: `%${search}%`
+                },
+              },
+              {
+                ingredients: {
+                  [db.sequelize.Op.contains]: [`${search}`]
+                }
+              }
+            ]
           }
         })
           .then((recipes) => {
@@ -328,8 +330,7 @@ class RecipeController {
    */
   static getCategories(req, res) {
     db.Category.findAll()
-      .then(categories => res.status(200).send({ status: 'Success', data: categories }))
-      .catch(error => res.status(400).send({ status: 'Bad Request', error }));
+      .then(categories => res.status(200).send({ status: 'Success', data: categories }));
   }
 }
 
