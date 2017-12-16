@@ -87,11 +87,13 @@ describe('Test For Users Routes', () => {
           password: 'mynameisseun'
         })
         .end((error, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.have.property('token');
-          expect(res.body).to.have.property('userId');
+          if (!error) {
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('token');
+            expect(res.body).to.have.property('userId');
+            done();
+          }
         });
-      done();
     });
   });
 
