@@ -79,7 +79,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 201 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 200 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -90,7 +90,6 @@ describe('Test For Users Routes', () => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('token');
           expect(res.body).to.have.property('userId');
-          assert.isObject(res.body, 'respone return array of object');
           done();
         });
     });
