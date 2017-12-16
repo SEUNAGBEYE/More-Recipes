@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
+import { error } from 'util';
 
 
 /**
@@ -59,7 +60,7 @@ class UserController {
         if (!user) {
           return res.status(404).send({ status: 'Not Found', message: 'User Not Found', data: {} });
         }
-        bcrypt.compare(req.body.password || null, user.password).then((response) => {
+        bcrypt.compare(req.body.password, user.password).then((response) => {
           if (response) {
             const {
               id: userId, email, firstName, lastName, favoriteRecipe, profilePicture
@@ -75,10 +76,10 @@ class UserController {
           }
           return res.status(401).send({ status: 'UnAuthorized', message: 'Invalid Password or Email' });
         })
-          .catch(() => res.status(400).send({
+          .catch(errors => res.status(400).send({
             status: 'Bad Request',
             message: 'Bad Request',
-            errors: 'Please Provide Password'
+            errors
           }));
       });
   }
