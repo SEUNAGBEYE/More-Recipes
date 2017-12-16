@@ -304,8 +304,8 @@ describe('Test For Users Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'respone return array of object');
-          done();
         });
+      done();
     });
   });
 
