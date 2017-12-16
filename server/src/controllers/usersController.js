@@ -60,7 +60,7 @@ class UserController {
         if (!user) {
           return res.status(404).send({ status: 'Not Found', message: 'User Not Found', data: {} });
         }
-        bcrypt.compare(req.body.password || null, user.password).then((response) => {
+        bcrypt.compare(req.body.password, user.password).then((response) => {
           if (response) {
             const {
               id: userId, email, firstName, lastName, favoriteRecipe, profilePicture
