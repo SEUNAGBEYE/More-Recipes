@@ -97,7 +97,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 404 when a user is logged in', (done) => {
+    it('the body should be an array and it should have a statusCode of 401 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -133,7 +133,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User 404', () => {
-    it('the body should be an array and it should have a statusCode of 404 when a user is logged in', (done) => {
+    it('fthe body should be an array and it should have a statusCode of 404 when a user is logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
