@@ -93,6 +93,7 @@ describe('Test For Users Routes', () => {
             expect(res.body).to.have.property('userId');
             done();
           }
+          console.log('errrrrroooooooorrrrrrrrrrrrrr==========================', error);
         });
     });
   });
