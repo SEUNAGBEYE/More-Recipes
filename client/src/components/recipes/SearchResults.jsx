@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
 import { getFavouritedRecipesIds, searchRecipes, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
@@ -27,7 +25,7 @@ class SearchResults extends Component {
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
-    this.paginateRecipes = this.paginateRecipes.bind(this);
+    // this.paginateRecipes = this.paginateRecipes.bind(this);
   }
 
 
@@ -37,22 +35,38 @@ class SearchResults extends Component {
    * @memberof SearchResults
    */
   componentDidMount() {
-    this.paginateRecipes(0);
+    // this.paginateRecipes(0);
 
     this.props.getFavouritedRecipesIds()
       .then(res => {
         this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
       });
   }
+  //   /**
+  //  *
+  //  *
+  //  * @memberof SearchResults
+  //  * @returns {void} void
+  //  */
+  //   componentWillReceiveProps(nextProps) {
+  //     if (nextProps.recipe !== this.props.recipe) {
+  //       this.paginateRecipes(0);
 
-  /**
-   *@returns {void} void
-   * @param {any} page
-   * @memberof SearchResults
-   */
-  paginateRecipes(page) {
-    this.props.searchRecipes(this.props.location.search, page);
-  }
+  //       this.props.getFavouritedRecipesIds()
+  //         .then(res => {
+  //           this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
+  //         });
+  //     }
+  //   }
+
+  // /**
+  //  *@returns {void} void
+  //  * @param {any} page
+  //  * @memberof SearchResults
+  //  */
+  // paginateRecipes(page) {
+  //   this.props.searchRecipes(this.props.location.search, page);
+  // }
 
   /**
  *
@@ -115,7 +129,6 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
@@ -157,7 +170,6 @@ class SearchResults extends Component {
           </div>
         </main>
         <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
-        <Footer />
       </div>
     );
   }

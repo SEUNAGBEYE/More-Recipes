@@ -7,7 +7,7 @@ const setCurrentUser = user => ({
   user
 });
 
-const login = (data, history = []) => dispatch => (axios.post('api/v1/users/signin', data)
+const login = (data, history = []) => dispatch => (axios.post('/api/v1/users/signin', data)
   .then((res) => {
     const { token } = res.data;
     localStorage.setItem('token', token);

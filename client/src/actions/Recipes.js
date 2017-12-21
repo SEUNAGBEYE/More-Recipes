@@ -175,6 +175,19 @@ export function toggleThumbsDownRecipeAction(recipe) {
 }
 
 /**
+ *
+ *
+ * @export
+ * @returns
+ * @returns {obj} obj
+ */
+export function reviewRecipeAction() {
+  return {
+    type: 'REVIEW_RECIPE'
+  };
+}
+
+/**
  * @export
  * @param {any} page
  * @param {any} limit
@@ -217,7 +230,7 @@ export function recipeCategories() {
  * @returns {obj} obj
  */
 export function searchRecipes(search, page = 0, limit = 8) {
-  return dispatch => axios.get(`api/v1/recipes/search_results${search}&limit=${limit}&page=${page}`)
+  return dispatch => axios.get(`api/v1/recipes/search_results?search=${search}&limit=${limit}&page=${page}`)
     .then((res) => {
       const { data } = res;
       dispatch(searchRecipesAction(data));
@@ -294,7 +307,7 @@ export function toggleFavouriteRecipe(id) {
  * @returns {obj} obj
  */
 export function toggleThumbsDownRecipe(id) {
-  return dispatch => axios.put(`api/v1/recipes/${id}/downvotes`)
+  return dispatch => axios.put(`/api/v1/recipes/${id}/downvotes`)
     .then(res => dispatch(toggleThumbsDownRecipeAction(res.data.data)))
     .catch(error => console.log(error));
 }
@@ -337,7 +350,6 @@ export function deleteRecipe(id) {
 export function editRecipe(id, recipe) {
   return dispatch => axios.put(`api/v1/recipes/${id}`, recipe)
     .then((res) => {
-      console.log('recipestoBeUpdated', recipe);
       toastr.success('Recipe Updated', 'Success');
       return dispatch(editRecipeAction(res.data.data));
     })
@@ -357,6 +369,25 @@ export function editRecipe(id, recipe) {
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
     .then((res) => dispatch(getRecipeAction(res.data.data)))
+    .catch((error) => {
+      if (error) {
+        console.log('error', error);
+        console.log(error.response.data);
+      }
+    });
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {any} id
+ * @param {any} data
+ * @returns {obj} obj
+ */
+export function reviewRecipe(id, data) {
+  return dispatch => axios.post(`/api/v1/recipes/${id}/reviews`, data)
+    .then((res) => dispatch(reviewRecipeAction()))
     .catch((error) => {
       if (error) {
         console.log('error', error);

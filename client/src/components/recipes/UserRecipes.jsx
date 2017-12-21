@@ -102,7 +102,6 @@ class UserRecipes extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
@@ -138,7 +137,6 @@ class UserRecipes extends Component {
           </div>
         </main>
         <Pagination />
-        <Footer />
       </div>
     );
   }

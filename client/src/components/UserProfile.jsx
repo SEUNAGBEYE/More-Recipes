@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Navbar from './common/Navbar';
-import Footer from './common/Footer';
 import { logout } from '../actions/auth/LoginRequest';
 
 /**
@@ -18,7 +16,6 @@ class UserProfile extends Component {
     return (
       <div>
 
-        <Navbar />
         <main style={{ marginTop: 130 }}>
 
           <button className="btn btn-default" id="edit-profile" data-toggle="modal" data-target="#editModal">Edit Profile</button>
@@ -135,7 +132,6 @@ class UserProfile extends Component {
             </div>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }

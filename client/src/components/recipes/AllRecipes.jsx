@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
 import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
@@ -115,7 +113,6 @@ class AllRecipes extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
@@ -148,6 +145,7 @@ class AllRecipes extends Component {
                     onDelete={this.deleteRecipe}
                     editRecipe={this.editRecipe}
                     toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                    history={this.props.history}
                   />)) :
                   <Exclamation>
                     <p className="text-muted text-center">Sorry no recipe has been added yet, please add to get started</p>
@@ -157,7 +155,6 @@ class AllRecipes extends Component {
           </div>
         </main>
         <Pagination recipesCount={this.props.pagination} recipesPagination={this.paginateRecipes}/>
-        <Footer />
       </div>
     );
   }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
 import { getFavouritedRecipes, getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, deleteRecipe, editRecipe } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
@@ -114,7 +112,6 @@ class FavoruriteRecipes extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
@@ -156,7 +153,6 @@ class FavoruriteRecipes extends Component {
           </div>
         </main>
         <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
-        <Footer />
       </div>
     );
   }

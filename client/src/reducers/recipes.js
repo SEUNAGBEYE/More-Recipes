@@ -1,6 +1,4 @@
 
-import isEmpty from 'lodash/isEmpty';
-
 const initialState = {
   allRecipes: [],
   pagination: '',
@@ -8,8 +6,6 @@ const initialState = {
   favouriteRecipes: [],
   popularRecipes: [],
   recipeCategories: []
-  // favouritedRecipesCount: '',
-  // userRecipes: []
 };
 
 export default (state = initialState, action = {}) => {
@@ -21,7 +17,7 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_RECIPE':
-    return { ...state, ...{ allRecipes: [...state.allRecipes.filter(recipe => recipe.id === parseInt(action.id, 10))] || action.recipe } };
+    return { ...state, ...{ allRecipes: state.allRecipes.length > 0 ? state.allRecipes.filter(recipe => parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) : [action.recipe] } };
 
   case 'GET_USER_RECIPES':
     return {

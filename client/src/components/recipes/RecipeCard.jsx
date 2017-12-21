@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
+import checkAuth from '../../../utils/CheckAuth';
+import RecipeCardActions from '../recipes/RecipeCardActions';
+
 import {
   toggleThumbsDownRecipe,
   toggleThumbsUpRecipe,
@@ -76,6 +78,7 @@ class RecipeCard extends Component {
    */
   toggleFavouriteRecipe(event) {
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
   }
 
@@ -86,6 +89,7 @@ class RecipeCard extends Component {
    */
   toggleThumbsUpRecipe(event) {
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleThumbsUpRecipe(event.target.id);
     this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
   }
@@ -97,6 +101,7 @@ class RecipeCard extends Component {
    */
   toggleThumbsDownRecipe(event) {
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleThumbsDownRecipe(event.target.id);
     this.setState({ toggleThumbsDown: !this.state.toggleThumbsDown });
   }
@@ -118,48 +123,20 @@ class RecipeCard extends Component {
               <div className="card-block">
                 <h4 className="card-title">{this.state.recipe.name.slice(0, 20)}</h4>
                 <p className="card-text">{this.state.recipe.description.slice(0, 90) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
-
-                { this.props.recipe.userId === this.props.user.userId ?
-                  <div className="d-flex justify-content-between recipe-icons">
-                    <Link to="/" className="fa fa-eye icons">10</Link>
-                    <Link to="/" className="fa fa-pencil icons" data-toggle="modal" data-target={`#editModal${this.props.id}`} />
-                    <Link to="/" className="fa fa-trash icons" data-toggle="modal" data-target={`#deleteModal${this.props.id}`} />
-                  </div> :
-                  <div className="d-flex justify-content-between recipe-icons">
-
-                    <Link to="/"><i className={classnames("fa icons", {
-                      'fa-thumbs-o-down text-black': !this.state.isDownVoted,
-                      'fa-thumbs-down text-warning': this.state.isDownVoted
-                    })}
-                    onClick={this.toggleThumbsDownRecipe} id={this.props.recipe.id} >{this.state.recipe.downvotes ? this.state.recipe.downvotes.length : 0}</i></Link>
-
-                    <Link to="/"><i className={classnames("fa icons", {
-                      'fa-thumbs-o-up text-black': !this.state.isUpVoted,
-                      'fa-thumbs-up text-warning': this.state.isUpVoted
-                    })}
-                    onClick={this.toggleThumbsUpRecipe} id={this.props.recipe.id} >{this.state.recipe.upvotes ? this.state.recipe.upvotes.length : 0}</i></Link>
-
-                    <Link
-                      to="/">
-                      <i
-                        className={classnames(
-                          "fa icons",
-                          {
-                            "fa-heart-o text-black": !isFavorited,
-                            "fa-heart text-warning": isFavorited
-                          }
-                        )}
-                        onClick={this.toggleFavouriteRecipe}
-                        id={this.state.recipe.id} /></Link>
-
-                  </div>
-                }
-
+                <RecipeCardActions
+                  isDownVoted={this.state.isDownVoted}
+                  isUpVoted={this.state.isUpVoted}
+                  isFavorited={isFavorited}
+                  user={this.props.user}
+                  recipe={this.props.recipe}
+                  toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                  toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
+                  toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}/>
               </div>
             </div>
           </div>
         </Link>
-        <EditModal recipe={this.props.recipe} editRecipe={this.props.editRecipe} id={this.props.id}/>
+        <EditModal recipe={this.props.recipe} editRecipe={this.props.editRecipe} id={this.props.recipe.id}/>
         <DeleteModal id={this.props.id} onDelete={this.props.onDelete}/>
       </div>
 
