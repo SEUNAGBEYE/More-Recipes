@@ -1,4 +1,4 @@
 export default {
-  cloudinaryUploadPreset: 'bsh3ettp',
-  cloudinaryUploadUrl: 'https://api.cloudinary.com/v1_1/seun/upload'
+  cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+  cloudinaryUploadUrl: process.env.CLOUDINARY_UPLOAD_URL
 };

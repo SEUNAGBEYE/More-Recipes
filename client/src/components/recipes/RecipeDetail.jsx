@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
+import checkAuth from '../../../utils/CheckAuth';
 import { getRecipe, toggleThumbsDownRecipe, toggleThumbsUpRecipe } from '../../actions/Recipes';
 
 /**
@@ -30,10 +29,13 @@ class RecipeDetail extends Component {
         downvotes: [],
         upvotes: [],
         userRecipes: []
-      }
+      },
+      review: ''
     };
+    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
     this.toggleThumbsDownRecipe = this.toggleThumbsDownRecipe.bind(this);
     this.toggleThumbsUpRecipe = this.toggleThumbsUpRecipe.bind(this);
+    this.reviewRecipe = this.reviewRecipe.bind(this);
   }
 
   /**
@@ -51,6 +53,22 @@ class RecipeDetail extends Component {
       });
   }
 
+
+  /**
+ * @returns {void} void
+ * @param {any} nextProps
+ * @memberof RecipeDetail
+ */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.recipe !== nextProps.recipe) {
+      this.setState({
+        recipe: nextProps.recipe,
+        isUpVoted: nextProps.recipe.upvotes.includes(parseInt(this.props.user.userId, 10)),
+        isDownVoted: nextProps.recipe.downvotes.includes(parseInt(this.props.user.userId, 10))
+      });
+    }
+  }
+
   /**
    * @returns {jsx} JSX
    * @param {any} event
@@ -58,6 +76,7 @@ class RecipeDetail extends Component {
    */
   toggleFavouriteRecipe(event) {
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
   }
 
@@ -67,8 +86,8 @@ class RecipeDetail extends Component {
    * @memberof RecipeCard
    */
   toggleThumbsUpRecipe(event) {
-    console.log('he;llloooo');
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleThumbsUpRecipe(event.target.id);
     this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
   }
@@ -80,8 +99,26 @@ class RecipeDetail extends Component {
    */
   toggleThumbsDownRecipe(event) {
     event.preventDefault();
+    checkAuth(this.props.user, this.props.history);
     this.props.toggleThumbsDownRecipe(event.target.id);
     this.setState({ toggleThumbsDown: !this.state.toggleThumbsDown });
+  }
+
+  /**
+   *
+   *
+   * @param {any} event
+   * @memberof RecipeDetail
+   * @returns {void} void
+   */
+  reviewRecipe(event) {
+    event.preventDefault();
+    const review = event.target.review.value;
+    this.setState({
+      review
+    }, () => {
+      this.props.reviewRecipe(this.state.recipe.id, this.state.review);
+    });
   }
 
   /**
@@ -92,7 +129,6 @@ class RecipeDetail extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main style={{ marginTop: 40 }}>
 
           <ul className="breadcrumb" style={{ backgroundColor: '#f8f9fa', marginTop: 10 }}>
@@ -102,7 +138,7 @@ class RecipeDetail extends Component {
           </ul>
 
           <div className="container">
-            <h4 style={{ textAlign: 'center', marginTop: 50 }}>{this.state.recipe.name || 'Pasta'}</h4><br /><br />
+            <h4 style={{ textAlign: 'center', marginTop: 50 }}>{this.state.recipe.name}</h4><br /><br />
 
             <div>
               <div className="box">
@@ -158,9 +194,9 @@ class RecipeDetail extends Component {
 
               <div className="col-md-6">
 
-                <form className="form-group">
+                <form className="form-group" onSubmit={this.reviewRecipe}>
 
-                  <textarea rows="5" cols="20" className="form-control" placeholder="Write reviews here" />
+                  <textarea rows="5" cols="20" className="form-control" placeholder="Write reviews here" name="review"/>
                   <button className="btn-default auth-button" style={{ margin: 10, float: 'left' }}> Submit</button>
                 </form>
 
@@ -189,23 +225,8 @@ class RecipeDetail extends Component {
               </div>
             </div>
 
-            <div className="row">
-
-              <div className="" style={{ backgroundColor: '#f8f9fa', border: '1 solid #f8f9fa' }}>
-
-                <div className="col-md-1 review" style={{ paddingTop: 10 }}>
-                  <img style={{ width: 30, height: 30, borderRadius: 80 }} />
-                </div>
-                <div className="col-md-11 review">
-                  <h5 style={{ color: 'orange', marginTop: 5 }}>Joe</h5>
-
-                  Do you have a recipe for an eggless homemade pasta? I have a vegan daughter and would like to make some homemade pasta. I have tried a plain flour and water recipe, but did not like the texture and it cooked up too soft. Thanks Vicki DiFederico
-                </div>
-              </div>
-            </div>
           </div>
         </main>
-        <Footer style={{ marginTop: 50 }}/>
       </div>
     );
   }

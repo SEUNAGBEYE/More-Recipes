@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const GLOBALS = {
+  'process.env.NODE_ENV': JSON.stringify('production')
+};
+
 module.exports = {
   entry: path.join(__dirname, 'client/src/app.js'),
   output: {
@@ -26,18 +30,23 @@ module.exports = {
       use: ['file-loader']
     }]
   },
-  devtool: 'cheap-module-eval-source-map',
+  plugins: [
+    new webpack.DefinePlugin(GLOBALS),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.EnvironmentPlugin([
+      'CLOUDINARY_UPLOAD_PRESET',
+      'CLOUDINARY_UPLOAD_URL',
+
+    ]),
+  ],
   devServer: {
     publicPath: '/',
   },
-  plugins: [
-    new webpack.EnvironmentPlugin([
-      'CLOUDINARY_UPLOAD_PRESET',
-      'CLOUDINARY_UPLOAD_URL'
-    ]),
-  ],
   resolve: {
     extensions: ['.jsx', '.js']
-  },
-  watch: true
+  }
 };

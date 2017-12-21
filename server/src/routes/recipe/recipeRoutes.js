@@ -91,7 +91,7 @@ recipeRoute.route('/:id/reviews')
  *          type: time
  */
 
-// RecipeCaetegory Model
+// RecipeCategory Model
 /**
  * @swagger
  * definitions:
@@ -104,6 +104,28 @@ recipeRoute.route('/:id/reviews')
  *       id:
  *         type: integer
  *       name:
+ *         type: string
+ */
+
+// Review Model
+/**
+ * @swagger
+ * definitions:
+ *   Review:
+ *     type: object
+ *     required:
+ *       - id
+ *       - body
+ *       - recipeId
+ *       - userid
+ *     properties:
+ *       id:
+ *         type: integer
+ *       recipeId:
+ *         type: integer
+ *       userId:
+ *         type: integer
+ *       body:
  *         type: string
  */
 export default recipeRoute;

@@ -130,6 +130,7 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
+    console.log('==========================================', req.body.body);
     db.Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {

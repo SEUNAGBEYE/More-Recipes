@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import Homepage from '../components/Hompage';
 import LoginPage from '../components/auth/LoginPage';
@@ -11,12 +11,15 @@ import AllRecipes from '../components/recipes/AllRecipes';
 import SearchResults from '../components/recipes/SearchResults';
 import UserProfile from '../components/UserProfile';
 import NotFoundPage from '../components/common/NotFoundPage';
+import NavBar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
 
 const history = createHistory();
 
 const AppRouter = () => (
   <Router history={history}>
     <div>
+      <NavBar history={history}/>
       <Switch>
         <Route path="/" component={Homepage} exact/>
         <Route path="/login" component={LoginPage} exact/>
@@ -28,10 +31,12 @@ const AppRouter = () => (
         <Route path="/profile" component={UserProfile}/>
         <Route path="/recipes" component={AllRecipes} exact/>
         <Route path="/search_results" component={SearchResults} exact/>
-        {<Route component={NotFoundPage}/>}
+        <Route component={NotFoundPage}/>
       </Switch>
+      <Footer />
     </div>
   </Router>
+
 );
 
 export default AppRouter;

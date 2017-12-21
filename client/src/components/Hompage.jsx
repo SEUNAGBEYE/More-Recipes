@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { allRecipes, recipeCategories, popularRecipes } from '../actions/Recipes';
-import Navbar from './common/Navbar';
-import Footer from './common/Footer';
 import RecipeCircle from './recipes/RecipeCircle';
 
 
@@ -29,7 +27,6 @@ class Homepage extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main>
           <section className="banner">
             <div className="overlay">
@@ -67,7 +64,6 @@ class Homepage extends Component {
           </section>
 
         </main>
-        <Footer />
       </div>
     );
   }

@@ -1,54 +1,60 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
 import LoginForm from './LoginForm';
-import {login} from '../../actions/auth/LoginRequest';
+import { login } from '../../actions/auth/LoginRequest';
 
 
 /**
  * @class LoginPage
  * @extends Component
  */
-class LoginPage extends Component{
-  constructor(props){
-    super(props)
+class LoginPage extends Component {
+  constructor(props) {
+    super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
-   * @param {any} data 
+   * @param {any} data
    * @memberof LoginPage
+   * @returns {void} void
    */
-  onSubmit(data){
-
-      const history =  this.props.history
-      this.props.login(data, history)
+  onSubmit(data) {
+    const { history } = this.props;
+    let redirectAfterLogin = history.location.search.split('=')[1];
+    if (!redirectAfterLogin) {
+      this.props.login(data, history);
+    } else {
+      this.props.login(data);
+      history.push(`${redirectAfterLogin}`);
+    }
   }
 
   /**
    * return {object} object
    * @memberOf LoginPage
    */
-  render(){
+  render() {
     return (
       <div>
-          <Navbar />
-        	<main style={{marginBottom: 0}}>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-4"></div>
-                <div className="col-md-4">
-                  <LoginForm login={this.onSubmit}/>
-                </div>
-              </div><br /><br />
-            </div>
-          </main>
-          <Footer />
+        <Navbar />
+        	<main style={{ marginBottom: 0 }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4" />
+              <div className="col-md-4">
+                <LoginForm login={this.onSubmit}/>
+              </div>
+            </div><br /><br />
+          </div>
+        </main>
+        <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -61,10 +67,8 @@ class LoginPage extends Component{
  * @param {any} state
  * @returns {object} object
  */
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  };
-}
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
 
 export default connect(mapStateToProps, { login })(LoginPage);
