@@ -7,9 +7,9 @@ install: npm install
 services:
   - postgresql
 env:
-  - NODE_ENV=test
-
-
+  global:
+    - NODE_ENV=test
+    - CC_TEST_REPORTER_ID=a2940e57e00f54e47670e155bec059300094f33861f43f3ea5458d385458e76f
 before_script:
   - psql -c 'create database more_recipes_test;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
