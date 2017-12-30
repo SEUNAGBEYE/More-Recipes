@@ -25,8 +25,8 @@ describe('Test For Recipes Routes', () => {
         .get('/11')
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.id).equal(11);
-          assert.isObject(res.body.data, 'respone return an object');
+          expect(parseInt(res.body.data[0].id, 10)).equal(11);
+          assert.isObject(res.body.data[0], 'respone return an object');
           done();
         });
     });
@@ -254,7 +254,7 @@ describe('Test For Recipes Routes', () => {
         .post('/10/reviews')
         .send({
           userId: 1,
-          body: 'Hi this is my review'
+          reviewBody: 'Hi this is my review'
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -287,6 +287,29 @@ describe('Test For Recipes Routes', () => {
           userId: 1
         })
         .end((error, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+  });
+
+  describe('Test For Getting Reviews For A Recipe', () => {
+    it('should return an object and it should have a statusCode of 200 when trying to review a recipes', (done) => {
+      chai.request(recipeRoute)
+        .get('/10/reviews')
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('Test For Getting Reviews For A Recipe', () => {
+    it('should return an object and it should have a statusCode of 400 when trying to review a recipes', (done) => {
+      chai.request(recipeRoute)
+        .get('/10/reviews?limit=aaa')
+        .end((error, res) => {
+          expect(res.body.status).equal('Bad Request');
           expect(res).to.have.status(400);
           done();
         });
@@ -341,6 +364,19 @@ describe('Test For Recipes Routes', () => {
         .get('?sort=upvotes&order=desc')
         .end((error, res) => {
           expect(res).to.have.status(200);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+
+  describe('Test For Getting All Recipes By Votes', () => {
+    it('should return an object and it should have a statusCode of 400 when trying to get all recipes with wrong query', (done) => {
+      chai.request(recipeRoute)
+        .get('?sort=upvotes&order=a')
+        .end((error, res) => {
+          expect(res.body.status).equal('Bad Request');
+          expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
           done();
         });

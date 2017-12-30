@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth/LoginRequest';
 import { searchRecipes } from '../../actions/Recipes';
 
@@ -85,8 +85,9 @@ class Navbar extends React.Component {
               </form>
               {isAuthenticated ?
                 <div className="dropdown">
-                  <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
-                  </button>
+                  <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    {this.props.auth.user.firstName}
+                  </a>
                   <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
                     <Link className="dropdown-item" to="/recipes">All Recipes</Link>
                     <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
@@ -95,10 +96,12 @@ class Navbar extends React.Component {
                     <Link className="dropdown-item" onClick={this.logout} to="#">Logout</Link>
                   </div>
                 </div> :
-                <div>
-                  <Link className="btn btn-default auth-button" to="/login">Login</Link>
-                  <Link className="btn btn-default auth-button" to="/signup">Signup</Link>
-                </div>
+                <ul className="navbar-nav">
+                  <li className="nav-item"><Link className="nav-link" to="/recipes">All Recipes</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/recipes">Popular Recipes</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/login">Sign In</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+                </ul>
               }
             </div>
 

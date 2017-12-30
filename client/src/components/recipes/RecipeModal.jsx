@@ -66,13 +66,13 @@ export default class RecipeModal extends Component {
     if (file) {
       imageUpload(file)
         .then(res => {
-          console.log('imageUrl', res.data.secure_url);
           this.setState({ image: res.data.secure_url }, () => {
             setAuthorizationToken(localStorage.token);
             this.props.addRecipe(this.state);
             this.setState({ loaded: true });
             $('.modal').modal('hide');
           });
+          document.getElementById('form').reset();
         })
         .catch(error => {
           this.setState({ loaded: true });

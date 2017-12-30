@@ -24,7 +24,7 @@ export default class EditModal extends Component {
       ingredients: this.props.recipe.ingredients || [],
       steps: this.props.recipe.steps || [],
       errors: {},
-      stepsTimes: this.props.recipe.steps.length,
+      stepsTimes: '',
       ingredientsTimes: [],
       loaded: true
     };
@@ -118,7 +118,7 @@ export default class EditModal extends Component {
 	 * @memberof EditModal
 	 */
   render() {
-    const stepFields = this.state.steps.map((step, index) => (
+    const stepFields = this.props.recipe.steps.map((step, index) => (
       <Input key={index}
         onChange={this.onChange}
         number={index + 1}
@@ -128,7 +128,7 @@ export default class EditModal extends Component {
       />
     ));
 
-    const ingredientFields = this.state.ingredients.map((ingredient, index) => (
+    const ingredientFields = this.props.recipe.ingredients.map((ingredient, index) => (
       <Input key={index}
         onChange={this.onChange}
         number={index + 1}

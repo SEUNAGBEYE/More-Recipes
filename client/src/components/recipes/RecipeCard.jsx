@@ -78,8 +78,10 @@ class RecipeCard extends Component {
    */
   toggleFavouriteRecipe(event) {
     event.preventDefault();
-    checkAuth(this.props.user, this.props.history);
-    this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
+    if (this.props.isAuthenticated) {
+      this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
+    }
+    checkAuth(this.props.isAuthenticated, this.props.history);
   }
 
   /**
@@ -89,26 +91,31 @@ class RecipeCard extends Component {
    */
   toggleThumbsUpRecipe(event) {
     event.preventDefault();
-    checkAuth(this.props.user, this.props.history);
-    this.props.toggleThumbsUpRecipe(event.target.id);
-    this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
+    if (this.props.isAuthenticated) {
+      this.props.toggleThumbsUpRecipe(event.target.id);
+      this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
+    }
+    checkAuth(this.props.isAuthenticated, this.props.history);
   }
 
   /**
-   * @returns {jsx} jsx
+   * @returns {obj} obj
    * @param {any} event
    * @memberof RecipeCard
    */
   toggleThumbsDownRecipe(event) {
     event.preventDefault();
-    checkAuth(this.props.user, this.props.history);
-    this.props.toggleThumbsDownRecipe(event.target.id);
-    this.setState({ toggleThumbsDown: !this.state.toggleThumbsDown });
+    event.preventDefault();
+    if (this.props.isAuthenticated) {
+      this.props.toggleThumbsDownRecipe(event.target.id);
+      this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
+    }
+    checkAuth(this.props.isAuthenticated, this.props.history);
   }
 
 
   /**
-   * @returns {jsx} jsx
+   * @returns {jsx} JSX
    * @memberOf RecipeCard
    * return {object} object
    */
@@ -122,7 +129,7 @@ class RecipeCard extends Component {
             <div className="container">
               <div className="card-block">
                 <h4 className="card-title">{this.state.recipe.name.slice(0, 20)}</h4>
-                <p className="card-text">{this.state.recipe.description.slice(0, 90) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
+                <p className="card-text">{this.state.recipe.description.slice(0, 80) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
                 <RecipeCardActions
                   isDownVoted={this.state.isDownVoted}
                   isUpVoted={this.state.isUpVoted}
@@ -151,6 +158,7 @@ class RecipeCard extends Component {
  */
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
   myFavs: state.recipes.userFavouritedRecipeId || [],
 
 });

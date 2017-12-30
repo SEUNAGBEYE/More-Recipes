@@ -1,4 +1,8 @@
-import db from '../models/index';
+import model from '../models';
+
+const {
+  Recipe, Review, Category, User
+} = model;
 
 
 /**
@@ -19,10 +23,10 @@ class RecipeController {
       const orderBy = req.query.order.toUpperCase();
       req.query.sort.toLowerCase();
 
-      db.Recipe.findAll({
+      Recipe.findAll({
         where: {
           upvotes: {
-            [db.sequelize.Op.ne]: []
+            $ne: []
           }
         },
         order: [
@@ -32,9 +36,9 @@ class RecipeController {
         .then(recipes => res.status(200).send({ status: 'Success', data: recipes }))
         .catch(error => res.status(400).send({ status: 'Bad Request', errors: error.message }));
     } else {
-      db.Recipe.findAndCountAll()
+      Recipe.findAndCountAll()
         .then((recipesWithCount) => {
-          db.Recipe.findAll({
+          Recipe.findAll({
             order: [['createdAt', 'DESC']],
             offset: (recipesWithCount.count > req.query.limit) ? (req.query.limit * (req.query.page - 1)) : 0,
             limit: req.query.limit
@@ -57,7 +61,7 @@ class RecipeController {
   * @returns {null} json
   */
   static addRecipe(req, res) {
-    return db.Recipe.create({
+    return Recipe.create({
       id: req.body.id,
       name: req.body.name || '',
       image: req.body.image || '',
@@ -68,7 +72,6 @@ class RecipeController {
     })
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
-        console.log(errors);
         res.status(400).send({
           status: 'Bad Request',
           errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
@@ -85,14 +88,20 @@ class RecipeController {
   * @returns {obj} json
   */
   static getRecipe(req, res) {
-    db.Recipe.findById(req.params.id)
+    Recipe.findAll({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+      }]
+    })
       .then((recipe) => {
-        if (!recipe) {
+        if (recipe.length < 1) {
           return res.status(404).send({
             message: 'Recipe Not Found',
           });
         }
-
         return res.status(200).send({ status: 'Success', data: recipe });
       });
   }
@@ -106,7 +115,7 @@ class RecipeController {
   * @returns {null} json
   */
   static updateRecipe(req, res) {
-    db.Recipe.findById(req.params.id)
+    Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -130,25 +139,54 @@ class RecipeController {
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
-    console.log('==========================================', req.body.body);
-    db.Recipe.findById(req.params.id)
+    Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
             message: 'Recipe Not Found',
           });
         }
-        return db.Review.create({
+        return Review.create({
           userId: req.token.userId,
           recipeId: recipe.id,
-          body: req.body.body || ''
+          body: req.body.reviewBody
+           || ''
         })
-          .then(review => res.status(200).send({ status: 'Success', data: review }))
-          .catch(errors => res.status(400).send({
-            status: 'Bad Request',
-            errors: errors.errors.map(reviewError => ({ description: reviewError.message }))
-          }));
+          .then((review) => {
+            const { body, id } = review;
+            const newReview = { id, body };
+            newReview.user = req.token;
+            res.status(200).send({ status: 'Success', data: newReview });
+          })
+          .catch((errors) => {
+            const newErrors = errors.errors;
+            return res.status(400).send({
+              status: 'Bad Request',
+              errors: newErrors
+            });
+          });
       });
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static getReviews(req, res) {
+    const { limit, offset } = req.query;
+    Review.findAll({
+      where: {
+        recipeId: req.params.id
+      },
+      limit,
+      offset,
+      include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }],
+    })
+      .then(reviews => res.status(200).send({ status: 'Success', data: reviews }))
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 
   /**
@@ -159,7 +197,7 @@ class RecipeController {
   * @returns {null} json
   */
   static deleteRecipe(req, res) {
-    db.Recipe.findById(req.params.id)
+    Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -185,7 +223,7 @@ class RecipeController {
    * @memberof RecipeController
    */
   static upVoteRecipe(req, res) {
-    db.Recipe.findById(req.params.id)
+    Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -220,7 +258,7 @@ class RecipeController {
    * @memberof RecipeController
    */
   static downVoteRecipe(req, res) {
-    db.Recipe.findById(req.params.id)
+    Recipe.findById(req.params.id)
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -255,10 +293,10 @@ class RecipeController {
    * @memberof RecipeController
    */
   static popularRecipe(req, res) {
-    db.Recipe.findAll({
+    Recipe.findAll({
       where: {
         upvotes: {
-          [db.sequelize.Op.ne]: []
+          $ne: []
         }
       },
     })
@@ -278,37 +316,37 @@ class RecipeController {
   static searchRecipes(req, res) {
     const { search } = req.query;
 
-    db.Recipe.findAndCountAll({
+    Recipe.findAndCountAll({
       where: {
-        [db.sequelize.Op.or]: [
+        $or: [
           {
             name: {
-              [db.sequelize.Op.iLike]: `%${search}%`
+              $iLike: `%${search}%`
             },
           },
           {
             ingredients: {
-              [db.sequelize.Op.contains]: [`${search}`]
+              $contains: [`${search}`]
             }
           }
         ]
       }
     })
       .then((recipesWithCount) => {
-        db.Recipe.findAll({
+        Recipe.findAll({
           order: [['createdAt', 'DESC']],
           offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
           limit: req.query.limit,
           where: {
-            [db.sequelize.Op.or]: [
+            $or: [
               {
                 name: {
-                  [db.sequelize.Op.iLike]: `%${search}%`
+                  $iLike: `%${search}%`
                 },
               },
               {
                 ingredients: {
-                  [db.sequelize.Op.contains]: [`${search}`]
+                  $contains: [`${search}`]
                 }
               }
             ]
@@ -330,7 +368,7 @@ class RecipeController {
    * @memberof RecipeController
    */
   static getCategories(req, res) {
-    db.Category.findAll()
+    Category.findAll()
       .then(categories => res.status(200).send({ status: 'Success', data: categories }));
   }
 }

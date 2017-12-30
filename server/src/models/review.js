@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     Review.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
+      as: 'user'
     });
 
     Review.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
-      onDelete: 'CASCADE',
     });
   };
   return Review;

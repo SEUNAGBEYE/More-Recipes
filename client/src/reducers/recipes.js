@@ -1,6 +1,7 @@
 
 const initialState = {
   allRecipes: [],
+  singleRecipe: '',
   pagination: '',
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
@@ -9,6 +10,7 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
+  const singleRecipe = { ...state.singleRecipe };
   switch (action.type) {
   case 'ADD_RECIPE':
     return {
@@ -17,7 +19,7 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_RECIPE':
-    return { ...state, ...{ allRecipes: state.allRecipes.length > 0 ? state.allRecipes.filter(recipe => parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) : [action.recipe] } };
+    return { ...state, ...{ singleRecipe: action.recipe[0] } };
 
   case 'GET_USER_RECIPES':
     return {
@@ -76,8 +78,8 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         allRecipes: [...state.allRecipes.map((recipe) => {
-          if (recipe.id == action.recipe.id) {
-            recipe = action.recipe;
+          if (parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) {
+            return action.recipe;
           }
           return recipe;
         })]
@@ -106,13 +108,13 @@ export default (state = initialState, action = {}) => {
       ...{
         allRecipes: [...state.allRecipes.map((recipe) => {
           if (recipe.id === action.recipe.id) {
-            recipe = action.recipe;
+            return action.recipe;
           }
           return recipe;
         })],
         favouriteRecipes: [...state.favouriteRecipes.map((recipe) => {
           if (recipe.id === action.recipe.id) {
-            recipe = action.recipe;
+            return action.recipe;
           }
           return recipe;
         })],
@@ -126,13 +128,13 @@ export default (state = initialState, action = {}) => {
       ...{
         allRecipes: [...state.allRecipes.map((recipe) => {
           if (recipe.id === action.recipe.id) {
-            recipe = action.recipe;
+            return action.recipe;
           }
           return recipe;
         })],
         favouriteRecipes: [...state.favouriteRecipes.map((recipe) => {
           if (recipe.id === action.recipe.id) {
-            recipe = action.recipe;
+            return action.recipe;
           }
           return recipe;
         })],
@@ -150,6 +152,18 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{ userFavouritedRecipeId: action.favouritedRecipesIds }
+    };
+  case 'REVIEW_RECIPE':
+    singleRecipe.reviews = [action.reviewBody, ...singleRecipe.reviews];
+    return {
+      ...state,
+      ...{ singleRecipe: singleRecipe }
+    };
+  case 'GET_RECIPE_REVIEWS':
+    singleRecipe.reviews = [...singleRecipe.reviews, ...action.reviews];
+    return {
+      ...state,
+      ...{ singleRecipe: singleRecipe }
     };
 
   default: return state;
