@@ -175,15 +175,26 @@ export function toggleThumbsDownRecipeAction(recipe) {
 }
 
 /**
- *
- *
  * @export
- * @returns
+ * @param {any} reviewBody
  * @returns {obj} obj
  */
-export function reviewRecipeAction() {
+export function reviewRecipeAction(reviewBody) {
   return {
-    type: 'REVIEW_RECIPE'
+    type: 'REVIEW_RECIPE',
+    reviewBody
+  };
+}
+
+/**
+ * @export
+ * @param {any} reviews
+ * @returns {obj} obj
+ */
+export function getRecipeReviewsAction(reviews) {
+  return {
+    type: 'GET_RECIPE_REVIEWS',
+    reviews
   };
 }
 
@@ -368,11 +379,13 @@ export function editRecipe(id, recipe) {
  */
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
-    .then((res) => dispatch(getRecipeAction(res.data.data)))
+    .then((res) => {
+      dispatch(getRecipeAction(res.data.data));
+    })
     .catch((error) => {
       if (error) {
         console.log('error', error);
-        console.log(error.response.data);
+        // console.log(error.response.data);
       }
     });
 }
@@ -387,12 +400,29 @@ export function getRecipe(id) {
  */
 export function reviewRecipe(id, data) {
   return dispatch => axios.post(`/api/v1/recipes/${id}/reviews`, data)
-    .then((res) => dispatch(reviewRecipeAction()))
+    .then((res) => {
+      dispatch(reviewRecipeAction(res.data.data));
+      toastr.success('Review Added');
+    })
     .catch((error) => {
-      if (error) {
-        console.log('error', error);
-        console.log(error.response.data);
-      }
+      console.log('error', error);
+    });
+}
+
+/**
+ * @export
+ * @param {any} id
+ * @param {any} limit
+ * @param {any} offset
+ * @returns {obj} obj
+ */
+export function getRecipeReviews(id, limit, offset) {
+  return dispatch => axios.get(`/api/v1/recipes/${id}/reviews?limit=${limit}&offset=${offset}`)
+    .then((res) => {
+      dispatch(getRecipeReviewsAction(res.data.data));
+    })
+    .catch((error) => {
+      console.log('error', error);
     });
 }
 

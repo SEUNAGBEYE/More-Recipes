@@ -34,11 +34,12 @@ class AllRecipes extends Component {
  */
   componentDidMount() {
     this.paginateRecipes(1);
-
-    this.props.getFavouritedRecipesIds()
-      .then(res => {
-        this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
-      });
+    if (this.props.isAuthenticated) {
+      this.props.getFavouritedRecipesIds()
+        .then(res => {
+          this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
+        });
+    }
   }
 
   /**
@@ -168,7 +169,8 @@ class AllRecipes extends Component {
 const mapStateToProps = (state) => ({
   recipes: state.recipes.allRecipes,
   pagination: state.recipes.pagination,
-  user: state.auth.user
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {

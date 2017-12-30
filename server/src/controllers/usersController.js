@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import db from '../models/index';
-import { error } from 'util';
+import model from '../models';
+
+const { User, Recipe } = model;
 
 
 /**
@@ -19,7 +20,7 @@ class UserController {
       return res.status(400).send({ status: 'Bad Request', message: 'Password must be greater than 6' });
     }
 
-    return db.User.create({
+    return User.create({
       id: req.body.id,
       firstName: req.body.firstName || '',
       lastName: req.body.lastName || '',
@@ -51,7 +52,7 @@ class UserController {
   * @returns {null} json
   */
   static signIn(req, res) {
-    db.User.find({
+    User.find({
       where: {
         email: req.body.email
       }
@@ -69,8 +70,7 @@ class UserController {
               {
                 userId, email, firstName, lastName, favoriteRecipe, profilePicture
               },
-              process.env.SECRET_KEY,
-              { expiresIn: 86400 }
+              process.env.SECRET_KEY
             );
             return res.status(200).send({ status: 'Sucesss', token, userId });
           }
@@ -94,17 +94,17 @@ class UserController {
   static getFavoriteRecipes(req, res) {
     // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
     if (req.params.actionType === 'getIds') {
-      return db.User.findById(req.token.userId)
+      return User.findById(req.token.userId)
         .then(user => res.status(200).send({ status: 'Success', data: user.favoriteRecipe }))
         .catch(errors => res.status(404).send({ status: 'Not Found', message: 'User Not Found', errors: errors.message }));
     }
 
-    db.User.findById(req.token.userId)
+    User.findById(req.token.userId)
       .then((user) => {
-        db.Recipe.findAll({
+        Recipe.findAll({
           where: {
             id: {
-              [db.Sequelize.Op.in]: user.favoriteRecipe
+              $in: user.favoriteRecipe
             }
           },
         })
@@ -123,9 +123,9 @@ class UserController {
    * @returns {obj} obj
    */
   static addFavoriteRecipe(req, res) {
-    db.User.findById(req.token.userId)
+    User.findById(req.token.userId)
       .then((user) => {
-        db.Recipe.findById(req.params.id)
+        Recipe.findById(req.params.id)
           .then((recipe) => {
             if (!recipe) {
               return res.status(404).send({
@@ -164,7 +164,7 @@ class UserController {
    * @returns {obj} obj
    */
   static getRecipes(req, res) {
-    db.Recipe.findAll({
+    Recipe.findAll({
       where: {
         userId: req.token.userId
       }
@@ -183,7 +183,7 @@ class UserController {
    * @returns {obj} obj
    */
   static myProfile(req, res) {
-    db.User.findById(req.token.userId)
+    User.findById(req.token.userId)
       .then((user) => {
         const {
           firstName, lastName, email, profilePicture

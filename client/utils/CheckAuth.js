@@ -1,7 +1,6 @@
-import isEmpty from 'lodash/isEmpty';
 
-const checkAuth = (user, history) => {
-  if (isEmpty(user)) {
+const checkAuth = (isAuthenticated, history) => {
+  if (!isAuthenticated) {
     let redirectAfterLogin = history.location.pathname;
     toastr.warning('Please Login');
     history.push(`/login?next=${redirectAfterLogin}`);

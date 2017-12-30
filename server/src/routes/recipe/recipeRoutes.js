@@ -38,6 +38,8 @@ recipeRoute.route('/:id/downvotes')
 
 recipeRoute.route('/:id/reviews')
   .post(authMiddleware, validateId, RecipeController.reviewRecipe);
+recipeRoute.route('/:id/reviews')
+  .get(validateId, RecipeController.getReviews);
 
 //  Recipe Model
 

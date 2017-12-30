@@ -1,4 +1,4 @@
-engines:
+plugins:
   csslint:
     enabled: false
   duplication:
@@ -10,8 +10,6 @@ engines:
     enabled: true
   fixme:
     enabled: true
-ratings:
-  paths:
-  - "server/**/*.js"
-exclude_paths:
+exclude_patterns:
   - "node_modules/"
+  - "client/public"
