@@ -2,9 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: path.join(__dirname, 'client/src/app.js'),
+  entry: ['babel-polyfill', path.join(__dirname, 'client/main/src/app.js')],
   output: {
-    path: path.join(__dirname, 'client/public'),
+    path: path.join(__dirname, 'client/main/public'),
     filename: 'bundle.js',
     publicPath: '/'
   },

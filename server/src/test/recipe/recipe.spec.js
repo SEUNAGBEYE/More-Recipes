@@ -56,7 +56,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Adding A  Single Recipe', () => {
-    it('should return an object and it should have a statusCode of 200 when trying to add a recipe', (done) => {
+    it('should return an object and it should have a statusCode of 201 when trying to add a recipe', (done) => {
       chai.request(recipeRoute)
         .post('/')
         .send({
@@ -64,7 +64,8 @@ describe('Test For Recipes Routes', () => {
           name: 'Amala',
           description: 'This is made from carbonhydrate',
           image: 'This is the image',
-          userId: 2
+          userId: 2,
+          categoryId: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(201);

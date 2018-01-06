@@ -3,6 +3,7 @@ import { json, urlencoded } from 'body-parser';
 import RecipeController from '../../controllers/recipesController';
 import authMiddleware from '../../middleware/authMiddleware';
 import validateId from '../../middleware/recipeIdValidation';
+import uniqueRecipeValidation from '../../middleware/uniqueRecipeValidation';
 
 const recipeRoute = express();
 
@@ -14,13 +15,16 @@ recipeRoute.use(urlencoded({ extended: true }));
 
 recipeRoute.route('/')
   .get(RecipeController.allRecipe)
-  .post(authMiddleware, RecipeController.addRecipe);
+  .post(authMiddleware, uniqueRecipeValidation, RecipeController.addRecipe);
 
 recipeRoute.route('/popular')
   .get(RecipeController.popularRecipe);
 
 recipeRoute.route('/categories')
   .get(RecipeController.getCategories);
+
+recipeRoute.route('/categories/:id')
+  .get(validateId, RecipeController.getCategory);
 
 recipeRoute.route('/search_results')
   .get(RecipeController.searchRecipes);

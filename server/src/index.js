@@ -9,7 +9,6 @@ import webpackConfig from '../../webpack.config';
 
 config.config();
 
-
 const port = process.env.PORT || 7000;
 const app = express();
 
@@ -27,6 +26,7 @@ app.use('/api-docs', swagger);
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../../client/public/index.html'));
 });
+
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {

@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     views: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
     },
     upvotes: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
@@ -33,10 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     categoryId: {
       type: DataTypes.INTEGER,
+      allowNull: false
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
     steps: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -72,10 +74,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'user'
     });
 
-    // Recipe.belongsTo(models.Category, {
-    //   foreignKey: 'categoryId',
-    //   onDelete: 'CASCADE',
-    // });
+    Recipe.belongsTo(models.Category, {
+      foreignKey: 'categoryId',
+      onDelete: 'CASCADE',
+      as: 'category'
+    });
 
     Recipe.hasMany(models.Review, {
       foreignKey: 'recipeId',
