@@ -18,15 +18,15 @@ export default class EditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.recipe.name || '',
-      description: this.props.recipe.description || '',
-      image: this.props.recipe.image || '',
-      ingredients: this.props.recipe.ingredients || [],
-      steps: this.props.recipe.steps || [],
+      name: '',
+      description: '',
+      image: '',
+      ingredients: [],
+      steps: [],
       errors: {},
       stepsTimes: '',
       ingredientsTimes: [],
-      loaded: true
+      loaded: true,
     };
     this.onChange = this.onChange.bind(this);
     this.stepClick = this.stepClick.bind(this);
@@ -35,37 +35,68 @@ export default class EditModal extends Component {
   }
 
   /**
-	 * @param {any} e
+   *
+   * @returns {void} void
+   * @memberof EditModal
+   */
+  componentDidMount() {
+    this.setState({
+      name: this.props.recipe.name,
+      description: this.props.recipe.description,
+      image: this.props.recipe.image,
+      ingredients: this.props.recipe.ingredients,
+      steps: this.props.recipe.steps
+    });
+  }
+
+  /**
+   *
+   * @returns {void} void
+   * @param {any} nextProps
+   * @memberof EditModal
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      name: nextProps.recipe.name,
+      description: nextProps.recipe.description,
+      image: nextProps.recipe.image,
+      ingredients: nextProps.recipe.ingredients,
+      steps: nextProps.recipe.steps
+    });
+  }
+
+  /**
+	 * @param {any} event
 	 * @memberof EditModal
 	 * @returns {void} void
 	 */
-  stepClick(e) {
-    e.preventDefault();
+  stepClick(event) {
+    event.preventDefault();
     this.setState({ steps: [...this.state.steps, ''] });
   }
 
   /**
-	 * @param {any} e
+	 * @param {any} event
 	 *  @returns {void} void
 	 * @memberof EditModal
 	 */
-  ingredientClick(e) {
-    e.preventDefault();
+  ingredientClick(event) {
+    event.preventDefault();
     this.setState({ ingredients: [...this.state.ingredients, ''] });
   }
 
 
   /**
-	 * @param {any} e
+	 * @param {any} event
 	 *  @returns {void} void
 	 * @memberof EditModal
 	 */
-  onChange(e) {
-    e.preventDefault();
-    const { name: stateKey, id, value } = e.target;
+  onChange(event) {
+    event.preventDefault();
+    const { name: stateKey, id, value } = event.target;
     if (stateKey === 'steps' || stateKey === 'ingredients') {
       this.setState({
-        [e.target.name]: this.state[stateKey].map((step, index) => {
+        [event.target.name]: this.state[stateKey].map((step, index) => {
           if (parseInt(index, 10) === parseInt(id, 10)) {
             step = value;
           }
@@ -80,13 +111,13 @@ export default class EditModal extends Component {
   }
 
   /**
-	 * @param {any} e
+	 * @param {any} event
 	 *  @returns {void} void
 	 * @memberof EditModal
 	 */
-  updateRecipe(e) {
-    e.preventDefault();
-    const { id } = e.target;
+  updateRecipe(event) {
+    event.preventDefault();
+    const { id } = event.target;
     const file = document.getElementById(`recipePicture${id}`).files[0];
     if (file) {
       if (file.size > 4000000) {
@@ -128,7 +159,7 @@ export default class EditModal extends Component {
       />
     ));
 
-    const ingredientFields = this.props.recipe.ingredients.map((ingredient, index) => (
+    const ingredientFields = this.state.ingredients.map((ingredient, index) => (
       <Input key={index}
         onChange={this.onChange}
         number={index + 1}
@@ -156,12 +187,12 @@ export default class EditModal extends Component {
                 <form>
                   <fieldset className="form-group">
                     <label htmlFor="name" className="form-inline">Name</label>
-                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} defaultValue={this.props.recipe.name}/>
+                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} value={this.state.name}/>
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="recipeDescription" className="form-inline">Description</label>
-                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} defaultValue={this.props.recipe.description} />
+                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description} />
                   </fieldset>
 
                   <fieldset className="form-group">

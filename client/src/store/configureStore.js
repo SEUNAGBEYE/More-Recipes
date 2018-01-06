@@ -5,14 +5,15 @@ import recipes from '../reducers/recipes';
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
- const store = createStore(
-    combineReducers({
-      auth,
-      recipes
-    }),
-    compose(applyMiddleware(thunk),
+const store = createStore(
+  combineReducers({
+    auth,
+    recipes
+  }),
+  compose(
+    applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
-  );
+  )
+);
 
-export {store}
+export { store };

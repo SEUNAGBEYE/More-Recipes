@@ -13,6 +13,7 @@ import UserProfile from '../components/UserProfile';
 import NotFoundPage from '../components/common/NotFoundPage';
 import NavBar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import CategoryPage from '../components/recipes/CategoryPage';
 import requireAuthentication from '../../utils/RequireAuthentication';
 
 const history = createHistory();
@@ -30,6 +31,7 @@ const AppRouter = () => (
         <Route path="/my_favourites" component={requireAuthentication(FavouriteRecipes)} exact/>
         <Route path="/profile" component={requireAuthentication(UserProfile)}/>
         <Route path="/recipes" component={AllRecipes} exact/>
+        <Route path="/categories/:categoryName" component={CategoryPage} exact/>
         <Route path="/search_results" component={SearchResults} exact/>
         <Route component={NotFoundPage}/>
       </Switch>

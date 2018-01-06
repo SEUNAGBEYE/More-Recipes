@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
 import SignUpForm from './SignUpForm';
-import signUpRequest from '../../actions/auth/SignUpRequest';
+import { signUpRequest } from '../../actions/auth/Auth';
 
 /**
  * @class SignUpPage
@@ -18,6 +18,7 @@ class SignUpPage extends Component {
   constructor(props) {
     super(props);
     this.history = this.props.history;
+    this.signUpRequest = signUpRequest;
   }
 
   /**

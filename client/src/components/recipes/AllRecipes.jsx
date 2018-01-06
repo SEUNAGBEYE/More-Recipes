@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getFavouritedRecipesIds, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, favouriteRecipe, deleteRecipe, editRecipe } from '../../actions/Recipes';
+import {
+  getFavouritedRecipesIds,
+  addRecipe,
+  allRecipes,
+  recipeCategories
+}
+  from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
+import CategoryButton from './CategoryButton';
 
 
 /**
@@ -22,9 +28,6 @@ class AllRecipes extends Component {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
-    this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
     this.paginateRecipes = this.paginateRecipes.bind(this);
   }
 
@@ -34,12 +37,6 @@ class AllRecipes extends Component {
  */
   componentDidMount() {
     this.paginateRecipes(1);
-    if (this.props.isAuthenticated) {
-      this.props.getFavouritedRecipesIds()
-        .then(res => {
-          this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
-        });
-    }
   }
 
   /**
@@ -48,6 +45,7 @@ class AllRecipes extends Component {
    * @memberof AllRecipes
    */
   paginateRecipes(page) {
+    this.props.recipeCategories();
     this.props.allRecipes(page)
       .then(res => {
         this.setState({ allRecipes: [...res.allRecipes] });
@@ -68,45 +66,6 @@ class AllRecipes extends Component {
   }
 
   /**
-   * @param {any} id
-   * @returns {void} void
-   * @memberof AllRecipes
-   */
-  deleteRecipe(id) {
-    this.props.deleteRecipe(id)
-      .then(res => {
-        this.setState({ allRecipes: this.state.allRecipes.filter(recipe => recipe.id !== id) });
-      });
-  }
-
-  /**
- * @param {any} id
- * @returns {void} void
- * @memberof AllRecipes
- */
-  toggleFavouriteRecipe(id) {
-    toggleFavouriteRecipe(id)
-      .then(res => {
-        this.setState({ favouritedRecipesIds: [...res.data.favouritedRecipesId] });
-      });
-  }
-
-
-  /**
-   * @param {any} id
-   * @returns {void} void
-   * @param {any} recipe
-   * @memberof AllRecipes
-   */
-  editRecipe(id, recipe) {
-    this.props.editRecipe(id, recipe)
-      .then(res => {
-        this.setState({ allRecipes: [...this.state.allRecipes.filter(recipe => recipe.id === id)] });
-      });
-  }
-
-
-  /**
    * @memberOf UserRecipes
    * @returns {jsx} JSX
    * return {object}
@@ -117,45 +76,40 @@ class AllRecipes extends Component {
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
-            <div className="dropdown" style={{ float: 'left' }}>
-              <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
-              </button>
-              <div className="dropdown-menu" aria-labelledby="about-us">
-                <Link className="dropdown-item" to="recipes.html">Dessert</Link>
-                <Link className="dropdown-item" to="my_recipes.html">Pasta</Link>
-                <Link className="dropdown-item" to="favourite_recipe.html">Fries</Link>
-                <Link className="dropdown-item" to="#">Chinese</Link>
-                <Link className="dropdown-item" to="index.html">Africa</Link>
-              </div>
-            </div>
+            <CategoryButton/>
           </div>
 
           <div className="container">
             <div style={{ textAlign: 'center', marginTop: 100 }}>
               <h4 className="container__myrecipes">All Recipes</h4><br /><br />
-              <RecipeModal addRecipe={this.onSubmit}/>
+              <RecipeModal
+                addRecipe={this.onSubmit}
+                recipeCategories={this.props.categories}
+              />
             </div>
 
             <div className="row">
               {
                 this.props.recipes.length > 0 ?
-                  this.props.recipes.map((elem, index) => (<RecipeCard key={elem.id}
-                    user={this.props.user}
-                    recipe={elem}
-                    id={elem.id}
-                    onDelete={this.deleteRecipe}
-                    editRecipe={this.editRecipe}
-                    toggleFavouriteRecipe={this.toggleFavouriteRecipe}
-                    history={this.props.history}
-                  />)) :
+                  this.props.recipes.map((recipe, index) => (
+                    <RecipeCard key={recipe.id}
+                      user={this.props.user}
+                      recipe={recipe}
+                      id={recipe.id}
+                      history={this.props.history}
+                    />)) :
                   <Exclamation>
-                    <p className="text-muted text-center">Sorry no recipe has been added yet, please add to get started</p>
+                    <p className="text-muted text-center">
+                      Sorry no recipe has been added yet,
+                      please add to get started
+                    </p>
                   </Exclamation>
               }
             </div>
           </div>
         </main>
-        <Pagination recipesCount={this.props.pagination} recipesPagination={this.paginateRecipes}/>
+        <Pagination recipesCount={this.props.pagination}
+          recipesPagination={this.paginateRecipes}/>
       </div>
     );
   }
@@ -170,10 +124,14 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes.allRecipes,
   pagination: state.recipes.pagination,
   user: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  categories: state.recipes.recipeCategories
 });
 
 export default connect(mapStateToProps, {
-  getFavouritedRecipesIds, toggleFavouriteRecipe, allRecipes, addRecipe, getUserRecipes, deleteRecipe, editRecipe
+  getFavouritedRecipesIds,
+  allRecipes,
+  addRecipe,
+  recipeCategories
 })(AllRecipes);
 

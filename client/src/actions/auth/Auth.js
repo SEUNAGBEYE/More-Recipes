@@ -15,12 +15,13 @@ export function setCurrentUser(user) {
 }
 
 /**
- * @export
+ *
+ *
  * @param {any} data
- * @param {any} [history=[]]
- * @returns {obj} obj
+ * @param {any} [history={}]
+ * @returns
  */
-export function login(data, history = []) {
+function loginHelper(data, history = {}) {
   return dispatch => axios.post('/api/v1/users/signin', data)
     .then((res) => {
       const { token } = res.data;
@@ -32,10 +33,37 @@ export function login(data, history = []) {
     })
     .catch((error) => {
       if (error) {
-        console.log(error, console.log(error.message));
         toastr.error('Invalid password or email', 'Error');
+        return error.message;
       }
     });
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {any} data
+ * @returns {obj} obj
+ */
+export function signUpRequest(data) {
+  // const { email, password } = data;
+  return axios.post('/api/v1/users/signup', data)
+    .then(res => {
+      toastr.success('Account created please login to continue', 'Success!');
+      return loginHelper(data);
+    })
+    .catch(error => error.response.data.errors);
+}
+
+/**
+ * @export
+ * @param {any} data
+ * @param {any} [history=[]]
+ * @returns {obj} obj
+ */
+export function login(data, history = []) {
+  return loginHelper(data, history);
 }
 
 /**

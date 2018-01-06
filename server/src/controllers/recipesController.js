@@ -68,14 +68,18 @@ class RecipeController {
       description: req.body.description || '',
       steps: req.body.steps || [],
       ingredients: req.body.ingredients || [],
-      userId: req.token.userId
+      userId: req.token.userId,
+      categoryId: req.body.categoryId
     })
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
-        res.status(400).send({
-          status: 'Bad Request',
-          errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
-        });
+        console.log(errors, '>>>>>>>>>>>>>>>>>>>.');
+        if (errors) {
+          res.status(400).send({
+            status: 'Bad Request',
+            errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
+          });
+        }
       });
   }
 
@@ -223,7 +227,14 @@ class RecipeController {
    * @memberof RecipeController
    */
   static upVoteRecipe(req, res) {
-    Recipe.findById(req.params.id)
+    Recipe.find({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+      }]
+    })
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -258,7 +269,14 @@ class RecipeController {
    * @memberof RecipeController
    */
   static downVoteRecipe(req, res) {
-    Recipe.findById(req.params.id)
+    Recipe.find({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+      }]
+    })
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
@@ -368,8 +386,28 @@ class RecipeController {
    * @memberof RecipeController
    */
   static getCategories(req, res) {
-    Category.findAll()
+    Category.findAll({
+      include: ['recipes']
+    })
       .then(categories => res.status(200).send({ status: 'Success', data: categories }));
+  }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static getCategory(req, res) {
+    Category.findAll({
+      where: {
+        id: req.params.id
+      },
+      include: ['recipes']
+    })
+      .then(category => res.status(200).send({ status: 'Success', data: category }))
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 }
 

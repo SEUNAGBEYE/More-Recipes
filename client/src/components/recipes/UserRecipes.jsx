@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
-import { addRecipe, getUserRecipes, deleteRecipe, editRecipe } from '../../actions/Recipes';
+import { addRecipe,
+  getUserRecipes,
+  recipeCategories }
+  from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
+import CategoryButton from './CategoryButton';
 
 
 /**
@@ -32,9 +34,6 @@ class UserRecipes extends Component {
       upvotes: [],
       userRecipes: []
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
   }
 
   /**
@@ -42,56 +41,13 @@ class UserRecipes extends Component {
   * @memberof UserRecipes
   */
   componentDidMount() {
+    this.props.recipeCategories();
     this.props.getUserRecipes()
       .then(res => {
-        this.setState({ userRecipes: [...this.state.userRecipes, ...res.recipes] });
+        this.setState({
+          userRecipes: [...this.state.userRecipes, ...res.recipes]
+        });
       });
-  }
-
-  /**
-   * @returns {void} void
-   * @memberof UserRecipes
-   */
-  componenDidUpdate() {
-    this.props.getUserRecipes()
-      .then(res => {
-        this.setState({ userRecipes: [...this.state.userRecipes, ...res.recipes] });
-      });
-  }
-
-  /**
-   * @returns {void} void
-   * @param {any} data
-   * @memberof UserRecipes
-   */
-  onSubmit(data) {
-    this.props.addRecipe(data);
-  }
-
-  /**
-   * @returns {void} void
-   * @param {any} id
-   * @memberof UserRecipes
-   */
-  deleteRecipe(id) {
-    this.props.deleteRecipe(id)
-      .then(res => {
-        this.setState({ userRecipes: this.state.userRecipes.filter(recipe => recipe.id !== id) });
-      });
-  }
-
-  /**
-   * @returns {void} void
-   * @param {any} id
-   * @param {any} recipe
-   * @memberof UserRecipes
-   */
-  editRecipe(id, recipe) {
-    this.props.editRecipe(id, recipe)
-      .then(res => {
-        this.setState({ userRecipes: [...this.state.userRecipes.filter(recipe => recipe.id === id)] });
-      });
-    this.props.getUserRecipes();
   }
 
 
@@ -105,32 +61,30 @@ class UserRecipes extends Component {
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
-            <div className="dropdown" style={{ float: 'left' }}>
-              <button className="btn btn-default dropdown-toggle auth-button" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
-              </button>
-              <div className="dropdown-menu" aria-labelledby="about-us">
-                <a className="dropdown-item" href="recipes.html">Dessert</a>
-                <a className="dropdown-item" href="my_recipes.html">Pasta</a>
-                <a className="dropdown-item" href="favourite_recipe.html">Fries</a>
-                <a className="dropdown-item" href="#">Chinese</a>
-                <a className="dropdown-item" href="index.html">Africa</a>
-              </div>
-            </div>
+            <CategoryButton />
           </div>
 
           <div className="container">
             <div style={{ textAlign: 'center', marginTop: 100 }}>
-              <a href="" className="auth-button" data-toggle="modal" data-target="#addModal">Add Recipe</a>
+              <a href="" className="auth-button"
+                data-toggle="modal"
+                data-target="#addModal">Add Recipe</a>
               <h4 className="container__myrecipes">My Recipes</h4><br /><br />
-              <RecipeModal addRecipe={this.onSubmit}/>
+              <RecipeModal addRecipe={this.props.addRecipe}
+                recipeCategories={this.props.categories}/>
             </div>
 
             <div className="row">
               {
                 this.props.userRecipes.length > 0 ?
-                  this.props.userRecipes.map((elem, index) => (<RecipeCard key={elem.id} user={this.props.user} recipe={elem} id={elem.id} onDelete={this.deleteRecipe} editRecipe={this.editRecipe}/>)) :
+                  this.props.userRecipes.map((elem, index) => (
+                    <RecipeCard key={elem.id} user={this.props.user}
+                      recipe={elem} id={elem.id} onDelete={this.deleteRecipe}
+                      editRecipe={this.editRecipe}
+                    />)) :
                   <Exclamation>
-                    <p className="text-muted">Sorry you haven't added any recipe yet, please add to get started</p>
+                    <p className="text-muted">Sorry you haven't added any
+                     recipe yet, please add to get started</p>
                   </Exclamation>
               }
             </div>
@@ -150,10 +104,11 @@ class UserRecipes extends Component {
 const mapStateToProps = (state) => ({
   recipes: state.recipes,
   user: state.auth.user,
-  userRecipes: state.recipes.allRecipes
+  userRecipes: state.recipes.allRecipes,
+  categories: state.recipes.recipeCategories
 });
 
 export default connect(mapStateToProps, {
-  addRecipe, getUserRecipes, deleteRecipe, editRecipe
+  addRecipe, getUserRecipes, recipeCategories
 })(UserRecipes);
 

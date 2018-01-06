@@ -49,7 +49,7 @@ class Homepage extends Component {
 
               <div className="row">
                 {
-                  this.props.categories.map((recipe) => <RecipeCircle key={recipe.id} recipe={recipe} />)
+                  this.props.categories.map((category) => <RecipeCircle key={category.id} recipe={category} to={`/categories/${category.name}`} />)
                 }
               </div>
               <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><a href="#" className="title-link">Popular</a></h3>

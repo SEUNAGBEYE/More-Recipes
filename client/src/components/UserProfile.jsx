@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../actions/auth/LoginRequest';
+import { logout } from '../actions/auth/Auth';
 
 /**
  * @class UserProfile
