@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import model from '../models';
+import mail from '../helpers/mail';
+import jwtSigner from '../helpers/jwt';
 
 const { User, Recipe, Review } = model;
 
@@ -30,10 +31,18 @@ class UserController {
     })
       .then((user) => {
         const {
-          firstName, lastName, email, profilePicture
+          firstName, lastName, email, profilePicture, favoriteRecipe, id: userId
         } = user;
+        const payload = {
+          userId, email, firstName, lastName, favoriteRecipe, profilePicture
+        };
+        const token = jwtSigner(payload);
         const userProfile = {
-          firstName, lastName, email, profilePicture
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          token
         };
         res.status(201).send({ status: 'Success', data: userProfile });
       })
@@ -66,13 +75,11 @@ class UserController {
             const {
               id: userId, email, firstName, lastName, favoriteRecipe, profilePicture
             } = user;
-            const token = jwt.sign(
-              {
-                userId, email, firstName, lastName, favoriteRecipe, profilePicture
-              },
-              process.env.SECRET_KEY
-            );
-            return res.status(200).send({ status: 'Sucesss', token, userId });
+            const payload = {
+              userId, email, firstName, lastName, favoriteRecipe, profilePicture
+            };
+            const token = jwtSigner(payload);
+            return res.status(200).send({ status: 'Sucesss', token });
           }
           return res.status(401).send({ status: 'UnAuthorized', message: 'Invalid Password or Email' });
         })
@@ -201,6 +208,102 @@ class UserController {
         res.status(200).send({ status: 'Success', data: userProfile });
       })
       .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {obj} req
+   * @param {obj} res
+   * @returns {obj} obj
+   * @memberof UserController
+   */
+  static updateProfile(req, res) {
+    User.findById(req.token.userId)
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User Not Found',
+            user,
+            token: req.token.id
+          });
+        }
+        if (user.id === req.token.userId) {
+          return user
+            .update(req.body, { fields: Object.keys(req.body) })
+            .then((profile) => {
+              const {
+                firstName, lastName, email, profilePicture
+              } = profile;
+              const updatedProfile = {
+                firstName, lastName, email, profilePicture
+              };
+              res.status(200).send({ status: 'Success', data: updatedProfile });
+            })
+            .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
+        }
+        return res.status(401).send({ status: 'Not Authorize', message: 'Not Authorize' });
+      });
+  }
+
+  /**
+ * @param {any} req
+ * @param {any} res
+ * @returns {void} void
+ * @memberof UserController
+ */
+  static forgetPassword(req, res) {
+    const { email } = req.body;
+    User.find({
+      where: {
+        email
+      }
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({ status: 'Not Found', message: 'User Not Found' });
+        }
+        const { id } = user;
+        const exp = Math.floor(Date.now() / 1000) + (24 * (60 * 60));
+        const payload = { exp, id };
+        const token = jwtSigner(payload);
+        const resetLink = `${req.protocol}://${req.get('host')}/api/v1/users${req.path}/${token}`;
+        mail(email, resetLink);
+        return res.status(200).send({ status: 'Success', message: 'A Message has been sent to the email provided, kindly read to mail to reset your password' });
+      });
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof UserController
+   */
+  static confirmForgetPassword(req, res) {
+    const { id: userId, email } = req.token;
+    User.findById(userId)
+      .then((user) => {
+        console.log('user>>>>>>>>>>>>>>>>>/////', user, userId, email, req.token);
+        if (!user) {
+          return res.status(404).send({
+            status: 'Not Found',
+            message: 'User Not Found',
+          });
+        }
+        if (user.id === userId) {
+          return user
+            .update(req.body, { fields: Object.keys(req.body) })
+            .then(() => {
+              res.status(200).send({ status: 'Success', message: 'Password Changed' });
+            })
+            .catch(errors => res.status(400).send({ status: 'Bad Request', errors: errors.message }));
+        }
+        return res.status(401).send({ status: 'Not Authorize', message: 'Not Authorize' });
+      });
   }
 }
 

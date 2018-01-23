@@ -13,22 +13,37 @@ class UserProfile extends Component {
    * @memberof UserProfile
    */
   render() {
+    $(() => {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
     return (
       <div>
 
         <main style={{ marginTop: 130 }}>
 
-          <button className="btn btn-default" id="edit-profile" data-toggle="modal" data-target="#editModal">Edit Profile</button>
-
-          <button className="btn btn-default" id="edit-profile" data-toggle="modal" data-target="#resetPasswordModal" style={{ float: 'right' }}>Reset Password</button>
-
-
-          <div className="card" id="profile-card">
+          <div className="card" id="profile-card" style={{ marginTop: '11rem' }}>
             <img src={this.props.auth.user.profilePicture} alt="John" className="profile-picture"/>
             <h1>{`${this.props.auth.user.firstName} ${this.props.auth.user.lastName}`}</h1>
             <p className="title">CEO & Founder, Recipe</p>
             <p style={{ color: 'orange' }}>Software Developer</p>
             <div className="row">
+              <div className="col-xs-12 col-sm-12 col-md-12">
+                <Link to="#"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  <i className="fa fa-pencil icons"
+                    title="Edit Profile"
+                    data-toggle="tooltip" /></Link>
+
+                <Link to="#"
+                  data-toggle="modal"
+                  data-target="#resetPasswordModal"
+                >
+                  <i className="fa fa-key icons"
+                    title="Reset Password"
+                    data-toggle="tooltip" /></Link>
+              </div>
               <div className="col-xs-12 col-sm-12 col-md-12">
                 <Link to="#" target="_blank" className="fa fa-dribbble icons" />
                 <Link to="#" target="_blank" className="fa fa-twitter icons" />

@@ -73,7 +73,6 @@ class RecipeController {
     })
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
-        console.log(errors, '>>>>>>>>>>>>>>>>>>>.');
         if (errors) {
           res.status(400).send({
             status: 'Bad Request',
