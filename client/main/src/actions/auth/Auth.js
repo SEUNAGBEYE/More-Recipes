@@ -5,7 +5,7 @@ import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 /**
  * @export
  * @return {obj} obj
- * @param {any} user
+ * @param {obj} user
  */
 export function setCurrentUser(user) {
   return {
@@ -15,22 +15,46 @@ export function setCurrentUser(user) {
 }
 
 /**
+ * @export
+ * @param {any} user
+ * @returns {obj} obj
+ */
+export function updateProfileAction(user) {
+  return {
+    type: 'UPDATE_PROFILE',
+    user
+  };
+}
+
+/**
+ * @param {any} action
+ * @param {any} actionType
+ * @returns {void}
+ */
+function user(action, actionType, res, dispatch) {
+  const { token } = res.data;
+  localStorage.setItem('token', token);
+  setAuthorizationToken(token);
+  const decoded = jwt.decode(token);
+  console.log('decoded', res)
+  if (actionType === 'SET_CURRENT_USER') {
+    toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
+  } else {
+    toastr.success('Profile Updated', 'Success!');
+  }
+  return dispatch(action(decoded));
+}
+
+/**
  *
  *
- * @param {any} data
- * @param {any} [history={}]
- * @returns
+ * @param {obj} data
+ * @param {obj} [history={}]
+ * @returns {void}
  */
 function loginHelper(data, history = {}) {
   return dispatch => axios.post('/api/v1/users/signin', data)
-    .then((res) => {
-      const { token } = res.data;
-      localStorage.setItem('token', token);
-      setAuthorizationToken(token);
-      const decoded = jwt.decode(token);
-      toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
-      return dispatch(setCurrentUser(decoded));
-    })
+    .then((res) => user(setCurrentUser, 'SET_CURRENT_USER', res.data, dispatch))
     .catch((error) => {
       if (error) {
         toastr.error('Invalid password or email', 'Error');
@@ -43,12 +67,11 @@ function loginHelper(data, history = {}) {
  *
  *
  * @export
- * @param {any} data
+ * @param {obj} data
  * @returns {obj} obj
  */
 export function signUpRequest(data) {
-  // const { email, password } = data;
-  return axios.post('/api/v1/users/signup', data)
+  return dispatch => axios.post('/api/v1/users/signup', data)
     .then(res => {
       toastr.success('Account created please login to continue', 'Success!');
       return loginHelper(data);
@@ -57,9 +80,23 @@ export function signUpRequest(data) {
 }
 
 /**
+ *
+ *
  * @export
- * @param {any} data
- * @param {any} [history=[]]
+ * @param {obj} data
+ * @returns {obj} obj
+ */
+export function updateProfile(data) {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>.', data)
+  return dispatch => axios.put('/api/v1/users/profile', data)
+    .then(res => user(updateProfileAction, 'UPDATE_PROFILE', res.data, dispatch))
+    .catch(error => console.log('/////////////,', error.response.data));
+}
+
+/**
+ * @export
+ * @param {obj} data
+ * @param {obj} [history=[]]
  * @returns {obj} obj
  */
 export function login(data, history = []) {

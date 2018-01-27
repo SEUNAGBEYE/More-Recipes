@@ -8,7 +8,7 @@
     "npm": "5.5.1"
   },
   "scripts": {
-    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
+    "pretest":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
@@ -19,7 +19,7 @@
     "start": "node -- ./server/dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed"
+    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed --seed 20171031150152-category"
   },
   "author": "Seun Agbeye",
   "license": "ISC",

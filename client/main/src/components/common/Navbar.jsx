@@ -94,7 +94,7 @@ class Navbar extends React.Component {
 
               <form className="form-inline" action="" method="GET" onSubmit={this.search}>
 
-                <input type="text" name="search" className="form-control" id="search" placeholder="search" />
+                <input type="text" name="search" className="form-control" placeholder="search" />
 
               </form>
               {isAuthenticated ?
@@ -107,8 +107,8 @@ class Navbar extends React.Component {
                       {
                         this.props.categories.map(category =>
                           (<Link className="dropdown-item"
-                            to={`/categories/${category}`}
                             key={category.id}
+                            to={`/categories/${category}`}
                           >{category}</Link>))
                       }
                     </div>
@@ -148,8 +148,8 @@ class Navbar extends React.Component {
                         {
                           this.props.categories.map(category =>
                             (<Link className="dropdown-item"
-                              to={`/categories/${category}`}
                               key={category.id}
+                              to={`/categories/${category}`}
                             >{category}</Link>))
                         }
                       </div>

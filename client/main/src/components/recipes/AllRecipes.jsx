@@ -47,9 +47,9 @@ class AllRecipes extends Component {
   paginateRecipes(page) {
     this.props.recipeCategories();
     this.props.allRecipes(page)
-      .then(res => {
-        this.setState({ allRecipes: [...res.allRecipes] });
-      });
+      // .then(res => {
+      //   this.setState({ allRecipes: [...res.allRecipes] });
+      // });
   }
 
 

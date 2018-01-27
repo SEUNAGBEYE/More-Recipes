@@ -9,7 +9,7 @@ import FavouriteRecipes from '../components/recipes/FavouriteRecipes';
 import UserRecipes from '../components/recipes/UserRecipes';
 import AllRecipes from '../components/recipes/AllRecipes';
 import SearchResults from '../components/recipes/SearchResults';
-import UserProfile from '../components/UserProfile';
+import UserProfile from '../components/users/UserProfile';
 import NotFoundPage from '../components/common/NotFoundPage';
 import NavBar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';

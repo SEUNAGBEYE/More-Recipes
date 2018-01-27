@@ -19,6 +19,18 @@ class SignUpPage extends Component {
     super(props);
     this.history = this.props.history;
     this.signUpRequest = signUpRequest;
+
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      errors: []
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.history = this.props.history;
   }
 
   /**
@@ -29,6 +41,33 @@ class SignUpPage extends Component {
     if (this.props.isAuthenticated) {
       this.history.push('/');
     }
+  }
+
+  /**
+ * @returns {void} void
+ * @param {obj} event
+ * @memberof SignUpPage
+ */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value, errors: '' });
+  }
+
+
+  /**
+*
+* @returns {void} void
+* @param {any} e
+* @memberof SignUpPage
+*/
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.signUpRequest(this.state)
+      .then(signUpResponse => {
+        if (signUpResponse[0] && signUpResponse[0].description) {
+          toastr.error(signUpResponse[0].description, 'Error!');
+          this.setState({ errors: signUpResponse });
+        }
+      });
   }
 
   /**
@@ -44,7 +83,11 @@ class SignUpPage extends Component {
             <div className="row">
               <div className="col-md-4" />
               <div className="col-md-4">
-                <SignUpForm signUpRequest={this.signUpRequest}/>
+                <SignUpForm signUpRequest={this.signUpRequest}
+                  state={this.state}
+                  onChange={this.onChange}
+                  onSubmit={this.onSubmit}
+                />
               </div>
             </div><br />
           </div>

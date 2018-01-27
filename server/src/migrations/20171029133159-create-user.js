@@ -20,6 +20,21 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      rememberToken: {
+        type: Sequelize.STRING
+      },
+      aboutMe: {
+        type: Sequelize.STRING
+      },
+      facebookUrl: {
+        type: Sequelize.STRING
+      },
+      twitterUrl: {
+        type: Sequelize.STRING
+      },
+      linkedInUrl: {
+        type: Sequelize.STRING
+      },
       profilePicture: {
         type: Sequelize.STRING
       },

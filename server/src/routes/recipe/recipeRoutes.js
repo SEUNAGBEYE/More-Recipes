@@ -4,6 +4,7 @@ import RecipeController from '../../controllers/recipesController';
 import authMiddleware from '../../middleware/authMiddleware';
 import validateId from '../../middleware/recipeIdValidation';
 import uniqueRecipeValidation from '../../middleware/uniqueRecipeValidation';
+import recipeViewValidator from '../../middleware/recipeViewValidator';
 
 const recipeRoute = express();
 
@@ -30,7 +31,7 @@ recipeRoute.route('/search_results')
   .get(RecipeController.searchRecipes);
 
 recipeRoute.route('/:id')
-  .get(validateId, RecipeController.getRecipe)
+  .get(validateId, recipeViewValidator, RecipeController.getRecipe)
   .put(authMiddleware, validateId, RecipeController.updateRecipe)
   .delete(authMiddleware, validateId, RecipeController.deleteRecipe);
 

@@ -19,7 +19,7 @@ function CategoryButton(props) {
       <div className="dropdown-menu" aria-labelledby="about-us">
         {
           props.categories.map(category =>
-            (<Link className="dropdown-item" to={`/categories/${category}`}
+            (<Link className="dropdown-item" key={category.id} to={`/categories/${category}`}
             >{category}</Link>))
         }
       </div>

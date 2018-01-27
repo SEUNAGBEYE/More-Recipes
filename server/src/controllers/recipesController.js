@@ -1,4 +1,5 @@
 import model from '../models';
+import { type } from 'os';
 
 const {
   Recipe, Review, Category, User
@@ -33,23 +34,39 @@ class RecipeController {
           [sortBy, orderBy]
         ],
       })
-        .then(recipes => res.status(200).send({ status: 'Success', data: recipes }))
-        .catch(error => res.status(400).send({ status: 'Bad Request', errors: error.message }));
+        .then(recipes => res.status(200).send({
+          status: 'Success',
+          data: recipes
+        }))
+        .catch(error => res.status(400).send({
+          status: 'Bad Request',
+          errors: error.message
+        }));
     } else {
       Recipe.findAndCountAll()
         .then((recipesWithCount) => {
           Recipe.findAll({
             order: [['createdAt', 'DESC']],
-            offset: (recipesWithCount.count > req.query.limit) ? (req.query.limit * (req.query.page - 1)) : 0,
+            offset: (recipesWithCount.count > req.query.limit) ?
+              (req.query.limit * (req.query.page - 1)) : 0,
             limit: req.query.limit
           })
             .then((recipes) => {
               //  This is for the remainder of the resume if the count is not even
-              const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
-              const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
-              res.status(200).send({ status: 'Success', data: recipes, pagination: page });
+              const remainder = recipesWithCount.count % req.query.limit === 0 ?
+                0 : 1;
+              const page = Math.floor(recipesWithCount.count / req.query.limit) +
+               remainder;
+              res.status(200).send({
+                status: 'Success',
+                data: recipes,
+                pagination: page
+              });
             })
-            .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+            .catch(error => res.status(400).send({
+              status: 'Bad Request',
+              error: error.message
+            }));
         });
     }
   }
@@ -76,7 +93,10 @@ class RecipeController {
         if (errors) {
           res.status(400).send({
             status: 'Bad Request',
-            errors: errors.errors.map(recipeError => ({ field: recipeError.path, description: recipeError.message }))
+            errors: errors.errors.map(recipeError => ({
+              field: recipeError.path,
+              description: recipeError.message
+            }))
           });
         }
       });
@@ -91,12 +111,20 @@ class RecipeController {
   * @returns {obj} json
   */
   static getRecipe(req, res) {
-    Recipe.findAll({
+    const { userId } = req.token || false;
+    Recipe.find({
       where: {
         id: req.params.id
       },
       include: [{
-        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+        model: Review,
+        as: 'reviews',
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: ['firstName', 'lastName', 'profilePicture']
+        }],
+        limit: 5
       }]
     })
       .then((recipe) => {
@@ -104,6 +132,17 @@ class RecipeController {
           return res.status(404).send({
             message: 'Recipe Not Found',
           });
+        }
+        if (userId) {
+          if (!recipe.views) {
+            recipe.views = [];
+          }
+          if (recipe.userId === userId && !recipe.views.includes(userId)) {
+            recipe.views.push(userId);
+          } else if (recipe.userId !== userId) {
+            recipe.views.push(userId);
+          }
+          recipe.update({ views: recipe.views });
         }
         return res.status(200).send({ status: 'Success', data: recipe });
       });
@@ -128,9 +167,14 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .update(req.body, { fields: Object.keys(req.body) })
-            .then(updatedRecipe => res.status(200).send({ status: 'Success', data: updatedRecipe }));
+            .then(updatedRecipe => res.status(200).send({
+              status: 'Success', data: updatedRecipe
+            }));
         }
-        return res.status(401).send({ status: 'Not Authorize', message: 'Not Authorize' });
+        return res.status(401).send({
+          status: 'Not Authorize',
+          message: 'Not Authorize'
+        });
       });
   }
 
@@ -186,10 +230,20 @@ class RecipeController {
       },
       limit,
       offset,
-      include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }],
+      include: [{
+        model: User,
+        as: 'user',
+        attributes: ['firstName', 'lastName', 'profilePicture']
+      }],
     })
-      .then(reviews => res.status(200).send({ status: 'Success', data: reviews }))
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      .then(reviews => res.status(200).send({
+        status: 'Success',
+        data: reviews
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -212,9 +266,15 @@ class RecipeController {
         if (recipe.userId === req.token.userId) {
           return recipe
             .destroy()
-            .then(() => res.status(204).send({ status: 'Deleted', message: 'No Content' }));
+            .then(() => res.status(204).send({
+              status: 'Deleted',
+              message: 'No Content'
+            }));
         }
-        return res.status(401).send({ status: 'Not Found', message: 'Not Authorize' });
+        return res.status(401).send({
+          status: 'Not Found',
+          message: 'Not Authorize'
+        });
       });
   }
 
@@ -231,7 +291,15 @@ class RecipeController {
         id: req.params.id
       },
       include: [{
-        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+        model: Review,
+        as: 'reviews',
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['firstName', 'lastName', 'profilePicture']
+          }],
+        limit: 5
       }]
     })
       .then((recipe) => {
@@ -248,15 +316,19 @@ class RecipeController {
 
         if (!recipe.upvotes.includes(req.token.userId)) {
           recipe.upvotes.push(req.token.userId);
-          recipe.downvotes = recipe.downvotes.filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
+          recipe.downvotes = recipe.downvotes
+            .filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
         } else {
-          recipe.upvotes = recipe.upvotes.filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
+          recipe.upvotes = recipe.upvotes
+            .filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
         }
         recipe.update({
           upvotes: recipe.upvotes,
           downvotes: recipe.downvotes
         })
-          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }));
+          .then(recipe => res.status(200).send({
+            status: 'Success', data: recipe
+          }));
       });
   }
 
@@ -273,7 +345,15 @@ class RecipeController {
         id: req.params.id
       },
       include: [{
-        model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+        model: Review,
+        as: 'reviews',
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['firstName', 'lastName', 'profilePicture']
+          }],
+        limit: 5
       }]
     })
       .then((recipe) => {
@@ -291,14 +371,17 @@ class RecipeController {
           recipe.downvotes.push(req.token.userId);
           recipe.upvotes = recipe.upvotes.filter(id => id !== req.token.userId);
         } else {
-          recipe.downvotes = recipe.downvotes.filter(id => id !== req.token.userId);
+          recipe.downvotes = recipe.downvotes
+            .filter(id => id !== req.token.userId);
         }
 
         recipe.update({
           downvotes: recipe.downvotes,
           upvotes: recipe.upvotes
         })
-          .then(recipe => res.status(200).send({ status: 'Success', data: recipe }));
+          .then(recipe => res.status(200).send({
+            status: 'Success', data: recipe
+          }));
       });
   }
 
@@ -319,7 +402,8 @@ class RecipeController {
     })
       .then(popularRecipes => res.status(200).send({
         status: 'Success',
-        data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length).splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+        data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
+          .splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
       }));
   }
 
@@ -352,7 +436,8 @@ class RecipeController {
       .then((recipesWithCount) => {
         Recipe.findAll({
           order: [['createdAt', 'DESC']],
-          offset: (recipesWithCount.count > req.query.limit) ? req.query.limit * req.query.page : 0,
+          offset: (recipesWithCount.count > req.query.limit) ?
+            req.query.limit * req.query.page : 0,
           limit: req.query.limit,
           where: {
             $or: [
@@ -370,9 +455,15 @@ class RecipeController {
           }
         })
           .then((recipes) => {
-            const remainder = recipesWithCount.count % req.query.limit === 0 ? 0 : 1;
-            const page = Math.floor(recipesWithCount.count / req.query.limit) + remainder;
-            res.status(200).send({ status: 'Success', data: recipes, pagination: page });
+            const remainder = recipesWithCount.count % req.query.limit === 0 ?
+              0 : 1;
+            const page = Math.floor(recipesWithCount.count / req.query.limit) +
+             remainder;
+            res.status(200).send({
+              status: 'Success',
+              data: recipes,
+              pagination: page
+            });
           });
       });
   }
@@ -388,7 +479,10 @@ class RecipeController {
     Category.findAll({
       include: ['recipes']
     })
-      .then(categories => res.status(200).send({ status: 'Success', data: categories }));
+      .then(categories => res.status(200).send({
+        status: 'Success',
+        data: categories
+      }));
   }
 
   /**
@@ -405,8 +499,14 @@ class RecipeController {
       },
       include: ['recipes']
     })
-      .then(category => res.status(200).send({ status: 'Success', data: category }))
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+      .then(category => res.status(200).send({
+        status: 'Success',
+        data: category
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Bad Request',
+        error: error.message
+      }));
   }
 }
 

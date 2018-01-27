@@ -10,7 +10,13 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Body Is Required'
         }
-      }
+      },
+      set(val) {
+        const firstChar = val.charAt(0).toUpperCase();
+        const valWithoutFirstLetter = val.slice(1).toLowerCase();
+        const body = `${firstChar}${valWithoutFirstLetter}`;
+        this.setDataValue('body', body);
+      },
     }
   });
 

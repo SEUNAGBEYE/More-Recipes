@@ -22,7 +22,7 @@ export default (state = initialState, action = {}) => {
     };
 
   case 'GET_RECIPE':
-    return { ...state, ...{ singleRecipe: action.recipe[0] } };
+    return { ...state, ...{ singleRecipe: action.recipe } };
 
   case 'GET_USER_RECIPES':
     return {
@@ -89,7 +89,7 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         allRecipes,
-        singleRecipe: { ...singleRecipe, ...{ recipeOnAction } }
+        singleRecipe: { ...singleRecipe, ...recipeOnAction }
       }
     };
 

@@ -15,16 +15,18 @@ describe('Test For Users Routes', () => {
           lastName: 'Agbeye',
           email: 'boy@mail.com.ng',
           profilePicture: 'This is my lovely image',
-          password: 'mynameisseun'
+          password: 'mynameisseun',
+          aboutMe: 'This is about me',
+          facebookUrl: 'facebook.com',
+          twitterUrl: 'twitter.com',
+          linkedInUrl: 'linkedIn.com'
         })
         .end((error, res) => {
           expect(res).to.have.status(201);
-          expect(res.body.data).to.deep.equal({
-            firstName: 'Seun',
-            lastName: 'Agbeye',
-            email: 'boy@mail.com.ng',
-            profilePicture: 'This is my lovely image'
-          });
+          expect(res.body.data.firstName).equal('Seun');
+          expect(res.body.data.lastName).equal('Agbeye');
+          expect(res.body.data.email).equal('boy@mail.com.ng');
+          expect(res.body.data.profilePicture).equal('This is my lovely image');
           assert.isObject(res.body.data, 'respone return array of object');
           done();
         });
@@ -53,7 +55,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Creating A User', () => {
-    it('should ruturn a body that is an array and it should have a statusCode of 400 when a user is created', (done) => {
+    it('should return a body that is an array, and it should have a statusCode of 400 when a user is created', (done) => {
       chai.request(userRoute)
         .post('/signup')
         .send({
@@ -90,15 +92,14 @@ describe('Test For Users Routes', () => {
           if (!error) {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property('token');
-            expect(res.body).to.have.property('userId');
           }
+          done();
         });
-      done();
     });
   });
 
   describe('Test For Authenticating A User', () => {
-    it('the body should be an array and it should have a statusCode of 401 when a user is logged in', (done) => {
+    it('should return a body of an array and it should have a statusCode of 401 when a user is not logged in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -108,7 +109,7 @@ describe('Test For Users Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(401);
           expect(res.body).to.not.have.property('token');
-          expect(res.body).to.not.have.property('userId');
+          expect(res.body.message).to.equal('Invalid Password or Email');
           assert.isObject(res.body, 'respone return array of object');
           done();
         });
@@ -244,7 +245,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('the body should be an array and it should have a statusCode of 200 when a user get their favorited recipe', (done) => {
+    it('should return a body of an array, and it should have a statusCode of 200 when a user get their favorited recipe', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .end((error, res) => {
@@ -256,7 +257,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('the body should be an array and it should have a statusCode of 200 when a user get their favorited recipe', (done) => {
+    it('should have a statusCode of 404 when a user get their favorited recipe without providing token', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .set('token', 'aaaa')
