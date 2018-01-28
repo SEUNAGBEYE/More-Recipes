@@ -32,6 +32,8 @@ module.exports = {
       userId: 1,
       upvotes: [1],
       downvotes: [1],
+      ingredients: ['one'],
+      steps: ['two'],
       views: [3],
       description: 'lorem ipsum',
       createdAt: new Date(),

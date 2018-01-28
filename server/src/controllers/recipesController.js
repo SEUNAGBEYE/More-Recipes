@@ -1,20 +1,18 @@
 import model from '../models';
-import { type } from 'os';
 
 const {
   Recipe, Review, Category, User
 } = model;
 
-
 /**
- * This is a representation of the recipes data
+ *  * This is a representation of the recipes data
+ * @class RecipeController
  */
 class RecipeController {
   /**
  * This handles getting all recipes
  * @param {obj} req request object
  * @param {obj} res res object
- * @param {obj} next next function
  * @returns {null} json
  */
   static allRecipe(req, res) {
@@ -91,8 +89,9 @@ class RecipeController {
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
         if (errors) {
-          res.status(400).send({
-            status: 'Bad Request',
+          return res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
             errors: errors.errors.map(recipeError => ({
               field: recipeError.path,
               description: recipeError.message
@@ -128,8 +127,9 @@ class RecipeController {
       }]
     })
       .then((recipe) => {
-        if (recipe.length < 1) {
+        if (!recipe) {
           return res.status(404).send({
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -171,8 +171,8 @@ class RecipeController {
               status: 'Success', data: updatedRecipe
             }));
         }
-        return res.status(401).send({
-          status: 'Not Authorize',
+        return res.status(403).send({
+          status: 'Failure',
           message: 'Not Authorize'
         });
       });
@@ -271,8 +271,8 @@ class RecipeController {
               message: 'No Content'
             }));
         }
-        return res.status(401).send({
-          status: 'Not Found',
+        return res.status(403).send({
+          status: 'Failure',
           message: 'Not Authorize'
         });
       });
