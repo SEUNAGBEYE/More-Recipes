@@ -8,7 +8,7 @@
     "npm": "5.5.1"
   },
   "scripts": {
-    "pretest":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
+    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
@@ -75,6 +75,7 @@
     "style-loader": "^0.19.0",
     "swagger-jsdoc": "^1.9.7",
     "toastr": "^2.1.2",
+    "uuid": "^3.2.1",
     "validator": "^9.1.1",
     "validatorjs": "^3.13.5",
     "webpack": "^3.8.1",

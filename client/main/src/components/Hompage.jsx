@@ -21,7 +21,7 @@ class Homepage extends Component {
 
 
   /**
-   *@returns {jsx} jsx
+   *@returns {jsx} JSX
    * @memberof Homepage
    */
   render() {

@@ -242,9 +242,9 @@ userRoute.route('/profile')
   .get(authMiddleware, UserController.myProfile)
   .put(authMiddleware, UserController.updateProfile);
 
-userRoute.route('/forgot-password/:token?')
+userRoute.route('/forgot-password/:rememberToken?')
   .post(UserController.forgetPassword)
-  .put(authMiddleware, UserController.confirmForgetPassword);
+  .put(UserController.confirmForgetPassword);
 
 // User Model
 /**

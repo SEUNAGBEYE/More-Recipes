@@ -1,37 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoginForm from './LoginForm';
-import { login, forgotPassword } from '../../actions/auth/Auth';
+import ConfirmForgotPasswordForm from '../users/ConfirmForgotPasswordForm';
+import { confirmForgotPassword } from '../../actions/auth/Auth';
+import UserValidator from '../../validators/UserValidator';
 
 
 /**
  * @class LoginPage
  * @extends Component
  */
-class LoginPage extends Component {
+class ConfirmForgotPasswordPage extends Component {
   /**
-   * Creates an instance of LoginPage.
+   * Creates an instance of ConfirmForgotPasswordPage.
    * @param {obj} props
-   * @memberof LoginPage
+   * @memberof ConfirmForgotPasswordPage
    */
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       password: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
     this.history = this.props.history;
   }
 
   /**
    *
    * @returns {void} void
-   * @memberof LoginPage
+   * @memberof ConfirmForgotPasswordPage
    */
   componentWillMount() {
     if (this.props.isAuthenticated) {
@@ -42,23 +40,18 @@ class LoginPage extends Component {
   /**
    * @param {obj} nextProps
    * @returns {void} void
-   * @memberof LoginPage
+   * @memberof ConfirmForgotPasswordPage
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
-      let redirectAfterLogin = this.history.location.search.split('=')[1];
-      if (!redirectAfterLogin) {
-        this.history.push('/');
-      } else {
-        this.history.push(`${redirectAfterLogin}`);
-      }
+      this.history.push('/');
     }
   }
 
   /**
    * @param {obj} event
    * @returns {void}
-   * @memberof LoginPage
+   * @memberof ConfirmForgotPasswordPage
    */
   onChange(event) {
     this.setState({
@@ -66,39 +59,29 @@ class LoginPage extends Component {
       errors: '',
       resetPasswordMessage: '',
     });
+    const self = this;
+    UserValidator.passwordValidator(event, self);
   }
   /**
    * @param {obj} event
-   * @memberof LoginPage
+   * @memberof ConfirmForgotPasswordPage
    * @returns {void} void
    */
   onSubmit(event) {
     event.preventDefault();
     const data = this.state;
-    let redirectAfterLogin = this.history.location.search.split('=')[1];
-    if (!redirectAfterLogin) {
-      if (!this.props.login(data, this.history)) {
-        this.history.push('/');
-      }
-    } else {
-      this.props.login(data);
-    }
-  }
-
-  /**
-   * @param {obj} event
-   * @returns {void} void
-   * @memberof LoginPage
-   */
-  forgotPassword(event) {
-    event.preventDefault();
-    this.props.forgotPassword(this.state)
-      .then(res => this.setState({ resetPasswordMessage: res.data.message }));
+    const { rememberToken } = this.props.match.params;
+    this.props.confirmForgotPassword(data, rememberToken)
+      .then(res => {
+        toastr.success(res.data.message, 'Success');
+        this.history.push('/login');
+      })
+      .catch(error => this.setState({ passwordError: error.response.data.message }));
   }
 
   /**
    * @return {JSX} jsx
-   * @memberOf LoginPage
+   * @memberOf ConfirmForgotPasswordPage
    */
   render() {
     return (
@@ -108,10 +91,9 @@ class LoginPage extends Component {
             <div className="row">
               <div className="col-md-4" />
               <div className="col-md-4">
-                <LoginForm onSubmit={this.onSubmit}
+                <ConfirmForgotPasswordForm onSubmit={this.onSubmit}
                   state={this.state}
                   onChange={this.onChange}
-                  forgotPassword={this.forgotPassword}
                 />
               </div>
             </div><br /><br />
@@ -136,4 +118,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { login, forgotPassword })(LoginPage);
+export default connect(mapStateToProps, { confirmForgotPassword })(ConfirmForgotPasswordPage);

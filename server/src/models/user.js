@@ -93,11 +93,6 @@ module.exports = (sequelize, DataTypes) => {
         this.setDataValue('linkedInUrl', val.toLowerCase());
       }
     }
-    // getterMethods: {
-    //   fullName() {
-    //     return `${this.firstName} ${this.lastName}`;
-    //   }
-    // }
   });
 
   User.associate = (models) => {

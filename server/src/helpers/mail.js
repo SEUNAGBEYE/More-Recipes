@@ -1,10 +1,14 @@
 import nodemailer from 'nodemailer';
 
 /**
- * 
- * 
+ *
+ *
+ * @param {string} email
+ * @param {string} resetLink
+ * @param {string} fullName
+ * @returns {obj} obj
  */
-function mailer(email, resetLink) {
+function mailer(email, resetLink, fullName) {
   nodemailer.createTestAccount((err, account) => {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
@@ -23,7 +27,7 @@ function mailer(email, resetLink) {
       to: email, // list of receivers
       subject: 'Forgot Password', // Subject line
       text: 'Hello world?', // plain text body
-      html: `<h2>Hello ${email}, </h2>
+      html: `<h2>Hello ${fullName}, </h2>
               <p> You requested to reset your password because you forgot it, please 
                   click this <a href="${resetLink}">link</a> to reset your password
               </p>
