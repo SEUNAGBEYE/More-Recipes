@@ -29,6 +29,8 @@ export function updateProfileAction(user) {
 /**
  * @param {any} action
  * @param {any} actionType
+ * @param {obj} res
+ * @param {obj} dispatch
  * @returns {void}
  */
 function user(action, actionType, res, dispatch) {
@@ -36,7 +38,7 @@ function user(action, actionType, res, dispatch) {
   localStorage.setItem('token', token);
   setAuthorizationToken(token);
   const decoded = jwt.decode(token);
-  console.log('decoded', res)
+  console.log('decoded', res);
   if (actionType === 'SET_CURRENT_USER') {
     toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
   } else {
@@ -68,14 +70,12 @@ function loginHelper(data, history = {}) {
  *
  * @export
  * @param {obj} data
+ * @param {obj} history
  * @returns {obj} obj
  */
-export function signUpRequest(data) {
+export function signUpRequest(data, history = []) {
   return dispatch => axios.post('/api/v1/users/signup', data)
-    .then(res => {
-      toastr.success('Account created please login to continue', 'Success!');
-      return loginHelper(data);
-    })
+    .then(res => user(setCurrentUser, 'SET_CURRENT_USER', res.data, dispatch))
     .catch(error => error.response.data.errors);
 }
 
@@ -87,11 +87,30 @@ export function signUpRequest(data) {
  * @returns {obj} obj
  */
 export function updateProfile(data) {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>.', data)
   return dispatch => axios.put('/api/v1/users/profile', data)
     .then(res => user(updateProfileAction, 'UPDATE_PROFILE', res.data, dispatch))
-    .catch(error => console.log('/////////////,', error.response.data));
+    .catch(error => console.log(error.response.data));
 }
+
+/**
+ * @export
+ * @param {string} data
+ * @returns {obj} obj
+ */
+export function forgotPassword(data) {
+  return dispatch => axios.post('/api/v1/users/forgot-password', data);
+}
+
+/**
+ * @export
+ * @param {string} data
+ * @param {string} rememberToken
+ * @returns {obj} obj
+ */
+export function confirmForgotPassword(data, rememberToken) {
+  return dispatch => axios.put(`/api/v1/users/forgot-password/${rememberToken}`, data);
+}
+
 
 /**
  * @export

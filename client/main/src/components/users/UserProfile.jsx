@@ -6,6 +6,7 @@ import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
 import UpdateProfileModal from './UpdateProfileModal';
 import ResetPasswordModal from './ResetPasswordModal';
+import UserValidator from '../../validators/UserValidator';
 
 /**
  * @class UserProfile
@@ -84,27 +85,8 @@ class UserProfile extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    if (event.target.name === 'newPassword') {
-      console.log(event.target.value.length);
-      if (event.target.value.length < 6) {
-        this.setState({ passwordError: 'Password must be greater or equal to six characters' });
-      } else {
-        this.setState({
-          password: this.state.newPassword,
-          passwordError: ''
-        });
-      }
-    }
-    if (event.target.name === 'confirmPassword') {
-      if (event.target.value !== this.state.newPassword) {
-        this.setState({ passwordError: 'Password does not match' });
-      } else {
-        this.setState({
-          password: this.state.newPassword,
-          passwordError: ''
-        });
-      }
-    }
+    const self = this;
+    UserValidator.passwordValidator(event, self);
   }
   /**
    * @returns {jsx} jsx

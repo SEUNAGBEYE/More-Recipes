@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
 const SignUpForm = (props) => (
   <div>
@@ -10,7 +11,7 @@ const SignUpForm = (props) => (
           name="firstName"
           onChange={props.onChange}
           required
-          value={props.state.firstName}/>
+          defaultValue={props.state.firstName}/>
       </fieldset>
 
       <fieldset className="form-group">
@@ -19,7 +20,7 @@ const SignUpForm = (props) => (
           id="last_name" name="lastName"
           onChange={props.onChange}
           required
-          value={props.state.lastName}/>
+          defaultValue={props.state.lastName}/>
       </fieldset>
 
       <fieldset className="form-group">
@@ -36,17 +37,32 @@ const SignUpForm = (props) => (
           name="email"
           onChange={props.onChange}
           required
-          value={props.state.email}/>
+          defaultValue={props.state.email}/>
       </fieldset>
 
       <fieldset className="form-group">
-        <label htmlFor="password" className="form-inline">Password</label>
+        {props.state.passwordError &&
+          <p className="errors">
+            {
+              props.state.passwordError
+            }
+          </p>
+        }
+        <label htmlFor="newPassword" className="form-inline">Password</label>
         <input type="password" className="form-control"
-          id="password"
-          name="password"
+          name="newPassword"
           onChange={props.onChange}
           required
-          value={props.state.password}/>
+          defaultValue={props.state.newPassword}/>
+      </fieldset>
+
+      <fieldset className="form-group">
+        <label htmlFor="confirmPassword" className="form-inline">Confirm Password</label>
+        <input type="password" className="form-control"
+          name="confirmPassword"
+          onChange={props.onChange}
+          required
+          defaultValue={props.state.confirmPassword}/>
       </fieldset>
 
       <div className="d-flex justify-content-between">
@@ -55,8 +71,13 @@ const SignUpForm = (props) => (
           id="login"
         >Signup</button>
         <Link to="/login" style={{ paddingTop: 10 }}>Already a member</Link>
+        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>
       </div>
     </form><br />
+    <ForgotPasswordModal onChange={props.onChange}
+      forgotPassword={props.forgotPassword}
+      resetPasswordMessage={props.state.resetPasswordMessage}
+    />
   </div>
 );
 
