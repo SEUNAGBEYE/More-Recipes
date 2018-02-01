@@ -16,6 +16,7 @@ class UserProfile extends Component {
   /**
    * Creates an instance of UserProfile.
    * @param {any} props
+   *
    * @returns {void} void
    * @memberof UserProfile
    */
@@ -137,7 +138,7 @@ class UserProfile extends Component {
                   data-target="#resetPasswordModal"
                 >
                   <i className="fa fa-key icons"
-                    title="Reset Password"
+                    title="Change Password"
                     data-toggle="tooltip" /></Link>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12">
