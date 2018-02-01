@@ -80,7 +80,8 @@
     "validatorjs": "^3.13.5",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
