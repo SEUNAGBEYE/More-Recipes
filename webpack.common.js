@@ -1,9 +1,10 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
+  entry: ['babel-polyfill', path.join(__dirname, 'client/main/src/app.js')],
   output: {
-    path: path.join(__dirname, 'client/main/public'),
+    path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -24,9 +25,6 @@ module.exports = {
       test: /\.(png|jpg|gif|jpeg)$/,
       use: ['file-loader']
     }]
-  },
-  devServer: {
-    publicPath: '/',
   },
   plugins: [
     new webpack.EnvironmentPlugin([

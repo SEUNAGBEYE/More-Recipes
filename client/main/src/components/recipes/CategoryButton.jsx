@@ -19,8 +19,8 @@ function CategoryButton(props) {
       <div className="dropdown-menu" aria-labelledby="about-us">
         {
           props.categories.map(category =>
-            (<Link className="dropdown-item" key={category.id} to={`/categories/${category}`}
-            >{category}</Link>))
+            (<Link className="dropdown-item" key={category.id} to={`/categories/${category.name}`}
+            >{category.name}</Link>))
         }
       </div>
     </div>
@@ -33,7 +33,8 @@ function CategoryButton(props) {
  * @returns {object} object
  */
 const mapStateToProps = (state) => ({
-  categories: state.recipes.recipeCategories.map(category => category.name)
+  categories: state.recipes.recipeCategories
+    .map(category => ({ name: category.name, id: category.id }))
 });
 
 export default connect(mapStateToProps)(CategoryButton);

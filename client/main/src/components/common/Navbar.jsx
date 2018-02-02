@@ -108,8 +108,8 @@ class Navbar extends React.Component {
                         this.props.categories.map(category =>
                           (<Link className="dropdown-item"
                             key={category.id}
-                            to={`/categories/${category}`}
-                          >{category}</Link>))
+                            to={`/categories/${category.name}`}
+                          >{category.name}</Link>))
                       }
                     </div>
                   </div>
@@ -149,8 +149,8 @@ class Navbar extends React.Component {
                           this.props.categories.map(category =>
                             (<Link className="dropdown-item"
                               key={category.id}
-                              to={`/categories/${category}`}
-                            >{category}</Link>))
+                              to={`/categories/${category.name}`}
+                            >{category.name}</Link>))
                         }
                       </div>
                     </div>
@@ -184,7 +184,8 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
-  categories: state.recipes.recipeCategories.map(category => category.name)
+  categories: state.recipes.recipeCategories
+    .map(category => ({ name: category.name, id: category.id }))
 });
 
 export default connect(mapStateToProps, { logout, searchRecipes, getFavouritedRecipesIds })(Navbar);

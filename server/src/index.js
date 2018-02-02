@@ -5,7 +5,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import db from './models/index';
 import { recipeRoute, userRoute, swagger } from './routes/index';
-import webpackConfig from '../../webpack.config';
+import webpackConfig from '../../webpack.dev';
 
 config.config();
 
@@ -16,8 +16,11 @@ app.use(express.static(path.resolve(__dirname, '../../client/public')));
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath
+  }));
 }
+
 app.use('/api/v1/recipes', recipeRoute);
 
 app.use('/api/v1/users', userRoute);

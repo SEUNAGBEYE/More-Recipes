@@ -17,22 +17,27 @@ export default class RecipeModal extends Component {
 	 */
   constructor(props) {
     super(props);
-    this.state = {
+    this.initialState = this.initialState.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.stepClick = this.stepClick.bind(this);
+    this.ingredientClick = this.ingredientClick.bind(this);
+    this.state = this.initialState();
+  }
+
+
+  initialState() {
+    const state = {
       name: '',
       description: '',
-      image: '',
       ingredients: [],
       categoryId: 1,
       steps: [],
       errors: [],
       loaded: true
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.stepClick = this.stepClick.bind(this);
-    this.ingredientClick = this.ingredientClick.bind(this);
+    return state;
   }
-
 
   /**
 	 * @returns {void} void
@@ -74,19 +79,23 @@ export default class RecipeModal extends Component {
             .then(res => {
               $('.modal').modal('hide');
               document.getElementById('form').reset();
-              this.setState({ loaded: true });
+              this.setState(this.initialState());
             })
             .catch(error => {
-              this.setState({ loaded: true });
+              this.setState(this.initialState());
               this.setState({ errors: error.response.data.errors });
             });
         });
       } catch (error) {
         console.log('errors', error.response);
-        this.setState({ loaded: true });
+        this.setState(this.initialState());
       }
     } else {
-      this.props.addRecipe(this.state);
+      this.props.addRecipe(this.state)
+        .then(res => {
+          $('.modal').modal('hide');
+          this.setState(this.initialState());
+        });
       document.getElementById('form').reset();
     }
   }
@@ -169,14 +178,14 @@ export default class RecipeModal extends Component {
                   <fieldset className="form-group">
                     <label htmlFor="image" className="form-inline">
 											The maximum file size allowed is 4mb
-                      <input type="file" className="form-control" id="recipePicture" name="image" required/>
+                      <input type="file" className="form-control" id="recipePicture" name="image"/>
 											Click to add image
                     </label>
                   </fieldset>
 
 
                   <fieldset className="form-group">
-                    <label htmlFor="image" className="form-inline">
+                    <label htmlFor="category" className="form-inline">
 											Category
                     </label>
                     <select className="form-control" onChange={this.onChange} name="categoryId" required>

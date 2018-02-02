@@ -18,7 +18,6 @@ export default class EditModal extends Component {
   constructor(props) {
     super(props);
     const { recipe } = this.props;
-    console.log('Loading', recipe.steps)
     this.state = {
       name: recipe.name,
       description: recipe.description,

@@ -79,7 +79,7 @@ class RecipeController {
     return Recipe.create({
       id: req.body.id,
       name: req.body.name || '',
-      image: req.body.image || '',
+      image: req.body.image,
       description: req.body.description || '',
       steps: req.body.steps || [],
       ingredients: req.body.ingredients || [],
