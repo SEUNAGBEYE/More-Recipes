@@ -239,7 +239,12 @@ userRoute.route('/profile')
    *         schema:
    *           $ref: '#/definitions/User'
    */
-  .get(authMiddleware, UserController.myProfile);
+  .get(authMiddleware, UserController.myProfile)
+  .put(authMiddleware, UserController.updateProfile);
+
+userRoute.route('/forgot-password/:token?')
+  .post(UserController.forgetPassword)
+  .put(authMiddleware, UserController.confirmForgetPassword);
 
 // User Model
 /**

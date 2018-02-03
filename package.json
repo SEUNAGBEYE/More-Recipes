@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "description": "These is the server side of the more-recipe application",
   "main": "index.js",
+  "engines": {
+    "node": "8.9",
+    "npm": "5.5.1"
+  },
   "scripts": {
-    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
+    "pretest":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
     "client-server": "webpack-dev-server",
-    "build": "babel server/src -d server/dist && webpack --config ./webpack.prod.js",
+    "build": "babel server/src -d server/dist  && babel client/main -d client/dist && webpack --config ./webpack.prod.js",
     "build:watch": "npm run build -- --watch",
     "heroku-postbuild": "NODE_ENV=production && npm run build",
     "start": "node -- ./server/dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed"
+    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed --seed 20171031150152-category"
   },
   "author": "Seun Agbeye",
   "license": "ISC",
@@ -52,6 +56,7 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "node-sass": "^4.7.1",
+    "nodemailer": "^4.4.2",
     "normalize.css": "^7.0.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",

@@ -52,10 +52,11 @@ class RecipeCard extends Component {
 	 * @memberof RecipeCard
 	 */
   componentWillMount() {
+    const { recipe, user } = this.props;
     this.setState({
-      recipe: this.props.recipe,
-      isUpVoted: this.props.recipe.upvotes.includes(parseInt(this.props.user.userId, 10)),
-      isDownVoted: this.props.recipe.downvotes.includes(parseInt(this.props.user.userId, 10))
+      recipe,
+      isUpVoted: recipe.upvotes.includes(parseInt(user.userId, 10)),
+      isDownVoted: recipe.downvotes.includes(parseInt(user.userId, 10))
     });
   }
 
@@ -66,10 +67,12 @@ class RecipeCard extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.recipe !== nextProps.recipe) {
+      const { recipe } = nextProps;
+      const { user } = this.props;
       this.setState({
-        recipe: nextProps.recipe,
-        isUpVoted: nextProps.recipe.upvotes.includes(parseInt(this.props.user.userId, 10)),
-        isDownVoted: nextProps.recipe.downvotes.includes(parseInt(this.props.user.userId, 10))
+        recipe,
+        isUpVoted: recipe.upvotes.includes(parseInt(user.userId, 10)),
+        isDownVoted: recipe.downvotes.includes(parseInt(user.userId, 10))
       });
     }
   }
@@ -81,10 +84,11 @@ class RecipeCard extends Component {
    */
   toggleFavouriteRecipe(event) {
     event.preventDefault();
-    if (this.props.isAuthenticated) {
+    const { isAuthenticated, history } = this.props;
+    if (isAuthenticated) {
       this.props.toggleFavouriteRecipe(parseInt(event.target.id, 10));
     }
-    checkAuth(this.props.isAuthenticated, this.props.history);
+    checkAuth(isAuthenticated, history);
   }
 
   /**
@@ -113,8 +117,8 @@ class RecipeCard extends Component {
 
   /**
    * @param {any} id
-   * @returns {void} void
    * @param {any} recipe
+   * @returns {void} void
    * @memberof RecipeCard
    */
   editRecipe(id, recipe) {
@@ -122,12 +126,11 @@ class RecipeCard extends Component {
   }
 
   /**
+   * @param {obj} event
    * @returns {obj} obj
-   * @param {any} event
    * @memberof RecipeCard
    */
   toggleThumbsDownRecipe(event) {
-    event.preventDefault();
     event.preventDefault();
     if (this.props.isAuthenticated) {
       this.props.toggleThumbsDownRecipe(event.target.id);
@@ -143,16 +146,24 @@ class RecipeCard extends Component {
    * return {object} object
    */
   render() {
-    const isFavorited = this.props.myFavs.includes(parseInt(this.props.recipe.id, 10));
+    const { recipe, myFavs } = this.props;
+    const isFavorited = myFavs.includes(parseInt(recipe.id, 10));
     return (
       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
         <Link to={`/recipe/${this.props.id}`}>
           <div className="card recipe-card">
-            <img className="card-img-top" src={this.state.recipe.image} alt="Card image cap" />
+            <img className="card-img-top"
+              src={this.state.recipe.image}
+              alt="Card image cap"
+            />
             <div className="container">
               <div className="card-block">
-                <h4 className="card-title">{this.state.recipe.name.slice(0, 20)}</h4>
-                <p className="card-text">{this.state.recipe.description.slice(0, 80) || "Some quick example text to build on the card title and make up the bulk of the card's content."}</p>
+                <h4 className="card-title">
+                  {this.state.recipe.name.slice(0, 20)}
+                </h4>
+                <p className="card-text">
+                  {this.state.recipe.description.slice(0, 80)}
+                </p>
                 <RecipeCardActions
                   isDownVoted={this.state.isDownVoted}
                   isUpVoted={this.state.isUpVoted}
@@ -166,7 +177,10 @@ class RecipeCard extends Component {
             </div>
           </div>
         </Link>
-        <EditModal recipe={this.props.recipe} editRecipe={this.editRecipe} id={this.props.recipe.id}/>
+        <EditModal recipe={this.props.recipe}
+          editRecipe={this.editRecipe}
+          id={this.props.recipe.id}
+        />
         <DeleteModal id={this.props.id} onDelete={this.deleteRecipe}/>
       </div>
 
@@ -187,6 +201,11 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  toggleFavouriteRecipe, getFavouritedRecipesIds, toggleThumbsUpRecipe, toggleThumbsDownRecipe, deleteRecipe, editRecipe
+  toggleFavouriteRecipe,
+  getFavouritedRecipesIds,
+  toggleThumbsUpRecipe,
+  toggleThumbsDownRecipe,
+  deleteRecipe,
+  editRecipe
 })(RecipeCard);
 

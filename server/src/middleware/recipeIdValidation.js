@@ -8,7 +8,7 @@
 function validateId(req, res, next) {
   // If id is not a number
   if (!parseInt(req.params.id, 10)) {
-    return res.status(400).send({ status: 'Bad Request', message: 'Please input a valid ID' });
+    return res.status(400).send({ status: 'Failure', message: 'Please input a valid ID' });
   }
   next();
 }

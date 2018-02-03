@@ -6,7 +6,7 @@ const GLOBALS = {
 };
 
 module.exports = {
-  entry: path.join(__dirname, 'client/src/app.js'),
+  entry: ['babel-polyfill', path.join(__dirname, 'client/dist/src/app.js')],
   output: {
     path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
@@ -14,9 +14,9 @@ module.exports = {
   },
   module: {
     rules: [{
-      use: ['babel-loader'],
+      loader: 'babel-loader',
       test: /\.jsx?$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     },
     {
       test: /\.s?css$/,

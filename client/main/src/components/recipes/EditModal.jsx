@@ -12,15 +12,17 @@ import imageUpload from '../../../utils/ImageUploader';
 export default class EditModal extends Component {
   /**
   * Creates an instance of EditModal.
-  * @param {any} props
+  * @param {obj} props
   * @memberof EditModal
   */
   constructor(props) {
     super(props);
+    const { recipe } = this.props;
+    console.log('Loading', recipe.steps)
     this.state = {
-      name: '',
-      description: '',
-      image: '',
+      name: recipe.name,
+      description: recipe.description,
+      image: recipe.image,
       ingredients: [],
       steps: [],
       errors: {},
@@ -35,42 +37,12 @@ export default class EditModal extends Component {
   }
 
   /**
-   *
-   * @returns {void} void
-   * @memberof EditModal
-   */
-  componentDidMount() {
-    this.setState({
-      name: this.props.recipe.name,
-      description: this.props.recipe.description,
-      image: this.props.recipe.image,
-      ingredients: this.props.recipe.ingredients,
-      steps: this.props.recipe.steps
-    });
-  }
-
-  /**
-   *
-   * @returns {void} void
-   * @param {any} nextProps
-   * @memberof EditModal
-   */
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      name: nextProps.recipe.name,
-      description: nextProps.recipe.description,
-      image: nextProps.recipe.image,
-      ingredients: nextProps.recipe.ingredients,
-      steps: nextProps.recipe.steps
-    });
-  }
-
-  /**
 	 * @param {any} event
 	 * @memberof EditModal
 	 * @returns {void} void
 	 */
   stepClick(event) {
+    console.log('Clicking')
     event.preventDefault();
     this.setState({ steps: [...this.state.steps, ''] });
   }
@@ -149,7 +121,8 @@ export default class EditModal extends Component {
 	 * @memberof EditModal
 	 */
   render() {
-    const stepFields = this.props.recipe.steps.map((step, index) => (
+    const { recipe } = this.props;
+    const stepFields = this.state.steps.map((step, index) => (
       <Input key={index}
         onChange={this.onChange}
         number={index + 1}
@@ -187,18 +160,18 @@ export default class EditModal extends Component {
                 <form>
                   <fieldset className="form-group">
                     <label htmlFor="name" className="form-inline">Name</label>
-                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} value={this.state.name}/>
+                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} defaultValue={recipe.name}/>
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="recipeDescription" className="form-inline">Description</label>
-                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description} />
+                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} defaultValue={recipe.description} />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="image" className="form-inline">Picture</label>
                       The maximum file size allowed is 4mb
-                    <input type="file" className="form-control" id={`recipePicture${this.props.recipe.id}`} name="image"/>
+                    <input type="file" className="form-control" id={`recipePicture${recipe.id}`} name="image"/>
                   </fieldset>
 
                   {ingredientFields}
@@ -217,7 +190,7 @@ export default class EditModal extends Component {
 
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
-                    <button className="btn btn-secondary auth-button" id={this.props.recipe.id} onClick={this.updateRecipe}>Update</button>
+                    <button className="btn btn-secondary auth-button" id={recipe.id} onClick={this.updateRecipe}>Update</button>
                     <button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
                       Cancel
                     </button>

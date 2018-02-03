@@ -6,8 +6,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Name is Required'
-        }
-
+        },
+        set(val) {
+          const firstChar = val.charAt(0).toUpperCase();
+          const valWithoutFirstLetter = val.slice(1).toLowerCase();
+          const name = `${firstChar}${valWithoutFirstLetter}`;
+          this.setDataValue('name', name);
+        },
       }
     },
     image: {
@@ -51,10 +56,6 @@ module.exports = (sequelize, DataTypes) => {
     estimatedTime: {
       type: DataTypes.INTEGER
     },
-    status: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
     description: {
       type: DataTypes.TEXT,
       validate: {
@@ -62,7 +63,13 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Description is Required'
         }
-      }
+      },
+      set(val) {
+        const firstChar = val.charAt(0).toUpperCase();
+        const valWithoutFirstLetter = val.slice(1).toLowerCase();
+        const description = `${firstChar}${valWithoutFirstLetter}`;
+        this.setDataValue('description', description);
+      },
     }
   });
 

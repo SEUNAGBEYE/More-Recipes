@@ -13,11 +13,18 @@ import { login } from '../../actions/auth/Auth';
 class LoginPage extends Component {
   /**
    * Creates an instance of LoginPage.
-   * @param {any} props
+   * @param {obj} props
    * @memberof LoginPage
    */
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.history = this.props.history;
   }
@@ -34,7 +41,7 @@ class LoginPage extends Component {
   }
 
   /**
-   * @param {any} nextProps
+   * @param {obj} nextProps
    * @returns {void} void
    * @memberof LoginPage
    */
@@ -48,12 +55,23 @@ class LoginPage extends Component {
       }
     }
   }
+
   /**
-   * @param {any} data
+   * @param {obj} event
+   * @returns {void}
+   * @memberof LoginPage
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value, errors: '' });
+  }
+  /**
+   * @param {obj} event
    * @memberof LoginPage
    * @returns {void} void
    */
-  onSubmit(data) {
+  onSubmit(event) {
+    event.preventDefault();
+    const data = this.state;
     let redirectAfterLogin = this.history.location.search.split('=')[1];
     if (!redirectAfterLogin) {
       if (!this.props.login(data, this.history)) {
@@ -77,7 +95,10 @@ class LoginPage extends Component {
             <div className="row">
               <div className="col-md-4" />
               <div className="col-md-4">
-                <LoginForm login={this.onSubmit}/>
+                <LoginForm onSubmit={this.onSubmit}
+                  state={this.state}
+                  onChange={this.onChange}
+                />
               </div>
             </div><br /><br />
           </div>

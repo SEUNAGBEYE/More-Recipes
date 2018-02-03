@@ -18,7 +18,6 @@ const Pagination = (props) => (
                 <Link to="/" className="page-link" aria-label="Previous" onClick={(e) => {
                   e.preventDefault();
                   let current = document.querySelector('.page-link-active');
-                  console.log(typeof current, parseInt(current.innerHTML, 10) === 1, current.innerHTML);
                   if ((parseInt(current.innerHTML, 10) !== 1)) {
                     Array.from(document.getElementsByClassName('page-link')).map(elem => elem.className = 'page-link');
                     Array.from(document.getElementsByClassName('page-item')).map(elem => elem.className = 'page-item');

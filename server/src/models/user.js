@@ -8,8 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'FirstName is Required'
-        }
-
+        },
+        set(val) {
+          const firstChar = val.charAt(0).toUpperCase();
+          const valWithoutFirstLetter = val.slice(1).toLowerCase();
+          const firstName = `${firstChar}${valWithoutFirstLetter}`;
+          this.setDataValue('firstName', firstName);
+        },
       }
     },
     lastName: {
@@ -19,13 +24,19 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'LastName is Required'
         }
-      }
+      },
+      set(val) {
+        const firstChar = val.charAt(0).toUpperCase();
+        const valWithoutFirstLetter = val.slice(1).toLowerCase();
+        const lastName = `${firstChar}${valWithoutFirstLetter}`;
+        this.setDataValue('lastName', lastName);
+      },
     },
     email: {
       type: DataTypes.STRING,
       unique: {
         args: true,
-        msg: 'User already exist with this email'
+        msg: 'User already exist with this emailddd'
       },
       allowNull: false,
       validate: {
@@ -33,9 +44,22 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Please provide a valid email address'
         }
+      },
+      set(val) {
+        this.setDataValue('email', val.toLowerCase());
       }
 
     },
+    rememberToken: {
+      type: DataTypes.STRING,
+    },
+    aboutMe: {
+      type: DataTypes.STRING,
+      set(val) {
+        this.setDataValue('aboutMe', val.toLowerCase());
+      }
+    },
+
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -50,7 +74,30 @@ module.exports = (sequelize, DataTypes) => {
     profilePicture: {
       type: DataTypes.STRING,
       defaultValue: 'https://res.cloudinary.com/seun/image/upload/v1512979224/ctvqx5p0wu3rp0gcozsj.png'
+    },
+    facebookUrl: {
+      type: DataTypes.STRING,
+      set(val) {
+        this.setDataValue('facebookUrl', val.toLowerCase());
+      }
+    },
+    twitterUrl: {
+      type: DataTypes.STRING,
+      set(val) {
+        this.setDataValue('twitterUrl', val.toLowerCase());
+      }
+    },
+    linkedInUrl: {
+      type: DataTypes.STRING,
+      set(val) {
+        this.setDataValue('linkedInUrl', val.toLowerCase());
+      }
     }
+    // getterMethods: {
+    //   fullName() {
+    //     return `${this.firstName} ${this.lastName}`;
+    //   }
+    // }
   });
 
   User.associate = (models) => {
