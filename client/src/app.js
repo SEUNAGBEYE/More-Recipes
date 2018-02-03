@@ -6,7 +6,7 @@ import 'normalize.css/normalize.css';
 import jwt from 'jsonwebtoken';
 import { store } from './store/configureStore';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { setCurrentUser } from './actions/auth/LoginRequest';
+import { setCurrentUser } from './actions/auth/Auth';
 import '../public/assets/bootstrap-4/css/bootstrap.min.css';
 import '../public/assets/scss/style.scss';
 import AppRouter from './routes/AppRouter';

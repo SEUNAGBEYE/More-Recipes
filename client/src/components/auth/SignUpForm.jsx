@@ -18,11 +18,12 @@ class SignUpForm extends Component {
       lastName: '',
       email: '',
       password: '',
-      errors: {}
+      errors: []
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.history = this.props.history;
   }
 
   /**
@@ -41,17 +42,14 @@ class SignUpForm extends Component {
  * @param {any} e
  * @memberof SignUpForm
  */
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
-    this.props.signUpRequest(this.state)
-      .then(res => {
-        toastr.success('Account created please login to continue', 'Success!');
-        window.location = ('/login');
-      })
-      .catch((errors) => {
-        toastr.error(errors.response.data.description, 'Error!');
-        this.setState({ errors: errors.response.data.errors });
-      });
+    const signUpResponse = await this.props.signUpRequest(this.state);
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>?///////////', signUpResponse);
+    if (signUpResponse[0].description) {
+      toastr.error(signUpResponse[0].description, 'Error!');
+      this.setState({ errors: signUpResponse });
+    }
   }
 
   /**
@@ -77,11 +75,14 @@ class SignUpForm extends Component {
               id="last_name" name="lastName"
               onChange={this.onChange}
               required
-              value={this.state.lasttName}/>
+              value={this.state.lastName}/>
           </fieldset>
 
           <fieldset className="form-group">
-            {this.state.errors && <p className="errors">{this.state.errors.description}</p>}
+            {this.state.errors &&
+               <p className="errors">
+                 {this.state.errors.map(error => (error.field === 'email' ? error.description : 'ddddddd'))}
+               </p>}
             <label htmlFor="email" className="form-inline">Email</label>
             <input type="email" className="form-control"
               id="email"

@@ -7,7 +7,7 @@ import CreateReview from '../recipes/CreateReview';
 import Review from '../recipes/Review';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
-import { getRecipe, toggleThumbsDownRecipe, toggleThumbsUpRecipe, getRecipeReviews } from '../../actions/Recipes';
+import { getRecipe, toggleFavouriteRecipe, toggleThumbsDownRecipe, toggleThumbsUpRecipe, getRecipeReviews, editRecipe } from '../../actions/Recipes';
 import RecipeCardActions from '../recipes/RecipeCardActions';
 
 
@@ -70,6 +70,7 @@ class RecipeDetail extends Component {
    * @memberof RecipeDetail
    */
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps.recipe);
     if (this.props.recipe !== nextProps.recipe) {
       this.setState({
         recipe: nextProps.recipe,
@@ -244,6 +245,6 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps, {
-  getRecipe, toggleThumbsUpRecipe, toggleThumbsDownRecipe, getRecipeReviews
+  getRecipe, toggleFavouriteRecipe, toggleThumbsUpRecipe, toggleThumbsDownRecipe, getRecipeReviews, editRecipe
 })(RecipeDetail);
 

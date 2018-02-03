@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Navbar from '../common/Navbar';
 import Footer from '../common/Footer';
 import LoginForm from './LoginForm';
-import { login } from '../../actions/auth/LoginRequest';
+import { login } from '../../actions/auth/Auth';
 
 
 /**
@@ -56,8 +56,9 @@ class LoginPage extends Component {
   onSubmit(data) {
     let redirectAfterLogin = this.history.location.search.split('=')[1];
     if (!redirectAfterLogin) {
-      this.props.login(data, this.history);
-      this.history.push('/');
+      if (!this.props.login(data, this.history)) {
+        this.history.push('/');
+      }
     } else {
       this.props.login(data);
     }

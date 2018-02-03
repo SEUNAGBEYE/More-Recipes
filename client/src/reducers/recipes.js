@@ -11,6 +11,9 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   const singleRecipe = { ...state.singleRecipe };
+  let allRecipes = [...state.allRecipes];
+  const { recipe: recipeOnAction } = action;
+
   switch (action.type) {
   case 'ADD_RECIPE':
     return {
@@ -73,16 +76,20 @@ export default (state = initialState, action = {}) => {
 
 
   case 'EDIT_RECIPE':
+    if (allRecipes.length >= 1) {
+      allRecipes = allRecipes.map((recipe) => {
+        if (parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) {
+          return action.recipe;
+        }
+        return recipe;
+      });
+    }
 
     return {
       ...state,
       ...{
-        allRecipes: [...state.allRecipes.map((recipe) => {
-          if (parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) {
-            return action.recipe;
-          }
-          return recipe;
-        })]
+        allRecipes,
+        singleRecipe: { ...singleRecipe, ...{ recipeOnAction } }
       }
     };
 
@@ -96,7 +103,8 @@ export default (state = initialState, action = {}) => {
 
         userFavouritedRecipeId: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id) ?
           state.userFavouritedRecipeId.concat(action.favouritedRecipe.id) :
-          state.userFavouritedRecipeId.filter(id => id !== action.favouritedRecipe.id)
+          state.userFavouritedRecipeId.filter(id => id !== action.favouritedRecipe.id),
+        singleRecipe: action.favouritedRecipe
       }
     };
 
@@ -118,6 +126,7 @@ export default (state = initialState, action = {}) => {
           }
           return recipe;
         })],
+        singleRecipe: action.recipe
       }
     };
 
@@ -138,6 +147,7 @@ export default (state = initialState, action = {}) => {
           }
           return recipe;
         })],
+        singleRecipe: action.recipe
       }
     };
 

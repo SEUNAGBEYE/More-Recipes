@@ -22,8 +22,9 @@ export default class RecipeModal extends Component {
       description: '',
       image: '',
       ingredients: [],
+      categoryId: 1,
       steps: [],
-      errors: {},
+      errors: [],
       loaded: true
     };
     this.onSubmit = this.onSubmit.bind(this);
@@ -32,23 +33,24 @@ export default class RecipeModal extends Component {
     this.ingredientClick = this.ingredientClick.bind(this);
   }
 
+
   /**
 	 * @returns {void} void
-	 * @param {any} e
+	 * @param {any} event
 	 * @memberof RecipeModal
 	 */
-  stepClick(e) {
-    e.preventDefault();
+  stepClick(event) {
+    event.preventDefault();
     this.setState({ steps: [...this.state.steps, ''] });
   }
 
   /**
 	 *@returns {void} void
-	 * @param {any} e
+	 * @param {any} event
 	 * @memberof RecipeModal
 	 */
-  ingredientClick(e) {
-    e.preventDefault();
+  ingredientClick(event) {
+    event.preventDefault();
     this.setState({ ingredients: [...this.state.ingredients, ''] });
   }
 
@@ -56,41 +58,48 @@ export default class RecipeModal extends Component {
   /**
  *
  *@returns {void} void
- * @param {any} e
+ * @param {any} event
  * @memberof RecipeModal
  */
-  onSubmit(e) {
-    e.preventDefault();
+  async onSubmit(event) {
+    event.preventDefault();
     this.setState({ loaded: false });
     const file = document.getElementById('recipePicture').files[0];
     if (file) {
-      imageUpload(file)
-        .then(res => {
-          this.setState({ image: res.data.secure_url }, () => {
-            setAuthorizationToken(localStorage.token);
-            this.props.addRecipe(this.state);
-            this.setState({ loaded: true });
-            $('.modal').modal('hide');
-          });
-          document.getElementById('form').reset();
-        })
-        .catch(error => {
-          this.setState({ loaded: true });
+      try {
+        const image = await imageUpload(file);
+        this.setState({ image: image.data.secure_url }, () => {
+          setAuthorizationToken(localStorage.token);
+          this.props.addRecipe(this.state)
+            .then(res => {
+              $('.modal').modal('hide');
+              document.getElementById('form').reset();
+              this.setState({ loaded: true });
+            })
+            .catch(error => {
+              this.setState({ loaded: true });
+              this.setState({ errors: error.response.data.errors });
+            });
         });
+      } catch (error) {
+        console.log('errors', error.response);
+        this.setState({ loaded: true });
+      }
     } else {
       this.props.addRecipe(this.state);
+      document.getElementById('form').reset();
     }
   }
 
   /**
  *
  *@return {void} void
- * @param {any} e
+ * @param {any} event
  * @memberof RecipeModal
  */
-  onChange(e) {
-    e.preventDefault();
-    const { name: stateKey, id, value } = e.target;
+  onChange(event) {
+    event.preventDefault();
+    const { name: stateKey, id, value } = event.target;
     if (stateKey === 'steps' || stateKey === 'ingredients') {
       this.setState({
         [stateKey]: this.state[stateKey].map((step, index) => {
@@ -131,9 +140,9 @@ export default class RecipeModal extends Component {
         name={'ingredients'}
       />
     ));
+    const { errors } = this.state;
     return (
       <div>
-
         <div className="modal fade" id="addModal" tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
@@ -145,23 +154,42 @@ export default class RecipeModal extends Component {
               </div>
 
               <div className="modal-body">
+                {errors.map(error => (<ul><li className="text-danger">{error.description}</li></ul>))}
                 <form id="form">
                   <fieldset className="form-group">
                     <label htmlFor="name" className="form-inline">Name</label>
-                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} value={this.state.name}/>
+                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} value={this.state.name} required/>
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="recipeDescription" className="form-inline">Description</label>
-                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description} />
+                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description} required/>
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="image" className="form-inline">
 											The maximum file size allowed is 4mb
-                      <input type="file" className="form-control" id="recipePicture" name="image"/>
+                      <input type="file" className="form-control" id="recipePicture" name="image" required/>
 											Click to add image
                     </label>
+                  </fieldset>
+
+
+                  <fieldset className="form-group">
+                    <label htmlFor="image" className="form-inline">
+											Category
+                    </label>
+                    <select className="form-control" onChange={this.onChange} name="categoryId" required>
+                      {
+                        this.props.recipeCategories.map(recipeCategory =>
+                          (<option
+                            key={recipeCategory.id}
+                            value={recipeCategory.id}>
+                            {recipeCategory.name}
+                          </option>))
+                      }
+                    </select>
+
                   </fieldset>
 
                   {ingredientFields}
@@ -182,7 +210,7 @@ export default class RecipeModal extends Component {
                     <Loader loaded={this.state.loaded} />
                     <button className="btn btn-secondary auth-button" id="submit" onClick={this.onSubmit}>Submit</button>
                     <button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
-													Cancel
+                      Cancel
                     </button>
                   </div>
                 </form>

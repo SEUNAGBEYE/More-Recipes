@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import model from '../models';
 
-const { User, Recipe } = model;
+const { User, Recipe, Review } = model;
 
 
 /**
@@ -125,7 +125,14 @@ class UserController {
   static addFavoriteRecipe(req, res) {
     User.findById(req.token.userId)
       .then((user) => {
-        Recipe.findById(req.params.id)
+        Recipe.find({
+          where: {
+            id: req.params.id
+          },
+          include: [{
+            model: Review, as: 'reviews', include: [{ model: User, as: 'user', attributes: ['firstName', 'lastName', 'profilePicture'] }], limit: 5
+          }]
+        })
           .then((recipe) => {
             if (!recipe) {
               return res.status(404).send({

@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { Link } from 'react-router-dom';
-import { logout } from '../../actions/auth/LoginRequest';
-import { searchRecipes } from '../../actions/Recipes';
+import { logout } from '../../actions/auth/Auth';
+import { searchRecipes, getFavouritedRecipesIds }
+  from
+  '../../actions/Recipes';
 
 /**
  * @class Navbar
@@ -22,6 +24,17 @@ class Navbar extends React.Component {
     this.searchRecipes = this.searchRecipes.bind(this);
     this.history = createHistory;
   }
+  /**
+ *
+ * @returns {void} void
+ * @memberof Navbar
+ */
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      this.props.getFavouritedRecipesIds();
+    }
+  }
+
   /**
  *
  *
@@ -58,17 +71,18 @@ class Navbar extends React.Component {
   }
 
   /**
-   * returns {obeject} object
+   * @returns {jsx} JSX
    * @memberOf Navbar
    */
   render() {
-    const isAuthenticated = this.props.auth.isAuthenticated;
+    const { isAuthenticated } = this.props.auth;
     return (
-      // this.state.redirect ?
-      //   <Redirect to ={`/search_results?search=${this.state.searchValue}`}/> :
       <div>
         <header className="header">
-          <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light d-flex p-2">
+          <nav
+            className="navbar fixed-top navbar-expand-lg navbar-light bg-light d-flex p-2"
+            id="navbar"
+          >
 
             <Link className="navbar-brand" to="/" id="brand">Recipes</Link>
 
@@ -84,23 +98,69 @@ class Navbar extends React.Component {
 
               </form>
               {isAuthenticated ?
-                <div className="dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    {this.props.auth.user.firstName}
-                  </a>
-                  <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
-                    <Link className="dropdown-item" to="/recipes">All Recipes</Link>
-                    <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
-                    <Link className="dropdown-item" to="/my_favourites">Favourites</Link>
-                    <Link className="dropdown-item" to="/profile">Profile</Link>
-                    <Link className="dropdown-item" onClick={this.logout} to="#">Logout</Link>
-                  </div>
-                </div> :
                 <ul className="navbar-nav">
-                  <li className="nav-item"><Link className="nav-link" to="/recipes">All Recipes</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/recipes">Popular Recipes</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/login">Sign In</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+                  <div className="dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Categories
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
+                      {
+                        this.props.categories.map(category =>
+                          (<Link className="dropdown-item"
+                            to={`/categories/${category}`}
+                            key={category.id}
+                          >{category}</Link>))
+                      }
+                    </div>
+                  </div>
+                  <div className="dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                      {this.props.auth.user.firstName}
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
+                      <Link className="dropdown-item" to="/recipes">All Recipes</Link>
+                      <Link className="dropdown-item" to="/recipes">Popular Recipes</Link>
+                      <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
+                      <Link className="dropdown-item" to="/my_favourites">Favourites</Link>
+                      <Link className="dropdown-item" to="/profile">Profile</Link>
+                      <Link className="dropdown-item" onClick={this.logout} to="#">Logout</Link>
+                    </div>
+                  </div>
+                </ul> :
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <div className="dropdown">
+                      <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Recipes
+                      </a>
+                      <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
+                        <Link className="dropdown-item" to="/recipes">All Recipes</Link>
+                        <Link className="dropdown-item" to="/my_recipes">Popular Recipes</Link>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="dropdown">
+                      <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Categories
+                      </a>
+                      <div className="dropdown-menu dropdown-menu-nav" aria-labelledby="about-us">
+                        {
+                          this.props.categories.map(category =>
+                            (<Link className="dropdown-item"
+                              to={`/categories/${category}`}
+                              key={category.id}
+                            >{category}</Link>))
+                        }
+                      </div>
+                    </div>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">Sign In</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/signup">Sign Up</Link>
+                  </li>
                 </ul>
               }
             </div>
@@ -122,7 +182,9 @@ class Navbar extends React.Component {
  * @returns {object} object
  */
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  categories: state.recipes.recipeCategories.map(category => category.name)
 });
 
-export default connect(mapStateToProps, { logout, searchRecipes })(Navbar);
+export default connect(mapStateToProps, { logout, searchRecipes, getFavouritedRecipesIds })(Navbar);
