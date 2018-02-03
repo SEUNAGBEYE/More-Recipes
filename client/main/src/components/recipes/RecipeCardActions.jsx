@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
 const RecipeCardAction = (props) => (
@@ -7,8 +7,8 @@ const RecipeCardAction = (props) => (
     { props.recipe.userId === props.user.userId ?
       <div className="d-flex justify-content-between recipe-icons" style={props.style}>
         <i className="fa fa-eye icons">{props.recipe.views.length}</i>
-        <Link to="/" className="fa fa-pencil icons" data-toggle="modal" data-target={`#editModal${props.recipe.id}`}/>
-        <Link to="/" className="fa fa-trash icons" data-toggle="modal" data-target={`#deleteModal${props.recipe.id}`} />
+        <i className="fa fa-pencil icons" data-toggle="modal" data-target={`#editModal${props.recipe.id}`}/>
+        <i className="fa fa-trash icons" data-toggle="modal" data-target={`#deleteModal${props.recipe.id}`} />
       </div> :
       <div className="d-flex justify-content-between recipe-icons" style={props.style}>
         <i className="fa fa-eye icons">{props.recipe.views.length}</i>

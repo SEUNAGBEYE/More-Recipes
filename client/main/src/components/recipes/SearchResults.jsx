@@ -12,18 +12,32 @@ import CategoryButton from './CategoryButton';
  * @extends {Component}
  */
 class SearchResults extends Component {
+  constructor(props) {
+    super(props);
+    this.searchRecipes = this.searchRecipes.bind(this);
+  }
   /**
    *
    *@returns {void} void
    * @memberof SearchResults
    */
-  componentDidMount() {
-    // this.paginateRecipes(0);
-
+  componentWillMount() {
     this.props.getFavouritedRecipesIds()
       .then(res => {
         this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
       });
+    this.searchRecipes();
+  }
+
+  /**
+   * @param {Number} page
+   *
+   * @returns {void} void
+   * @memberof SearchResults
+   */
+  searchRecipes(page) {
+    const search = this.props.location.search.split('=');
+    this.props.searchRecipes(search[1], page);
   }
 
   /**
@@ -68,7 +82,7 @@ class SearchResults extends Component {
           </div>
         </main>
         <Pagination recipesCount={this.props.recipesCount}
-          recipesPagination={this.paginateRecipes}
+          recipesPagination={this.searchRecipes}
         />
       </div>
     );
@@ -83,7 +97,7 @@ class SearchResults extends Component {
  */
 const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
-  recipesCount: state.recipes.recipesCount,
+  recipesCount: state.recipes.pagination,
   user: state.auth.user,
 });
 

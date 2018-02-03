@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addRecipe,
   getUserRecipes,
   recipeCategories }
@@ -52,8 +53,8 @@ class UserRecipes extends Component {
 
 
   /**
-   * @memberOf UserRecipes
-   * @returns {jsx} JSX
+   * @returns {JSX} jsx
+   * @memberof UserRecipes
    */
   render() {
     return (
@@ -96,10 +97,22 @@ class UserRecipes extends Component {
   }
 }
 
+const propTypes = {
+  categories: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+  userRecipes: PropTypes.array.isRequired,
+  addRecipe: PropTypes.func.isRequired,
+  getUserRecipes: PropTypes.func.isRequired,
+  recipeCategories: PropTypes.func.isRequired,
+};
+
+UserRecipes.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @param {Object} state
+ *
+ * @returns {Object} object
  */
 const mapStateToProps = (state) => ({
   recipes: state.recipes,

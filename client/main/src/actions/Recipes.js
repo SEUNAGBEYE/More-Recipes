@@ -240,10 +240,12 @@ export function recipeCategories() {
  * @param {limit} limit
  * @returns {obj} obj
  */
-export function searchRecipes(search, page = 0, limit = 8) {
+export function searchRecipes(search, page = 1, limit = 2) {
+  console.log('+++++++++++++++++', page);
   return dispatch => axios.get(`api/v1/recipes/search_results?search=${search}&limit=${limit}&page=${page}`)
     .then((res) => {
       const { data } = res;
+      console.log('=========================', res.data)
       dispatch(searchRecipesAction(data));
     });
 }

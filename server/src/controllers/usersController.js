@@ -3,6 +3,7 @@ import uuid from 'uuid/v4';
 import model from '../models';
 import mail from '../helpers/mail';
 import jwtSigner from '../helpers/jwt';
+import modelPaginator from '../helpers/modelPaginator';
 
 const { User, Recipe, Review } = model;
 
@@ -77,9 +78,10 @@ class UserController {
   * @returns {null} json
   */
   static signIn(req, res) {
+    const { email, password = '' } = req.body;
     User.find({
       where: {
-        email: req.body.email,
+        email
       },
       attributes: {
         exclude: ['email', 'createdAt', 'updatedAt', 'rememberToken']
@@ -91,7 +93,7 @@ class UserController {
             status: 'Failure', message: 'User Not Found', data: {}
           });
         }
-        bcrypt.compare(req.body.password, user.password)
+        bcrypt.compare(password, user.password)
           .then((response) => {
             if (response) {
               const { id: userId, ...data } = user.get();
@@ -135,16 +137,12 @@ class UserController {
 
     User.findById(req.token.userId)
       .then((user) => {
-        Recipe.findAll({
-          where: {
-            id: {
-              $in: user.favoriteRecipe
-            }
-          },
-        })
-          .then((recipes) => {
-            res.status(200).send({ status: 'Success', data: recipes });
-          });
+        const where = {
+          id: {
+            $in: user.favoriteRecipe
+          }
+        };
+        modelPaginator(Recipe, req, res, where);
       })
       .catch(errors => res.status(404).send({
         status: 'Failure',

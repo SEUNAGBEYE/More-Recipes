@@ -56,7 +56,6 @@ class Navbar extends React.Component {
  */
   search(event) {
     event.preventDefault();
-    this.searchRecipes(event.target.search.value, 0);
     this.props.history.push(`/search_results?search=${event.target.search.value}`);
   }
 
