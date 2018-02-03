@@ -75,8 +75,9 @@ describe('Test For Users Routes', () => {
           expect(res.body.data.email).equal('boy@mail.com.ng');
           expect(res.body.data.profilePicture).equal('This is my lovely image');
           assert.isObject(res.body.data, 'response is an object');
-          done();
+          // done();
         });
+      done();
     });
   });
 
