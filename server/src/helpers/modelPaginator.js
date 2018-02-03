@@ -1,7 +1,6 @@
 
 
 const modelPaginator = (model, req, res, where = {}) => {
-  console.log(where);
   const { limit, page: queryPage } = req.query;
   model.findAndCountAll({ where })
     .then((modelWithCount) => {
@@ -21,11 +20,7 @@ const modelPaginator = (model, req, res, where = {}) => {
           res.status(200).send({
             status: 'Success',
             data,
-            pagination: page,
-            where,
-            limit,
-            queryPage,
-            modelWithCount,
+            pagination: page
           });
         })
         .catch(error => res.status(400).send({

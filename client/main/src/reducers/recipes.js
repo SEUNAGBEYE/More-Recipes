@@ -29,8 +29,8 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{
-        allRecipes:
-        action.recipes
+        allRecipes: action.recipes,
+        pagination: action.pagination
       }
     };
 

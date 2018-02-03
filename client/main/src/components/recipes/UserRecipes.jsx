@@ -35,6 +35,7 @@ class UserRecipes extends Component {
       upvotes: [],
       userRecipes: []
     };
+    this.paginateRecipe = this.paginateRecipe.bind(this);
   }
 
   /**
@@ -43,7 +44,17 @@ class UserRecipes extends Component {
   */
   componentDidMount() {
     this.props.recipeCategories();
-    this.props.getUserRecipes()
+    this.paginateRecipe();
+  }
+
+  /**
+   * @param {number} [page=1]
+   *
+   * @returns {void} void
+   * @memberof UserRecipes
+   */
+  paginateRecipe(page = 1) {
+    this.props.getUserRecipes(page)
       .then(res => {
         this.setState({
           userRecipes: [...this.state.userRecipes, ...res.recipes]
@@ -91,13 +102,17 @@ class UserRecipes extends Component {
             </div>
           </div>
         </main>
-        <Pagination />
+        <Pagination
+          recipesPagination={this.paginateRecipe}
+          recipesCount={this.props.recipesCount}
+        />
       </div>
     );
   }
 }
 
 const propTypes = {
+  recipesCount: PropTypes.number.isRequired,
   categories: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   userRecipes: PropTypes.array.isRequired,
@@ -118,6 +133,7 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes,
   user: state.auth.user,
   userRecipes: state.recipes.allRecipes,
+  recipesCount: Number(state.recipes.pagination),
   categories: state.recipes.recipeCategories
 });
 

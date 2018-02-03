@@ -39,7 +39,7 @@ class RecipeController {
           data: recipes
         }))
         .catch(error => res.status(400).send({
-          status: 'Bad Request',
+          status: 'Failure',
           errors: error.message
         }));
     } else {
@@ -70,7 +70,7 @@ class RecipeController {
         if (errors) {
           return res.status(400).send({
             status: 'Failure',
-            message: 'Bad Request',
+            message: 'Failure',
             errors: errors.errors.map(recipeError => ({
               field: recipeError.path,
               description: recipeError.message
@@ -187,7 +187,7 @@ class RecipeController {
           .catch((errors) => {
             const newErrors = errors.errors;
             return res.status(400).send({
-              status: 'Bad Request',
+              status: 'Failure',
               errors: newErrors
             });
           });
@@ -220,7 +220,7 @@ class RecipeController {
         data: reviews
       }))
       .catch(error => res.status(400).send({
-        status: 'Bad Request',
+        status: 'Failure',
         error: error.message
       }));
   }
@@ -449,7 +449,7 @@ class RecipeController {
         data: category
       }))
       .catch(error => res.status(400).send({
-        status: 'Bad Request',
+        status: 'Failure',
         error: error.message
       }));
   }

@@ -12,6 +12,11 @@ import CategoryButton from './CategoryButton';
  * @extends {Component}
  */
 class SearchResults extends Component {
+  /**
+   * Creates an instance of SearchResults.
+   * @param {Object} props
+   * @memberof SearchResults
+   */
   constructor(props) {
     super(props);
     this.searchRecipes = this.searchRecipes.bind(this);

@@ -224,19 +224,10 @@ class UserController {
    * @returns {obj} obj
    */
   static getRecipes(req, res) {
-    Recipe.findAll({
-      where: {
-        userId: req.token.userId
-      }
-    })
-      .then((recipes) => {
-        res.status(200).send({ status: 'Success', data: recipes });
-      })
-      .catch(errors => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        errors: errors.message
-      }));
+    const where = {
+      userId: req.token.userId
+    };
+    modelPaginator(Recipe, req, res, where);
   }
 
   /**
