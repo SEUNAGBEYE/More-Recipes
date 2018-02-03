@@ -124,7 +124,12 @@ class RecipeController {
           recipe.update({ views: recipe.views });
         }
         res.status(200).send({ status: 'Success', data: recipe });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
 
@@ -149,13 +154,23 @@ class RecipeController {
             .update(req.body, { fields: Object.keys(req.body) })
             .then(updatedRecipe => res.status(200).send({
               status: 'Success', data: updatedRecipe
+            }))
+            .catch(error => res.status(400).send({
+              status: 'Failure',
+              message: 'Bad Request',
+              error: error.message
             }));
         }
         return res.status(403).send({
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -193,7 +208,12 @@ class RecipeController {
               errors: newErrors
             });
           });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -250,13 +270,23 @@ class RecipeController {
             .then(() => res.status(204).send({
               status: 'Succuess',
               message: 'No Content'
+            }))
+            .catch(error => res.status(400).send({
+              status: 'Failure',
+              message: 'Bad Request',
+              error: error.message
             }));
         }
         return res.status(403).send({
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -309,8 +339,18 @@ class RecipeController {
         })
           .then(recipe => res.status(200).send({
             status: 'Success', data: recipe
+          }))
+          .catch(error => res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
+            error: error.message
           }));
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -363,8 +403,18 @@ class RecipeController {
         })
           .then(recipe => res.status(200).send({
             status: 'Success', data: recipe
+          }))
+          .catch(error => res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
+            error: error.message
           }));
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -386,6 +436,11 @@ class RecipeController {
         status: 'Success',
         data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
           .splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
       }));
   }
 
@@ -429,6 +484,11 @@ class RecipeController {
       .then(categories => res.status(200).send({
         status: 'Success',
         data: categories
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
       }));
   }
 

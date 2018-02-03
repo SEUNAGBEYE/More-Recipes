@@ -111,7 +111,12 @@ class UserController {
             message: 'Bad Request',
             errors
           }));
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -205,9 +210,19 @@ class UserController {
               })
                 .then(() => {
                   res.status(200).send({ status: 'Success', data: recipe });
-                });
+                })
+                .catch(error => res.status(400).send({
+                  status: 'Failure',
+                  message: 'Bad Request',
+                  error: error.message
+                }));
             }
-          });
+          })
+          .catch(error => res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
+            error: error.message
+          }));
       })
       .catch(errors => res.status(400).send({
         status: 'Failure',
@@ -294,7 +309,12 @@ class UserController {
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -330,7 +350,12 @@ class UserController {
           status: 'Success',
           message
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
@@ -375,7 +400,12 @@ class UserController {
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 }
 
