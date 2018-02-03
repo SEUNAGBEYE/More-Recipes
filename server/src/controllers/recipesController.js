@@ -508,6 +508,24 @@ class RecipeController {
         error: error.message
       }));
   }
+
+  /**
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {obj} obj
+   * @memberof RecipeController
+   */
+  static getCategory(req, res) {
+    Category.findAll({
+      where: {
+        id: req.params.id
+      },
+      include: ['recipes']
+    })
+      .then(category => res.status(200).send({ status: 'Success', data: category }))
+      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
+  }
 }
 
 export default RecipeController;
