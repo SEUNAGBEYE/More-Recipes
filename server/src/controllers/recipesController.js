@@ -70,7 +70,7 @@ class RecipeController {
         if (errors) {
           return res.status(400).send({
             status: 'Failure',
-            message: 'Failure',
+            message: 'Bad Request',
             errors: errors.errors.map(recipeError => ({
               field: recipeError.path,
               description: recipeError.message
@@ -140,6 +140,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -169,6 +170,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -237,7 +239,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -246,7 +248,7 @@ class RecipeController {
           return recipe
             .destroy()
             .then(() => res.status(204).send({
-              status: 'Deleted',
+              status: 'Succuess',
               message: 'No Content'
             }));
         }
@@ -284,7 +286,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -339,7 +341,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }

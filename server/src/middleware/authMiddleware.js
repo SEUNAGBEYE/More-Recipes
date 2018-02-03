@@ -4,8 +4,12 @@ const authMiddleware = (req, res, next) => {
   const token = req.headers['x-access-token'] || req.headers.token || req.body.token || req.params.token;
   if (process.env.NODE_ENV === 'test') {
     const userId = req.body.userId || req.headers.token || 1;
-    req.token = { userId };
-    next();
+    if (Number(userId)) {
+      req.token = { userId };
+      next();
+    } else {
+      return res.status(400).send({ status: 'Failure', message: 'Token Not Valid' });
+    }
   } else if (token) {
     jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
       if (!error) {

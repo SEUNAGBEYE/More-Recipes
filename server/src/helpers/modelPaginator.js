@@ -24,10 +24,16 @@ const modelPaginator = (model, req, res, where = {}) => {
           });
         })
         .catch(error => res.status(400).send({
-          status: 'Bad Request',
+          status: 'Failure',
+          message: 'Bad Request',
           error: error.message
         }));
-    });
+    })
+    .catch(error => res.status(400).send({
+      status: 'Failure',
+      message: 'Bad Request',
+      error: error.message
+    }));
 };
 
 export default modelPaginator;

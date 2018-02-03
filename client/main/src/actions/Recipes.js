@@ -268,7 +268,7 @@ export function getFavouritedRecipesIds() {
  * @returns {obj} obj
  */
 export function getFavouritedRecipes(page = 1) {
-  return dispatch => axios.get(`/api/v1/users/fav-recipes?limit=2&page=${page}`)
+  return dispatch => axios.get(`/api/v1/users/fav-recipes?limit=8&page=${page}`)
     .then((res) => {
       const { data, pagination } = res.data;
       return dispatch(favouritedRecipesAction(data, pagination));

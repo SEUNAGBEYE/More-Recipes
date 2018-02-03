@@ -117,17 +117,17 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('should have a statusCode of 400 when a user provides only an email when logging in', (done) => {
+    it('should have a statusCode of 401 when a user provides only an email when logging in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
           email: 'boy@mail.com.ng'
         })
         .end((error, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(401);
           expect(res.body).to.not.have.property('token');
           expect(res.body.status).to.equal('Failure');
-          expect(res.body.message).to.equals('Bad Request');
+          expect(res.body.message).to.equals('Invalid Password or Email');
           expect(res.body).to.not.have.property('userId');
           assert.isObject(res.body, 'respone is object');
           done();
@@ -214,8 +214,7 @@ describe('Test For Users Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -262,14 +261,13 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 404 when a user trys to get their favorited recipe with a wrong token', (done) => {
+    it('should have a statusCode of 400 when a user trys to get their favorited recipe with a wrong token', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .set('token', 'aaaa')
         .end((error, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equals('User Not Found');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -288,14 +286,13 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 404 when a user get their favorited recipes id with a wrong token', (done) => {
+    it('should have a statusCode of 400 when a user get their favorited recipes id with a wrong token', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/getIds')
         .set('token', 'aaaa')
         .end((error, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equals('User Not Found');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -320,8 +317,7 @@ describe('Test For Users Routes', () => {
         .set('token', 'aaaa')
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -334,8 +330,7 @@ describe('Test For Users Routes', () => {
         .set('token', 'aaaa')
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
