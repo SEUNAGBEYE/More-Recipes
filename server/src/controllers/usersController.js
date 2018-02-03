@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import uuid from 'uuid/v4';
 import model from '../models';
 import mail from '../helpers/mail';
 import jwtSigner from '../helpers/jwt';
@@ -19,7 +20,7 @@ class UserController {
   static signUp(req, res) {
     if (!req.body.password || req.body.password.length < 6) {
       return res.status(400).send({
-        status: 'Fa', message: 'Password must be greater than 6'
+        status: 'Failure', message: 'Password must be greater than 6'
       });
     }
 
@@ -327,12 +328,15 @@ class UserController {
             message: 'User Not Found'
           });
         }
-        const { firstName, lastName, rememberToken } = user;
-        const token = rememberToken || `${Date.now()}${firstName}${lastName}`;
+
+        const { firstName, lastName } = user;
+        const fullName = `${firstName} ${lastName}`;
+        const rememberToken = uuid();
+        user.update({ rememberToken });
         const { protocol, path } = req;
-        const resetLink = `${protocol}://${req.get('host')}/api/v1/users${path}/${token}`;
+        const resetLink = `${protocol}://${req.get('host')}${path}/${rememberToken}`;
         const message = 'A Message has been sent to the email provided kindly read to mail to reset your password';
-        mail(email, resetLink);
+        mail(email, resetLink, fullName);
         return res.status(200).send({
           status: 'Success',
           message
@@ -350,8 +354,12 @@ class UserController {
    * @memberof UserController
    */
   static confirmForgetPassword(req, res) {
-    const { id: userId } = req.token;
-    User.findById(userId)
+    const { rememberToken } = req.params;
+    User.find({
+      where: {
+        rememberToken
+      }
+    })
       .then((user) => {
         if (!user) {
           return res.status(404).send({
@@ -359,7 +367,7 @@ class UserController {
             message: 'User Not Found',
           });
         }
-        if (user.id === userId) {
+        if (user.rememberToken === rememberToken) {
           return user
             .update(req.body, { fields: Object.keys(req.body) })
             .then(() => {

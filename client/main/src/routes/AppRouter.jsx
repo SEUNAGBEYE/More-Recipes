@@ -15,6 +15,7 @@ import NavBar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import CategoryPage from '../components/recipes/CategoryPage';
 import requireAuthentication from '../../utils/RequireAuthentication';
+import ConfirmForgotPasswordPage from '../components/users/ConfirmForgotPasswordPage';
 
 const history = createHistory();
 
@@ -33,6 +34,7 @@ const AppRouter = () => (
         <Route path="/recipes" component={AllRecipes} exact/>
         <Route path="/categories/:categoryName" component={CategoryPage} exact/>
         <Route path="/search_results" component={SearchResults} exact/>
+        <Route path="/forgot-password/:rememberToken" component={ConfirmForgotPasswordPage} exact/>
         <Route component={NotFoundPage}/>
       </Switch>
       <Footer />

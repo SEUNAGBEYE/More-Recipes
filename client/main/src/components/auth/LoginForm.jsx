@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
 const LoginForm = (props) => (
   <div>
@@ -25,8 +26,13 @@ const LoginForm = (props) => (
       <div className="d-flex justify-content-between">
         <button type="submit" className="btn btn-default" id="login">Login</button>
         <Link to="/signup" style={{ paddingTop: 10 }}>Not a member</Link>
+        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>
       </div>
     </form><br/>
+    <ForgotPasswordModal onChange={props.onChange}
+      forgotPassword={props.forgotPassword}
+      resetPasswordMessage={props.state.resetPasswordMessage}
+    />
   </div>
 );
 

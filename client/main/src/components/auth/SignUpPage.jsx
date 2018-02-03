@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
 import SignUpForm from './SignUpForm';
-import { signUpRequest } from '../../actions/auth/Auth';
+import { signUpRequest, forgotPassword } from '../../actions/auth/Auth';
+import UserValidator from '../../validators/UserValidator';
 
 /**
  * @class SignUpPage
@@ -25,11 +24,12 @@ class SignUpPage extends Component {
       lastName: '',
       email: '',
       password: '',
-      errors: []
+      errors: [],
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
     this.history = this.props.history;
   }
 
@@ -49,7 +49,13 @@ class SignUpPage extends Component {
  * @memberof SignUpPage
  */
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value, errors: '' });
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: '',
+      resetPasswordMessage: ''
+    });
+    const self = this;
+    UserValidator.passwordValidator(event, self);
   }
 
 
@@ -67,7 +73,19 @@ class SignUpPage extends Component {
           toastr.error(signUpResponse[0].description, 'Error!');
           this.setState({ errors: signUpResponse });
         }
+        this.history.push('/');
       });
+  }
+
+  /**
+   * @param {obj} event
+   * @returns {void} void
+   * @memberof SignUpPage
+   */
+  forgotPassword(event) {
+    event.preventDefault();
+    this.props.forgotPassword(this.state)
+      .then(res => this.setState({ resetPasswordMessage: res.data.message }));
   }
 
   /**
@@ -77,7 +95,6 @@ class SignUpPage extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <main>
           <div className="container">
             <div className="row">
@@ -87,12 +104,12 @@ class SignUpPage extends Component {
                   state={this.state}
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
+                  forgotPassword={this.forgotPassword}
                 />
               </div>
             </div><br />
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -107,4 +124,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { signUpRequest })(SignUpPage);
+export default connect(mapStateToProps, { signUpRequest, forgotPassword })(SignUpPage);
