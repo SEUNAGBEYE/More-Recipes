@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
 import checkAuth from '../../../utils/CheckAuth';
@@ -23,10 +24,10 @@ import {
  */
 class RecipeCard extends Component {
   /**
-	 * Creates an instance of RecipeCard.
-	 * @param {any} props
-	 * @memberof RecipeCard
-	 */
+   * Creates an instance of RecipeCard.
+   * @param {Object} props
+   * @memberof RecipeCard
+   */
   constructor(props) {
     super(props);
     this.toggleFavouriteRecipe = this.toggleFavouriteRecipe.bind(this);
@@ -48,9 +49,9 @@ class RecipeCard extends Component {
   }
 
   /**
-	 * @returns {void} void
-	 * @memberof RecipeCard
-	 */
+   * @returns {void} void
+   * @memberof RecipeCard
+   */
   componentWillMount() {
     const { recipe, user } = this.props;
     this.setState({
@@ -61,8 +62,9 @@ class RecipeCard extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @param {any} nextProps
+   * @param {Object} nextProps
+   *
+   * @returns {void} void
    * @memberof RecipeCard
    */
   componentWillReceiveProps(nextProps) {
@@ -78,8 +80,9 @@ class RecipeCard extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @param {any} event
+   * @param {Object} event
+   *
+   * @returns {void} void
    * @memberof RecipeCard
    */
   toggleFavouriteRecipe(event) {
@@ -92,8 +95,9 @@ class RecipeCard extends Component {
   }
 
   /**
-   *@returns {void} void
    * @param {any} event
+   *
+   * @returns {void} void
    * @memberof RecipeCard
    */
   toggleThumbsUpRecipe(event) {
@@ -106,9 +110,9 @@ class RecipeCard extends Component {
   }
 
   /**
+   * @param {Number} id
    *
-   * @param {any} id
-   * @returns {jsx} JSX
+   * @returns {void} void
    * @memberof RecipeCard
    */
   deleteRecipe(id) {
@@ -116,8 +120,9 @@ class RecipeCard extends Component {
   }
 
   /**
-   * @param {any} id
-   * @param {any} recipe
+   * @param {Number} id
+   * @param {Object} recipe
+   *
    * @returns {void} void
    * @memberof RecipeCard
    */
@@ -126,8 +131,9 @@ class RecipeCard extends Component {
   }
 
   /**
-   * @param {obj} event
-   * @returns {obj} obj
+   * @param {Object} event
+   *
+   * @returns {Object} object
    * @memberof RecipeCard
    */
   toggleThumbsDownRecipe(event) {
@@ -141,56 +147,71 @@ class RecipeCard extends Component {
 
 
   /**
-   * @returns {jsx} JSX
-   * @memberOf RecipeCard
-   * return {object} object
+   * @returns {JSX} jsx
+   * @memberof RecipeCard
    */
   render() {
     const { recipe, myFavs } = this.props;
     const isFavorited = myFavs.includes(parseInt(recipe.id, 10));
     return (
       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
-        <Link to={`/recipe/${this.props.id}`}>
-          <div className="card recipe-card">
-            <img className="card-img-top"
-              src={this.state.recipe.image}
-              alt="Card image cap"
-            />
-            <div className="container">
-              <div className="card-block">
+        <div className="card recipe-card">
+          <img className="card-img-top"
+            src={this.state.recipe.image}
+            alt="Card image cap"
+          />
+          <div className="container">
+            <div className="card-block">
+              <Link to={`/recipe/${this.props.id}`}>
                 <h4 className="card-title">
                   {this.state.recipe.name.slice(0, 20)}
                 </h4>
                 <p className="card-text">
                   {this.state.recipe.description.slice(0, 80)}
                 </p>
-                <RecipeCardActions
-                  isDownVoted={this.state.isDownVoted}
-                  isUpVoted={this.state.isUpVoted}
-                  isFavorited={isFavorited}
-                  user={this.props.user}
-                  recipe={this.props.recipe}
-                  toggleFavouriteRecipe={this.toggleFavouriteRecipe}
-                  toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
-                  toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}/>
-              </div>
+              </Link>
+              <RecipeCardActions
+                isDownVoted={this.state.isDownVoted}
+                isUpVoted={this.state.isUpVoted}
+                isFavorited={isFavorited}
+                user={this.props.user}
+                recipe={this.props.recipe}
+                toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
+                toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}/>
             </div>
           </div>
-        </Link>
+        </div>
         <EditModal recipe={this.props.recipe}
           editRecipe={this.editRecipe}
           id={this.props.recipe.id}
         />
         <DeleteModal id={this.props.id} onDelete={this.deleteRecipe}/>
       </div>
-
     );
   }
 }
 
+const propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object,
+  recipe: PropTypes.object.isRequired,
+  myFavs: PropTypes.array.isRequired,
+  toggleFavouriteRecipe: PropTypes.func.isRequired,
+  getFavouritedRecipesIds: PropTypes.func.isRequired,
+  toggleThumbsDownRecipe: PropTypes.func.isRequired,
+  toggleThumbsUpRecipe: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
+  editRecipe: PropTypes.func.isRequired,
+};
+
+RecipeCard.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
+ * @param {Object} state
+ *
  * @returns {object} object
  */
 const mapStateToProps = (state) => ({

@@ -72,6 +72,8 @@ class SignUpPage extends Component {
         if (signUpResponse[0] && signUpResponse[0].description) {
           toastr.error(signUpResponse[0].description, 'Error!');
           this.setState({ errors: signUpResponse });
+        } else {
+          this.history.push('/');
         }
         this.history.push('/');
       });

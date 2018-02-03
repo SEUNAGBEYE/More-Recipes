@@ -51,13 +51,14 @@ export function editRecipeAction(recipe) {
 
 /**
  * @export
- * @param {any} recipes
+ * @param {any} data
  * @returns {obj} obj
  */
-export function userRecipes(recipes) {
+export function userRecipes(data) {
   return {
     type: 'GET_USER_RECIPES',
-    recipes
+    recipes: data.data,
+    pagination: data.pagination
   };
 }
 
@@ -240,7 +241,7 @@ export function recipeCategories() {
  * @param {limit} limit
  * @returns {obj} obj
  */
-export function searchRecipes(search, page = 0, limit = 8) {
+export function searchRecipes(search, page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/recipes/search_results?search=${search}&limit=${limit}&page=${page}`)
     .then((res) => {
       const { data } = res;
@@ -266,7 +267,7 @@ export function getFavouritedRecipesIds() {
  * @param {any} page
  * @returns {obj} obj
  */
-export function getFavouritedRecipes(page) {
+export function getFavouritedRecipes(page = 1) {
   return dispatch => axios.get(`/api/v1/users/fav-recipes?limit=8&page=${page}`)
     .then((res) => {
       const { data, pagination } = res.data;
@@ -422,13 +423,18 @@ export function getRecipeReviews(id, limit, offset) {
 }
 
 /**
+ *
+ *
  * @export
- * @returns {obj} obj
+ * @param {number} [page=1]
+ * @param {number} [limit=8]
+ *
+ * @returns {Object} Object
  */
-export function getUserRecipes() {
-  return dispatch => axios.get('api/v1/users/myrecipes')
+export function getUserRecipes(page = 1, limit = 8) {
+  return dispatch => axios.get(`api/v1/users/myrecipes?page=${page}&limit=${limit}`)
     .then((res) => {
-      const { data } = res.data;
+      const { data } = res;
       return dispatch(userRecipes(data));
     })
     .catch((error) => {

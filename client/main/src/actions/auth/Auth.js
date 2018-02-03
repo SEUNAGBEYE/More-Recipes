@@ -38,7 +38,6 @@ function user(action, actionType, res, dispatch) {
   localStorage.setItem('token', token);
   setAuthorizationToken(token);
   const decoded = jwt.decode(token);
-  console.log('decoded', res);
   if (actionType === 'SET_CURRENT_USER') {
     toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
   } else {

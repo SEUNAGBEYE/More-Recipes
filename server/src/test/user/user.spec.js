@@ -20,7 +20,7 @@ describe('Test For Users Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(400);
           expect(res.body.message).to.equal('Password must be greater than 6');
-          assert.isObject(res.body, 'respone is an object');
+          assert.isObject(res.body, 'response is an object');
           done();
         });
     });
@@ -46,7 +46,7 @@ describe('Test For Users Routes', () => {
               description: 'Please provide a valid email address'
             },
           ]);
-          assert.isArray(res.body.errors, 'respone is an array of object');
+          assert.isArray(res.body.errors, 'response is an array of object');
           done();
         });
     });
@@ -74,9 +74,10 @@ describe('Test For Users Routes', () => {
           expect(res.body.data.lastName).equal('Agbeye');
           expect(res.body.data.email).equal('boy@mail.com.ng');
           expect(res.body.data.profilePicture).equal('This is my lovely image');
-          assert.isObject(res.body.data, 'respone is an object');
-          done();
+          assert.isObject(res.body.data, 'response is an object');
+          // done();
         });
+      done();
     });
   });
 
@@ -110,26 +111,26 @@ describe('Test For Users Routes', () => {
           expect(res).to.have.status(401);
           expect(res.body).to.not.have.property('token');
           expect(res.body.message).to.equal('Invalid Password or Email');
-          assert.isObject(res.body, 'respone is an object');
+          assert.isObject(res.body, 'response is an object');
           done();
         });
     });
   });
 
   describe('Test For Authenticating A User', () => {
-    it('should have a statusCode of 400 when a user provides only an email when logging in', (done) => {
+    it('should have a statusCode of 401 when a user provides only an email when logging in', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
           email: 'boy@mail.com.ng'
         })
         .end((error, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(401);
           expect(res.body).to.not.have.property('token');
           expect(res.body.status).to.equal('Failure');
-          expect(res.body.message).to.equals('Bad Request');
+          expect(res.body.message).to.equals('Invalid Password or Email');
           expect(res.body).to.not.have.property('userId');
-          assert.isObject(res.body, 'respone is object');
+          assert.isObject(res.body, 'response is object');
           done();
         });
     });
@@ -149,7 +150,7 @@ describe('Test For Users Routes', () => {
           expect(res.body.message).to.equal('User Not Found');
           expect(res.body).to.not.have.property('token');
           expect(res.body).to.not.have.property('userId');
-          assert.isObject(res.body, 'respone is an object');
+          assert.isObject(res.body, 'response is an object');
           done();
         });
     });
@@ -174,7 +175,7 @@ describe('Test For Users Routes', () => {
           assert.isArray(res.body.data.steps);
           assert.isArray(res.body.data.ingredients);
           expect(res.body.data).to.have.property('downvotes');
-          assert.isObject(res.body.data, 'respone is an object');
+          assert.isObject(res.body.data, 'response is an object');
           done();
         });
     });
@@ -199,7 +200,7 @@ describe('Test For Users Routes', () => {
           assert.isArray(res.body.data.steps);
           assert.isArray(res.body.data.ingredients);
           expect(res.body.data).to.have.property('downvotes');
-          assert.isObject(res.body.data, 'respone is an object');
+          assert.isObject(res.body.data, 'response is an object');
           done();
         });
     });
@@ -214,8 +215,7 @@ describe('Test For Users Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -262,14 +262,13 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 404 when a user trys to get their favorited recipe with a wrong token', (done) => {
+    it('should have a statusCode of 400 when a user trys to get their favorited recipe with a wrong token', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .set('token', 'aaaa')
         .end((error, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equals('User Not Found');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -288,14 +287,13 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 404 when a user get their favorited recipes id with a wrong token', (done) => {
+    it('should have a statusCode of 400 when a user get their favorited recipes id with a wrong token', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/getIds')
         .set('token', 'aaaa')
         .end((error, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equals('User Not Found');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -320,8 +318,7 @@ describe('Test For Users Routes', () => {
         .set('token', 'aaaa')
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -334,8 +331,7 @@ describe('Test For Users Routes', () => {
         .set('token', 'aaaa')
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Bad Request');
-          expect(res.body.errors).to.equals('invalid input syntax for integer: "aaaa"');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });

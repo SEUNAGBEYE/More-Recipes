@@ -1,4 +1,5 @@
 import model from '../models';
+import modelPaginator from '../helpers/modelPaginator';
 
 const {
   Recipe, Review, Category, User
@@ -11,8 +12,9 @@ const {
 class RecipeController {
   /**
  * This handles getting all recipes
- * @param {obj} req request object
- * @param {obj} res res object
+ * @param {Object} req request object
+ * @param {Object} res res object
+ *
  * @returns {null} json
  */
   static allRecipe(req, res) {
@@ -37,49 +39,26 @@ class RecipeController {
           data: recipes
         }))
         .catch(error => res.status(400).send({
-          status: 'Bad Request',
+          status: 'Failure',
           errors: error.message
         }));
     } else {
-      Recipe.findAndCountAll()
-        .then((recipesWithCount) => {
-          Recipe.findAll({
-            order: [['createdAt', 'DESC']],
-            offset: (recipesWithCount.count > req.query.limit) ?
-              (req.query.limit * (req.query.page - 1)) : 0,
-            limit: req.query.limit
-          })
-            .then((recipes) => {
-              //  This is for the remainder of the resume if the count is not even
-              const remainder = recipesWithCount.count % req.query.limit === 0 ?
-                0 : 1;
-              const page = Math.floor(recipesWithCount.count / req.query.limit) +
-               remainder;
-              res.status(200).send({
-                status: 'Success',
-                data: recipes,
-                pagination: page
-              });
-            })
-            .catch(error => res.status(400).send({
-              status: 'Bad Request',
-              error: error.message
-            }));
-        });
+      modelPaginator(Recipe, req, res);
     }
   }
 
   /**
   * This Handles adding a recipe
-  * @param {obj} req request object
-  * @param {obj} res res object
+  * @param {Object} req request object
+  * @param {Object} res res object
+  *
   * @returns {null} json
   */
   static addRecipe(req, res) {
-    return Recipe.create({
+    Recipe.create({
       id: req.body.id,
       name: req.body.name || '',
-      image: req.body.image || '',
+      image: req.body.image,
       description: req.body.description || '',
       steps: req.body.steps || [],
       ingredients: req.body.ingredients || [],
@@ -89,7 +68,7 @@ class RecipeController {
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
         if (errors) {
-          return res.status(400).send({
+          res.status(400).send({
             status: 'Failure',
             message: 'Bad Request',
             errors: errors.errors.map(recipeError => ({
@@ -103,11 +82,11 @@ class RecipeController {
 
   /**
   * This Handles getting a recipe
-  * @param {obj} req request object
-  * @param {obj} res res object
-  * @param {obj} next next function
+  * @param {Object} req request object
+  * @param {Object} res res object
+  * @param {Object} next next function
   * @param {number} id this is the id supplied by other class method when getting a single recipe
-  * @returns {obj} json
+  * @returns {Object} json
   */
   static getRecipe(req, res) {
     const { userId } = req.token || false;
@@ -128,7 +107,7 @@ class RecipeController {
     })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).send({
+          res.status(404).send({
             status: 'Failure',
             message: 'Recipe Not Found',
           });
@@ -144,16 +123,21 @@ class RecipeController {
           }
           recipe.update({ views: recipe.views });
         }
-        return res.status(200).send({ status: 'Success', data: recipe });
-      });
+        res.status(200).send({ status: 'Success', data: recipe });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
 
   /**
   * This Handles updating a recipe
-  * @param {obj} req request object
-  * @param {obj} res res object
-  * @param {obj} next next function
+  * @param {Object} req request object
+  * @param {Object} res res object
+  * @param {Object} next next function
   * @returns {null} json
   */
   static updateRecipe(req, res) {
@@ -161,6 +145,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -169,20 +154,30 @@ class RecipeController {
             .update(req.body, { fields: Object.keys(req.body) })
             .then(updatedRecipe => res.status(200).send({
               status: 'Success', data: updatedRecipe
+            }))
+            .catch(error => res.status(400).send({
+              status: 'Failure',
+              message: 'Bad Request',
+              error: error.message
             }));
         }
         return res.status(403).send({
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
   * This Handles reviewing a recipe
-  * @param {obj} req request object
-  * @param {obj} res res object
-  * @param {obj} next next function
+  * @param {Object} req request object
+  * @param {Object} res res object
+  * @param {Object} next next function
   * @returns {null} json
   */
   static reviewRecipe(req, res) {
@@ -190,6 +185,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -208,18 +204,23 @@ class RecipeController {
           .catch((errors) => {
             const newErrors = errors.errors;
             return res.status(400).send({
-              status: 'Bad Request',
+              status: 'Failure',
               errors: newErrors
             });
           });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static getReviews(req, res) {
@@ -241,16 +242,16 @@ class RecipeController {
         data: reviews
       }))
       .catch(error => res.status(400).send({
-        status: 'Bad Request',
+        status: 'Failure',
         error: error.message
       }));
   }
 
   /**
   * This Handles deletion a recipe
-  * @param {obj} req request object
-  * @param {obj} res res object
-  * @param {obj} next next function
+  * @param {Object} req request object
+  * @param {Object} res res object
+  * @param {Object} next next function
   * @returns {null} json
   */
   static deleteRecipe(req, res) {
@@ -258,7 +259,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -267,22 +268,32 @@ class RecipeController {
           return recipe
             .destroy()
             .then(() => res.status(204).send({
-              status: 'Deleted',
+              status: 'Succuess',
               message: 'No Content'
+            }))
+            .catch(error => res.status(400).send({
+              status: 'Failure',
+              message: 'Bad Request',
+              error: error.message
             }));
         }
         return res.status(403).send({
           status: 'Failure',
           message: 'Not Authorize'
         });
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static upVoteRecipe(req, res) {
@@ -305,7 +316,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -328,15 +339,26 @@ class RecipeController {
         })
           .then(recipe => res.status(200).send({
             status: 'Success', data: recipe
+          }))
+          .catch(error => res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
+            error: error.message
           }));
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   *
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static downVoteRecipe(req, res) {
@@ -359,7 +381,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
-            status: 'Not Found',
+            status: 'Failure',
             message: 'Recipe Not Found',
           });
         }
@@ -381,15 +403,25 @@ class RecipeController {
         })
           .then(recipe => res.status(200).send({
             status: 'Success', data: recipe
+          }))
+          .catch(error => res.status(400).send({
+            status: 'Failure',
+            message: 'Bad Request',
+            error: error.message
           }));
-      });
+      })
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
+      }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static popularRecipe(req, res) {
@@ -404,75 +436,45 @@ class RecipeController {
         status: 'Success',
         data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
           .splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
       }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} objk
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} objk
    * @memberof RecipeController
    */
   static searchRecipes(req, res) {
     const { search } = req.query;
-
-    Recipe.findAndCountAll({
-      where: {
-        $or: [
-          {
-            name: {
-              $iLike: `%${search}%`
-            },
+    const where = {
+      $or: [
+        {
+          name: {
+            $iLike: `%${search}%`
           },
-          {
-            ingredients: {
-              $contains: [`${search}`]
-            }
+        },
+        {
+          ingredients: {
+            $contains: [`${search}`]
           }
-        ]
-      }
-    })
-      .then((recipesWithCount) => {
-        Recipe.findAll({
-          order: [['createdAt', 'DESC']],
-          offset: (recipesWithCount.count > req.query.limit) ?
-            req.query.limit * req.query.page : 0,
-          limit: req.query.limit,
-          where: {
-            $or: [
-              {
-                name: {
-                  $iLike: `%${search}%`
-                },
-              },
-              {
-                ingredients: {
-                  $contains: [`${search}`]
-                }
-              }
-            ]
-          }
-        })
-          .then((recipes) => {
-            const remainder = recipesWithCount.count % req.query.limit === 0 ?
-              0 : 1;
-            const page = Math.floor(recipesWithCount.count / req.query.limit) +
-             remainder;
-            res.status(200).send({
-              status: 'Success',
-              data: recipes,
-              pagination: page
-            });
-          });
-      });
+        }
+      ]
+    };
+    modelPaginator(Recipe, req, res, where);
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static getCategories(req, res) {
@@ -482,14 +484,19 @@ class RecipeController {
       .then(categories => res.status(200).send({
         status: 'Success',
         data: categories
+      }))
+      .catch(error => res.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        error: error.message
       }));
   }
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} Object
    * @memberof RecipeController
    */
   static getCategory(req, res) {
@@ -504,27 +511,9 @@ class RecipeController {
         data: category
       }))
       .catch(error => res.status(400).send({
-        status: 'Bad Request',
+        status: 'Failure',
         error: error.message
       }));
-  }
-
-  /**
-   * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
-   * @memberof RecipeController
-   */
-  static getCategory(req, res) {
-    Category.findAll({
-      where: {
-        id: req.params.id
-      },
-      include: ['recipes']
-    })
-      .then(category => res.status(200).send({ status: 'Success', data: category }))
-      .catch(error => res.status(400).send({ status: 'Bad Request', error: error.message }));
   }
 }
 

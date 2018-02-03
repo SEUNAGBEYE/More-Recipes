@@ -48,7 +48,7 @@ const forgotPasswordModal = (props) => (
                 className="btn btn-secondary auth-button"
                 data-dismiss="modal"
               >
-                  Cancel
+                  Close
               </button>
             </div>
           </form>

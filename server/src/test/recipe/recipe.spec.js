@@ -330,7 +330,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .get('/10/reviews?limit=aaa')
         .end((error, res) => {
-          expect(res.body.status).equal('Bad Request');
+          expect(res.body.status).equal('Failure');
           expect(res).to.have.status(400);
           done();
         });
@@ -396,7 +396,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .get('?sort=upvotes&order=a')
         .end((error, res) => {
-          expect(res.body.status).equal('Bad Request');
+          expect(res.body.status).equal('Failure');
           expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
           done();

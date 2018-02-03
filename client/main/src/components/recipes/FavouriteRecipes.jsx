@@ -30,7 +30,7 @@ class FavoruriteRecipes extends Component {
  * @memberof FavoruriteRecipes
  */
   componentDidMount() {
-    this.paginateRecipes(0);
+    this.paginateRecipes(1);
   }
 
   /**
@@ -95,8 +95,8 @@ class FavoruriteRecipes extends Component {
  * @returns {object} object
  */
 const mapStateToProps = (state) => ({
-  recipesCount: state.recipes.recipesCount,
-  favouritedRecipes: state.recipes.favouriteRecipes
+  recipesCount: state.recipes.pagination,
+  favouritedRecipes: state.recipes.favouriteRecipes,
 });
 
 export default connect(mapStateToProps, {

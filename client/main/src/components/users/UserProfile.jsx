@@ -16,6 +16,7 @@ class UserProfile extends Component {
   /**
    * Creates an instance of UserProfile.
    * @param {any} props
+   *
    * @returns {void} void
    * @memberof UserProfile
    */
@@ -100,6 +101,7 @@ class UserProfile extends Component {
       firstName,
       lastName,
       profilePicture,
+      aboutMe
     } = this.props.auth.user;
     return (
       <div>
@@ -115,7 +117,12 @@ class UserProfile extends Component {
             <h1 style={{ margin: '1rem' }}>
               {`${firstName} ${lastName}`}
             </h1>
-            <div>About mesdfghgfdsdfghfdsdfgfdsdfg</div>
+            { aboutMe &&
+              <div>
+                About me
+
+              </div>
+            }
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-12">
                 <Link to="#"
@@ -131,7 +138,7 @@ class UserProfile extends Component {
                   data-target="#resetPasswordModal"
                 >
                   <i className="fa fa-key icons"
-                    title="Reset Password"
+                    title="Change Password"
                     data-toggle="tooltip" /></Link>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12">

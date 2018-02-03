@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader';
+import PropTypes from 'prop-types';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
 import Input from './Input';
@@ -11,44 +12,55 @@ import Input from './Input';
  */
 export default class RecipeModal extends Component {
   /**
-	 * Creates an instance of RecipeModal.
-	 * @param {any} props
-	 * @memberof RecipeModal
-	 */
+   * Creates an instance of RecipeModal.
+   * @param {Object} props
+   * @memberof RecipeModal
+   */
   constructor(props) {
     super(props);
-    this.state = {
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.stepClick = this.stepClick.bind(this);
+    this.ingredientClick = this.ingredientClick.bind(this);
+    this.state = RecipeModal.initialState();
+  }
+
+  /**
+ *
+ *
+ * @returns {Object} state
+ * @memberof RecipeModal
+ */
+  static initialState() {
+    const state = {
       name: '',
       description: '',
-      image: '',
       ingredients: [],
       categoryId: 1,
       steps: [],
       errors: [],
       loaded: true
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.stepClick = this.stepClick.bind(this);
-    this.ingredientClick = this.ingredientClick.bind(this);
+    return state;
   }
 
-
   /**
-	 * @returns {void} void
-	 * @param {any} event
-	 * @memberof RecipeModal
-	 */
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * @memberof RecipeModal
+   */
   stepClick(event) {
     event.preventDefault();
     this.setState({ steps: [...this.state.steps, ''] });
   }
 
   /**
-	 *@returns {void} void
-	 * @param {any} event
-	 * @memberof RecipeModal
-	 */
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * @memberof RecipeModal
+   */
   ingredientClick(event) {
     event.preventDefault();
     this.setState({ ingredients: [...this.state.ingredients, ''] });
@@ -56,11 +68,11 @@ export default class RecipeModal extends Component {
 
 
   /**
- *
- *@returns {void} void
- * @param {any} event
- * @memberof RecipeModal
- */
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * @memberof RecipeModal
+   */
   async onSubmit(event) {
     event.preventDefault();
     this.setState({ loaded: false });
@@ -73,30 +85,33 @@ export default class RecipeModal extends Component {
           this.props.addRecipe(this.state)
             .then(res => {
               $('.modal').modal('hide');
-              document.getElementById('form').reset();
-              this.setState({ loaded: true });
+              this.setState(RecipeModal.initialState());
             })
             .catch(error => {
-              this.setState({ loaded: true });
+              this.setState(RecipeModal.initialState());
               this.setState({ errors: error.response.data.errors });
             });
         });
       } catch (error) {
         console.log('errors', error.response);
-        this.setState({ loaded: true });
+        this.setState(RecipeModal.initialState());
       }
     } else {
-      this.props.addRecipe(this.state);
-      document.getElementById('form').reset();
+      this.props.addRecipe(this.state)
+        .then(res => {
+          $('.modal').modal('hide');
+          this.setState(RecipeModal.initialState());
+        });
     }
   }
 
   /**
- *
- *@return {void} void
- * @param {any} event
- * @memberof RecipeModal
- */
+   *
+   * @param {Object} event
+   *
+   * @return {void} void
+   * @memberof RecipeModal
+   */
   onChange(event) {
     event.preventDefault();
     const { name: stateKey, id, value } = event.target;
@@ -117,9 +132,9 @@ export default class RecipeModal extends Component {
   }
 
   /**
-	 * @returns {jsx} JSX
-	 * @memberof RecipeModal
-	 */
+   * @returns {jsx} JSX
+   * @memberof RecipeModal
+   */
   render() {
     const stepFields = this.state.steps.map((step, index) => (
       <Input key={index}
@@ -168,16 +183,16 @@ export default class RecipeModal extends Component {
 
                   <fieldset className="form-group">
                     <label htmlFor="image" className="form-inline">
-											The maximum file size allowed is 4mb
-                      <input type="file" className="form-control" id="recipePicture" name="image" required/>
-											Click to add image
+                      The maximum file size allowed is 4mb
+                      <input type="file" className="form-control" id="recipePicture" name="image"/>
+                        Click to add image
                     </label>
                   </fieldset>
 
 
                   <fieldset className="form-group">
-                    <label htmlFor="image" className="form-inline">
-											Category
+                    <label htmlFor="category" className="form-inline">
+                      Category
                     </label>
                     <select className="form-control" onChange={this.onChange} name="categoryId" required>
                       {
@@ -222,4 +237,11 @@ export default class RecipeModal extends Component {
     );
   }
 }
+
+const propTypes = {
+  recipeCategories: PropTypes.array.isRequired,
+  addRecipe: PropTypes.func.isRequired,
+};
+
+RecipeModal.propTypes = propTypes;
 

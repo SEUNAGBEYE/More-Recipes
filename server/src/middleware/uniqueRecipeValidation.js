@@ -17,7 +17,7 @@ function uniqueRecipeValidation(req, res, next) {
   })
     .then((recipe) => {
       if (recipe) {
-        return res.status(400).send({ status: 'Bad Request', errors: [{ description: 'You Already added A Recipe With This Name' }] });
+        return res.status(400).send({ status: 'Failure', errors: [{ description: 'You Already added A Recipe With This Name' }] });
       }
       next();
     });

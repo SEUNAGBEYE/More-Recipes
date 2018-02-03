@@ -6,7 +6,8 @@ const initialState = {
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
   popularRecipes: [],
-  recipeCategories: []
+  recipeCategories: [],
+  loading: false
 };
 
 export default (state = initialState, action = {}) => {
@@ -28,8 +29,8 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{
-        allRecipes:
-        action.recipes
+        allRecipes: action.recipes,
+        pagination: action.pagination
       }
     };
 
@@ -49,6 +50,7 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         recipeCategories: action.recipeCategories,
+        loading: true
       }
     };
   case 'GET_POPULAR_RECIPES':

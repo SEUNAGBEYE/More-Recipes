@@ -17,13 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Image is Required'
-        }
-
-      }
+      defaultValue: 'https://res.cloudinary.com/seun/image/upload/v1512979224/ctvqx5p0wu3rp0gcozsj.png'
     },
     views: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),

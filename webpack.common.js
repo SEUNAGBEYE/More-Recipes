@@ -1,10 +1,10 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: ['babel-polyfill', path.join(__dirname, 'client/main/src/app.js')],
   output: {
-    path: path.join(__dirname, 'client/main/public'),
+    path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -26,10 +26,6 @@ module.exports = {
       use: ['file-loader']
     }]
   },
-  devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    publicPath: '/',
-  },
   plugins: [
     new webpack.EnvironmentPlugin([
       'CLOUDINARY_UPLOAD_PRESET',
@@ -38,6 +34,5 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.jsx', '.js']
-  },
-  watch: true
+  }
 };
