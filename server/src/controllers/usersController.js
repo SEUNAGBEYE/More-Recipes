@@ -25,7 +25,7 @@ class UserController {
       });
     }
 
-    return User.create({
+    User.create({
       id: req.body.id,
       firstName: req.body.firstName || '',
       lastName: req.body.lastName || '',
@@ -58,7 +58,7 @@ class UserController {
           profilePicture,
           token,
         };
-        res.status(201).send({ status: 'Success', data: userProfile });
+        return res.status(201).send({ status: 'Success', data: userProfile });
       })
       .catch(errors => res.status(400).send({
         status: 'Failure',

@@ -55,7 +55,7 @@ class RecipeController {
   * @returns {null} json
   */
   static addRecipe(req, res) {
-    return Recipe.create({
+    Recipe.create({
       id: req.body.id,
       name: req.body.name || '',
       image: req.body.image,
@@ -68,7 +68,7 @@ class RecipeController {
       .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
       .catch((errors) => {
         if (errors) {
-          return res.status(400).send({
+          res.status(400).send({
             status: 'Failure',
             message: 'Bad Request',
             errors: errors.errors.map(recipeError => ({
@@ -107,7 +107,7 @@ class RecipeController {
     })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).send({
+          res.status(404).send({
             status: 'Failure',
             message: 'Recipe Not Found',
           });
@@ -123,7 +123,7 @@ class RecipeController {
           }
           recipe.update({ views: recipe.views });
         }
-        return res.status(200).send({ status: 'Success', data: recipe });
+        res.status(200).send({ status: 'Success', data: recipe });
       });
   }
 
