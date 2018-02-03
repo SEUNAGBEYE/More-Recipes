@@ -75,6 +75,7 @@ class SignUpPage extends Component {
         } else {
           this.history.push('/');
         }
+        this.history.push('/');
       });
   }
 

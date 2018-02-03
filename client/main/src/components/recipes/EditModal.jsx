@@ -27,7 +27,7 @@ export default class EditModal extends Component {
       errors: {},
       stepsTimes: '',
       ingredientsTimes: [],
-      loaded: true
+      loaded: true,
     };
     this.onChange = this.onChange.bind(this);
     this.stepClick = this.stepClick.bind(this);
