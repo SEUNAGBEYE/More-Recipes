@@ -10,6 +10,7 @@
   "scripts": {
     "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
+    "client:side:test": "jest",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": " NODE_ENV=development nodemon --exec npm run babel-node -- ./server/src/index.js",
     "client-server": "webpack-dev-server",
@@ -83,18 +84,24 @@
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.9.4",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "redux-mock-store": "^1.5.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
+    "babel-jest": "^22.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-react": "^7.5.1",
+    "jest": "^22.1.4",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
+    "moxios": "^0.4.0",
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "request": "^2.83.0"
