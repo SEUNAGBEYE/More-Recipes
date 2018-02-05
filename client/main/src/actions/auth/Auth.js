@@ -1,6 +1,12 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
+import actionTypes from '../actionTypes';
+
+const {
+  SET_CURRENT_USER,
+  UPDATE_PROFILE,
+} = actionTypes;
 
 /**
  * @export
@@ -9,7 +15,7 @@ import setAuthorizationToken from '../../../utils/setAuthorizationToken';
  */
 export function setCurrentUserAction(user) {
   return {
-    type: 'SET_CURRENT_USER',
+    type: SET_CURRENT_USER,
     user
   };
 }
@@ -21,7 +27,7 @@ export function setCurrentUserAction(user) {
  */
 export function updateProfileAction(user) {
   return {
-    type: 'UPDATE_PROFILE',
+    type: UPDATE_PROFILE,
     user
   };
 }

@@ -3,17 +3,25 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import expect from 'expect';
 
+import actionTypes from '../../main/src/actions/actionTypes';
+
 import { login,
   signUpRequest,
   logout,
   updateProfile,
   forgotPassword,
   confirmForgotPassword
-} from '../../main//src/actions/auth/Auth';
-import { response,
+} from '../../main/src/actions/auth/Auth';
+
+import { setUserResponse,
   changePasswordResponse,
   forgotPasswordResponse
 } from '../__mocks__/actions/user';
+
+const {
+  SET_CURRENT_USER,
+  UPDATE_PROFILE
+} = actionTypes;
 
 const mockStore = configureMockStore([thunk]);
 
@@ -23,19 +31,19 @@ describe('Auth', () => {
 
 
   describe('SignUp', () => {
-    it('should SET_CURRENT_USER when a user is succussfully signup', () => {
+    it('should SET_CURRENT_USERwhen a user is succussfully signup', () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
-          response
+          response: setUserResponse
         });
       });
 
       const expectedAction = [
         {
-          type: 'SET_CURRENT_USER',
-          user: response.data.token
+          type: SET_CURRENT_USER,
+          user: setUserResponse.data.token
         }
       ];
       const store = mockStore({ });
@@ -47,19 +55,19 @@ describe('Auth', () => {
   });
 
   describe('SignIn', () => {
-    it('should SET_CURRENT_USER when a user is succussfully signin', () => {
+    it('shouldSET_CURRENT_USER,when a user is succussfully signin', () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
-          response
+          response: setUserResponse
         });
       });
 
       const expectedAction = [
         {
-          type: 'SET_CURRENT_USER',
-          user: response.data.token
+          type: SET_CURRENT_USER,
+          user: setUserResponse.data.token
         }
       ];
       const store = mockStore({ });
@@ -71,10 +79,10 @@ describe('Auth', () => {
   });
 
   describe('SignOut', () => {
-    it('should SET_CURRENT_USER when a user is succussfully signout', () => {
+    it('shouldSET_CURRENT_USER,when a user is succussfully signout', () => {
       const expectedAction = [
         {
-          type: 'SET_CURRENT_USER',
+          type: SET_CURRENT_USER,
           user: {}
         }
       ];
@@ -90,14 +98,14 @@ describe('Auth', () => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
-          response
+          response: setUserResponse
         });
       });
 
       const expectedAction = [
         {
-          type: 'UPDATE_PROFILE',
-          user: response.data.token
+          type: UPDATE_PROFILE,
+          user: setUserResponse.data.token
         }
       ];
       const store = mockStore({ });

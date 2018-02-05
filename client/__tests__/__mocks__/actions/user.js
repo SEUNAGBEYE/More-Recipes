@@ -1,5 +1,5 @@
 
-const response = {
+const setUserResponse = {
   status: 'Success',
   data: { token: { firstName: 'Seun', lastName: 'Beye' } }
 };
@@ -14,4 +14,4 @@ const forgotPasswordResponse = {
   message: 'A Message has been sent to the email provided kindly read to mail to reset your password'
 };
 
-export { response, changePasswordResponse, forgotPasswordResponse };
+export { setUserResponse, changePasswordResponse, forgotPasswordResponse };
