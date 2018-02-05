@@ -1,3 +1,23 @@
+import actionTypes from '../actions/actionTypes';
+
+const {
+  GET_RECIPE,
+  GET_RECIPES,
+  GET_USER_RECIPES,
+  GET_USER_FAVOURITED_RECIPES_ID,
+  GET_FAVOURITED_RECIPES,
+  GET_POPULAR_RECIPES,
+  GET_RECIPE_REVIEWS,
+  RECIPE_CATEGORIES,
+  SEARCH_RECIPES,
+  ADD_RECIPE,
+  DELETE_RECIPE,
+  EDIT_RECIPE,
+  TOGGLE_FAVOURITE_RECIPE,
+  TOGGLE_THUMBS_UP_RECIPE,
+  TOGGLE_THUMBS_DOWN_RECIPE,
+  REVIEW_RECIPE
+} = actionTypes;
 
 const initialState = {
   allRecipes: [],
@@ -16,16 +36,16 @@ export default (state = initialState, action = {}) => {
   const { recipe: recipeOnAction } = action;
 
   switch (action.type) {
-  case 'ADD_RECIPE':
+  case ADD_RECIPE:
     return {
       ...state,
       ...{ allRecipes: [action.recipe, ...state.allRecipes] }
     };
 
-  case 'GET_RECIPE':
+  case GET_RECIPE:
     return { ...state, ...{ singleRecipe: action.recipe } };
 
-  case 'GET_USER_RECIPES':
+  case GET_USER_RECIPES:
     return {
       ...state,
       ...{
@@ -34,17 +54,17 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'GET_RECIPES':
+  case GET_RECIPES:
 
     return {
       ...state,
       ...{
-        allRecipes: action.allRecipes,
+        allRecipes: action.recipes,
         pagination: action.pagination
       }
     };
 
-  case 'RECIPE_CATEGORIES':
+  case RECIPE_CATEGORIES:
 
     return {
       ...state,
@@ -53,7 +73,7 @@ export default (state = initialState, action = {}) => {
         loading: true
       }
     };
-  case 'GET_POPULAR_RECIPES':
+  case GET_POPULAR_RECIPES:
     return {
       ...state,
       ...{
@@ -61,7 +81,7 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'SEARCH_RECIPES':
+  case SEARCH_RECIPES:
     return {
       ...state,
       ...{
@@ -70,14 +90,14 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'DELETE_RECIPE':
+  case DELETE_RECIPE:
     return {
       ...state,
       ...{ allRecipes: state.allRecipes.filter(recipe => recipe.id !== action.id) }
     };
 
 
-  case 'EDIT_RECIPE':
+  case EDIT_RECIPE:
     if (allRecipes.length >= 1) {
       allRecipes = allRecipes.map((recipe) => {
         if (parseInt(recipe.id, 10) === parseInt(action.recipe.id, 10)) {
@@ -95,7 +115,7 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'TOGGLE_FAVOURITE_RECIPE':
+  case TOGGLE_FAVOURITE_RECIPE:
     return {
       ...state,
       ...{
@@ -110,7 +130,7 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'TOGGLE_THUMBS_UP_RECIPE':
+  case TOGGLE_THUMBS_UP_RECIPE:
 
 
     return {
@@ -132,7 +152,7 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'TOGGLE_THUMBS_DOWN_RECIPE':
+  case TOGGLE_THUMBS_DOWN_RECIPE:
 
     return {
       ...state,
@@ -153,25 +173,25 @@ export default (state = initialState, action = {}) => {
       }
     };
 
-  case 'GET_FAVOURITED_RECIPES':
+  case GET_FAVOURITED_RECIPES:
     return {
       ...state,
       favouriteRecipes: [...action.favouriteRecipes],
       pagination: action.pagination
     };
 
-  case 'GET_USER_FAVOURITED_RECIPES_ID':
+  case GET_USER_FAVOURITED_RECIPES_ID:
     return {
       ...state,
       ...{ userFavouritedRecipeId: action.favouritedRecipesIds }
     };
-  case 'REVIEW_RECIPE':
+  case REVIEW_RECIPE:
     singleRecipe.reviews = [action.reviewBody, ...singleRecipe.reviews];
     return {
       ...state,
       ...{ singleRecipe: singleRecipe }
     };
-  case 'GET_RECIPE_REVIEWS':
+  case GET_RECIPE_REVIEWS:
     singleRecipe.reviews = [...singleRecipe.reviews, ...action.reviews];
     return {
       ...state,

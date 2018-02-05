@@ -1,6 +1,13 @@
 
 import isEmpty from 'lodash/isEmpty';
 
+import actionTypes from '../actions/actionTypes';
+
+const {
+  SET_CURRENT_USER,
+  UPDATE_PROFILE
+} = actionTypes;
+
 const initialState = {
   isAuthenticated: false,
   user: {},
@@ -15,9 +22,9 @@ const setUser = (action) => ({
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-  case 'SET_CURRENT_USER':
+  case SET_CURRENT_USER:
     return setUser(action);
-  case 'UPDATE_PROFILE':
+  case UPDATE_PROFILE:
     return setUser(action);
   default: return state;
   }
