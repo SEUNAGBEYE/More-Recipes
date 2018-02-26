@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/SEUNAGBEYE/More-Recipes.svg?branch=server-developing)](https://travis-ci.org/SEUNAGBEYE/More-Recipes)
 [![Coverage Status](https://coveralls.io/repos/github/SEUNAGBEYE/More-Recipes/badge.svg?branch=development)](https://coveralls.io/github/SEUNAGBEYE/More-Recipes?branch=development)
+[![codecov](https://codecov.io/gh/SEUNAGBEYE/More-Recipes/branch/development/graph/badge.svg)](https://codecov.io/gh/SEUNAGBEYE/More-Recipes)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cfa1eddd9d86ea7c5b4d/maintainability)](https://codeclimate.com/github/SEUNAGBEYE/More-Recipes/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cfa1eddd9d86ea7c5b4d/test_coverage)](https://codeclimate.com/github/SEUNAGBEYE/More-Recipes/test_coverage)
 

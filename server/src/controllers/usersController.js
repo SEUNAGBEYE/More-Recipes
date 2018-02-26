@@ -277,44 +277,40 @@ class UserController {
    * @returns {obj} obj
    * @memberof UserController
    */
-  static updateProfile(req, res) {
-    User.findById(req.token.userId, {
+  static async updateProfile(req, res) {
+    const user = await User.findById(req.token.userId, {
       attributes: {
         exclude: ['password', 'createdAt', 'updatedAt', 'rememberToken']
       }
-    })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'User Not Found'
-          });
-        }
-        if (user.id === req.token.userId) {
-          return user
-            .update(req.body, { fields: Object.keys(req.body) })
-            .then((profile) => {
-              const { id: userId, ...data } = profile.get();
-              const userProfile = { userId, ...data };
-              const token = jwtSigner(userProfile);
-              res.status(200).send({ status: 'Success', data: { token } });
-            })
-            .catch(errors => res.status(400).send({
-              status: 'Failure',
-              message: 'Bad Request',
-              errors: errors.message
-            }));
-        }
-        return res.status(403).send({
-          status: 'Failure',
-          message: 'Not Authorize'
-        });
-      })
-      .catch(error => res.status(400).send({
+    });
+
+    if (!user) {
+      return res.status(404).send({
         status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+        message: 'User Not Found'
+      });
+    }
+
+    if (user.id === req.token.userId) {
+      try {
+        const updatedUser = await user.update(req.body, { fields: Object.keys(req.body) });
+        const { id: userId, ...data } = updatedUser.get();
+        const userProfile = { userId, ...data };
+        const token = jwtSigner(userProfile);
+        res.status(200).send({ status: 'Success', data: { token } });
+      } catch (errors) {
+        console.log('>>>>>>>>>>>>>>>>>Error', errors)
+        return res.status(400).send({
+          status: 'Failure',
+          message: 'Bad Request',
+          errors: errors.message
+        });
+      }
+      return res.status(403).send({
+        status: 'Failure',
+        message: 'Not Authorize'
+      });
+    }
   }
 
   /**

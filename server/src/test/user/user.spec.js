@@ -365,7 +365,6 @@ describe('Test For Users Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(200);
           expect(res.body.data).to.have.property('token');
-          console.log('>>>>>>>>>>>>>>>>>>', error)
           done();
         });
     });
