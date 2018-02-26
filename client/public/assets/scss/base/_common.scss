@@ -8,17 +8,6 @@ a, a:hover {
   text-decoration: none;
 }
 
-.auth-button{
-  margin: 0 10px 13px 0;
-  color: $white;
-  background: $orange;
-  border: 1px solid $orange;
-  border-radius: 5px;
-  padding: 2px 4px 4px 4px;
-  font-weight: bold;
-  float: right;
-
-}
 
 .auth-button:hover {
 	background: #FFF;
@@ -130,12 +119,12 @@ input[type = "checkbox"]{
 	text-align: center;
 }
 
-#login{
+.auth-button{
 	color: $white;
 	background: $orange;
 	border: 1px solid $orange;
-	position: relative;
-	/*top: -30px;*/
+  position: relative;
+  float: right
 }
 
 #login:hover{

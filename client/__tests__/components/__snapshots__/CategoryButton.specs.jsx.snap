@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# CategoryButton should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CategoryButton
+    categories={Array []}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          className="btn btn-default dropdown-toggle auth-button"
+          data-toggle="dropdown"
+          id="about-us"
+          type="button"
+        >
+          Category
+        </button>,
+        <div
+          aria-labelledby="about-us"
+          className="dropdown-menu"
+        />,
+      ],
+      "className": "dropdown",
+      "style": Object {
+        "float": "left",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "aria-expanded": "false",
+          "aria-haspopup": "true",
+          "children": "Category",
+          "className": "btn btn-default dropdown-toggle auth-button",
+          "data-toggle": "dropdown",
+          "id": "about-us",
+          "type": "button",
+        },
+        "ref": null,
+        "rendered": "Category",
+        "type": "button",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "aria-labelledby": "about-us",
+          "children": Array [],
+          "className": "dropdown-menu",
+        },
+        "ref": null,
+        "rendered": Array [],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            className="btn btn-default dropdown-toggle auth-button"
+            data-toggle="dropdown"
+            id="about-us"
+            type="button"
+          >
+            Category
+          </button>,
+          <div
+            aria-labelledby="about-us"
+            className="dropdown-menu"
+          />,
+        ],
+        "className": "dropdown",
+        "style": Object {
+          "float": "left",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "aria-expanded": "false",
+            "aria-haspopup": "true",
+            "children": "Category",
+            "className": "btn btn-default dropdown-toggle auth-button",
+            "data-toggle": "dropdown",
+            "id": "about-us",
+            "type": "button",
+          },
+          "ref": null,
+          "rendered": "Category",
+          "type": "button",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "aria-labelledby": "about-us",
+            "children": Array [],
+            "className": "dropdown-menu",
+          },
+          "ref": null,
+          "rendered": Array [],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

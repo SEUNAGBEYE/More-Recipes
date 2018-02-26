@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
-
 /**
  * @export
  * @class EditModal
@@ -36,21 +36,22 @@ export default class EditModal extends Component {
   }
 
   /**
-	 * @param {any} event
-	 * @memberof EditModal
-	 * @returns {void} void
-	 */
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * * @memberof EditModal
+   */
   stepClick(event) {
-    console.log('Clicking')
     event.preventDefault();
     this.setState({ steps: [...this.state.steps, ''] });
   }
 
   /**
-	 * @param {any} event
-	 *  @returns {void} void
-	 * @memberof EditModal
-	 */
+   * @param {Object} event
+   *
+   *  @returns {void} void
+   * @memberof EditModal
+   */
   ingredientClick(event) {
     event.preventDefault();
     this.setState({ ingredients: [...this.state.ingredients, ''] });
@@ -58,10 +59,11 @@ export default class EditModal extends Component {
 
 
   /**
-	 * @param {any} event
-	 *  @returns {void} void
-	 * @memberof EditModal
-	 */
+   * @param {Object} event
+   *
+   *  @returns {void} void
+   * @memberof EditModal
+   */
   onChange(event) {
     event.preventDefault();
     const { name: stateKey, id, value } = event.target;
@@ -82,10 +84,11 @@ export default class EditModal extends Component {
   }
 
   /**
-	 * @param {any} event
-	 *  @returns {void} void
-	 * @memberof EditModal
-	 */
+   * @param {Object} event
+   *
+   *  @returns {void} void
+   * @memberof EditModal
+   */
   updateRecipe(event) {
     event.preventDefault();
     const { id } = event.target;
@@ -108,17 +111,17 @@ export default class EditModal extends Component {
             this.setState({ loaded: true });
           });
       }
-	 } else {
+    } else {
       this.setState({ loaded: true, image: this.props.recipe.image });
       this.props.editRecipe(this.props.recipe.id, this.state);
       $('.modal').modal('hide');
-	 }
+    }
   }
 
   /**
-	 * @returns {jsx} jsx
-	 * @memberof EditModal
-	 */
+   * @returns {jsx} jsx
+   * @memberof EditModal
+   */
   render() {
     const { recipe } = this.props;
     const stepFields = this.state.steps.map((step, index) => (
@@ -142,14 +145,17 @@ export default class EditModal extends Component {
     ));
 
     return (
-
       <div>
-
-        <div className="modal fade" id={`editModal${this.props.recipe.id}`} tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div className="modal fade" id={`editModal${recipe.id}`}
+          tabIndex="-1" role="dialog" aria-labelledby="modalLabel"
+          aria-hidden="true"
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" className="close" data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 className="modal-title" id="modalLabel">Recipe</h4>
@@ -159,18 +165,33 @@ export default class EditModal extends Component {
                 <form>
                   <fieldset className="form-group">
                     <label htmlFor="name" className="form-inline">Name</label>
-                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} defaultValue={recipe.name}/>
+                    <input type="text" className="form-control" id="recipeName"
+                      name="name" onChange={this.onChange}
+                      defaultValue={recipe.name}
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <label htmlFor="recipeDescription" className="form-inline">Description</label>
-                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} defaultValue={recipe.description} />
+                    <label htmlFor="recipeDescription"
+                      className="form-inline"
+                    >
+                      Description
+                    </label>
+                    <textarea className="form-control" id="description"
+                      name="description" cols="50" rows = "5"
+                      onChange={this.onChange}
+                      defaultValue={recipe.description}
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <label htmlFor="image" className="form-inline">Picture</label>
+                    <label htmlFor="image" className="form-inline">
+                      Picture
+                    </label>
                       The maximum file size allowed is 4mb
-                    <input type="file" className="form-control" id={`recipePicture${recipe.id}`} name="image"/>
+                    <input type="file" className="form-control"
+                      id={`recipePicture${recipe.id}`} name="image"
+                    />
                   </fieldset>
 
                   {ingredientFields}
@@ -189,7 +210,11 @@ export default class EditModal extends Component {
 
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
-                    <button className="btn btn-secondary auth-button" id={recipe.id} onClick={this.updateRecipe}>Update</button>
+                    <button className="btn btn-secondary auth-button"
+                      id={recipe.id} onClick={this.updateRecipe}
+                    >
+                    Update
+                    </button>
                     <button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
                       Cancel
                     </button>
@@ -204,4 +229,11 @@ export default class EditModal extends Component {
     );
   }
 }
+
+const propTypes = {
+  editRecipe: PropTypes.func.isRequired,
+  recipe: PropTypes.object.isRequired,
+};
+
+EditModal.propTypes = propTypes;
 

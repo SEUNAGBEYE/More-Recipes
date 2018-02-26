@@ -1,0 +1,1882 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# Pagination should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Pagination
+    recipesCount={4}
+    recipesPagination={[MockFunction]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          />
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          >
+            <nav
+              style={
+                Object {
+                  "margin": 20,
+                }
+              }
+            >
+              <ul
+                className="pagination pagination-sm text-center"
+              >
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    aria-label="Previous"
+                    className="page-link"
+                    id="previous"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      «
+                    </span>
+                  </Link>
+                </li>
+                <li
+                  className="page-item active"
+                >
+                  <Link
+                    className="page-link page-link-active"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    1
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    2
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    3
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    4
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    aria-label="Next"
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      »
+                    </span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          />
+        </div>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="row"
+        >
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          />
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          >
+            <nav
+              style={
+                Object {
+                  "margin": 20,
+                }
+              }
+            >
+              <ul
+                className="pagination pagination-sm text-center"
+              >
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    aria-label="Previous"
+                    className="page-link"
+                    id="previous"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      «
+                    </span>
+                  </Link>
+                </li>
+                <li
+                  className="page-item active"
+                >
+                  <Link
+                    className="page-link page-link-active"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    1
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    2
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    3
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    4
+                  </Link>
+                </li>
+                <li
+                  className="page-item"
+                >
+                  <Link
+                    aria-label="Next"
+                    className="page-link"
+                    onClick={[Function]}
+                    replace={false}
+                    to="/"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      »
+                    </span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div
+            className="col-xs-1 col-sm-1 col-md-4"
+          />
+        </div>,
+        "className": "container",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />,
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            >
+              <nav
+                style={
+                  Object {
+                    "margin": 20,
+                  }
+                }
+              >
+                <ul
+                  className="pagination pagination-sm text-center"
+                >
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Previous"
+                      className="page-link"
+                      id="previous"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        «
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item active"
+                  >
+                    <Link
+                      className="page-link page-link-active"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      1
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      2
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      3
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      4
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Next"
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        »
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>,
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />,
+          ],
+          "className": "row",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "col-xs-1 col-sm-1 col-md-4",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <nav
+                style={
+                  Object {
+                    "margin": 20,
+                  }
+                }
+              >
+                <ul
+                  className="pagination pagination-sm text-center"
+                >
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Previous"
+                      className="page-link"
+                      id="previous"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        «
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item active"
+                  >
+                    <Link
+                      className="page-link page-link-active"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      1
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      2
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      3
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      4
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Next"
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        »
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>,
+              "className": "col-xs-1 col-sm-1 col-md-4",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <ul
+                  className="pagination pagination-sm text-center"
+                >
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Previous"
+                      className="page-link"
+                      id="previous"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        «
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item active"
+                  >
+                    <Link
+                      className="page-link page-link-active"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      1
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      2
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      3
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      4
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Next"
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        »
+                      </span>
+                    </Link>
+                  </li>
+                </ul>,
+                "style": Object {
+                  "margin": 20,
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Previous"
+                        className="page-link"
+                        id="previous"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>
+                      </Link>
+                    </li>,
+                    Array [
+                      <li
+                        className="page-item active"
+                      >
+                        <Link
+                          className="page-link page-link-active"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          1
+                        </Link>
+                      </li>,
+                      <li
+                        className="page-item"
+                      >
+                        <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          2
+                        </Link>
+                      </li>,
+                      <li
+                        className="page-item"
+                      >
+                        <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          3
+                        </Link>
+                      </li>,
+                      <li
+                        className="page-item"
+                      >
+                        <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          4
+                        </Link>
+                      </li>,
+                    ],
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Next"
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>
+                      </Link>
+                    </li>,
+                  ],
+                  "className": "pagination pagination-sm text-center",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        aria-label="Previous"
+                        className="page-link"
+                        id="previous"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>
+                      </Link>,
+                      "className": "page-item",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "aria-label": "Previous",
+                        "children": <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>,
+                        "className": "page-link",
+                        "id": "previous",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "aria-hidden": "true",
+                          "children": "«",
+                        },
+                        "ref": null,
+                        "rendered": "«",
+                        "type": "span",
+                      },
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": "0",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        className="page-link page-link-active"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        1
+                      </Link>,
+                      "className": "page-item active",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": 1,
+                        "className": "page-link page-link-active",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": 1,
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": "1",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        2
+                      </Link>,
+                      "className": "page-item",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": 2,
+                        "className": "page-link",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": 2,
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": "2",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        3
+                      </Link>,
+                      "className": "page-item",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": 3,
+                        "className": "page-link",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": 3,
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": "3",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        4
+                      </Link>,
+                      "className": "page-item",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": 4,
+                        "className": "page-link",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": 4,
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <Link
+                        aria-label="Next"
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>
+                      </Link>,
+                      "className": "page-item",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "aria-label": "Next",
+                        "children": <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>,
+                        "className": "page-link",
+                        "onClick": [Function],
+                        "replace": false,
+                        "to": "/",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "aria-hidden": "true",
+                          "children": "»",
+                        },
+                        "ref": null,
+                        "rendered": "»",
+                        "type": "span",
+                      },
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                ],
+                "type": "ul",
+              },
+              "type": "nav",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "col-xs-1 col-sm-1 col-md-4",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="container"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            >
+              <nav
+                style={
+                  Object {
+                    "margin": 20,
+                  }
+                }
+              >
+                <ul
+                  className="pagination pagination-sm text-center"
+                >
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Previous"
+                      className="page-link"
+                      id="previous"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        «
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item active"
+                  >
+                    <Link
+                      className="page-link page-link-active"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      1
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      2
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      3
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      4
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Next"
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        »
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />
+          </div>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="row"
+          >
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            >
+              <nav
+                style={
+                  Object {
+                    "margin": 20,
+                  }
+                }
+              >
+                <ul
+                  className="pagination pagination-sm text-center"
+                >
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Previous"
+                      className="page-link"
+                      id="previous"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        «
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item active"
+                  >
+                    <Link
+                      className="page-link page-link-active"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      1
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      2
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      3
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      4
+                    </Link>
+                  </li>
+                  <li
+                    className="page-item"
+                  >
+                    <Link
+                      aria-label="Next"
+                      className="page-link"
+                      onClick={[Function]}
+                      replace={false}
+                      to="/"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        »
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              className="col-xs-1 col-sm-1 col-md-4"
+            />
+          </div>,
+          "className": "container",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="col-xs-1 col-sm-1 col-md-4"
+              />,
+              <div
+                className="col-xs-1 col-sm-1 col-md-4"
+              >
+                <nav
+                  style={
+                    Object {
+                      "margin": 20,
+                    }
+                  }
+                >
+                  <ul
+                    className="pagination pagination-sm text-center"
+                  >
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Previous"
+                        className="page-link"
+                        id="previous"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item active"
+                    >
+                      <Link
+                        className="page-link page-link-active"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        1
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        2
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        3
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        4
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Next"
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>,
+              <div
+                className="col-xs-1 col-sm-1 col-md-4"
+              />,
+            ],
+            "className": "row",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "col-xs-1 col-sm-1 col-md-4",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <nav
+                  style={
+                    Object {
+                      "margin": 20,
+                    }
+                  }
+                >
+                  <ul
+                    className="pagination pagination-sm text-center"
+                  >
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Previous"
+                        className="page-link"
+                        id="previous"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item active"
+                    >
+                      <Link
+                        className="page-link page-link-active"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        1
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        2
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        3
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        4
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Next"
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>,
+                "className": "col-xs-1 col-sm-1 col-md-4",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <ul
+                    className="pagination pagination-sm text-center"
+                  >
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Previous"
+                        className="page-link"
+                        id="previous"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          «
+                        </span>
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item active"
+                    >
+                      <Link
+                        className="page-link page-link-active"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        1
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        2
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        3
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        4
+                      </Link>
+                    </li>
+                    <li
+                      className="page-item"
+                    >
+                      <Link
+                        aria-label="Next"
+                        className="page-link"
+                        onClick={[Function]}
+                        replace={false}
+                        to="/"
+                      >
+                        <span
+                          aria-hidden="true"
+                        >
+                          »
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>,
+                  "style": Object {
+                    "margin": 20,
+                  },
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <li
+                        className="page-item"
+                      >
+                        <Link
+                          aria-label="Previous"
+                          className="page-link"
+                          id="previous"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          <span
+                            aria-hidden="true"
+                          >
+                            «
+                          </span>
+                        </Link>
+                      </li>,
+                      Array [
+                        <li
+                          className="page-item active"
+                        >
+                          <Link
+                            className="page-link page-link-active"
+                            onClick={[Function]}
+                            replace={false}
+                            to="/"
+                          >
+                            1
+                          </Link>
+                        </li>,
+                        <li
+                          className="page-item"
+                        >
+                          <Link
+                            className="page-link"
+                            onClick={[Function]}
+                            replace={false}
+                            to="/"
+                          >
+                            2
+                          </Link>
+                        </li>,
+                        <li
+                          className="page-item"
+                        >
+                          <Link
+                            className="page-link"
+                            onClick={[Function]}
+                            replace={false}
+                            to="/"
+                          >
+                            3
+                          </Link>
+                        </li>,
+                        <li
+                          className="page-item"
+                        >
+                          <Link
+                            className="page-link"
+                            onClick={[Function]}
+                            replace={false}
+                            to="/"
+                          >
+                            4
+                          </Link>
+                        </li>,
+                      ],
+                      <li
+                        className="page-item"
+                      >
+                        <Link
+                          aria-label="Next"
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          <span
+                            aria-hidden="true"
+                          >
+                            »
+                          </span>
+                        </Link>
+                      </li>,
+                    ],
+                    "className": "pagination pagination-sm text-center",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          aria-label="Previous"
+                          className="page-link"
+                          id="previous"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          <span
+                            aria-hidden="true"
+                          >
+                            «
+                          </span>
+                        </Link>,
+                        "className": "page-item",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "aria-label": "Previous",
+                          "children": <span
+                            aria-hidden="true"
+                          >
+                            «
+                          </span>,
+                          "className": "page-link",
+                          "id": "previous",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "aria-hidden": "true",
+                            "children": "«",
+                          },
+                          "ref": null,
+                          "rendered": "«",
+                          "type": "span",
+                        },
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "0",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          className="page-link page-link-active"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          1
+                        </Link>,
+                        "className": "page-item active",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": 1,
+                          "className": "page-link page-link-active",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": 1,
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "1",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          2
+                        </Link>,
+                        "className": "page-item",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": 2,
+                          "className": "page-link",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": 2,
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "2",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          3
+                        </Link>,
+                        "className": "page-item",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": 3,
+                          "className": "page-link",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": 3,
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "3",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          4
+                        </Link>,
+                        "className": "page-item",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": 4,
+                          "className": "page-link",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": 4,
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <Link
+                          aria-label="Next"
+                          className="page-link"
+                          onClick={[Function]}
+                          replace={false}
+                          to="/"
+                        >
+                          <span
+                            aria-hidden="true"
+                          >
+                            »
+                          </span>
+                        </Link>,
+                        "className": "page-item",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "aria-label": "Next",
+                          "children": <span
+                            aria-hidden="true"
+                          >
+                            »
+                          </span>,
+                          "className": "page-link",
+                          "onClick": [Function],
+                          "replace": false,
+                          "to": "/",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "aria-hidden": "true",
+                            "children": "»",
+                          },
+                          "ref": null,
+                          "rendered": "»",
+                          "type": "span",
+                        },
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                  ],
+                  "type": "ul",
+                },
+                "type": "nav",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "col-xs-1 col-sm-1 col-md-4",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

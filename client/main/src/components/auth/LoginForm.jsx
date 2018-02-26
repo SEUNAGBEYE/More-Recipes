@@ -24,7 +24,7 @@ const LoginForm = (props) => (
       <br /><br />
 
       <div className="d-flex justify-content-between">
-        <button type="submit" className="btn btn-default" id="login">Login</button>
+        <button type="submit" className="btn btn-default auth-button" id="loginSubmit">Login</button>
         <Link to="/signup" style={{ paddingTop: 10 }}>Not a member</Link>
         <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>
       </div>

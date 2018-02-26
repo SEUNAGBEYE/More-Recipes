@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getFavouritedRecipesIds,
@@ -13,20 +14,19 @@ import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
 import CategoryButton from './CategoryButton';
 
-
 /**
+ * @export
  * @class AllRecipes
  * @extends {Component}
  */
-class AllRecipes extends Component {
+export class AllRecipes extends Component {
   /**
    * Creates an instance of AllRecipes.
-   * @param {any} props
+   * @param {Object} props
    * @memberof AllRecipes
    */
   constructor(props) {
     super(props);
-
     this.onSubmit = this.onSubmit.bind(this);
     this.paginateRecipes = this.paginateRecipes.bind(this);
   }
@@ -36,25 +36,24 @@ class AllRecipes extends Component {
  * @memberof AllRecipes
  */
   componentDidMount() {
+    this.props.recipeCategories();
     this.paginateRecipes(1);
   }
 
   /**
+   * @param {Number} page
+   *
    * @returns {void} void
-   * @param {any} page
    * @memberof AllRecipes
    */
   paginateRecipes(page) {
-    this.props.recipeCategories();
-    this.props.allRecipes(page)
-      // .then(res => {
-      //   this.setState({ allRecipes: [...res.allRecipes] });
-      // });
+    this.props.allRecipes(page);
   }
 
 
   /**
-   * @param {any} data
+   * @param {Object} data
+   *
    * @returns {void} void
    * @memberof AllRecipes
    */
@@ -115,14 +114,29 @@ class AllRecipes extends Component {
   }
 }
 
+const propTypes = {
+  recipes: PropTypes.array.isRequired,
+  addRecipe: PropTypes.func.isRequired,
+  recipeCategories: PropTypes.func.isRequired,
+  allRecipes: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  pagination: PropTypes.number.isRequired,
+  history: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
+
+AllRecipes.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @export
+ * @param {Object} state
+ *
+ * @returns {Object} object
  */
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   recipes: state.recipes.allRecipes,
-  pagination: state.recipes.pagination,
+  pagination: Number(state.recipes.pagination),
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
   categories: state.recipes.recipeCategories

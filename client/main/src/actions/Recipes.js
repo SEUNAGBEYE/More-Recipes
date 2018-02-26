@@ -24,7 +24,7 @@ const {
  * @param {Object} recipe
  * @return {Object} Object
  */
-export function setRecipe(recipe) {
+export function addRecipeAction(recipe) {
   return {
     type: ADD_RECIPE,
     recipe
@@ -72,7 +72,7 @@ export function editRecipeAction(recipe) {
  * @param {Object} data
  * @returns {Object} Object
  */
-export function userRecipes(data) {
+export function userRecipesAction(data) {
   return {
     type: GET_USER_RECIPES,
     recipes: data.data,
@@ -223,7 +223,7 @@ export function getRecipeReviewsAction(reviews) {
  * @param {Object} limit
  * @returns {Object} Object
  */
-export function allRecipes(page = 1, limit = 8) {
+export function allRecipes(page = 1, limit = 2) {
   return dispatch => axios.get(`/api/v1/recipes?limit=${limit}&page=${page}`)
     .then((res) => {
       const { data, pagination } = res.data;
@@ -303,7 +303,7 @@ export function addRecipe(data) {
   return dispatch => axios.post('api/v1/recipes', data)
     .then((res) => {
       toastr.success('Recipe Added', 'Success');
-      return dispatch(setRecipe(res.data.data));
+      return dispatch(addRecipeAction(res.data.data));
     });
 }
 
@@ -448,7 +448,7 @@ export function getUserRecipes(page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/users/myrecipes?page=${page}&limit=${limit}`)
     .then((res) => {
       const { data } = res;
-      return dispatch(userRecipes(data));
+      return dispatch(userRecipesAction(data));
     })
     .catch((error) => {
       if (error) {

@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# RecipeCardActions should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <RecipeCardActions
+    isDownVoted={true}
+    isFavorited={true}
+    isUpVoted={true}
+    recipe={
+      Object {
+        "description": "This is the decription",
+        "downvotes": Array [
+          1,
+          2,
+          4,
+        ],
+        "image": "This is the image",
+        "name": "Amala",
+        "upvotes": Array [
+          1,
+          2,
+          4,
+        ],
+        "userId": 1,
+        "views": Array [
+          1,
+          2,
+        ],
+      }
+    }
+    toggleFavouriteRecipe={[MockFunction]}
+    toggleThumbsDownRecipe={[MockFunction]}
+    toggleThumbsUpRecipe={[MockFunction]}
+    user={
+      Object {
+        "firstName": "Seun",
+        "lastName": "Agbeye",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="d-flex justify-content-between recipe-icons"
+        style={undefined}
+      >
+        <i
+          className="fa fa-eye icons"
+        >
+          2
+        </i>
+        <i
+          className="fa icons fa-thumbs-down text-warning"
+          id={undefined}
+          onClick={[MockFunction]}
+        >
+          3
+        </i>
+        <i
+          className="fa icons fa-thumbs-up text-warning"
+          id={undefined}
+          onClick={[MockFunction]}
+        >
+          3
+        </i>
+        <i
+          className="fa icons fa-heart text-warning"
+          id={undefined}
+          onClick={[MockFunction]}
+        />
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <i
+            className="fa fa-eye icons"
+          >
+            2
+          </i>,
+          <i
+            className="fa icons fa-thumbs-down text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          >
+            3
+          </i>,
+          <i
+            className="fa icons fa-thumbs-up text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          >
+            3
+          </i>,
+          <i
+            className="fa icons fa-heart text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          />,
+        ],
+        "className": "d-flex justify-content-between recipe-icons",
+        "style": undefined,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": 2,
+            "className": "fa fa-eye icons",
+          },
+          "ref": null,
+          "rendered": 2,
+          "type": "i",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": 3,
+            "className": "fa icons fa-thumbs-down text-warning",
+            "id": undefined,
+            "onClick": [MockFunction],
+          },
+          "ref": null,
+          "rendered": 3,
+          "type": "i",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": 3,
+            "className": "fa icons fa-thumbs-up text-warning",
+            "id": undefined,
+            "onClick": [MockFunction],
+          },
+          "ref": null,
+          "rendered": 3,
+          "type": "i",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "fa icons fa-heart text-warning",
+            "id": undefined,
+            "onClick": [MockFunction],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "i",
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="d-flex justify-content-between recipe-icons"
+          style={undefined}
+        >
+          <i
+            className="fa fa-eye icons"
+          >
+            2
+          </i>
+          <i
+            className="fa icons fa-thumbs-down text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          >
+            3
+          </i>
+          <i
+            className="fa icons fa-thumbs-up text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          >
+            3
+          </i>
+          <i
+            className="fa icons fa-heart text-warning"
+            id={undefined}
+            onClick={[MockFunction]}
+          />
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <i
+              className="fa fa-eye icons"
+            >
+              2
+            </i>,
+            <i
+              className="fa icons fa-thumbs-down text-warning"
+              id={undefined}
+              onClick={[MockFunction]}
+            >
+              3
+            </i>,
+            <i
+              className="fa icons fa-thumbs-up text-warning"
+              id={undefined}
+              onClick={[MockFunction]}
+            >
+              3
+            </i>,
+            <i
+              className="fa icons fa-heart text-warning"
+              id={undefined}
+              onClick={[MockFunction]}
+            />,
+          ],
+          "className": "d-flex justify-content-between recipe-icons",
+          "style": undefined,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": 2,
+              "className": "fa fa-eye icons",
+            },
+            "ref": null,
+            "rendered": 2,
+            "type": "i",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": 3,
+              "className": "fa icons fa-thumbs-down text-warning",
+              "id": undefined,
+              "onClick": [MockFunction],
+            },
+            "ref": null,
+            "rendered": 3,
+            "type": "i",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": 3,
+              "className": "fa icons fa-thumbs-up text-warning",
+              "id": undefined,
+              "onClick": [MockFunction],
+            },
+            "ref": null,
+            "rendered": 3,
+            "type": "i",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "fa icons fa-heart text-warning",
+              "id": undefined,
+              "onClick": [MockFunction],
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "i",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

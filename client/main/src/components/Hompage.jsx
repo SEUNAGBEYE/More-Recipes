@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { allRecipes, recipeCategories, popularRecipes } from '../actions/Recipes';
 import RecipeCircle from './recipes/RecipeCircle';
 
 
 /**
+ * @export
  * @class Homepage
- * @extends Component
+ * @extends {Component}
  */
-class Homepage extends Component {
+export class Homepage extends Component {
   /**@returns {void} void
    * @memberof Homepage
    */
@@ -30,33 +32,49 @@ class Homepage extends Component {
         <main>
           <section className="banner">
             <div className="overlay">
-              <h3 className="overlay__h3"> Welcome To Recipes. All About Reciping</h3>
+              <h3 className="overlay__h3">
+              Welcome To Recipes. All About Reciping
+              </h3>
             </div>
           </section>
 
           <section>
             <div className="container">
 
-              <h3 className="title" style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><Link to="/recipes" className="title__link">Recipes</Link></h3>
+              <h3 className="title"
+                style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                <Link to="/recipes" className="title__link">Recipes</Link>
+              </h3>
 
               <div className="row">
                 {
-                  this.props.recipes.map((recipe) => <RecipeCircle key={recipe.id} recipe={recipe} />)
+                  this.props.recipes.map((recipe) =>
+                    <RecipeCircle key={recipe.id} recipe={recipe} />)
                 }
               </div>
 
-              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><a href="recipes.html" className="title-link">Categories</a></h3>
+              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                <Link to="#" className="title-link">
+                Categories</Link>
+              </h3>
 
               <div className="row">
                 {
-                  this.props.categories.map((category) => <RecipeCircle key={category.id} recipe={category} to={`/categories/${category.name}`} />)
+                  this.props.categories
+                    .map((category) =>
+                      (<RecipeCircle key={category.id} recipe={category}
+                        to={`/categories/${category.name}`} />))
                 }
               </div>
-              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}><a href="#" className="title-link">Popular</a></h3>
+              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                <Link to="#" className="title-link">Popular</Link>
+              </h3>
 
               <div className="row">
                 {
-                  this.props.popularRecipe.map((recipe) => <RecipeCircle key={recipe.id} recipe={recipe} />)
+                  this.props.popularRecipe
+                    .map((recipe) => (<RecipeCircle
+                      key={recipe.id} recipe={recipe} />))
                 }
               </div>
 
@@ -69,15 +87,32 @@ class Homepage extends Component {
   }
 }
 
+const propTypes = {
+  recipes: PropTypes.array.isRequired,
+  recipeCategories: PropTypes.func.isRequired,
+  allRecipes: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  popularRecipes: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
+};
+
+Homepage.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @export
+ * @param {Object} state
+ *
+ * @returns {Object} object
  */
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   recipes: state.recipes.allRecipes,
   popularRecipe: state.recipes.popularRecipes,
   categories: state.recipes.recipeCategories
 });
 
-export default connect(mapStateToProps, { allRecipes, recipeCategories, popularRecipes })(Homepage);
+export default connect(mapStateToProps, {
+  allRecipes,
+  recipeCategories,
+  popularRecipes
+})(Homepage);

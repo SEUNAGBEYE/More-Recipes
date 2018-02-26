@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="index.specs"
+    errors="0" failures="0" hostname="" id="" package="index.specs" skipped="0"
+    tests="1" time="13.96" timestamp="Mon, 26 Feb 2018 15:32:47 GMT">
+  
+    <testcase name="Display homepage and ensure all element are available" classname="index.specs" time="13.96" assertions="31">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

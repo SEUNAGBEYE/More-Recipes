@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRecipe,
@@ -13,9 +14,11 @@ import CategoryButton from './CategoryButton';
 
 
 /**
+ * @export
  * @class UserRecipes
+ * @extends {Component}
  */
-class UserRecipes extends Component {
+export class UserRecipes extends Component {
   /**
    * Creates an instance of UserRecipes.
    * @param {any} props
@@ -48,7 +51,7 @@ class UserRecipes extends Component {
   }
 
   /**
-   * @param {number} [page=1]
+   * @param {Number} [page=1]
    *
    * @returns {void} void
    * @memberof UserRecipes
@@ -69,7 +72,7 @@ class UserRecipes extends Component {
    */
   render() {
     return (
-      <div>
+      <div id="userRecipesBody">
         <main style={{ marginTop: 40 }}>
 
           <div className="container">
@@ -78,9 +81,10 @@ class UserRecipes extends Component {
 
           <div className="container">
             <div style={{ textAlign: 'center', marginTop: 100 }}>
-              <a href="" className="auth-button"
+              <Link to="#" className="btn auth-button"
                 data-toggle="modal"
-                data-target="#addModal">Add Recipe</a>
+                id="addRecipe"
+                data-target="#addModal">Add Recipe</Link>
               <h4 className="container__myrecipes">My Recipes</h4><br /><br />
               <RecipeModal addRecipe={this.props.addRecipe}
                 recipeCategories={this.props.categories}/>
@@ -129,7 +133,7 @@ UserRecipes.propTypes = propTypes;
  *
  * @returns {Object} object
  */
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   recipes: state.recipes,
   user: state.auth.user,
   userRecipes: state.recipes.allRecipes,

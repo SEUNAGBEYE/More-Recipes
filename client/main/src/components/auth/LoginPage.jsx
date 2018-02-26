@@ -103,7 +103,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <main style={{ marginBottom: 0 }}>
+        <main style={{ marginBottom: 0 }} id="signInFormContainer">
           <div className="container">
             <div className="row">
               <div className="col-md-4" />

@@ -8,12 +8,12 @@ const {
   UPDATE_PROFILE
 } = actionTypes;
 
-const initialState = {
+export const initialState = {
   isAuthenticated: false,
   user: {},
 };
 
-const setUser = (action) => ({
+export const setUser = (action) => ({
   isAuthenticated: !isEmpty(action.user),
   user: action.user,
   userFavouritedRecipeId: !isEmpty(action.user && action.user.favoriteRecipe) ? [...action.user.favoriteRecipe.map(elem => elem.id)] : [],

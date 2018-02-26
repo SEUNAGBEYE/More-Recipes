@@ -19,9 +19,20 @@ const {
   REVIEW_RECIPE
 } = actionTypes;
 
-const initialState = {
+export const initialState = {
   allRecipes: [],
-  singleRecipe: '',
+  singleRecipe: {
+    id: '',
+    name: '',
+    image: '',
+    categoryId: '',
+    userId: '',
+    upvotes: [],
+    downvotes: [],
+    views: [],
+    description: '',
+    reviews: []
+  },
   pagination: '',
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
@@ -55,7 +66,6 @@ export default (state = initialState, action = {}) => {
     };
 
   case GET_RECIPES:
-
     return {
       ...state,
       ...{
@@ -65,7 +75,6 @@ export default (state = initialState, action = {}) => {
     };
 
   case RECIPE_CATEGORIES:
-
     return {
       ...state,
       ...{
@@ -93,7 +102,10 @@ export default (state = initialState, action = {}) => {
   case DELETE_RECIPE:
     return {
       ...state,
-      ...{ allRecipes: state.allRecipes.filter(recipe => recipe.id !== action.id) }
+      ...{
+        allRecipes: state.allRecipes
+          .filter(recipe => parseInt(recipe.id, 10) !== parseInt(action.id, 10))
+      }
     };
 
 
@@ -131,8 +143,6 @@ export default (state = initialState, action = {}) => {
     };
 
   case TOGGLE_THUMBS_UP_RECIPE:
-
-
     return {
       ...state,
       ...{
@@ -153,7 +163,6 @@ export default (state = initialState, action = {}) => {
     };
 
   case TOGGLE_THUMBS_DOWN_RECIPE:
-
     return {
       ...state,
       ...{
@@ -201,3 +210,5 @@ export default (state = initialState, action = {}) => {
   default: return state;
   }
 };
+
+export { actionTypes };

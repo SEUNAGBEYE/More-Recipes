@@ -16,8 +16,8 @@ function mailer(email, resetLink, fullName) {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: 'agbeyeseun1@gmail.com', // generated ethereal user
-        pass: 'mother1234' // generated ethereal password
+        user: process.env.EMAIL, // generated ethereal user
+        pass: process.env.EMAIL_PASSWORD // generated ethereal password
       }
     });
 

@@ -1,6 +1,8 @@
 module.exports = {
+  collectCoverage: true,
+  coverageDirectory: './coverage-client/',
   testMatch: [
-    '**/?(*.)(spec).js?(x)'
+    '**/**/**/?(*.)(spec).js?(x)'
   ],
   setupFiles: [
     '<rootDir>./client/__tests__/config.js'
@@ -9,13 +11,19 @@ module.exports = {
     toastr: {
       info: (() => {}),
       success: (() => {}),
-      error: (() => {})
+      error: (() => {}),
+      warning: (() => {})
     },
     localStorage: {
       setItem: (() => {}),
       clearItem: (() => {}),
       removeItem: (() => {})
     },
+    document: {
+      getElementById: ((id) => {
+        ({ reset: (() => {}), id });
+      })
+    }
   },
   moduleNameMapper: {
     jsonwebtoken: '<rootDir>./client/__tests__/__mocks__/helpers/jwt.js',

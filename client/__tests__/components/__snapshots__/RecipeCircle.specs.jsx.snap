@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# RecipeCircle should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <RecipeCircle
+    recipe={
+      Object {
+        "description": "This is the decription",
+        "downvotes": Array [
+          1,
+          2,
+          4,
+        ],
+        "image": "This is the image",
+        "name": "Amala",
+        "upvotes": Array [
+          1,
+          2,
+          4,
+        ],
+        "userId": 1,
+        "views": Array [
+          1,
+          2,
+        ],
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <Link
+        replace={false}
+        to="recipe/undefined"
+      >
+        <div
+          className="box"
+        >
+          <div
+            className="circle"
+          >
+            <img
+              className="circle"
+              src="This is the image"
+            />
+          </div>
+        </div>
+        <div>
+          Amala
+        </div>
+      </Link>,
+      "className": "col-sm-6 col-md-4",
+      "style": Object {
+        "fontWeight": "bold",
+        "textAlign": "center",
+      },
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <div
+            className="box"
+          >
+            <div
+              className="circle"
+            >
+              <img
+                className="circle"
+                src="This is the image"
+              />
+            </div>
+          </div>,
+          <div>
+            Amala
+          </div>,
+        ],
+        "replace": false,
+        "to": "recipe/undefined",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="circle"
+            >
+              <img
+                className="circle"
+                src="This is the image"
+              />
+            </div>,
+            "className": "box",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <img
+                className="circle"
+                src="This is the image"
+              />,
+              "className": "circle",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "circle",
+                "src": "This is the image",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Amala",
+          },
+          "ref": null,
+          "rendered": "Amala",
+          "type": "div",
+        },
+      ],
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <Link
+          replace={false}
+          to="recipe/undefined"
+        >
+          <div
+            className="box"
+          >
+            <div
+              className="circle"
+            >
+              <img
+                className="circle"
+                src="This is the image"
+              />
+            </div>
+          </div>
+          <div>
+            Amala
+          </div>
+        </Link>,
+        "className": "col-sm-6 col-md-4",
+        "style": Object {
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <div
+              className="box"
+            >
+              <div
+                className="circle"
+              >
+                <img
+                  className="circle"
+                  src="This is the image"
+                />
+              </div>
+            </div>,
+            <div>
+              Amala
+            </div>,
+          ],
+          "replace": false,
+          "to": "recipe/undefined",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="circle"
+              >
+                <img
+                  className="circle"
+                  src="This is the image"
+                />
+              </div>,
+              "className": "box",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <img
+                  className="circle"
+                  src="This is the image"
+                />,
+                "className": "circle",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "circle",
+                  "src": "This is the image",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Amala",
+            },
+            "ref": null,
+            "rendered": "Amala",
+            "type": "div",
+          },
+        ],
+        "type": [Function],
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

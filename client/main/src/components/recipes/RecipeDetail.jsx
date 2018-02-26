@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import checkAuth from '../../../utils/CheckAuth';
@@ -18,10 +19,11 @@ import RecipeCardActions from '../recipes/RecipeCardActions';
 
 
 /**
+ * @export
  * @class RecipeDetail
  * @extends {Component}
  */
-class RecipeDetail extends Component {
+export class RecipeDetail extends Component {
   /**
    * Creates an instance of RecipeDetail.
    * @param {any} props
@@ -50,7 +52,7 @@ class RecipeDetail extends Component {
    * @returns {void} void
    * @memberof RecipeDetail
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getRecipe(this.props.match.params.id).then(() => {
       this.setState({ loading: false });
     });
@@ -58,33 +60,36 @@ class RecipeDetail extends Component {
 
   /**
    *
-   * @param {obj} event
-   * @memberof RecipeDetail
+   * @param {Object} event
+   *
    * @returns {void}
+   * @memberof RecipeDetail
    */
   onChange(event) {
     checkAuth(this.props.isAuthenticated, this.props.history);
     this.setState({
-      reviewBody: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
   /**
-   * @param {obj} event
-   * @memberof RecipeDetail
+   * @param {Object} event
+   *
    * @returns {void}
+   * @memberof RecipeDetail
    */
   reviewRecipe(event) {
     event.preventDefault();
     const { isAuthenticated, history, recipe } = this.props;
     checkAuth(isAuthenticated, history);
     this.props.reviewRecipe(recipe.id, { reviewBody: this.state.reviewBody });
-    document.getElementById('form').reset();
+    this.setState({ reviewBody: '' });
   }
 
   /**
-   * @returns {obj} obj
-   * @param {any} event
+   * @param {Object} event
+   *
+   * @returns {void} void
    * @memberof RecipeDetail
    */
   toggleFavouriteRecipe(event) {
@@ -96,8 +101,9 @@ class RecipeDetail extends Component {
   }
 
   /**
+   * @param {Object} event
+   *
    *@returns {void} void
-   * @param {any} event
    * @memberof RecipeDetail
    */
   toggleThumbsUpRecipe(event) {
@@ -110,8 +116,9 @@ class RecipeDetail extends Component {
   }
 
   /**
-   * @returns {jsx} jsx
-   * @param {any} event
+   * @param {Object} event
+   *
+   * @returns {void} void
    * @memberof RecipeDetail
    */
   toggleThumbsDownRecipe(event) {
@@ -126,7 +133,8 @@ class RecipeDetail extends Component {
 
 
   /**
-   * @param {any} event
+   * @param {Object} event
+   *
    * @returns {void} void
    * @memberof RecipeDetail
    *
@@ -145,27 +153,31 @@ class RecipeDetail extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @memberOf RecipeDetail
-   * return {object} object
-   */
+ * @returns {jsx} JSX
+ * @memberof RecipeDetail
+ */
   render() {
     if (!this.state.loading) {
       const { recipe, user } = this.props;
-      const isFavorited = this.props.myFavs.includes(parseInt(this.props.recipe.id, 10));
-      const isUpVoted = recipe.upvotes.includes(parseInt(this.props.user.userId, 10));
-      const isDownVoted = recipe.downvotes.includes(parseInt(this.props.user.userId, 10));
+      const isFavorited = this.props.myFavouriteRecipes
+        .includes(parseInt(this.props.recipe.id, 10));
+      const isUpVoted = recipe.upvotes
+        .includes(parseInt(this.props.user.userId, 10));
+      const isDownVoted = recipe.downvotes
+        .includes(parseInt(this.props.user.userId, 10));
       return (
         <div>
           <main style={{ marginTop: 100 }} id="body">
 
-            <div className="container" >
+            <div className="container" id="form">
               <h4 style={{ textAlign: 'center' }}>{recipe.name}</h4><br /><br />
 
               <div className="row">
                 <div className="col-md-6">
                   <div className="box">
-                    <div className="circle"><img className ="circle" src={recipe.image} /></div>
+                    <div className="circle">
+                      <img className ="circle" src={recipe.image} />
+                    </div>
                   </div>
                   <div className="container text-center">
                     <RecipeCardActions
@@ -176,7 +188,13 @@ class RecipeDetail extends Component {
                       recipe={recipe}
                       toggleFavouriteRecipe={this.toggleFavouriteRecipe}
                       toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
-                      toggleThumbsUpRecipe={this.toggleThumbsUpRecipe} style={{ width: '50%', position: 'relative', margin: '0 auto' }}/>
+                      toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}
+                      style={{
+                        width: '50%',
+                        position: 'relative',
+                        margin: '0 auto'
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -192,7 +210,8 @@ class RecipeDetail extends Component {
                   <h5>Ingredients</h5>
                   <ul style={{ fontSize: 20 }}>
                     {
-                      recipe.ingredients.map((step, index) => <li key={index}>{step}</li>)
+                      recipe.ingredients
+                        .map((step, index) => <li key={index}>{step}</li>)
                     }
                   </ul>
                 </div>
@@ -201,7 +220,8 @@ class RecipeDetail extends Component {
                   <h5>Steps</h5>
                   <ul style={{ fontSize: 20 }}>
                     {
-                      recipe.steps.map((step, index) => <li key={index}>{step}</li>)
+                      recipe.steps
+                        .map((step, index) => <li key={index}>{step}</li>)
                     }
                   </ul>
                 </div>
@@ -222,11 +242,24 @@ class RecipeDetail extends Component {
               </div><br />
 
               <div>
-                <h6 style={{ color: 'orange', margin: '5 0 10 0', fontSize: 16 }} className="text-center">What People Said</h6>
+                <h6 className="text-center"
+                  style={{
+                    color: 'orange',
+                    margin: '5 0 10 0',
+                    fontSize: 16
+                  }}
+                >What People Said
+                </h6>
               </div>
-              {recipe.reviews.map(review => <Review key={review.id} review={review}/>)}
+              {recipe.reviews
+                .map(review => <Review key={review.id} review={review}/>)}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}><button className="auth-button" onClick={this.viewMoreReviews}>View More</button>
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <button className="auth-button"
+                onClick={this.viewMoreReviews}
+              >
+            View More
+              </button>
               <Link to="/" onClick={(event => {
                 event.preventDefault();
                 $('html, body').animate({
@@ -245,17 +278,37 @@ class RecipeDetail extends Component {
   }
 }
 
+const propTypes = {
+  isAuthenticated: PropTypes.bool,
+  myFavouriteRecipes: PropTypes.array,
+  user: PropTypes.object,
+  recipe: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  toggleFavouriteRecipe: PropTypes.func.isRequired,
+  toggleThumbsDownRecipe: PropTypes.func.isRequired,
+  toggleThumbsUpRecipe: PropTypes.func.isRequired,
+  editRecipe: PropTypes.func.isRequired,
+  getRecipe: PropTypes.func.isRequired,
+  getRecipeReviews: PropTypes.func.isRequired,
+  reviewRecipe: PropTypes.func.isRequired
+};
+
+RecipeDetail.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @param {any} props
- * @return {object} object
+ * @export
+ * @param {Object} state
+ * @param {Object} props
+ *
+ * @return {Object} object
  */
-const mapStateToProps = (state, props) => ({
+export const mapStateToProps = (state, props) => ({
   user: state.auth.user,
   recipe: state.recipes.singleRecipe,
   isAuthenticated: state.auth.isAuthenticated,
-  myFavs: state.recipes.userFavouritedRecipeId || [],
+  myFavouriteRecipes: state.recipes.userFavouritedRecipeId || [],
 });
 
 export default connect(mapStateToProps, {
