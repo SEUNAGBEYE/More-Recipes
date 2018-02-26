@@ -10,7 +10,7 @@
   "scripts": {
     "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
-    "client:side:test": "jest -u ./client/__tests__/**/** --config ./jest.config.js && codecov",
+    "client:side:test": "jest ./client/__tests__/**/** && codecov",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
     "e2e:server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
@@ -21,11 +21,28 @@
     "start": "node -- ./server/dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "test:all": "npm run coveralls && npm client:side:test",
+    "test:all": "npm run test && npm run client:side:test",
     "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed --seed 20171031150152-category",
-    "e2e:pretest":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed --seed 20171031150152-category --env test",
+    "e2e:pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed --seed 20171031150152-category --env test",
     "e2e:setup": "selenium-standalone install",
     "e2e:test": "npm run e2e:pretest && nightwatch ./e2e-tests/index.specs.js"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ],
+    "collectCoverage": true,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "identity-obj-proxy",
+      "jsonwebtoken": "<rootDir>./client/__tests__/__mocks__/helpers/jwt.js"
+    },
+    "verbose": true,
+    "setupFiles": [
+      "<rootDir>/test-env.js",
+      "<rootDir>./client/__tests__/config.js"
+    ]
   },
   "nyc": {
     "require": [
@@ -77,6 +94,7 @@
     "express": "^4.16.2",
     "file-loader": "^1.1.5",
     "history": "^4.7.2",
+    "identity-obj-proxy": "^3.0.0",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
@@ -117,6 +135,7 @@
     "babel-eslint": "^8.0.3",
     "babel-jest": "^22.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "codecov": "^3.0.0",
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
