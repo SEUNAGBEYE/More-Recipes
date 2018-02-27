@@ -44,8 +44,9 @@ class SignUpPage extends Component {
   }
 
   /**
- * @returns {void} void
  * @param {obj} event
+ *
+ * @returns {void} void
  * @memberof SignUpPage
  */
   onChange(event) {
@@ -61,12 +62,13 @@ class SignUpPage extends Component {
 
   /**
 *
-* @returns {void} void
-* @param {any} e
+* @param {Object} event
+*
+*@returns {void} void
 * @memberof SignUpPage
 */
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     this.props.signUpRequest(this.state)
       .then(signUpResponse => {
         if (signUpResponse[0] && signUpResponse[0].description) {

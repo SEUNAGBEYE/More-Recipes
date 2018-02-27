@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'normalize.css/normalize.css';
-// import { ConnectedRouter } from 'react-router-redux';
 import jwt from 'jsonwebtoken';
 import { store } from './store/configureStore';
 import setAuthorizationToken from '../utils/setAuthorizationToken';

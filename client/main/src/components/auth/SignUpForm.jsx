@@ -4,10 +4,10 @@ import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
 const SignUpForm = (props) => (
   <div>
-    <form className="auth-form" onSubmit={props.onSubmit}>
+    <form className="auth-form" id="signFormContainer">
       <fieldset className="form-group">
         <label htmlFor="firstName" className="form-inline">First Name</label>
-        <input type="text" className="form-control" id="first_name"
+        <input type="text" className="form-control" id="firstName"
           name="firstName"
           onChange={props.onChange}
           required
@@ -17,7 +17,7 @@ const SignUpForm = (props) => (
       <fieldset className="form-group">
         <label htmlFor="lastName" className="form-inline">Last Name</label>
         <input type="text" className="form-control"
-          id="last_name" name="lastName"
+          id="lastName" name="lastName"
           onChange={props.onChange}
           required
           defaultValue={props.state.lastName}/>
@@ -51,6 +51,7 @@ const SignUpForm = (props) => (
         <label htmlFor="newPassword" className="form-inline">Password</label>
         <input type="password" className="form-control"
           name="newPassword"
+          id="newPassword"
           onChange={props.onChange}
           required
           defaultValue={props.state.newPassword}/>
@@ -60,6 +61,7 @@ const SignUpForm = (props) => (
         <label htmlFor="confirmPassword" className="form-inline">Confirm Password</label>
         <input type="password" className="form-control"
           name="confirmPassword"
+          id="confirmPassword"
           onChange={props.onChange}
           required
           defaultValue={props.state.confirmPassword}/>
@@ -67,8 +69,9 @@ const SignUpForm = (props) => (
 
       <div className="d-flex justify-content-between">
         <button type="submit"
-          className="btn btn-default"
-          id="login"
+          className="btn btn-default auth-button"
+          id="signUpSubmit"
+          onClick={props.onSubmit}
         >Signup</button>
         <Link to="/login" style={{ paddingTop: 10 }}>Already a member</Link>
         <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>

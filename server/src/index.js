@@ -14,7 +14,7 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../../client/public')));
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath

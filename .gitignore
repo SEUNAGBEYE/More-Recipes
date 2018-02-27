@@ -8,3 +8,4 @@ server/dist
 servergitignore
 .DS_STORE
 .coveralls.yml
+coverage

@@ -324,7 +324,7 @@ describe('Test For Users Routes', () => {
     });
   });
 
-  describe('Test For Getting User Profile 400', () => {
+  describe('Test For Getting User Profile', () => {
     it('should have a statusCode of 400 when a user not in database tries to access their profile', (done) => {
       chai.request(userRoute)
         .get('/profile')
@@ -338,8 +338,8 @@ describe('Test For Users Routes', () => {
   });
 
 
-  describe('Test For Getting User Profile 200', () => {
-    it('should ruturn a body that is an array and it should have a statusCode of 200 when a user access their profile', (done) => {
+  describe('Test For Getting User Profile', () => {
+    it('should have a statusCode of 200 when a user access their profile', (done) => {
       chai.request(userRoute)
         .get('/profile')
         .end((error, res) => {
@@ -347,6 +347,67 @@ describe('Test For Users Routes', () => {
           expect(res.body.data.id).to.equals(1);
           expect(res.body.data.firstName).to.equals('seun');
           expect(res.body.data.lastName).to.equals('agbeye');
+          done();
+        });
+    });
+  });
+
+  // describe('Test For Updating User Profile', () => {
+  //   it('should have a statusCode of 200 when a user update their profile', (done) => {
+  //     chai.request(userRoute)
+  //       .put('/profile')
+  //       .send({
+  //         firstName: 'Seun',
+  //         lastName: 'Agbeye',
+  //         profilePicture: 'This is my lovely image',
+  //         password: 'my'
+  //       })
+  //       .end((error, res) => {
+  //         expect(res).to.have.status(200);
+  //         expect(res.body.data).to.have.property('token');
+  //         console.log('>>>>>>>>>>>>>>>>>>', error)
+  //         done();
+  //       });
+  //   });
+  // });
+
+  describe('Test For Forget Password', () => {
+    it('should have a statusCode of 404 when a request is made to forget password controller with an email that do not exist in database', (done) => {
+      chai.request(userRoute)
+        .post('/forgot-password')
+        .send({
+          email: 'agbeyeseun1@gmail.com'
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('User Not Found');
+          done();
+        });
+    });
+  });
+
+  describe('Test For Forget Password', () => {
+    it('should have a statusCode of 404 when a user hit forget password controller', (done) => {
+      chai.request(userRoute)
+        .post('/forgot-password')
+        .send({
+          email: 'boy@mail.com.ng'
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.message).to.equal('A Message has been sent to the email provided kindly read to mail to reset your password');
+          done();
+        });
+    });
+  });
+
+  describe('Test For Confirm Forget Password', () => {
+    it('should have a statusCode of 404 when a user hit forget password controller', (done) => {
+      chai.request(userRoute)
+        .put('/forgot-password/qwertyhnbgfdswerfgh')
+        .end((error, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('User Not Found');
           done();
         });
     });

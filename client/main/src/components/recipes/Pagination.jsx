@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 const Pagination = (props) => {
@@ -16,9 +17,11 @@ const Pagination = (props) => {
                 <li className="page-item">
                   <Link to="/" className="page-link"
                     aria-label="Previous"
+                    id="previous"
                     onClick={(event) => {
                       event.preventDefault();
                       let current = document.querySelector('.page-link-active');
+                      console.log('+++++++++++++', current);
                       if ((parseInt(current.innerHTML, 10) !== 1)) {
                         Array.from(document.getElementsByClassName('page-link'))
                           .map(elem => { elem.className = 'page-link'; });
@@ -41,22 +44,26 @@ const Pagination = (props) => {
                   [...Array(recipesCount).keys()]
                     .map((page, index) => (
                       <li
-                        className={index === 0 ? "page-item active" : "page-item"}
+                        className={
+                          index === 0 ? "page-item active" : "page-item"
+                        }
                         key={index}
                       >
-                        <Link to="/" className={
-                          index === 0 ? "page-link page-link-active" : "page-link"}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          Array.from(document.getElementsByClassName('page-link'))
-                            .map(elem => { elem.className = 'page-link'; });
-                          Array.from(document.getElementsByClassName('page-item'))
-                            .map(elem => { elem.className = 'page-item'; });
-                          event.target.parentElement.className += ' active';
-                          event.target.className += ' page-link-active';
-                          recipesPagination(page + 1);
-                        }
-                        }>{page + 1}</Link>
+                        <Link to="/"
+                          className={
+                            index === 0 ? "page-link page-link-active" :
+                              "page-link"}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            Array.from(document.getElementsByClassName('page-link'))
+                              .map(elem => { elem.className = 'page-link'; });
+                            Array.from(document.getElementsByClassName('page-item'))
+                              .map(elem => { elem.className = 'page-item'; });
+                            event.target.parentElement.className += ' active';
+                            event.target.className += ' page-link-active';
+                            recipesPagination(page + 1);
+                          }
+                          }>{page + 1}</Link>
                       </li>
                     ))
                 }
@@ -88,5 +95,12 @@ const Pagination = (props) => {
     </div>
   );
 };
+
+const propTypes = {
+  recipesPagination: PropTypes.func.isRequired,
+  recipesCount: PropTypes.number.isRequired,
+};
+
+Pagination.propTypes = propTypes;
 
 export default Pagination;

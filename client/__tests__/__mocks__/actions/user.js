@@ -1,7 +1,7 @@
 
 const setUserResponse = {
   status: 'Success',
-  data: { token: { firstName: 'Seun', lastName: 'Beye' } }
+  data: { token: { firstName: 'SeunAAAA', lastName: 'Beye' } }
 };
 
 const changePasswordResponse = {

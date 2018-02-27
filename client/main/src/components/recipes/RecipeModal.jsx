@@ -162,29 +162,46 @@ export default class RecipeModal extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" className="close" data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 className="modal-title" id="modalLabel">Recipe</h4>
               </div>
 
               <div className="modal-body">
-                {errors.map(error => (<ul><li className="text-danger">{error.description}</li></ul>))}
+                {errors.map(error => (
+                  <ul>
+                    <li className="text-danger">{error.description}</li>
+                  </ul>))
+                }
                 <form id="form">
                   <fieldset className="form-group">
-                    <label htmlFor="name" className="form-inline">Name</label>
-                    <input type="text" className="form-control" id="recipeName" name="name" onChange={this.onChange} value={this.state.name} required/>
+                    <label htmlFor="recipeName" className="form-inline">Name</label>
+                    <input type="text" className="form-control" id="recipeName"
+                      name="name" onChange={this.onChange} value={this.state.name}
+                      required
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <label htmlFor="recipeDescription" className="form-inline">Description</label>
-                    <textarea className="form-control" id="description" name="description" cols="50" rows = "5" onChange={this.onChange} value={this.state.description} required/>
+                    <label htmlFor="recipeDescription" className="form-inline">
+                      Description
+                    </label>
+                    <textarea className="form-control" id="recipeDescription"
+                      name="description" cols="50" rows = "5"
+                      onChange={this.onChange}
+                      value={this.state.description} required
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="image" className="form-inline">
                       The maximum file size allowed is 4mb
-                      <input type="file" className="form-control" id="recipePicture" name="image"/>
+                      <input type="file" className="form-control"
+                        id="recipePicture" name="image"
+                      />
                         Click to add image
                     </label>
                   </fieldset>
@@ -194,12 +211,18 @@ export default class RecipeModal extends Component {
                     <label htmlFor="category" className="form-inline">
                       Category
                     </label>
-                    <select className="form-control" onChange={this.onChange} name="categoryId" required>
+                    <select className="form-control" onChange={this.onChange}
+                      name="categoryId"
+                      id="categoryId"
+                      required
+                    >
                       {
                         this.props.recipeCategories.map(recipeCategory =>
                           (<option
                             key={recipeCategory.id}
-                            value={recipeCategory.id}>
+                            value={recipeCategory.id}
+                            id={`category${recipeCategory.name}`}
+                          >
                             {recipeCategory.name}
                           </option>))
                       }
@@ -209,22 +232,41 @@ export default class RecipeModal extends Component {
 
                   {ingredientFields}
                   <fieldset>
-                    <button className="auth-button fa fa-plus" style={{
-                      float: 'left', width: 90, height: 20, fontSize: 12, padding: 0
-                    }} id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
+                    <button className="auth-button fa fa-plus"
+                      style={{
+                        float: 'left',
+                        width: 90,
+                        height: 20,
+                        fontSize: 12,
+                        padding: 0
+                      }} id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
                   </fieldset>
 
                   {stepFields}
                   <fieldset>
-                    <button className="auth-button fa fa-plus" style={{
-                      float: 'left', width: 90, height: 20, fontSize: 12, padding: 0
-                    }} id="step" onClick={this.stepClick}><strong>Steps</strong></button>
+                    <button className="auth-button fa fa-plus"
+                      style={{
+                        float: 'left',
+                        width: 90,
+                        height: 20,
+                        fontSize: 12,
+                        padding: 0
+                      }} id="step" onClick={this.stepClick}>
+                      <strong>Steps</strong>
+                    </button>
                   </fieldset>
 
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
-                    <button className="btn btn-secondary auth-button" id="submit" onClick={this.onSubmit}>Submit</button>
-                    <button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
+                    <button className="btn btn-secondary auth-button"
+                      id="submit" onClick={this.onSubmit}
+                    >
+                      Submit
+                    </button>
+                    <button type="button"
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                    >
                       Cancel
                     </button>
                   </div>

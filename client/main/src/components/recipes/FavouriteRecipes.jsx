@@ -11,7 +11,7 @@ import CategoryButton from './CategoryButton';
 /**
  * @class UserRecipes
  */
-class FavoruriteRecipes extends Component {
+export class FavoruriteRecipes extends Component {
   /**
    * Creates an instance of FavoruriteRecipes.
    * @param {any} props

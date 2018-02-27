@@ -60,7 +60,7 @@ userRoute.route('/signup')
    *                 type: string
    *                lastName:
    *                 description: User lastName
-   *                 in:  bodyß
+   *                 in:  body
    *                 type: string
    *                password:
    *                 description: User passwordß
@@ -240,10 +240,132 @@ userRoute.route('/profile')
    *           $ref: '#/definitions/User'
    */
   .get(authMiddleware, UserController.myProfile)
+/**
+   * @swagger
+   * /api/v1/users/profile:
+   *   put:
+   *     description: Update User Profile
+   *     tags:
+   *      - Update User Profile
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *          - name: email
+   *            description: User email
+   *            type: string
+   *            in: body
+   *          - name: firstName
+   *            description: User firstName
+   *            type: string
+   *            in:  body
+   *          - name: lastName
+   *            description: User lastName
+   *            in:  body
+   *            type: string
+   *          - name: password
+   *            description: User password
+   *            type: string
+   *            in:  body
+   *          - name: profilePicture
+   *            description: User image
+   *            type: string
+   *            in:  body
+   *            schema:
+   *              type: object
+   *              properties:
+   *                firstName:
+   *                 description: User firstName
+   *                 type: string
+   *                lastName:
+   *                 description: User lastName
+   *                 in:  body
+   *                 type: string
+   *                aboutMe:
+   *                 description: User info
+   *                 in:  body
+   *                 type: string
+   *                password:
+   *                 description: User password
+   *                 type: string
+   *                facebookUrl:
+   *                 description: User facebook url
+   *                 type: string
+   *                twitterUrl:
+   *                 description: User twitter url
+   *                 type: string
+   *                linkedInUrl:
+   *                 description: User linkedIn url
+   *                 type: string
+   *                profilePicture:
+   *                 description: User image
+   *                 type: string
+   *     responses:
+   *       200:
+   *         description: User object
+   *         schema:
+   *           $ref: '#/definitions/User'
+   */
   .put(authMiddleware, UserController.updateProfile);
 
 userRoute.route('/forgot-password/:rememberToken?')
+  /**
+   * @swagger
+   * /api/v1/users/forgot-password:
+   *   post:
+   *     description: Forgot Password
+   *     tags:
+   *      - Forgot Password
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *          - name: email
+   *            description: User email
+   *            type: email
+   *            in: body
+   *            schema:
+   *              type: object
+   *              properties:
+   *                email:
+   *                 description: User email
+   *                 type: email
+   *     responses:
+   *       200:
+   *         description: User object
+   *         schema:
+   *           $ref: '#/definitions/User'
+   */
   .post(UserController.forgetPassword)
+/**
+   * @swagger
+   * /api/v1/users/forgot-password/{rememberToken}:
+   *   put:
+   *     description: Forgot Password
+   *     tags:
+   *      - Forgot Password
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *          - name: rememberToken
+   *            description: Remember Token
+   *            required: true
+   *            type: string
+   *            in: path
+   *          - name: password
+   *            description: User Password
+   *            type: password
+   *            in: body
+   *            schema:
+   *              type: object
+   *              properties:
+   *                password:
+   *                 description: User Password
+   *                 type: password
+   *     responses:
+   *       200:
+   *         description: User object
+   *         schema:
+   *           $ref: '#/definitions/User'
+   */
   .put(UserController.confirmForgetPassword);
 
 // User Model
@@ -266,13 +388,23 @@ userRoute.route('/forgot-password/:rememberToken?')
  *         type: string
  *       lastName:
  *         type: string
+ *       rememberToken:
+ *         type: string
+ *       aboutMe:
+ *         type: string
+ *       facebookUrl:
+ *         type: string
+ *       twitterUrl:
+ *         type: string
+ *       linkedInUrl:
+ *         type: string
  *       password:
  *         type: string
  *         format: password
  *       email:
  *         type: string
  *         format: email
- *       image:
+ *       profilePicture:
  *          type: string
  */
 

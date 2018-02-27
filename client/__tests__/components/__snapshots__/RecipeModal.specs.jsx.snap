@@ -1,0 +1,3160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# RecipeModal should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <RecipeModal
+    addRecipe={[MockFunction]}
+    recipeCategories={Array []}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        aria-hidden="true"
+        aria-labelledby="modalLabel"
+        className="modal fade"
+        id="addModal"
+        role="dialog"
+        tabIndex="-1"
+      >
+        <div
+          className="modal-dialog"
+          role="document"
+        >
+          <div
+            className="modal-content"
+          >
+            <div
+              className="modal-header"
+            >
+              <button
+                aria-label="Close"
+                className="close"
+                data-dismiss="modal"
+                type="button"
+              >
+                <span
+                  aria-hidden="true"
+                >
+                  ×
+                </span>
+              </button>
+              <h4
+                className="modal-title"
+                id="modalLabel"
+              >
+                Recipe
+              </h4>
+            </div>
+            <div
+              className="modal-body"
+            >
+              <form
+                id="form"
+              >
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeName"
+                  >
+                    Name
+                  </label>
+                  <input
+                    className="form-control"
+                    id="recipeName"
+                    name="name"
+                    onChange={[Function]}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeDescription"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    cols="50"
+                    id="recipeDescription"
+                    name="description"
+                    onChange={[Function]}
+                    required={true}
+                    rows="5"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="image"
+                  >
+                    The maximum file size allowed is 4mb
+                    <input
+                      className="form-control"
+                      id="recipePicture"
+                      name="image"
+                      type="file"
+                    />
+                    Click to add image
+                  </label>
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="category"
+                  >
+                    Category
+                  </label>
+                  <select
+                    className="form-control"
+                    id="categoryId"
+                    name="categoryId"
+                    onChange={[Function]}
+                    required={true}
+                  />
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="ingredient"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Ingredients
+                    </strong>
+                  </button>
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="step"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Steps
+                    </strong>
+                  </button>
+                </fieldset>
+                <div
+                  className="modal-footer"
+                >
+                  <Unknown
+                    component="div"
+                    loaded={true}
+                    loadedClassName="loadedContent"
+                    parentClassName="loader"
+                  />
+                  <button
+                    className="btn btn-secondary auth-button"
+                    id="submit"
+                    onClick={[Function]}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className="btn btn-secondary auth-button"
+                    data-dismiss="modal"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "aria-hidden": "true",
+        "aria-labelledby": "modalLabel",
+        "children": <div
+          className="modal-dialog"
+          role="document"
+        >
+          <div
+            className="modal-content"
+          >
+            <div
+              className="modal-header"
+            >
+              <button
+                aria-label="Close"
+                className="close"
+                data-dismiss="modal"
+                type="button"
+              >
+                <span
+                  aria-hidden="true"
+                >
+                  ×
+                </span>
+              </button>
+              <h4
+                className="modal-title"
+                id="modalLabel"
+              >
+                Recipe
+              </h4>
+            </div>
+            <div
+              className="modal-body"
+            >
+              <form
+                id="form"
+              >
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeName"
+                  >
+                    Name
+                  </label>
+                  <input
+                    className="form-control"
+                    id="recipeName"
+                    name="name"
+                    onChange={[Function]}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeDescription"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    cols="50"
+                    id="recipeDescription"
+                    name="description"
+                    onChange={[Function]}
+                    required={true}
+                    rows="5"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="image"
+                  >
+                    The maximum file size allowed is 4mb
+                    <input
+                      className="form-control"
+                      id="recipePicture"
+                      name="image"
+                      type="file"
+                    />
+                    Click to add image
+                  </label>
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="category"
+                  >
+                    Category
+                  </label>
+                  <select
+                    className="form-control"
+                    id="categoryId"
+                    name="categoryId"
+                    onChange={[Function]}
+                    required={true}
+                  />
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="ingredient"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Ingredients
+                    </strong>
+                  </button>
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="step"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Steps
+                    </strong>
+                  </button>
+                </fieldset>
+                <div
+                  className="modal-footer"
+                >
+                  <Unknown
+                    component="div"
+                    loaded={true}
+                    loadedClassName="loadedContent"
+                    parentClassName="loader"
+                  />
+                  <button
+                    className="btn btn-secondary auth-button"
+                    id="submit"
+                    onClick={[Function]}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className="btn btn-secondary auth-button"
+                    data-dismiss="modal"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>,
+        "className": "modal fade",
+        "id": "addModal",
+        "role": "dialog",
+        "tabIndex": "-1",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="modal-content"
+          >
+            <div
+              className="modal-header"
+            >
+              <button
+                aria-label="Close"
+                className="close"
+                data-dismiss="modal"
+                type="button"
+              >
+                <span
+                  aria-hidden="true"
+                >
+                  ×
+                </span>
+              </button>
+              <h4
+                className="modal-title"
+                id="modalLabel"
+              >
+                Recipe
+              </h4>
+            </div>
+            <div
+              className="modal-body"
+            >
+              <form
+                id="form"
+              >
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeName"
+                  >
+                    Name
+                  </label>
+                  <input
+                    className="form-control"
+                    id="recipeName"
+                    name="name"
+                    onChange={[Function]}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="recipeDescription"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    cols="50"
+                    id="recipeDescription"
+                    name="description"
+                    onChange={[Function]}
+                    required={true}
+                    rows="5"
+                    value=""
+                  />
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="image"
+                  >
+                    The maximum file size allowed is 4mb
+                    <input
+                      className="form-control"
+                      id="recipePicture"
+                      name="image"
+                      type="file"
+                    />
+                    Click to add image
+                  </label>
+                </fieldset>
+                <fieldset
+                  className="form-group"
+                >
+                  <label
+                    className="form-inline"
+                    htmlFor="category"
+                  >
+                    Category
+                  </label>
+                  <select
+                    className="form-control"
+                    id="categoryId"
+                    name="categoryId"
+                    onChange={[Function]}
+                    required={true}
+                  />
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="ingredient"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Ingredients
+                    </strong>
+                  </button>
+                </fieldset>
+                <fieldset>
+                  <button
+                    className="auth-button fa fa-plus"
+                    id="step"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "float": "left",
+                        "fontSize": 12,
+                        "height": 20,
+                        "padding": 0,
+                        "width": 90,
+                      }
+                    }
+                  >
+                    <strong>
+                      Steps
+                    </strong>
+                  </button>
+                </fieldset>
+                <div
+                  className="modal-footer"
+                >
+                  <Unknown
+                    component="div"
+                    loaded={true}
+                    loadedClassName="loadedContent"
+                    parentClassName="loader"
+                  />
+                  <button
+                    className="btn btn-secondary auth-button"
+                    id="submit"
+                    onClick={[Function]}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className="btn btn-secondary auth-button"
+                    data-dismiss="modal"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          "className": "modal-dialog",
+          "role": "document",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="modal-header"
+              >
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    ×
+                  </span>
+                </button>
+                <h4
+                  className="modal-title"
+                  id="modalLabel"
+                >
+                  Recipe
+                </h4>
+              </div>,
+              <div
+                className="modal-body"
+              >
+                <form
+                  id="form"
+                >
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeName"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="form-control"
+                      id="recipeName"
+                      name="name"
+                      onChange={[Function]}
+                      required={true}
+                      type="text"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeDescription"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      cols="50"
+                      id="recipeDescription"
+                      name="description"
+                      onChange={[Function]}
+                      required={true}
+                      rows="5"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="image"
+                    >
+                      The maximum file size allowed is 4mb
+                      <input
+                        className="form-control"
+                        id="recipePicture"
+                        name="image"
+                        type="file"
+                      />
+                      Click to add image
+                    </label>
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="category"
+                    >
+                      Category
+                    </label>
+                    <select
+                      className="form-control"
+                      id="categoryId"
+                      name="categoryId"
+                      onChange={[Function]}
+                      required={true}
+                    />
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="ingredient"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Ingredients
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="step"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Steps
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <div
+                    className="modal-footer"
+                  >
+                    <Unknown
+                      component="div"
+                      loaded={true}
+                      loadedClassName="loadedContent"
+                      parentClassName="loader"
+                    />
+                    <button
+                      className="btn btn-secondary auth-button"
+                      id="submit"
+                      onClick={[Function]}
+                    >
+                      Submit
+                    </button>
+                    <button
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>,
+            ],
+            "className": "modal-content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>
+                  </button>,
+                  <h4
+                    className="modal-title"
+                    id="modalLabel"
+                  >
+                    Recipe
+                  </h4>,
+                ],
+                "className": "modal-header",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "aria-label": "Close",
+                    "children": <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>,
+                    "className": "close",
+                    "data-dismiss": "modal",
+                    "type": "button",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": "×",
+                    },
+                    "ref": null,
+                    "rendered": "×",
+                    "type": "span",
+                  },
+                  "type": "button",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Recipe",
+                    "className": "modal-title",
+                    "id": "modalLabel",
+                  },
+                  "ref": null,
+                  "rendered": "Recipe",
+                  "type": "h4",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  Array [],
+                  <form
+                    id="form"
+                  >
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="recipeName"
+                      >
+                        Name
+                      </label>
+                      <input
+                        className="form-control"
+                        id="recipeName"
+                        name="name"
+                        onChange={[Function]}
+                        required={true}
+                        type="text"
+                        value=""
+                      />
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="recipeDescription"
+                      >
+                        Description
+                      </label>
+                      <textarea
+                        className="form-control"
+                        cols="50"
+                        id="recipeDescription"
+                        name="description"
+                        onChange={[Function]}
+                        required={true}
+                        rows="5"
+                        value=""
+                      />
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="image"
+                      >
+                        The maximum file size allowed is 4mb
+                        <input
+                          className="form-control"
+                          id="recipePicture"
+                          name="image"
+                          type="file"
+                        />
+                        Click to add image
+                      </label>
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="category"
+                      >
+                        Category
+                      </label>
+                      <select
+                        className="form-control"
+                        id="categoryId"
+                        name="categoryId"
+                        onChange={[Function]}
+                        required={true}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <button
+                        className="auth-button fa fa-plus"
+                        id="ingredient"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          }
+                        }
+                      >
+                        <strong>
+                          Ingredients
+                        </strong>
+                      </button>
+                    </fieldset>
+                    <fieldset>
+                      <button
+                        className="auth-button fa fa-plus"
+                        id="step"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          }
+                        }
+                      >
+                        <strong>
+                          Steps
+                        </strong>
+                      </button>
+                    </fieldset>
+                    <div
+                      className="modal-footer"
+                    >
+                      <Unknown
+                        component="div"
+                        loaded={true}
+                        loadedClassName="loadedContent"
+                        parentClassName="loader"
+                      />
+                      <button
+                        className="btn btn-secondary auth-button"
+                        id="submit"
+                        onClick={[Function]}
+                      >
+                        Submit
+                      </button>
+                      <button
+                        className="btn btn-secondary auth-button"
+                        data-dismiss="modal"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>,
+                ],
+                "className": "modal-body",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="recipeName"
+                        >
+                          Name
+                        </label>
+                        <input
+                          className="form-control"
+                          id="recipeName"
+                          name="name"
+                          onChange={[Function]}
+                          required={true}
+                          type="text"
+                          value=""
+                        />
+                      </fieldset>,
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="recipeDescription"
+                        >
+                          Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          cols="50"
+                          id="recipeDescription"
+                          name="description"
+                          onChange={[Function]}
+                          required={true}
+                          rows="5"
+                          value=""
+                        />
+                      </fieldset>,
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="image"
+                        >
+                          The maximum file size allowed is 4mb
+                          <input
+                            className="form-control"
+                            id="recipePicture"
+                            name="image"
+                            type="file"
+                          />
+                          Click to add image
+                        </label>
+                      </fieldset>,
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="category"
+                        >
+                          Category
+                        </label>
+                        <select
+                          className="form-control"
+                          id="categoryId"
+                          name="categoryId"
+                          onChange={[Function]}
+                          required={true}
+                        />
+                      </fieldset>,
+                      Array [],
+                      <fieldset>
+                        <button
+                          className="auth-button fa fa-plus"
+                          id="ingredient"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Ingredients
+                          </strong>
+                        </button>
+                      </fieldset>,
+                      Array [],
+                      <fieldset>
+                        <button
+                          className="auth-button fa fa-plus"
+                          id="step"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Steps
+                          </strong>
+                        </button>
+                      </fieldset>,
+                      <div
+                        className="modal-footer"
+                      >
+                        <Unknown
+                          component="div"
+                          loaded={true}
+                          loadedClassName="loadedContent"
+                          parentClassName="loader"
+                        />
+                        <button
+                          className="btn btn-secondary auth-button"
+                          id="submit"
+                          onClick={[Function]}
+                        >
+                          Submit
+                        </button>
+                        <button
+                          className="btn btn-secondary auth-button"
+                          data-dismiss="modal"
+                          type="button"
+                        >
+                          Cancel
+                        </button>
+                      </div>,
+                    ],
+                    "id": "form",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="recipeName"
+                          >
+                            Name
+                          </label>,
+                          <input
+                            className="form-control"
+                            id="recipeName"
+                            name="name"
+                            onChange={[Function]}
+                            required={true}
+                            type="text"
+                            value=""
+                          />,
+                        ],
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Name",
+                            "className": "form-inline",
+                            "htmlFor": "recipeName",
+                          },
+                          "ref": null,
+                          "rendered": "Name",
+                          "type": "label",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "id": "recipeName",
+                            "name": "name",
+                            "onChange": [Function],
+                            "required": true,
+                            "type": "text",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "input",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="recipeDescription"
+                          >
+                            Description
+                          </label>,
+                          <textarea
+                            className="form-control"
+                            cols="50"
+                            id="recipeDescription"
+                            name="description"
+                            onChange={[Function]}
+                            required={true}
+                            rows="5"
+                            value=""
+                          />,
+                        ],
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Description",
+                            "className": "form-inline",
+                            "htmlFor": "recipeDescription",
+                          },
+                          "ref": null,
+                          "rendered": "Description",
+                          "type": "label",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "cols": "50",
+                            "id": "recipeDescription",
+                            "name": "description",
+                            "onChange": [Function],
+                            "required": true,
+                            "rows": "5",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "textarea",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <label
+                          className="form-inline"
+                          htmlFor="image"
+                        >
+                          The maximum file size allowed is 4mb
+                          <input
+                            className="form-control"
+                            id="recipePicture"
+                            name="image"
+                            type="file"
+                          />
+                          Click to add image
+                        </label>,
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            "The maximum file size allowed is 4mb",
+                            <input
+                              className="form-control"
+                              id="recipePicture"
+                              name="image"
+                              type="file"
+                            />,
+                            "Click to add image",
+                          ],
+                          "className": "form-inline",
+                          "htmlFor": "image",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          "The maximum file size allowed is 4mb",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "id": "recipePicture",
+                              "name": "image",
+                              "type": "file",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                          "Click to add image",
+                        ],
+                        "type": "label",
+                      },
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="category"
+                          >
+                            Category
+                          </label>,
+                          <select
+                            className="form-control"
+                            id="categoryId"
+                            name="categoryId"
+                            onChange={[Function]}
+                            required={true}
+                          />,
+                        ],
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Category",
+                            "className": "form-inline",
+                            "htmlFor": "category",
+                          },
+                          "ref": null,
+                          "rendered": "Category",
+                          "type": "label",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [],
+                            "className": "form-control",
+                            "id": "categoryId",
+                            "name": "categoryId",
+                            "onChange": [Function],
+                            "required": true,
+                          },
+                          "ref": null,
+                          "rendered": Array [],
+                          "type": "select",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <button
+                          className="auth-button fa fa-plus"
+                          id="ingredient"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Ingredients
+                          </strong>
+                        </button>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <strong>
+                            Ingredients
+                          </strong>,
+                          "className": "auth-button fa fa-plus",
+                          "id": "ingredient",
+                          "onClick": [Function],
+                          "style": Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Ingredients",
+                          },
+                          "ref": null,
+                          "rendered": "Ingredients",
+                          "type": "strong",
+                        },
+                        "type": "button",
+                      },
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <button
+                          className="auth-button fa fa-plus"
+                          id="step"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Steps
+                          </strong>
+                        </button>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <strong>
+                            Steps
+                          </strong>,
+                          "className": "auth-button fa fa-plus",
+                          "id": "step",
+                          "onClick": [Function],
+                          "style": Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Steps",
+                          },
+                          "ref": null,
+                          "rendered": "Steps",
+                          "type": "strong",
+                        },
+                        "type": "button",
+                      },
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <Unknown
+                            component="div"
+                            loaded={true}
+                            loadedClassName="loadedContent"
+                            parentClassName="loader"
+                          />,
+                          <button
+                            className="btn btn-secondary auth-button"
+                            id="submit"
+                            onClick={[Function]}
+                          >
+                            Submit
+                          </button>,
+                          <button
+                            className="btn btn-secondary auth-button"
+                            data-dismiss="modal"
+                            type="button"
+                          >
+                            Cancel
+                          </button>,
+                        ],
+                        "className": "modal-footer",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "component": "div",
+                            "loaded": true,
+                            "loadedClassName": "loadedContent",
+                            "parentClassName": "loader",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Submit",
+                            "className": "btn btn-secondary auth-button",
+                            "id": "submit",
+                            "onClick": [Function],
+                          },
+                          "ref": null,
+                          "rendered": "Submit",
+                          "type": "button",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Cancel",
+                            "className": "btn btn-secondary auth-button",
+                            "data-dismiss": "modal",
+                            "type": "button",
+                          },
+                          "ref": null,
+                          "rendered": "Cancel",
+                          "type": "button",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                  ],
+                  "type": "form",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          aria-hidden="true"
+          aria-labelledby="modalLabel"
+          className="modal fade"
+          id="addModal"
+          role="dialog"
+          tabIndex="-1"
+        >
+          <div
+            className="modal-dialog"
+            role="document"
+          >
+            <div
+              className="modal-content"
+            >
+              <div
+                className="modal-header"
+              >
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    ×
+                  </span>
+                </button>
+                <h4
+                  className="modal-title"
+                  id="modalLabel"
+                >
+                  Recipe
+                </h4>
+              </div>
+              <div
+                className="modal-body"
+              >
+                <form
+                  id="form"
+                >
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeName"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="form-control"
+                      id="recipeName"
+                      name="name"
+                      onChange={[Function]}
+                      required={true}
+                      type="text"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeDescription"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      cols="50"
+                      id="recipeDescription"
+                      name="description"
+                      onChange={[Function]}
+                      required={true}
+                      rows="5"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="image"
+                    >
+                      The maximum file size allowed is 4mb
+                      <input
+                        className="form-control"
+                        id="recipePicture"
+                        name="image"
+                        type="file"
+                      />
+                      Click to add image
+                    </label>
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="category"
+                    >
+                      Category
+                    </label>
+                    <select
+                      className="form-control"
+                      id="categoryId"
+                      name="categoryId"
+                      onChange={[Function]}
+                      required={true}
+                    />
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="ingredient"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Ingredients
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="step"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Steps
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <div
+                    className="modal-footer"
+                  >
+                    <Unknown
+                      component="div"
+                      loaded={true}
+                      loadedClassName="loadedContent"
+                      parentClassName="loader"
+                    />
+                    <button
+                      className="btn btn-secondary auth-button"
+                      id="submit"
+                      onClick={[Function]}
+                    >
+                      Submit
+                    </button>
+                    <button
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "aria-labelledby": "modalLabel",
+          "children": <div
+            className="modal-dialog"
+            role="document"
+          >
+            <div
+              className="modal-content"
+            >
+              <div
+                className="modal-header"
+              >
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    ×
+                  </span>
+                </button>
+                <h4
+                  className="modal-title"
+                  id="modalLabel"
+                >
+                  Recipe
+                </h4>
+              </div>
+              <div
+                className="modal-body"
+              >
+                <form
+                  id="form"
+                >
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeName"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="form-control"
+                      id="recipeName"
+                      name="name"
+                      onChange={[Function]}
+                      required={true}
+                      type="text"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeDescription"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      cols="50"
+                      id="recipeDescription"
+                      name="description"
+                      onChange={[Function]}
+                      required={true}
+                      rows="5"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="image"
+                    >
+                      The maximum file size allowed is 4mb
+                      <input
+                        className="form-control"
+                        id="recipePicture"
+                        name="image"
+                        type="file"
+                      />
+                      Click to add image
+                    </label>
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="category"
+                    >
+                      Category
+                    </label>
+                    <select
+                      className="form-control"
+                      id="categoryId"
+                      name="categoryId"
+                      onChange={[Function]}
+                      required={true}
+                    />
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="ingredient"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Ingredients
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="step"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Steps
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <div
+                    className="modal-footer"
+                  >
+                    <Unknown
+                      component="div"
+                      loaded={true}
+                      loadedClassName="loadedContent"
+                      parentClassName="loader"
+                    />
+                    <button
+                      className="btn btn-secondary auth-button"
+                      id="submit"
+                      onClick={[Function]}
+                    >
+                      Submit
+                    </button>
+                    <button
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>,
+          "className": "modal fade",
+          "id": "addModal",
+          "role": "dialog",
+          "tabIndex": "-1",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="modal-content"
+            >
+              <div
+                className="modal-header"
+              >
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    ×
+                  </span>
+                </button>
+                <h4
+                  className="modal-title"
+                  id="modalLabel"
+                >
+                  Recipe
+                </h4>
+              </div>
+              <div
+                className="modal-body"
+              >
+                <form
+                  id="form"
+                >
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeName"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="form-control"
+                      id="recipeName"
+                      name="name"
+                      onChange={[Function]}
+                      required={true}
+                      type="text"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="recipeDescription"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      cols="50"
+                      id="recipeDescription"
+                      name="description"
+                      onChange={[Function]}
+                      required={true}
+                      rows="5"
+                      value=""
+                    />
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="image"
+                    >
+                      The maximum file size allowed is 4mb
+                      <input
+                        className="form-control"
+                        id="recipePicture"
+                        name="image"
+                        type="file"
+                      />
+                      Click to add image
+                    </label>
+                  </fieldset>
+                  <fieldset
+                    className="form-group"
+                  >
+                    <label
+                      className="form-inline"
+                      htmlFor="category"
+                    >
+                      Category
+                    </label>
+                    <select
+                      className="form-control"
+                      id="categoryId"
+                      name="categoryId"
+                      onChange={[Function]}
+                      required={true}
+                    />
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="ingredient"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Ingredients
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <fieldset>
+                    <button
+                      className="auth-button fa fa-plus"
+                      id="step"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "float": "left",
+                          "fontSize": 12,
+                          "height": 20,
+                          "padding": 0,
+                          "width": 90,
+                        }
+                      }
+                    >
+                      <strong>
+                        Steps
+                      </strong>
+                    </button>
+                  </fieldset>
+                  <div
+                    className="modal-footer"
+                  >
+                    <Unknown
+                      component="div"
+                      loaded={true}
+                      loadedClassName="loadedContent"
+                      parentClassName="loader"
+                    />
+                    <button
+                      className="btn btn-secondary auth-button"
+                      id="submit"
+                      onClick={[Function]}
+                    >
+                      Submit
+                    </button>
+                    <button
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>,
+            "className": "modal-dialog",
+            "role": "document",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="modal-header"
+                >
+                  <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>
+                  </button>
+                  <h4
+                    className="modal-title"
+                    id="modalLabel"
+                  >
+                    Recipe
+                  </h4>
+                </div>,
+                <div
+                  className="modal-body"
+                >
+                  <form
+                    id="form"
+                  >
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="recipeName"
+                      >
+                        Name
+                      </label>
+                      <input
+                        className="form-control"
+                        id="recipeName"
+                        name="name"
+                        onChange={[Function]}
+                        required={true}
+                        type="text"
+                        value=""
+                      />
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="recipeDescription"
+                      >
+                        Description
+                      </label>
+                      <textarea
+                        className="form-control"
+                        cols="50"
+                        id="recipeDescription"
+                        name="description"
+                        onChange={[Function]}
+                        required={true}
+                        rows="5"
+                        value=""
+                      />
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="image"
+                      >
+                        The maximum file size allowed is 4mb
+                        <input
+                          className="form-control"
+                          id="recipePicture"
+                          name="image"
+                          type="file"
+                        />
+                        Click to add image
+                      </label>
+                    </fieldset>
+                    <fieldset
+                      className="form-group"
+                    >
+                      <label
+                        className="form-inline"
+                        htmlFor="category"
+                      >
+                        Category
+                      </label>
+                      <select
+                        className="form-control"
+                        id="categoryId"
+                        name="categoryId"
+                        onChange={[Function]}
+                        required={true}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <button
+                        className="auth-button fa fa-plus"
+                        id="ingredient"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          }
+                        }
+                      >
+                        <strong>
+                          Ingredients
+                        </strong>
+                      </button>
+                    </fieldset>
+                    <fieldset>
+                      <button
+                        className="auth-button fa fa-plus"
+                        id="step"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "float": "left",
+                            "fontSize": 12,
+                            "height": 20,
+                            "padding": 0,
+                            "width": 90,
+                          }
+                        }
+                      >
+                        <strong>
+                          Steps
+                        </strong>
+                      </button>
+                    </fieldset>
+                    <div
+                      className="modal-footer"
+                    >
+                      <Unknown
+                        component="div"
+                        loaded={true}
+                        loadedClassName="loadedContent"
+                        parentClassName="loader"
+                      />
+                      <button
+                        className="btn btn-secondary auth-button"
+                        id="submit"
+                        onClick={[Function]}
+                      >
+                        Submit
+                      </button>
+                      <button
+                        className="btn btn-secondary auth-button"
+                        data-dismiss="modal"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>,
+              ],
+              "className": "modal-content",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <button
+                      aria-label="Close"
+                      className="close"
+                      data-dismiss="modal"
+                      type="button"
+                    >
+                      <span
+                        aria-hidden="true"
+                      >
+                        ×
+                      </span>
+                    </button>,
+                    <h4
+                      className="modal-title"
+                      id="modalLabel"
+                    >
+                      Recipe
+                    </h4>,
+                  ],
+                  "className": "modal-header",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-label": "Close",
+                      "children": <span
+                        aria-hidden="true"
+                      >
+                        ×
+                      </span>,
+                      "className": "close",
+                      "data-dismiss": "modal",
+                      "type": "button",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "aria-hidden": "true",
+                        "children": "×",
+                      },
+                      "ref": null,
+                      "rendered": "×",
+                      "type": "span",
+                    },
+                    "type": "button",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Recipe",
+                      "className": "modal-title",
+                      "id": "modalLabel",
+                    },
+                    "ref": null,
+                    "rendered": "Recipe",
+                    "type": "h4",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    Array [],
+                    <form
+                      id="form"
+                    >
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="recipeName"
+                        >
+                          Name
+                        </label>
+                        <input
+                          className="form-control"
+                          id="recipeName"
+                          name="name"
+                          onChange={[Function]}
+                          required={true}
+                          type="text"
+                          value=""
+                        />
+                      </fieldset>
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="recipeDescription"
+                        >
+                          Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          cols="50"
+                          id="recipeDescription"
+                          name="description"
+                          onChange={[Function]}
+                          required={true}
+                          rows="5"
+                          value=""
+                        />
+                      </fieldset>
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="image"
+                        >
+                          The maximum file size allowed is 4mb
+                          <input
+                            className="form-control"
+                            id="recipePicture"
+                            name="image"
+                            type="file"
+                          />
+                          Click to add image
+                        </label>
+                      </fieldset>
+                      <fieldset
+                        className="form-group"
+                      >
+                        <label
+                          className="form-inline"
+                          htmlFor="category"
+                        >
+                          Category
+                        </label>
+                        <select
+                          className="form-control"
+                          id="categoryId"
+                          name="categoryId"
+                          onChange={[Function]}
+                          required={true}
+                        />
+                      </fieldset>
+                      <fieldset>
+                        <button
+                          className="auth-button fa fa-plus"
+                          id="ingredient"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Ingredients
+                          </strong>
+                        </button>
+                      </fieldset>
+                      <fieldset>
+                        <button
+                          className="auth-button fa fa-plus"
+                          id="step"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            }
+                          }
+                        >
+                          <strong>
+                            Steps
+                          </strong>
+                        </button>
+                      </fieldset>
+                      <div
+                        className="modal-footer"
+                      >
+                        <Unknown
+                          component="div"
+                          loaded={true}
+                          loadedClassName="loadedContent"
+                          parentClassName="loader"
+                        />
+                        <button
+                          className="btn btn-secondary auth-button"
+                          id="submit"
+                          onClick={[Function]}
+                        >
+                          Submit
+                        </button>
+                        <button
+                          className="btn btn-secondary auth-button"
+                          data-dismiss="modal"
+                          type="button"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>,
+                  ],
+                  "className": "modal-body",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <fieldset
+                          className="form-group"
+                        >
+                          <label
+                            className="form-inline"
+                            htmlFor="recipeName"
+                          >
+                            Name
+                          </label>
+                          <input
+                            className="form-control"
+                            id="recipeName"
+                            name="name"
+                            onChange={[Function]}
+                            required={true}
+                            type="text"
+                            value=""
+                          />
+                        </fieldset>,
+                        <fieldset
+                          className="form-group"
+                        >
+                          <label
+                            className="form-inline"
+                            htmlFor="recipeDescription"
+                          >
+                            Description
+                          </label>
+                          <textarea
+                            className="form-control"
+                            cols="50"
+                            id="recipeDescription"
+                            name="description"
+                            onChange={[Function]}
+                            required={true}
+                            rows="5"
+                            value=""
+                          />
+                        </fieldset>,
+                        <fieldset
+                          className="form-group"
+                        >
+                          <label
+                            className="form-inline"
+                            htmlFor="image"
+                          >
+                            The maximum file size allowed is 4mb
+                            <input
+                              className="form-control"
+                              id="recipePicture"
+                              name="image"
+                              type="file"
+                            />
+                            Click to add image
+                          </label>
+                        </fieldset>,
+                        <fieldset
+                          className="form-group"
+                        >
+                          <label
+                            className="form-inline"
+                            htmlFor="category"
+                          >
+                            Category
+                          </label>
+                          <select
+                            className="form-control"
+                            id="categoryId"
+                            name="categoryId"
+                            onChange={[Function]}
+                            required={true}
+                          />
+                        </fieldset>,
+                        Array [],
+                        <fieldset>
+                          <button
+                            className="auth-button fa fa-plus"
+                            id="ingredient"
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "float": "left",
+                                "fontSize": 12,
+                                "height": 20,
+                                "padding": 0,
+                                "width": 90,
+                              }
+                            }
+                          >
+                            <strong>
+                              Ingredients
+                            </strong>
+                          </button>
+                        </fieldset>,
+                        Array [],
+                        <fieldset>
+                          <button
+                            className="auth-button fa fa-plus"
+                            id="step"
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "float": "left",
+                                "fontSize": 12,
+                                "height": 20,
+                                "padding": 0,
+                                "width": 90,
+                              }
+                            }
+                          >
+                            <strong>
+                              Steps
+                            </strong>
+                          </button>
+                        </fieldset>,
+                        <div
+                          className="modal-footer"
+                        >
+                          <Unknown
+                            component="div"
+                            loaded={true}
+                            loadedClassName="loadedContent"
+                            parentClassName="loader"
+                          />
+                          <button
+                            className="btn btn-secondary auth-button"
+                            id="submit"
+                            onClick={[Function]}
+                          >
+                            Submit
+                          </button>
+                          <button
+                            className="btn btn-secondary auth-button"
+                            data-dismiss="modal"
+                            type="button"
+                          >
+                            Cancel
+                          </button>
+                        </div>,
+                      ],
+                      "id": "form",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="recipeName"
+                            >
+                              Name
+                            </label>,
+                            <input
+                              className="form-control"
+                              id="recipeName"
+                              name="name"
+                              onChange={[Function]}
+                              required={true}
+                              type="text"
+                              value=""
+                            />,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Name",
+                              "className": "form-inline",
+                              "htmlFor": "recipeName",
+                            },
+                            "ref": null,
+                            "rendered": "Name",
+                            "type": "label",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "id": "recipeName",
+                              "name": "name",
+                              "onChange": [Function],
+                              "required": true,
+                              "type": "text",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="recipeDescription"
+                            >
+                              Description
+                            </label>,
+                            <textarea
+                              className="form-control"
+                              cols="50"
+                              id="recipeDescription"
+                              name="description"
+                              onChange={[Function]}
+                              required={true}
+                              rows="5"
+                              value=""
+                            />,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Description",
+                              "className": "form-inline",
+                              "htmlFor": "recipeDescription",
+                            },
+                            "ref": null,
+                            "rendered": "Description",
+                            "type": "label",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "cols": "50",
+                              "id": "recipeDescription",
+                              "name": "description",
+                              "onChange": [Function],
+                              "required": true,
+                              "rows": "5",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "textarea",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <label
+                            className="form-inline"
+                            htmlFor="image"
+                          >
+                            The maximum file size allowed is 4mb
+                            <input
+                              className="form-control"
+                              id="recipePicture"
+                              name="image"
+                              type="file"
+                            />
+                            Click to add image
+                          </label>,
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              "The maximum file size allowed is 4mb",
+                              <input
+                                className="form-control"
+                                id="recipePicture"
+                                name="image"
+                                type="file"
+                              />,
+                              "Click to add image",
+                            ],
+                            "className": "form-inline",
+                            "htmlFor": "image",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "The maximum file size allowed is 4mb",
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "className": "form-control",
+                                "id": "recipePicture",
+                                "name": "image",
+                                "type": "file",
+                              },
+                              "ref": null,
+                              "rendered": null,
+                              "type": "input",
+                            },
+                            "Click to add image",
+                          ],
+                          "type": "label",
+                        },
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="category"
+                            >
+                              Category
+                            </label>,
+                            <select
+                              className="form-control"
+                              id="categoryId"
+                              name="categoryId"
+                              onChange={[Function]}
+                              required={true}
+                            />,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Category",
+                              "className": "form-inline",
+                              "htmlFor": "category",
+                            },
+                            "ref": null,
+                            "rendered": "Category",
+                            "type": "label",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [],
+                              "className": "form-control",
+                              "id": "categoryId",
+                              "name": "categoryId",
+                              "onChange": [Function],
+                              "required": true,
+                            },
+                            "ref": null,
+                            "rendered": Array [],
+                            "type": "select",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <button
+                            className="auth-button fa fa-plus"
+                            id="ingredient"
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "float": "left",
+                                "fontSize": 12,
+                                "height": 20,
+                                "padding": 0,
+                                "width": 90,
+                              }
+                            }
+                          >
+                            <strong>
+                              Ingredients
+                            </strong>
+                          </button>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <strong>
+                              Ingredients
+                            </strong>,
+                            "className": "auth-button fa fa-plus",
+                            "id": "ingredient",
+                            "onClick": [Function],
+                            "style": Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            },
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Ingredients",
+                            },
+                            "ref": null,
+                            "rendered": "Ingredients",
+                            "type": "strong",
+                          },
+                          "type": "button",
+                        },
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <button
+                            className="auth-button fa fa-plus"
+                            id="step"
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "float": "left",
+                                "fontSize": 12,
+                                "height": 20,
+                                "padding": 0,
+                                "width": 90,
+                              }
+                            }
+                          >
+                            <strong>
+                              Steps
+                            </strong>
+                          </button>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <strong>
+                              Steps
+                            </strong>,
+                            "className": "auth-button fa fa-plus",
+                            "id": "step",
+                            "onClick": [Function],
+                            "style": Object {
+                              "float": "left",
+                              "fontSize": 12,
+                              "height": 20,
+                              "padding": 0,
+                              "width": 90,
+                            },
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Steps",
+                            },
+                            "ref": null,
+                            "rendered": "Steps",
+                            "type": "strong",
+                          },
+                          "type": "button",
+                        },
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <Unknown
+                              component="div"
+                              loaded={true}
+                              loadedClassName="loadedContent"
+                              parentClassName="loader"
+                            />,
+                            <button
+                              className="btn btn-secondary auth-button"
+                              id="submit"
+                              onClick={[Function]}
+                            >
+                              Submit
+                            </button>,
+                            <button
+                              className="btn btn-secondary auth-button"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                              Cancel
+                            </button>,
+                          ],
+                          "className": "modal-footer",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "class",
+                            "props": Object {
+                              "component": "div",
+                              "loaded": true,
+                              "loadedClassName": "loadedContent",
+                              "parentClassName": "loader",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": [Function],
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Submit",
+                              "className": "btn btn-secondary auth-button",
+                              "id": "submit",
+                              "onClick": [Function],
+                            },
+                            "ref": null,
+                            "rendered": "Submit",
+                            "type": "button",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Cancel",
+                              "className": "btn btn-secondary auth-button",
+                              "data-dismiss": "modal",
+                              "type": "button",
+                            },
+                            "ref": null,
+                            "rendered": "Cancel",
+                            "type": "button",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                    ],
+                    "type": "form",
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

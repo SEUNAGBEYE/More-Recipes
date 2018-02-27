@@ -19,10 +19,11 @@ import {
 
 
 /**
+ * @export
  * @class RecipeCard
  * @extends {Component}
  */
-class RecipeCard extends Component {
+export class RecipeCard extends Component {
   /**
    * Creates an instance of RecipeCard.
    * @param {Object} props
@@ -110,12 +111,13 @@ class RecipeCard extends Component {
   }
 
   /**
-   * @param {Number} id
+   * @param {Object} event
    *
    * @returns {void} void
    * @memberof RecipeCard
    */
-  deleteRecipe(id) {
+  deleteRecipe(event) {
+    const { id } = event.target;
     this.props.deleteRecipe(id);
   }
 
@@ -151,8 +153,8 @@ class RecipeCard extends Component {
    * @memberof RecipeCard
    */
   render() {
-    const { recipe, myFavs } = this.props;
-    const isFavorited = myFavs.includes(parseInt(recipe.id, 10));
+    const { recipe, myFavouriteRecipes } = this.props;
+    const isFavorited = myFavouriteRecipes.includes(parseInt(recipe.id, 10));
     return (
       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-3 my-card">
         <div className="card recipe-card">
@@ -197,7 +199,7 @@ const propTypes = {
   user: PropTypes.object.isRequired,
   history: PropTypes.object,
   recipe: PropTypes.object.isRequired,
-  myFavs: PropTypes.array.isRequired,
+  myFavouriteRecipes: PropTypes.array.isRequired,
   toggleFavouriteRecipe: PropTypes.func.isRequired,
   getFavouritedRecipesIds: PropTypes.func.isRequired,
   toggleThumbsDownRecipe: PropTypes.func.isRequired,
@@ -210,14 +212,15 @@ RecipeCard.propTypes = propTypes;
 
 /**
  * mapStateToProps
+ * @export
  * @param {Object} state
  *
  * @returns {object} object
  */
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
-  myFavs: state.auth.isAuthenticated ? state.recipes.userFavouritedRecipeId : []
+  myFavouriteRecipes: state.auth.isAuthenticated ? state.recipes.userFavouritedRecipeId : []
 
 });
 

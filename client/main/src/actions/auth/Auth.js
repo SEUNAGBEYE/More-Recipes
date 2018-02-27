@@ -40,6 +40,7 @@ export function updateProfileAction(user) {
  * @returns {void}
  */
 function setCurrentUser(action, actionType, res, dispatch) {
+  console.log('>>>>>>>>>>>>Res', res.data);
   const { token } = res.data;
   localStorage.setItem('token', token);
   setAuthorizationToken(token);
@@ -80,8 +81,14 @@ export function login(data, history = {}) {
  */
 export function signUpRequest(data, history = []) {
   return dispatch => axios.post('/api/v1/users/signup', data)
-    .then(res => setCurrentUser(setCurrentUserAction, 'SET_CURRENT_USER', res.data, dispatch))
-    .catch(error => error.response.data.errors);
+    .then(res => {
+      setCurrentUser(setCurrentUserAction, 'SET_CURRENT_USER', res.data, dispatch);
+      console.log('>>>>>>>>>>>>Res', res.data);
+    })
+    .catch(error => {
+      console.log('>>>>>>>>>>>>Error', error);
+      error.response.data.errors
+    });
 }
 
 /**

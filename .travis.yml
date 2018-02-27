@@ -2,7 +2,9 @@ language: node_js
 node_js:
  - "stable"
 
-install: npm install
+install: 
+- npm install -g codecov
+- npm install
 
 services:
   - postgresql
@@ -15,11 +17,10 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - npm run build
   - sequelize db:migrate
   - sequelize db:seed:all
 
-script: npm test
+script: npm run test:all
 
 after_success:
   - npm run coverage

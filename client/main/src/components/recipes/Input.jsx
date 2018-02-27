@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default (props) => (
+const Input = (props) => (
   <div>
     <fieldset>
       <label> {props.name} { props.number}</label>
@@ -13,3 +14,15 @@ export default (props) => (
     </fieldset>
   </div>
 );
+
+const propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  number: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
+Input.propTypes = propTypes;
+
+export default Input;

@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# RecipeDetail should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <RecipeDetail
+    editRecipe={[MockFunction]}
+    getRecipe={[Function]}
+    getRecipeReviews={[MockFunction]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    isAuthenticated={true}
+    match={
+      Object {
+        "params": Object {
+          "id": 1,
+        },
+      }
+    }
+    myFavouriteRecipes={Array []}
+    recipe={
+      Object {
+        "downvotes": Array [],
+        "id": 1,
+        "image": "This is the image",
+        "ingredients": Array [],
+        "name": "Amala",
+        "reviews": Array [],
+        "steps": Array [],
+        "upvotes": Array [],
+      }
+    }
+    reviewBody="This is my review"
+    reviewRecipe={[MockFunction]}
+    toggleFavouriteRecipe={[MockFunction]}
+    toggleThumbsDownRecipe={[MockFunction]}
+    toggleThumbsUpRecipe={[MockFunction]}
+    user={
+      Object {
+        "firstName": "Seun",
+        "lastName": "Agbeye",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": "The recipe is loading ...",
+      "className": "text-center",
+    },
+    "ref": null,
+    "rendered": "The recipe is loading ...",
+    "type": "p",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": "The recipe is loading ...",
+        "className": "text-center",
+      },
+      "ref": null,
+      "rendered": "The recipe is loading ...",
+      "type": "p",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
