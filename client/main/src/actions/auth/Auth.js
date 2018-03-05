@@ -40,6 +40,7 @@ export function updateProfileAction(user) {
  * @returns {void}
  */
 function setCurrentUser(action, actionType, res, dispatch) {
+  console.log('>>>>>>>>>>>>Res', res.data);
   const { token } = res.data;
   localStorage.setItem('token', token);
   setAuthorizationToken(token);

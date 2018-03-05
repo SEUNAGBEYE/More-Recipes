@@ -31,7 +31,7 @@ describe('Auth', () => {
 
 
   describe('SignUp', () => {
-    it('should SET_CURRENT_USER when a user is succussfully signup', async () => {
+    it('should SET_CURRENT_USER when a user is succussfully signup', async (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -51,6 +51,7 @@ describe('Auth', () => {
         .then(() => {
           expect(store.getActions()).toEqual(expectedAction);
         });
+      done();
     });
   });
 
