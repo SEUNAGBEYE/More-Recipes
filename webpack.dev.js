@@ -8,7 +8,7 @@ module.exports = merge(commonConfiguration, {
       debug: true
     })
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map',
   watch: true
 });
 

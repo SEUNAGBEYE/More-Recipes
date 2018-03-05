@@ -86,9 +86,10 @@ class SearchResults extends Component {
             </div>
           </div>
         </main>
-        <Pagination recipesCount={this.props.recipesCount}
-          recipesPagination={this.searchRecipes}
-        />
+        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
+          recipesPagination={this.paginateRecipes}/> :
+          ''
+        }
       </div>
     );
   }
@@ -102,7 +103,7 @@ class SearchResults extends Component {
  */
 const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
-  recipesCount: state.recipes.pagination,
+  pagination: state.recipes.pagination,
   user: state.auth.user,
 });
 

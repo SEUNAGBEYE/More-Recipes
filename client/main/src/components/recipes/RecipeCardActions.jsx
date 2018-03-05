@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+/**
+ *@description - Component for recipe actions i.e upvote/downvotes, edit recipe, delete recipe
+ * @param {Object} props
+ *
+ * @returns {jsx} JSX
+ */
 const RecipeCardActions = (props) => (
   <div>
     { props.recipe.userId === props.user.userId ?
@@ -9,9 +14,13 @@ const RecipeCardActions = (props) => (
         style={props.style}>
         <i className="fa fa-eye icons">{props.recipe.views.length}</i>
         <i className="fa fa-pencil icons" data-toggle="modal"
-          data-target={`#editModal${props.recipe.id}`}/>
+          data-target={`#editModal${props.recipe.id}`}
+          id={`editModal${props.recipe.id}Button`}
+        />
         <i className="fa fa-trash icons" data-toggle="modal"
-          data-target={`#deleteModal${props.recipe.id}`} />
+          data-target={`#deleteModal${props.recipe.id}`}
+          data-delete-button={`deleteModal${props.recipe.id}`}
+        />
       </div> :
       <div className="d-flex justify-content-between recipe-icons"
         style={props.style}>

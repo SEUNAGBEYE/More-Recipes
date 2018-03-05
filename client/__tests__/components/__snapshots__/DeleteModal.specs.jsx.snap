@@ -87,6 +87,7 @@ ShallowWrapper {
             >
               <button
                 className="btn btn-secondary auth-button"
+                data-delete={1}
                 data-dismiss="modal"
                 id={1}
                 onClick={[MockFunction]}
@@ -172,6 +173,7 @@ ShallowWrapper {
             >
               <button
                 className="btn btn-secondary auth-button"
+                data-delete={1}
                 data-dismiss="modal"
                 id={1}
                 onClick={[MockFunction]}
@@ -254,6 +256,7 @@ ShallowWrapper {
             >
               <button
                 className="btn btn-secondary auth-button"
+                data-delete={1}
                 data-dismiss="modal"
                 id={1}
                 onClick={[MockFunction]}
@@ -331,6 +334,7 @@ ShallowWrapper {
               >
                 <button
                   className="btn btn-secondary auth-button"
+                  data-delete={1}
                   data-dismiss="modal"
                   id={1}
                   onClick={[MockFunction]}
@@ -496,6 +500,7 @@ ShallowWrapper {
                 "children": Array [
                   <button
                     className="btn btn-secondary auth-button"
+                    data-delete={1}
                     data-dismiss="modal"
                     id={1}
                     onClick={[MockFunction]}
@@ -521,6 +526,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Yes",
                     "className": "btn btn-secondary auth-button",
+                    "data-delete": 1,
                     "data-dismiss": "modal",
                     "id": 1,
                     "onClick": [MockFunction],
@@ -628,6 +634,7 @@ ShallowWrapper {
               >
                 <button
                   className="btn btn-secondary auth-button"
+                  data-delete={1}
                   data-dismiss="modal"
                   id={1}
                   onClick={[MockFunction]}
@@ -713,6 +720,7 @@ ShallowWrapper {
               >
                 <button
                   className="btn btn-secondary auth-button"
+                  data-delete={1}
                   data-dismiss="modal"
                   id={1}
                   onClick={[MockFunction]}
@@ -795,6 +803,7 @@ ShallowWrapper {
               >
                 <button
                   className="btn btn-secondary auth-button"
+                  data-delete={1}
                   data-dismiss="modal"
                   id={1}
                   onClick={[MockFunction]}
@@ -872,6 +881,7 @@ ShallowWrapper {
                 >
                   <button
                     className="btn btn-secondary auth-button"
+                    data-delete={1}
                     data-dismiss="modal"
                     id={1}
                     onClick={[MockFunction]}
@@ -1037,6 +1047,7 @@ ShallowWrapper {
                   "children": Array [
                     <button
                       className="btn btn-secondary auth-button"
+                      data-delete={1}
                       data-dismiss="modal"
                       id={1}
                       onClick={[MockFunction]}
@@ -1062,6 +1073,7 @@ ShallowWrapper {
                     "props": Object {
                       "children": "Yes",
                       "className": "btn btn-secondary auth-button",
+                      "data-delete": 1,
                       "data-dismiss": "modal",
                       "id": 1,
                       "onClick": [MockFunction],

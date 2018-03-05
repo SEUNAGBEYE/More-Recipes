@@ -107,7 +107,7 @@ class RecipeController {
     })
       .then((recipe) => {
         if (!recipe) {
-          res.status(404).send({
+          return res.send(404).send({
             status: 'Failure',
             message: 'Recipe Not Found',
           });

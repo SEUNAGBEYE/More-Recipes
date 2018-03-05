@@ -31,12 +31,21 @@ ShallowWrapper {
           1
         </label>
         <input
-          className="steps form-control"
+          className="form-control"
+          data-index={undefined}
+          data-name="Input One-undefined"
           defaultValue="Value"
           id={1}
           name="Input One"
           onBlur={[MockFunction]}
           required={true}
+        />
+        <span
+          className="icons fa fa-trash"
+          data-index={undefined}
+          data-name="Input One-undefined"
+          id={1}
+          onClick={undefined}
         />
       </fieldset>,
     },
@@ -54,12 +63,21 @@ ShallowWrapper {
             1
           </label>,
           <input
-            className="steps form-control"
+            className="form-control"
+            data-index={undefined}
+            data-name="Input One-undefined"
             defaultValue="Value"
             id={1}
             name="Input One"
             onBlur={[MockFunction]}
             required={true}
+          />,
+          <span
+            className="icons fa fa-trash"
+            data-index={undefined}
+            data-name="Input One-undefined"
+            id={1}
+            onClick={undefined}
           />,
         ],
       },
@@ -91,7 +109,9 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "steps form-control",
+            "className": "form-control",
+            "data-index": undefined,
+            "data-name": "Input One-undefined",
             "defaultValue": "Value",
             "id": 1,
             "name": "Input One",
@@ -101,6 +121,21 @@ ShallowWrapper {
           "ref": null,
           "rendered": null,
           "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "icons fa fa-trash",
+            "data-index": undefined,
+            "data-name": "Input One-undefined",
+            "id": 1,
+            "onClick": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "span",
         },
       ],
       "type": "fieldset",
@@ -121,12 +156,21 @@ ShallowWrapper {
             1
           </label>
           <input
-            className="steps form-control"
+            className="form-control"
+            data-index={undefined}
+            data-name="Input One-undefined"
             defaultValue="Value"
             id={1}
             name="Input One"
             onBlur={[MockFunction]}
             required={true}
+          />
+          <span
+            className="icons fa fa-trash"
+            data-index={undefined}
+            data-name="Input One-undefined"
+            id={1}
+            onClick={undefined}
           />
         </fieldset>,
       },
@@ -144,12 +188,21 @@ ShallowWrapper {
               1
             </label>,
             <input
-              className="steps form-control"
+              className="form-control"
+              data-index={undefined}
+              data-name="Input One-undefined"
               defaultValue="Value"
               id={1}
               name="Input One"
               onBlur={[MockFunction]}
               required={true}
+            />,
+            <span
+              className="icons fa fa-trash"
+              data-index={undefined}
+              data-name="Input One-undefined"
+              id={1}
+              onClick={undefined}
             />,
           ],
         },
@@ -181,7 +234,9 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "className": "steps form-control",
+              "className": "form-control",
+              "data-index": undefined,
+              "data-name": "Input One-undefined",
               "defaultValue": "Value",
               "id": 1,
               "name": "Input One",
@@ -191,6 +246,21 @@ ShallowWrapper {
             "ref": null,
             "rendered": null,
             "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "icons fa fa-trash",
+              "data-index": undefined,
+              "data-name": "Input One-undefined",
+              "id": 1,
+              "onClick": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "span",
           },
         ],
         "type": "fieldset",

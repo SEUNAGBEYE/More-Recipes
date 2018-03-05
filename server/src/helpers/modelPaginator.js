@@ -12,11 +12,7 @@ const modelPaginator = (model, req, res, where = {}) => {
         where
       })
         .then((data) => {
-        //  This is for the remainder of the resume if the count is not even
-          const remainder = modelWithCount.count % limit === 0 ?
-            0 : 1;
-          const page = Math.floor(modelWithCount.count / limit) +
-         remainder;
+          const page = Math.ceil(modelWithCount.count / limit);
           res.status(200).send({
             status: 'Success',
             data,

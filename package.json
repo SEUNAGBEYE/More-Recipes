@@ -10,10 +10,10 @@
   "scripts": {
     "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test",
     "test": "NODE_ENV=test nyc mocha ./server/src/test/**/**.spec.js --compilers js:babel-core/register --env test --exit",
-    "client:side:test": "jest ./client/__tests__/**/** && codecov",
+    "client:side:test": "jest -u ./client/__tests__/**/** && codecov",
     "babel-node": "babel-node ./server/src/index.js --presets=env",
     "dev-server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
-    "e2e:server": "nodemon --exec npm run babel-node -- ./server/src/index.js",
+    "e2e:server": "NODE_ENV=test nodemon --exec npm run babel-node -- ./server/src/index.js",
     "client-server": "webpack-dev-server",
     "build": "NODE_ENV=production babel server/src -d server/dist && webpack -p --config ./webpack.prod.js",
     "build:watch": "npm run build -- --watch",
@@ -33,6 +33,10 @@
       "node_modules/enzyme/"
     ],
     "collectCoverage": true,
+    "coverageDirectory": "./coverage-client/",
+    "testMatch": [
+      "**/**/**/?(*.)(spec).js?(x)"
+    ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "identity-obj-proxy",

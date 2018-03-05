@@ -21,7 +21,10 @@ const generateEvent = (name = '') => {
       preventDefault: jest.fn(),
       target: {
         name: name,
-        id: 1
+        id: 1,
+        dataset: {
+          index: 0
+        }
       }
     }
 }

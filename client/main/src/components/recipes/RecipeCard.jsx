@@ -164,7 +164,9 @@ export class RecipeCard extends Component {
           />
           <div className="container">
             <div className="card-block">
-              <Link to={`/recipe/${this.props.id}`}>
+              <Link to={`/recipe/${this.props.id}`}
+                data-recipe-card-id={`recipe${this.props.id}`}
+              >
                 <h4 className="card-title">
                   {this.state.recipe.name.slice(0, 20)}
                 </h4>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
 const SignUpForm = (props) => (
@@ -24,13 +25,6 @@ const SignUpForm = (props) => (
       </fieldset>
 
       <fieldset className="form-group">
-        {props.state.errors &&
-               <p className="errors">
-                 {
-                   props.state.errors.map(error => (error.field === 'email' ?
-                     error.description : 'ddddddd'))
-                 }
-               </p>}
         <label htmlFor="email" className="form-inline">Email</label>
         <input type="email" className="form-control"
           id="email"
@@ -66,7 +60,15 @@ const SignUpForm = (props) => (
           required
           defaultValue={props.state.confirmPassword}/>
       </fieldset>
-
+      {props.state.errors &&
+        <div className="errors">
+          <ul>
+            {
+              props.state.errors.map((error, index) => (<li key={index}>{error.message}</li>))
+            }
+          </ul>
+        </div>
+      }
       <div className="d-flex justify-content-between">
         <button type="submit"
           className="btn btn-default auth-button"
@@ -83,5 +85,14 @@ const SignUpForm = (props) => (
     />
   </div>
 );
+
+const propTypes = {
+  state: PropTypes.object,
+  forgotPassword: PropTypes.func,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
+};
+
+SignUpForm.propTypes = propTypes;
 
 export default SignUpForm;

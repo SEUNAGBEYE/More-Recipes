@@ -81,7 +81,7 @@ export function login(data, history = {}) {
 export function signUpRequest(data, history = []) {
   return dispatch => axios.post('/api/v1/users/signup', data)
     .then(res => setCurrentUser(setCurrentUserAction, 'SET_CURRENT_USER', res.data, dispatch))
-    .catch(error => error.response.data.errors);
+    .catch(error => error.response.data);
 }
 
 /**
@@ -94,7 +94,7 @@ export function signUpRequest(data, history = []) {
 export function updateProfile(data) {
   return dispatch => axios.put('/api/v1/users/profile', data)
     .then(res => setCurrentUser(updateProfileAction, 'UPDATE_PROFILE', res.data, dispatch))
-    .catch(error => console.log(error.response.data));
+    .catch(error => error.response.data);
 }
 
 /**

@@ -1,4 +1,4 @@
-import homepage from './homepage.specs';
+import tests from './tests.specs';
 
-export default homepage;
+export default tests;
 

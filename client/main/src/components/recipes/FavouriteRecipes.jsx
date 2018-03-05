@@ -83,7 +83,10 @@ export class FavoruriteRecipes extends Component {
             </div>
           </div>
         </main>
-        <Pagination recipesCount={this.props.recipesCount} recipesPagination={this.paginateRecipes}/>
+        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
+          recipesPagination={this.paginateRecipes}/> :
+          ''
+        }
       </div>
     );
   }
@@ -95,7 +98,7 @@ export class FavoruriteRecipes extends Component {
  * @returns {object} object
  */
 const mapStateToProps = (state) => ({
-  recipesCount: state.recipes.pagination,
+  pagination: state.recipes.pagination,
   favouritedRecipes: state.recipes.favouriteRecipes,
 });
 

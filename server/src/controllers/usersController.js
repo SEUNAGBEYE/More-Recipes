@@ -13,162 +13,169 @@ const { User, Recipe, Review } = model;
  */
 class UserController {
   /**
-  * This Handles User Registration
-  * @param {obj} req request object
-  * @param {obj} res response object
-  * @returns {null} json
+  * @description - This Handles User Registration
+  *
+  * @static
+  *
+  * @param {Object} request Request Object
+  * @param {Object} response Response Object
+  *
+  * @returns {Object} Object
   */
-  static signUp(req, res) {
-    if (!req.body.password || req.body.password.length < 6) {
-      return res.status(400).send({
-        status: 'Failure', message: 'Password must be greater than 6'
+  static async signUp(request, response) {
+    try {
+      const user = await User.create({
+        id: request.body.id,
+        firstName: request.body.firstName || '',
+        lastName: request.body.lastName || '',
+        email: request.body.email || '',
+        password: request.body.password || '',
+        profilePicture: request.body.profilePicture
       });
-    }
-
-    User.create({
-      id: req.body.id,
-      firstName: req.body.firstName || '',
-      lastName: req.body.lastName || '',
-      email: req.body.email,
-      password: req.body.password || '',
-      profilePicture: req.body.profilePicture
-    })
-      .then((user) => {
-        const {
-          firstName,
-          lastName,
-          email,
-          profilePicture,
-          favoriteRecipe,
-          id: userId
-        } = user;
-        const payload = {
-          userId,
-          email,
-          firstName,
-          lastName,
-          favoriteRecipe,
-          profilePicture
-        };
-        const token = jwtSigner(payload);
-        const userProfile = {
-          firstName,
-          lastName,
-          email,
-          profilePicture,
-          token,
-        };
-        return res.status(201).send({ status: 'Success', data: userProfile });
-      })
-      .catch(errors => res.status(400).send({
+      const {
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        favoriteRecipe,
+        id: userId
+      } = user;
+      const payload = {
+        userId,
+        email,
+        firstName,
+        lastName,
+        favoriteRecipe,
+        profilePicture
+      };
+      const token = jwtSigner(payload);
+      const userProfile = {
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        token,
+      };
+      return response.status(201).send({ status: 'Success', data: userProfile });
+    } catch (errors) {
+      return response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         errors: errors.errors.map((registrationError => ({
-          field: registrationError.path,
-          description: registrationError.message
+          message: registrationError.message
         })))
-      }));
+      });
+    }
   }
 
   /**
-  * This Handles User Authentication
-  * @param {obj} req request object
-  * @param {obj} res response object
-  * @param {obj} next next function
-  * @returns {null} json
+  * @description - This Handles User Authentication
+  *
+  * @static
+  *
+  * @param {Object} request Request Object
+  * @param {Object} response Response Object
+  *
+  * @returns {Object} Object
   */
-  static signIn(req, res) {
-    const { email, password = '' } = req.body;
-    User.find({
-      where: {
-        email
-      },
-      attributes: {
-        exclude: ['email', 'createdAt', 'updatedAt', 'rememberToken']
-      }
-    })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).send({
-            status: 'Failure', message: 'User Not Found', data: {}
-          });
+  static async signIn(request, response) {
+    let user;
+    const { email, password = '' } = request.body;
+
+    try {
+      user = await User.find({
+        where: {
+          email
+        },
+        attributes: {
+          exclude: ['email', 'createdAt', 'updatedAt', 'rememberToken']
         }
-        bcrypt.compare(password, user.password)
-          .then((response) => {
-            if (response) {
-              const { id: userId, ...data } = user.get();
-              const userProfile = { userId, ...data };
-              const token = jwtSigner(userProfile);
-              return res.status(200).send({ status: 'Sucesss', data: { token } });
-            }
-            return res.status(401).send({
-              status: 'Failure',
-              message: 'Invalid Password or Email'
-            });
-          })
-          .catch(errors => res.status(400).send({
-            status: 'Failure',
-            message: 'Bad Request',
-            errors
-          }));
-      })
-      .catch(error => res.status(400).send({
+      });
+      if (!user) {
+        return response.status(404).send({
+          status: 'Failure', message: 'User Not Found', data: {}
+        });
+      }
+    } catch (error) {
+      return response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         error: error.message
-      }));
-  }
-
-  /**
-   * @static
-   * @param {any} req
-   * @param {any} res
-   * @memberof UserController
-   * @returns {obj} ob
-   */
-  static getFavoriteRecipes(req, res) {
-    // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
-    if (req.params.actionType === 'getIds') {
-      return User.findById(req.token.userId)
-        .then(user => res.status(200).send({
-          status: 'Success', data: user.favoriteRecipe
-        }))
-        .catch(errors => res.status(404).send({
-          status: 'Failure',
-          message: 'User Not Found',
-          errors: errors.message
-        }));
+      });
     }
 
-    User.findById(req.token.userId)
-      .then((user) => {
-        const where = {
-          id: {
-            $in: user.favoriteRecipe
-          }
-        };
-        modelPaginator(Recipe, req, res, where);
-      })
-      .catch(errors => res.status(404).send({
+    try {
+      const bcryptResponse = await bcrypt.compare(password, user.password);
+      if (bcryptResponse) {
+        const { id: userId, ...data } = user.get();
+        const userProfile = { userId, ...data };
+        const token = jwtSigner(userProfile);
+        return response.status(200).send({ status: 'Sucesss', data: { token } });
+      }
+      return response.status(401).send({
         status: 'Failure',
-        message: 'User Not Found',
-        errors: errors.message
-      }));
+        message: 'Invalid Password or Email'
+      });
+    } catch (errors) {
+      return response.status(400).send({
+        status: 'Failure',
+        message: 'Bad Request',
+        errors
+      });
+    }
   }
 
   /**
+   * @description - Get user favorite recipes
+   *
    * @static
-   * @param {any} req
-   * @param {any} res
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} Object
    * @memberof UserController
-   * @returns {obj} obj
    */
-  static addFavoriteRecipe(req, res) {
-    User.findById(req.token.userId)
+  static async getFavoriteRecipes(request, response) {
+    const user = await User.findById(request.token.userId);
+    // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
+    if (user) {
+      if (request.params.actionType === 'getIds') {
+        return response.status(200).send({
+          status: 'Success',
+          data: user.favoriteRecipe
+        });
+      }
+      const where = {
+        id: {
+          $in: user.favoriteRecipe
+        }
+      };
+      return modelPaginator(Recipe, request, response, where);
+    }
+    return response.status(404).send({
+      status: 'Failure',
+      message: 'User Not Found'
+    });
+  }
+
+  /**
+   * @description - Add a recipe to user favorited recipes
+   *
+   * @static
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} Object
+   * @memberof UserController
+   */
+  static addFavoriteRecipe(request, response) {
+    User.findById(request.token.userId)
       .then((user) => {
         Recipe.find({
           where: {
-            id: req.params.id
+            id: request.params.id
           },
           include: [{
             model: Review,
@@ -183,7 +190,7 @@ class UserController {
         })
           .then((recipe) => {
             if (!recipe) {
-              return res.status(404).send({
+              return response.status(404).send({
                 status: 'Failure',
                 message: 'Recipe Not Found',
               });
@@ -191,7 +198,7 @@ class UserController {
               user.update({
                 favoriteRecipe: [recipe.id]
               })
-                .then(() => res.status(200).send({
+                .then(() => response.status(200).send({
                   status: 'Success',
                   data: recipe
                 }));
@@ -209,22 +216,22 @@ class UserController {
                 favoriteRecipe: user.favoriteRecipe
               })
                 .then(() => {
-                  res.status(200).send({ status: 'Success', data: recipe });
+                  response.status(200).send({ status: 'Success', data: recipe });
                 })
-                .catch(error => res.status(400).send({
+                .catch(error => response.status(400).send({
                   status: 'Failure',
                   message: 'Bad Request',
                   error: error.message
                 }));
             }
           })
-          .catch(error => res.status(400).send({
+          .catch(error => response.status(400).send({
             status: 'Failure',
             message: 'Bad Request',
             error: error.message
           }));
       })
-      .catch(errors => res.status(400).send({
+      .catch(errors => response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         errors: errors.message
@@ -233,80 +240,85 @@ class UserController {
 
   /**
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {Object} request
+   * @param {Object} response
    * @memberof UserController
-   * @returns {obj} obj
+   * @returns {Object} Object
    */
-  static getRecipes(req, res) {
+  static getRecipes(request, response) {
     const where = {
-      userId: req.token.userId
+      userId: request.token.userId
     };
-    modelPaginator(Recipe, req, res, where);
+    modelPaginator(Recipe, request, response, where);
   }
 
   /**
+   * @description - Get User Profile
    * @static
-   * @param {any} req
-   * @param {any} res
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} Response Object
+   *
    * @memberof UserController
-   * @returns {obj} obj
    */
-  static myProfile(req, res) {
-    User.findById(req.token.userId, {
-      attributes: {
-        exclude: ['password', 'createdAt', 'updatedAt', 'rememberToken']
-      }
-    })
-      .then((user) => {
-        res.status(200).send({ status: 'Success', data: user });
-      })
-      .catch(errors => res.status(400).send({
+  static async myProfile(request, response) {
+    try {
+      const user = await User.findById(request.token.userId, {
+        attributes: {
+          exclude: ['password', 'createdAt', 'updatedAt', 'rememberToken']
+        }
+      });
+      return response.status(200).send({ status: 'Success', data: user });
+    } catch (errors) {
+      response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         errors: errors.message
-      }));
+      });
+    }
   }
 
   /**
-   *
-   *
+   *@description - Update User Profile
    * @static
-   * @param {obj} req
-   * @param {obj} res
-   * @returns {obj} obj
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} Object
    * @memberof UserController
    */
-  static async updateProfile(req, res) {
-    const user = await User.findById(req.token.userId, {
+  static async updateProfile(request, response) {
+    const user = await User.findById(request.token.userId, {
       attributes: {
         exclude: ['password', 'createdAt', 'updatedAt', 'rememberToken']
       }
     });
 
     if (!user) {
-      return res.status(404).send({
+      return response.status(404).send({
         status: 'Failure',
         message: 'User Not Found'
       });
     }
 
-    if (user.id === req.token.userId) {
+    if (user.id === request.token.userId) {
       try {
-        const updatedUser = await user.update(req.body, { fields: Object.keys(req.body) });
+        const updatedUser = await user.update(request.body, { fields: Object.keys(request.body) });
         const { id: userId, ...data } = updatedUser.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
-        res.status(200).send({ status: 'Success', data: { token } });
+        response.status(200).send({ status: 'Success', data: { token } });
       } catch (errors) {
-        console.log('>>>>>>>>>>>>>>>>>Error', errors)
-        return res.status(400).send({
+        return response.status(400).send({
           status: 'Failure',
           message: 'Bad Request',
           errors: errors.message
         });
       }
-      return res.status(403).send({
+      return response.status(403).send({
         status: 'Failure',
         message: 'Not Authorize'
       });
@@ -314,13 +326,13 @@ class UserController {
   }
 
   /**
- * @param {any} req
- * @param {any} res
+ * @param {Object} request
+ * @param {Object} response
  * @returns {void} void
  * @memberof UserController
  */
-  static forgetPassword(req, res) {
-    const { email } = req.body;
+  static forgetPassword(request, response) {
+    const { email } = request.body;
     User.find({
       where: {
         email
@@ -328,7 +340,7 @@ class UserController {
     })
       .then((user) => {
         if (!user) {
-          return res.status(404).send({
+          return response.status(404).send({
             status: 'Failure',
             message: 'User Not Found'
           });
@@ -338,16 +350,16 @@ class UserController {
         const fullName = `${firstName} ${lastName}`;
         const rememberToken = uuid();
         user.update({ rememberToken });
-        const { protocol, path } = req;
-        const resetLink = `${protocol}://${req.get('host')}${path}/${rememberToken}`;
+        const { protocol, path } = request;
+        const resetLink = `${protocol}://${request.get('host')}${path}/${rememberToken}`;
         const message = 'A Message has been sent to the email provided kindly read to mail to reset your password';
         mail(email, resetLink, fullName);
-        return res.status(200).send({
+        return response.status(200).send({
           status: 'Success',
           message
         });
       })
-      .catch(error => res.status(400).send({
+      .catch(error => response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         error: error.message
@@ -358,13 +370,13 @@ class UserController {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns {obj} obj
+   * @param {Object} request
+   * @param {Object} response
+   * @returns {Object} Object
    * @memberof UserController
    */
-  static confirmForgetPassword(req, res) {
-    const { rememberToken } = req.params;
+  static confirmForgetPassword(request, response) {
+    const { rememberToken } = request.params;
     User.find({
       where: {
         rememberToken
@@ -372,32 +384,32 @@ class UserController {
     })
       .then((user) => {
         if (!user) {
-          return res.status(404).send({
+          return response.status(404).send({
             status: 'Failure',
             message: 'User Not Found',
           });
         }
         if (user.rememberToken === rememberToken) {
           return user
-            .update(req.body, { fields: Object.keys(req.body) })
+            .update(request.body, { fields: Object.keys(request.body) })
             .then(() => {
-              res.status(200).send({
+              response.status(200).send({
                 status: 'Success',
                 message: 'Password Changed'
               });
             })
-            .catch(errors => res.status(400).send({
+            .catch(errors => response.status(400).send({
               status: 'Failure',
               message: 'Bad Request',
               errors: errors.message
             }));
         }
-        return res.status(403).send({
+        return response.status(403).send({
           status: 'Failure',
           message: 'Not Authorize'
         });
       })
-      .catch(error => res.status(400).send({
+      .catch(error => response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         error: error.message

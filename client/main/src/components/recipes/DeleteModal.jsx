@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @description - Modal for deleting a recipe
+ *
+ * @param {Object} props
+ *
+ * @returns {jsx} JSX
+ */
 const DeleteModal = (props) => (
   <div>
     <div className="modal fade" id={`deleteModal${props.id}`}
@@ -31,12 +38,15 @@ const DeleteModal = (props) => (
           <div className="modal-footer">
             <button className="btn btn-secondary auth-button"
               data-dismiss = "modal" onClick={props.onDelete}
-              id={props.id}>Yes
+              id={props.id}
+              data-delete={props.id}
+            >
+              Yes
             </button>
             <button type="button" className="btn btn-secondary auth-button"
               data-dismiss="modal"
             >
-                  No
+              No
             </button>
           </div>
         </div>

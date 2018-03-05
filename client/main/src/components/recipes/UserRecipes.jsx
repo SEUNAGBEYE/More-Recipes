@@ -106,17 +106,17 @@ export class UserRecipes extends Component {
             </div>
           </div>
         </main>
-        <Pagination
-          recipesPagination={this.paginateRecipe}
-          recipesCount={this.props.recipesCount}
-        />
+        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
+          recipesPagination={this.paginateRecipes}/> :
+          ''
+        }
       </div>
     );
   }
 }
 
 const propTypes = {
-  recipesCount: PropTypes.number.isRequired,
+  pagination: PropTypes.number.isRequired,
   categories: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   userRecipes: PropTypes.array.isRequired,
@@ -137,7 +137,7 @@ export const mapStateToProps = (state) => ({
   recipes: state.recipes,
   user: state.auth.user,
   userRecipes: state.recipes.allRecipes,
-  recipesCount: Number(state.recipes.pagination),
+  pagination: Number(state.recipes.pagination),
   categories: state.recipes.recipeCategories
 });
 

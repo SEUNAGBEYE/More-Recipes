@@ -318,12 +318,7 @@ export function toggleFavouriteRecipe(id) {
       const { data } = res.data;
       return dispatch(toggleFavouriteRecipeAction(data));
     })
-    .catch((error) => {
-      if (error) {
-        console.log(error.response);
-        console.log(error);
-      }
-    });
+    .catch(error => error);
 }
 
 /**
@@ -334,7 +329,7 @@ export function toggleFavouriteRecipe(id) {
 export function toggleThumbsDownRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/downvotes`)
     .then(res => dispatch(toggleThumbsDownRecipeAction(res.data.data)))
-    .catch(error => console.log(error));
+    .catch(error => error);
 }
 
 /**
@@ -345,7 +340,7 @@ export function toggleThumbsDownRecipe(id) {
 export function toggleThumbsUpRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/upvotes`)
     .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.data)))
-    .catch(error => console.log(error));
+    .catch(error => error);
 }
 
 /**
@@ -359,11 +354,7 @@ export function deleteRecipe(id) {
       toastr.success('Recipe Deleted', 'Success');
       return dispatch(deleteRecipeAction(id));
     })
-    .catch((error) => {
-      if (error) {
-        console.log(error);
-      }
-    });
+    .catch(error => error);
 }
 
 /**
@@ -395,12 +386,7 @@ export function getRecipe(id) {
     .then((res) => {
       dispatch(getRecipeAction(res.data.data));
     })
-    .catch((error) => {
-      if (error) {
-        console.log('error', error);
-        // console.log(error.response.data);
-      }
-    });
+    .catch(error => error);
 }
 
 /**
@@ -450,10 +436,6 @@ export function getUserRecipes(page = 1, limit = 8) {
       const { data } = res;
       return dispatch(userRecipesAction(data));
     })
-    .catch((error) => {
-      if (error) {
-        console.log(error.response.data);
-      }
-    });
+    .catch(error => error);
 }
 

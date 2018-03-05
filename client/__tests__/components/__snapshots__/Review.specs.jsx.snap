@@ -1,0 +1,417 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# Review should render successfully 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Review
+    review={
+      Object {
+        "body": "Ths is my review",
+        "user": Object {
+          "firstName": "Seun",
+          "profilePicture": "This is my profile picture",
+        },
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className=""
+        style={
+          Object {
+            "backgroundColor": "#f8f9fa",
+            "border": "1 solid #f8f9fa",
+            "width": "100vw",
+          }
+        }
+      >
+        <div
+          className="col-md-1 review"
+          style={
+            Object {
+              "paddingTop": 10,
+            }
+          }
+        >
+          <img
+            src="This is my profile picture"
+            style={
+              Object {
+                "borderRadius": 80,
+                "height": 30,
+                "width": 30,
+              }
+            }
+          />
+        </div>
+        <div
+          className="col-md-11 review"
+        >
+          <h5
+            style={
+              Object {
+                "color": "orange",
+                "marginTop": 5,
+              }
+            }
+          >
+            Seun
+          </h5>
+          Ths is my review
+        </div>
+      </div>,
+      "className": "row",
+      "style": Object {
+        "marginBottom": 15,
+      },
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="col-md-1 review"
+            style={
+              Object {
+                "paddingTop": 10,
+              }
+            }
+          >
+            <img
+              src="This is my profile picture"
+              style={
+                Object {
+                  "borderRadius": 80,
+                  "height": 30,
+                  "width": 30,
+                }
+              }
+            />
+          </div>,
+          <div
+            className="col-md-11 review"
+          >
+            <h5
+              style={
+                Object {
+                  "color": "orange",
+                  "marginTop": 5,
+                }
+              }
+            >
+              Seun
+            </h5>
+            Ths is my review
+          </div>,
+        ],
+        "className": "",
+        "style": Object {
+          "backgroundColor": "#f8f9fa",
+          "border": "1 solid #f8f9fa",
+          "width": "100vw",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <img
+              src="This is my profile picture"
+              style={
+                Object {
+                  "borderRadius": 80,
+                  "height": 30,
+                  "width": 30,
+                }
+              }
+            />,
+            "className": "col-md-1 review",
+            "style": Object {
+              "paddingTop": 10,
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "src": "This is my profile picture",
+              "style": Object {
+                "borderRadius": 80,
+                "height": 30,
+                "width": 30,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "img",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h5
+                style={
+                  Object {
+                    "color": "orange",
+                    "marginTop": 5,
+                  }
+                }
+              >
+                Seun
+              </h5>,
+              "Ths is my review",
+            ],
+            "className": "col-md-11 review",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Seun",
+                "style": Object {
+                  "color": "orange",
+                  "marginTop": 5,
+                },
+              },
+              "ref": null,
+              "rendered": "Seun",
+              "type": "h5",
+            },
+            "Ths is my review",
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className=""
+          style={
+            Object {
+              "backgroundColor": "#f8f9fa",
+              "border": "1 solid #f8f9fa",
+              "width": "100vw",
+            }
+          }
+        >
+          <div
+            className="col-md-1 review"
+            style={
+              Object {
+                "paddingTop": 10,
+              }
+            }
+          >
+            <img
+              src="This is my profile picture"
+              style={
+                Object {
+                  "borderRadius": 80,
+                  "height": 30,
+                  "width": 30,
+                }
+              }
+            />
+          </div>
+          <div
+            className="col-md-11 review"
+          >
+            <h5
+              style={
+                Object {
+                  "color": "orange",
+                  "marginTop": 5,
+                }
+              }
+            >
+              Seun
+            </h5>
+            Ths is my review
+          </div>
+        </div>,
+        "className": "row",
+        "style": Object {
+          "marginBottom": 15,
+        },
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="col-md-1 review"
+              style={
+                Object {
+                  "paddingTop": 10,
+                }
+              }
+            >
+              <img
+                src="This is my profile picture"
+                style={
+                  Object {
+                    "borderRadius": 80,
+                    "height": 30,
+                    "width": 30,
+                  }
+                }
+              />
+            </div>,
+            <div
+              className="col-md-11 review"
+            >
+              <h5
+                style={
+                  Object {
+                    "color": "orange",
+                    "marginTop": 5,
+                  }
+                }
+              >
+                Seun
+              </h5>
+              Ths is my review
+            </div>,
+          ],
+          "className": "",
+          "style": Object {
+            "backgroundColor": "#f8f9fa",
+            "border": "1 solid #f8f9fa",
+            "width": "100vw",
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <img
+                src="This is my profile picture"
+                style={
+                  Object {
+                    "borderRadius": 80,
+                    "height": 30,
+                    "width": 30,
+                  }
+                }
+              />,
+              "className": "col-md-1 review",
+              "style": Object {
+                "paddingTop": 10,
+              },
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "src": "This is my profile picture",
+                "style": Object {
+                  "borderRadius": 80,
+                  "height": 30,
+                  "width": 30,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h5
+                  style={
+                    Object {
+                      "color": "orange",
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Seun
+                </h5>,
+                "Ths is my review",
+              ],
+              "className": "col-md-11 review",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Seun",
+                  "style": Object {
+                    "color": "orange",
+                    "marginTop": 5,
+                  },
+                },
+                "ref": null,
+                "rendered": "Seun",
+                "type": "h5",
+              },
+              "Ths is my review",
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

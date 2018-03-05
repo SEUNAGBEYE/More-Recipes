@@ -109,15 +109,16 @@ export class Navbar extends React.Component {
                       }
                     </div>
                   </div>
-                  <div className="dropdown">
+                  <div className="dropdown" id="user-drop-down">
                     <Link className="nav-link dropdown-toggle" to="#"
-                      id="user-drop-down"
                       data-toggle="dropdown">
                       {this.props.auth.user.firstName}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-nav"
                       aria-labelledby="about-us">
-                      <Link className="dropdown-item" to="/recipes">
+                      <Link className="dropdown-item" to="/recipes"
+                        id="all-recipes"
+                      >
                         All Recipes
                       </Link>
                       <Link className="dropdown-item" to="/my_recipes"
