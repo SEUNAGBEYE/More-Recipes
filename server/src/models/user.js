@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'FirstName is Required'
+          msg: 'Firstname is Required'
         },
         set(val) {
           const firstChar = val.charAt(0).toUpperCase();
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'LastName is Required'
+          msg: 'Lastname is required'
         }
       },
       set(val) {

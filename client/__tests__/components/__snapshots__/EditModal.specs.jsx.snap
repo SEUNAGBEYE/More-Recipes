@@ -126,18 +126,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="ingredient"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Ingredients
@@ -146,18 +137,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="step"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Steps
@@ -175,6 +157,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    data-update="update-recipe1"
                     id={1}
                     onClick={[Function]}
                   >
@@ -291,18 +274,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="ingredient"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Ingredients
@@ -311,18 +285,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="step"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Steps
@@ -340,6 +305,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    data-update="update-recipe1"
                     id={1}
                     onClick={[Function]}
                   >
@@ -453,18 +419,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="ingredient"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Ingredients
@@ -473,18 +430,9 @@ ShallowWrapper {
                 </fieldset>
                 <fieldset>
                   <button
-                    className="auth-button fa fa-plus"
+                    className="btn btn-default show-input fa fa-plus"
                     id="step"
                     onClick={[Function]}
-                    style={
-                      Object {
-                        "float": "left",
-                        "fontSize": 12,
-                        "height": 20,
-                        "padding": 0,
-                        "width": 90,
-                      }
-                    }
                   >
                     <strong>
                       Steps
@@ -502,6 +450,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    data-update="update-recipe1"
                     id={1}
                     onClick={[Function]}
                   >
@@ -610,18 +559,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="ingredient"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Ingredients
@@ -630,18 +570,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="step"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Steps
@@ -659,6 +590,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      data-update="update-recipe1"
                       id={1}
                       onClick={[Function]}
                     >
@@ -816,18 +748,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="ingredient"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Ingredients
@@ -836,18 +759,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="step"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Steps
@@ -865,6 +779,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      data-update="update-recipe1"
                       id={1}
                       onClick={[Function]}
                     >
@@ -945,18 +860,9 @@ ShallowWrapper {
                     Array [],
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="ingredient"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Ingredients
@@ -966,18 +872,9 @@ ShallowWrapper {
                     Array [],
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="step"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Steps
@@ -995,6 +892,7 @@ ShallowWrapper {
                       />
                       <button
                         className="btn btn-secondary auth-button"
+                        data-update="update-recipe1"
                         id={1}
                         onClick={[Function]}
                       >
@@ -1189,18 +1087,9 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="ingredient"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Ingredients
@@ -1216,16 +1105,9 @@ ShallowWrapper {
                         "children": <strong>
                           Ingredients
                         </strong>,
-                        "className": "auth-button fa fa-plus",
+                        "className": "btn btn-default show-input fa fa-plus",
                         "id": "ingredient",
                         "onClick": [Function],
-                        "style": Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        },
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1249,18 +1131,9 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="step"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Steps
@@ -1276,16 +1149,9 @@ ShallowWrapper {
                         "children": <strong>
                           Steps
                         </strong>,
-                        "className": "auth-button fa fa-plus",
+                        "className": "btn btn-default show-input fa fa-plus",
                         "id": "step",
                         "onClick": [Function],
-                        "style": Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        },
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1317,6 +1183,7 @@ ShallowWrapper {
                         />,
                         <button
                           className="btn btn-secondary auth-button"
+                          data-update="update-recipe1"
                           id={1}
                           onClick={[Function]}
                         >
@@ -1355,6 +1222,7 @@ ShallowWrapper {
                         "props": Object {
                           "children": "Update",
                           "className": "btn btn-secondary auth-button",
+                          "data-update": "update-recipe1",
                           "id": 1,
                           "onClick": [Function],
                         },
@@ -1496,18 +1364,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="ingredient"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Ingredients
@@ -1516,18 +1375,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="step"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Steps
@@ -1545,6 +1395,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      data-update="update-recipe1"
                       id={1}
                       onClick={[Function]}
                     >
@@ -1661,18 +1512,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="ingredient"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Ingredients
@@ -1681,18 +1523,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="step"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Steps
@@ -1710,6 +1543,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      data-update="update-recipe1"
                       id={1}
                       onClick={[Function]}
                     >
@@ -1823,18 +1657,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="ingredient"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Ingredients
@@ -1843,18 +1668,9 @@ ShallowWrapper {
                   </fieldset>
                   <fieldset>
                     <button
-                      className="auth-button fa fa-plus"
+                      className="btn btn-default show-input fa fa-plus"
                       id="step"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "float": "left",
-                          "fontSize": 12,
-                          "height": 20,
-                          "padding": 0,
-                          "width": 90,
-                        }
-                      }
                     >
                       <strong>
                         Steps
@@ -1872,6 +1688,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      data-update="update-recipe1"
                       id={1}
                       onClick={[Function]}
                     >
@@ -1980,18 +1797,9 @@ ShallowWrapper {
                     </fieldset>
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="ingredient"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Ingredients
@@ -2000,18 +1808,9 @@ ShallowWrapper {
                     </fieldset>
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="step"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Steps
@@ -2029,6 +1828,7 @@ ShallowWrapper {
                       />
                       <button
                         className="btn btn-secondary auth-button"
+                        data-update="update-recipe1"
                         id={1}
                         onClick={[Function]}
                       >
@@ -2186,18 +1986,9 @@ ShallowWrapper {
                     </fieldset>
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="ingredient"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Ingredients
@@ -2206,18 +1997,9 @@ ShallowWrapper {
                     </fieldset>
                     <fieldset>
                       <button
-                        className="auth-button fa fa-plus"
+                        className="btn btn-default show-input fa fa-plus"
                         id="step"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          }
-                        }
                       >
                         <strong>
                           Steps
@@ -2235,6 +2017,7 @@ ShallowWrapper {
                       />
                       <button
                         className="btn btn-secondary auth-button"
+                        data-update="update-recipe1"
                         id={1}
                         onClick={[Function]}
                       >
@@ -2315,18 +2098,9 @@ ShallowWrapper {
                       Array [],
                       <fieldset>
                         <button
-                          className="auth-button fa fa-plus"
+                          className="btn btn-default show-input fa fa-plus"
                           id="ingredient"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "float": "left",
-                              "fontSize": 12,
-                              "height": 20,
-                              "padding": 0,
-                              "width": 90,
-                            }
-                          }
                         >
                           <strong>
                             Ingredients
@@ -2336,18 +2110,9 @@ ShallowWrapper {
                       Array [],
                       <fieldset>
                         <button
-                          className="auth-button fa fa-plus"
+                          className="btn btn-default show-input fa fa-plus"
                           id="step"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "float": "left",
-                              "fontSize": 12,
-                              "height": 20,
-                              "padding": 0,
-                              "width": 90,
-                            }
-                          }
                         >
                           <strong>
                             Steps
@@ -2365,6 +2130,7 @@ ShallowWrapper {
                         />
                         <button
                           className="btn btn-secondary auth-button"
+                          data-update="update-recipe1"
                           id={1}
                           onClick={[Function]}
                         >
@@ -2559,18 +2325,9 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": <button
-                          className="auth-button fa fa-plus"
+                          className="btn btn-default show-input fa fa-plus"
                           id="ingredient"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "float": "left",
-                              "fontSize": 12,
-                              "height": 20,
-                              "padding": 0,
-                              "width": 90,
-                            }
-                          }
                         >
                           <strong>
                             Ingredients
@@ -2586,16 +2343,9 @@ ShallowWrapper {
                           "children": <strong>
                             Ingredients
                           </strong>,
-                          "className": "auth-button fa fa-plus",
+                          "className": "btn btn-default show-input fa fa-plus",
                           "id": "ingredient",
                           "onClick": [Function],
-                          "style": Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          },
                         },
                         "ref": null,
                         "rendered": Object {
@@ -2619,18 +2369,9 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": <button
-                          className="auth-button fa fa-plus"
+                          className="btn btn-default show-input fa fa-plus"
                           id="step"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "float": "left",
-                              "fontSize": 12,
-                              "height": 20,
-                              "padding": 0,
-                              "width": 90,
-                            }
-                          }
                         >
                           <strong>
                             Steps
@@ -2646,16 +2387,9 @@ ShallowWrapper {
                           "children": <strong>
                             Steps
                           </strong>,
-                          "className": "auth-button fa fa-plus",
+                          "className": "btn btn-default show-input fa fa-plus",
                           "id": "step",
                           "onClick": [Function],
-                          "style": Object {
-                            "float": "left",
-                            "fontSize": 12,
-                            "height": 20,
-                            "padding": 0,
-                            "width": 90,
-                          },
                         },
                         "ref": null,
                         "rendered": Object {
@@ -2687,6 +2421,7 @@ ShallowWrapper {
                           />,
                           <button
                             className="btn btn-secondary auth-button"
+                            data-update="update-recipe1"
                             id={1}
                             onClick={[Function]}
                           >
@@ -2725,6 +2460,7 @@ ShallowWrapper {
                           "props": Object {
                             "children": "Update",
                             "className": "btn btn-secondary auth-button",
+                            "data-update": "update-recipe1",
                             "id": 1,
                             "onClick": [Function],
                           },

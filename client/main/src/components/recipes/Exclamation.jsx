@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @export
+ * @description - Component for displaying 404, and resource not found
  * @param {Object} props
  *
  * @returns  {jsx} JSX
  */
 const Exclamation = (props) => (
-  <div className="text-center exclamation-container">
+  <div className="text-center exclamation-container" style={props.style}>
     {props.children}
     <div className="fa fa-exclamation-circle center-exclamation" />
   </div>

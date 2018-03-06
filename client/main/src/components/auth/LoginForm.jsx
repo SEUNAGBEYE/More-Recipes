@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
@@ -8,25 +9,35 @@ const LoginForm = (props) => (
       <fieldset className="form-group">
         {props.state.errors && <p className="errors">{props.state.errors}</p>}
         <label htmlFor="email" className="form-inline">Email</label>
-        <input type="email" className="form-control" id="email" name="email" onChange={props.onChange} required value={props.state.email}/>
+        <input type="email" className="form-control" id="email"
+          name="email"
+          onChange={props.onChange}
+          required value={props.state.email}
+        />
       </fieldset>
 
       <fieldset className="form-group">
         <label htmlFor="password" className="form-inline">Password</label>
-        <input type="password" className="form-control" id="password" name="password" onChange={props.onChange} required value={props.state.password}/>
+        <input type="password" className="form-control" id="password"
+          name="password" onChange={props.onChange} required
+        />
       </fieldset>
 
-      <label className="custom-control custom-checkbox" style={{ float: 'left' }}>
-        <input type="checkbox" className="custom-control-input" id="checked" />
-        <span className="custom-control-indicator" />
-        <span className="custom-control-description">Remember Me</span>
-      </label>
-      <br /><br />
-
       <div className="d-flex justify-content-between">
-        <button type="submit" className="btn btn-default auth-button" id="loginSubmit">Login</button>
-        <Link to="/signup" style={{ paddingTop: 10 }}>Not a member</Link>
-        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>
+        <button type="submit"
+          className="btn btn-default auth-button" id="loginSubmit"
+        >
+         Login
+        </button>
+        <Link to="/signup" style={{ paddingTop: 10 }} id="not-a-member">
+          Not a member
+        </Link>
+        <Link to="#" style={{ paddingTop: 10 }}
+          data-toggle="modal"
+          data-target="#forgotPasswordModal"
+        >
+          Forgot Password
+        </Link>
       </div>
     </form><br/>
     <ForgotPasswordModal onChange={props.onChange}
@@ -36,5 +47,13 @@ const LoginForm = (props) => (
   </div>
 );
 
+const propTypes = {
+  state: PropTypes.object,
+  forgotPassword: PropTypes.func,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
+};
+
+LoginForm.propTypes = propTypes;
 export default LoginForm;
 

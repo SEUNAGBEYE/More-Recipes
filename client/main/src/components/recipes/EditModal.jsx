@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 import Input from './Input';
@@ -18,12 +19,15 @@ export default class EditModal extends Component {
   constructor(props) {
     super(props);
     const { recipe } = this.props;
+    const {
+      steps, ingredients, name, description, image
+    } = recipe;
     this.state = {
-      name: recipe.name,
-      description: recipe.description,
-      image: recipe.image,
-      ingredients: [],
-      steps: [],
+      name,
+      description,
+      image,
+      ingredients,
+      steps,
       errors: {},
       stepsTimes: '',
       ingredientsTimes: [],
@@ -33,6 +37,8 @@ export default class EditModal extends Component {
     this.stepClick = this.stepClick.bind(this);
     this.ingredientClick = this.ingredientClick.bind(this);
     this.updateRecipe = this.updateRecipe.bind(this);
+    this.removeIngredientsInput = this.removeIngredientsInput.bind(this);
+    this.removeStepsInput = this.removeStepsInput.bind(this);
   }
 
   /**
@@ -57,6 +63,36 @@ export default class EditModal extends Component {
     this.setState({ ingredients: [...this.state.ingredients, ''] });
   }
 
+  /**
+   *@description - Remove form to add ingredients
+   * @param {any} event
+   *
+   * @returns {void} void
+   * @memberof EditModal
+   */
+  removeIngredientsInput(event) {
+    const { ingredients } = this.state;
+    const { index: eventIndex } = event.target.dataset;
+    const newIngredients = ingredients
+      .filter((ingredient, index) => parseInt(eventIndex, 10) !== parseInt(index, 10));
+    this.setState({ ingredients: newIngredients });
+  }
+
+  /**
+   * @description - Remove form to add a step
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * @memberof EditModal
+   */
+  removeStepsInput(event) {
+    const { steps } = this.state;
+    const { index: eventIndex } = event.target.dataset;
+    const newSteps = steps
+      .filter((step, index) => parseInt(eventIndex, 10) !== parseInt(index, 10));
+    this.setState({ steps: newSteps });
+  }
+
 
   /**
    * @param {Object} event
@@ -66,11 +102,12 @@ export default class EditModal extends Component {
    */
   onChange(event) {
     event.preventDefault();
-    const { name: stateKey, id, value } = event.target;
+    const stateKeyIndex = event.target.dataset.index;
+    const { name: stateKey, value } = event.target;
     if (stateKey === 'steps' || stateKey === 'ingredients') {
       this.setState({
         [event.target.name]: this.state[stateKey].map((step, index) => {
-          if (parseInt(index, 10) === parseInt(id, 10)) {
+          if (parseInt(index, 10) === parseInt(stateKeyIndex, 10)) {
             step = value;
           }
           return step;
@@ -125,22 +162,26 @@ export default class EditModal extends Component {
   render() {
     const { recipe } = this.props;
     const stepFields = this.state.steps.map((step, index) => (
-      <Input key={index}
+      <Input key={uuid()}
         onChange={this.onChange}
         number={index + 1}
-        id={index}
+        id={uuid()}
+        index={index}
         value={step}
         name={'steps'}
+        removeInput={this.removeStepsInput}
       />
     ));
 
     const ingredientFields = this.state.ingredients.map((ingredient, index) => (
-      <Input key={index}
+      <Input key={uuid()}
         onChange={this.onChange}
         number={index + 1}
-        id={index}
+        id={uuid()}
+        index={index}
         value={ingredient}
         name={'ingredients'}
+        removeInput={this.removeIngredientsInput}
       />
     ));
 
@@ -196,22 +237,19 @@ export default class EditModal extends Component {
 
                   {ingredientFields}
                   <fieldset>
-                    <button className="auth-button fa fa-plus" style={{
-                      float: 'left', width: 90, height: 20, fontSize: 12, padding: 0
-                    }} id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
+                    <button className="btn btn-default show-input fa fa-plus"id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
                   </fieldset>
 
                   {stepFields}
                   <fieldset>
-                    <button className="auth-button fa fa-plus" style={{
-                      float: 'left', width: 90, height: 20, fontSize: 12, padding: 0
-                    }} id="step" onClick={this.stepClick}><strong>Steps</strong></button>
+                    <button className="btn btn-default show-input fa fa-plus"id="step" onClick={this.stepClick}><strong>Steps</strong></button>
                   </fieldset>
 
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
                     <button className="btn btn-secondary auth-button"
                       id={recipe.id} onClick={this.updateRecipe}
+                      data-update={`update-recipe${recipe.id}`}
                     >
                     Update
                     </button>

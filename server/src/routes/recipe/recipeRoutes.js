@@ -4,7 +4,6 @@ import RecipeController from '../../controllers/recipesController';
 import authMiddleware from '../../middleware/authMiddleware';
 import validateId from '../../middleware/recipeIdValidation';
 import uniqueRecipeValidation from '../../middleware/uniqueRecipeValidation';
-import recipeViewValidator from '../../middleware/recipeViewValidator';
 
 const recipeRoute = express();
 
@@ -165,7 +164,7 @@ recipeRoute.route('/:id')
    *         schema:
    *           $ref: '#/definitions/RecipeCategory'
    */
-  .get(validateId, recipeViewValidator, RecipeController.getRecipe)
+  .get(validateId, authMiddleware, RecipeController.getRecipe)
   /**
    * @swagger
    * /api/v1/recipes/{id}:

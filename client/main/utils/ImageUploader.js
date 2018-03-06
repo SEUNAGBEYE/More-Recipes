@@ -8,8 +8,6 @@ const { cloudinaryUploadUrl, cloudinaryUploadPreset } = config;
  * @returns {obj} obj
  */
 function imageUpload(file) {
-  console.log('cloudinaryUrl', cloudinaryUploadUrl, cloudinaryUploadPreset, file);
-
   const imageData = new FormData();
   imageData.append('file', file);
   // imageData.append('public_id', )

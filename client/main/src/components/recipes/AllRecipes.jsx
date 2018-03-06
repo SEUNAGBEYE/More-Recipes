@@ -107,8 +107,10 @@ export class AllRecipes extends Component {
             </div>
           </div>
         </main>
-        <Pagination recipesCount={this.props.pagination}
-          recipesPagination={this.paginateRecipes}/>
+        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
+          recipesPagination={this.paginateRecipes}/> :
+          ''
+        }
       </div>
     );
   }

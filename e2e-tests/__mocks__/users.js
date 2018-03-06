@@ -5,6 +5,13 @@ const validUser = {
   password: 'mother1234'
 };
 
-const invalidUser = { ...validUser, ...{ password: 'mother' } };
+const validUserTwo = {
+  firstName: 'Pay',
+  lastName: 'White',
+  email: 'paywhite@mail.com',
+  password: 'mother1234'
+};
 
-export { validUser, invalidUser };
+const invalidUser = { ...validUser, ...{ password: 'mothe' } };
+
+export { validUser, validUserTwo, invalidUser };

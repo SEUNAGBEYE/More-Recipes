@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SignUpForm from './SignUpForm';
 import { signUpRequest, forgotPassword } from '../../actions/auth/Auth';
 import UserValidator from '../../validators/UserValidator';
@@ -71,13 +72,11 @@ class SignUpPage extends Component {
     event.preventDefault();
     this.props.signUpRequest(this.state)
       .then(signUpResponse => {
-        if (signUpResponse[0] && signUpResponse[0].description) {
-          toastr.error(signUpResponse[0].description, 'Error!');
-          this.setState({ errors: signUpResponse });
+        if (signUpResponse.errors) {
+          this.setState({ errors: signUpResponse.errors });
         } else {
           this.history.push('/');
         }
-        this.history.push('/');
       });
   }
 
@@ -118,6 +117,15 @@ class SignUpPage extends Component {
     );
   }
 }
+const propTypes = {
+  auth: PropTypes.object,
+  history: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
+  forgotPassword: PropTypes.func,
+  signUpRequest: PropTypes.func,
+};
+
+SignUpPage.propTypes = propTypes;
 
 /**
  * mapStateToProps

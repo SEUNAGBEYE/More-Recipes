@@ -5,22 +5,31 @@ const Input = (props) => (
   <div>
     <fieldset>
       <label> {props.name} { props.number}</label>
-      <input className="steps form-control"
+      <input className="form-control"
         onBlur={props.onChange}
         name={props.name}
         id={props.id}
+        data-index={props.index}
+        data-name={`${props.name}-${props.index}`}
         defaultValue={props.value}
         required/>
+      <span className="icons fa fa-trash" id={props.id}
+        data-index={props.index}
+        data-name={`${props.name}-${props.index}`}
+        onClick={props.removeInput}
+      />
     </fieldset>
   </div>
 );
 
 const propTypes = {
   name: PropTypes.string.isRequired,
+  index: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  removeInput: PropTypes.func.isRequired,
   number: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 Input.propTypes = propTypes;

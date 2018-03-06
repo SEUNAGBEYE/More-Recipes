@@ -102,7 +102,8 @@ h1,h2, h3, h4, h5, h6 {
 	padding: 10px; 
 	font-size: 1em; 
 	text-decoration: none;
-	color: $orange;
+  color: $orange;
+  cursor: pointer;
 }
 
 .icons:hover{
@@ -125,6 +126,19 @@ input[type = "checkbox"]{
 	border: 1px solid $orange;
   position: relative;
   float: right
+}
+
+.show-input{
+	color: $white;
+  background: $orange;
+  margin: 1rem;
+  float: left;
+}
+
+.show-input:hover{
+  color: $orange;
+  background: $white;
+  border: 1px solid $orange
 }
 
 #login:hover{
@@ -184,6 +198,7 @@ main{
   left: 0;
   right: 0;
   margin: 0;
+  cursor: pointer;
 }
 
 .review{

@@ -19,7 +19,8 @@ describe('Test For Users Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equal('Password must be greater than 6');
+          expect(res.body.message).to.equal('Bad Request');
+          expect(res.body.errors[0].message).to.equal('Password must be greater than 6');
           assert.isObject(res.body, 'response is an object');
           done();
         });
@@ -40,12 +41,7 @@ describe('Test For Users Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors).to.deep.equal([
-            {
-              field: 'email',
-              description: 'Please provide a valid email address'
-            },
-          ]);
+          expect(res.body.errors[0].message).to.equal('Please provide a valid email address');
           assert.isArray(res.body.errors, 'response is an array of object');
           done();
         });
@@ -211,7 +207,7 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/12/add')
         .send({
-          userId: 'aaaa'
+          token: 'aaaa'
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
@@ -226,11 +222,11 @@ describe('Test For Users Routes', () => {
       chai.request(userRoute)
         .post('/fav-recipes/wwww/add')
         .send({
-          userId: '100'
+          token: '100'
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message).to.equals('Please input a valid ID');
+          expect(res.body.message).to.equals('Token Not Valid');
           done();
         });
     });
@@ -352,24 +348,23 @@ describe('Test For Users Routes', () => {
     });
   });
 
-  // describe('Test For Updating User Profile', () => {
-  //   it('should have a statusCode of 200 when a user update their profile', (done) => {
-  //     chai.request(userRoute)
-  //       .put('/profile')
-  //       .send({
-  //         firstName: 'Seun',
-  //         lastName: 'Agbeye',
-  //         profilePicture: 'This is my lovely image',
-  //         password: 'my'
-  //       })
-  //       .end((error, res) => {
-  //         expect(res).to.have.status(200);
-  //         expect(res.body.data).to.have.property('token');
-  //         console.log('>>>>>>>>>>>>>>>>>>', error)
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('Test For Updating User Profile', () => {
+    it('should have a statusCode of 200 when a user update their profile', (done) => {
+      chai.request(userRoute)
+        .put('/profile')
+        .send({
+          firstName: 'Seun',
+          lastName: 'Agbeye',
+          profilePicture: 'This is my lovely image',
+          password: 'my'
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.data).to.have.property('token');
+          done();
+        });
+    });
+  });
 
   describe('Test For Forget Password', () => {
     it('should have a statusCode of 404 when a request is made to forget password controller with an email that do not exist in database', (done) => {

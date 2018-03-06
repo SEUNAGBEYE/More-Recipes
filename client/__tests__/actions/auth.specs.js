@@ -55,100 +55,100 @@ describe('Auth', () => {
     });
   });
 
-//   describe('SignIn', () => {
-//     it('should SET_CURRENT_USER,when a user is succussfully signin', () => {
-//       moxios.wait(() => {
-//         const request = moxios.requests.mostRecent();
-//         request.respondWith({
-//           status: 200,
-//           response: setUserResponse
-//         });
-//       });
+  describe('SignIn', () => {
+    it('should SET_CURRENT_USER,when a user is succussfully signin', async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: setUserResponse
+        });
+      });
 
-//       const expectedAction = [
-//         {
-//           type: 'llll',
-//           user: setUserResponse.data.token
-//         }
-//       ];
-//       const store = mockStore({ });
-//       store.dispatch(login({}))
-//         .then(() => {
-//           expect(store.getActions()).toEqual(expectedAction);
-//         });
-//     });
-//   });
+      const expectedAction = [
+        {
+          type: SET_CURRENT_USER,
+          user: setUserResponse.data.token
+        }
+      ];
+      const store = mockStore({ });
+      await store.dispatch(login({}))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedAction);
+        });
+    });
+  });
 
-//   describe('SignOut', () => {
-//     it('shouldSET_CURRENT_USER,when a user is succussfully signout', () => {
-//       const expectedAction = [
-//         {
-//           type: SET_CURRENT_USER,
-//           user: {}
-//         }
-//       ];
-//       const store = mockStore({ });
-//       store.dispatch(logout({}));
-//       expect(store.getActions()).toEqual(expectedAction);
-//     });
-//   });
+  describe('SignOut', async () => {
+    it('shouldSET_CURRENT_USER,when a user is succussfully signout', async () => {
+      const expectedAction = [
+        {
+          type: SET_CURRENT_USER,
+          user: {}
+        }
+      ];
+      const store = mockStore({ });
+      await store.dispatch(logout({}));
+      expect(store.getActions()).toEqual(expectedAction);
+    });
+  });
 
-//   describe('UpdateProfile', () => {
-//     it('should UPDATE_PROFILE when a user is succussfully update his/her profile', () => {
-//       moxios.wait(() => {
-//         const request = moxios.requests.mostRecent();
-//         request.respondWith({
-//           status: 200,
-//           response: setUserResponse
-//         });
-//       });
+  describe('UpdateProfile', () => {
+    it('should UPDATE_PROFILE when a user is succussfully update his/her profile', async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: setUserResponse
+        });
+      });
 
-//       const expectedAction = [
-//         {
-//           type: UPDATE_PROFILE,
-//           user: setUserResponse.data.token
-//         }
-//       ];
-//       const store = mockStore({ });
-//       return store.dispatch(updateProfile({}))
-//         .then(() => {
-//           expect(store.getActions()).toEqual(expectedAction);
-//         });
-//     });
-//   });
-//   describe('confirmForgotPassword', () => {
-//     it('should return status code 200 when a user is succussfully resets his/her password', () => {
-//       moxios.wait(() => {
-//         const request = moxios.requests.mostRecent();
-//         request.respondWith({
-//           status: 200,
-//           response: changePasswordResponse
-//         });
-//       });
+      const expectedAction = [
+        {
+          type: UPDATE_PROFILE,
+          user: setUserResponse.data.token
+        }
+      ];
+      const store = mockStore({ });
+      await store.dispatch(updateProfile({}))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedAction);
+        });
+    });
+  });
+  describe('confirmForgotPassword', () => {
+    it('should return status code 200 when a user is successfully resets his/her password', async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: changePasswordResponse
+        });
+      });
 
-//       const store = mockStore({ });
-//       return store.dispatch(confirmForgotPassword({}))
-//         .then((res) => {
-//           expect(res).toEqual(changePasswordResponse);
-//         });
-//     });
-//   });
+      const store = mockStore({ });
+      await store.dispatch(confirmForgotPassword({}))
+        .then((res) => {
+          expect(res).toEqual(changePasswordResponse);
+        });
+    });
+  });
 
-//   describe('confirmForgotPassword', () => {
-//     it('should return status code 200 when a user request to resets his/her password', () => {
-//       moxios.wait(() => {
-//         const request = moxios.requests.mostRecent();
-//         request.respondWith({
-//           status: 200,
-//           response: forgotPasswordResponse
-//         });
-//       });
+  describe('confirmForgotPassword', () => {
+    it('should return status code 200 when a user request to resets his/her password', async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: forgotPasswordResponse
+        });
+      });
 
-//       const store = mockStore({ });
-//       return store.dispatch(forgotPassword({}))
-//         .then((res) => {
-//           expect(res).toEqual(forgotPasswordResponse);
-//         });
-//     });
-//   });
+      const store = mockStore({ });
+      await store.dispatch(forgotPassword({}))
+        .then((res) => {
+          expect(res).toEqual(forgotPasswordResponse);
+        });
+    });
+  });
 });

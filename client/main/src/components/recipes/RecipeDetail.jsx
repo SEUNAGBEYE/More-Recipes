@@ -14,8 +14,10 @@ import { getRecipe,
   toggleThumbsDownRecipe,
   toggleThumbsUpRecipe,
   getRecipeReviews,
+  deleteRecipe,
   editRecipe } from '../../actions/Recipes';
 import RecipeCardActions from '../recipes/RecipeCardActions';
+import Exclamation from './Exclamation';
 
 
 /**
@@ -46,6 +48,7 @@ export class RecipeDetail extends Component {
     this.viewMoreReviews = this.viewMoreReviews.bind(this);
     this.onChange = this.onChange.bind(this);
     this.reviewRecipe = this.reviewRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   /**
@@ -71,6 +74,19 @@ export class RecipeDetail extends Component {
       [event.target.name]: event.target.value
     });
   }
+
+  /**
+   * @param {Object} event
+   *
+   * @returns {void} void
+   * @memberof RecipeDetail
+   */
+  deleteRecipe(event) {
+    const { id } = event.target;
+    this.props.deleteRecipe(id)
+      .then(() => this.props.history.push('/my_recipes'));
+  }
+
 
   /**
    * @param {Object} event
@@ -160,119 +176,128 @@ export class RecipeDetail extends Component {
     if (!this.state.loading) {
       const { recipe, user } = this.props;
       const isFavorited = this.props.myFavouriteRecipes
-        .includes(parseInt(this.props.recipe.id, 10));
+        .includes(parseInt(recipe.id, 10));
       const isUpVoted = recipe.upvotes
-        .includes(parseInt(this.props.user.userId, 10));
+        .includes(parseInt(user.userId, 10));
       const isDownVoted = recipe.downvotes
-        .includes(parseInt(this.props.user.userId, 10));
-      return (
-        <div>
-          <main style={{ marginTop: 100 }} id="body">
+        .includes(parseInt(user.userId, 10));
+      if (recipe.name) {
+        return (
+          <div>
+            <main style={{ marginTop: 100 }} id="body">
 
-            <div className="container" id="form">
-              <h4 style={{ textAlign: 'center' }}>{recipe.name}</h4><br /><br />
+              <div className="container" id="form">
+                <h4 style={{ textAlign: 'center' }} className="recipe-name"
+                >{recipe.name}
+                </h4><br /><br />
 
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="box">
-                    <div className="circle">
-                      <img className ="circle" src={recipe.image} />
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="box">
+                      <div className="circle">
+                        <img className ="circle" src={recipe.image} />
+                      </div>
+                    </div>
+                    <div className="container text-center">
+                      <RecipeCardActions
+                        isDownVoted={isDownVoted}
+                        isUpVoted={isUpVoted}
+                        isFavorited={isFavorited}
+                        user={user}
+                        recipe={recipe}
+                        toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                        toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
+                        toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}
+                        style={{
+                          width: '50%',
+                          position: 'relative',
+                          margin: '0 auto'
+                        }}
+                      />
                     </div>
                   </div>
-                  <div className="container text-center">
-                    <RecipeCardActions
-                      isDownVoted={isDownVoted}
-                      isUpVoted={isUpVoted}
-                      isFavorited={isFavorited}
-                      user={user}
-                      recipe={recipe}
-                      toggleFavouriteRecipe={this.toggleFavouriteRecipe}
-                      toggleThumbsDownRecipe={this.toggleThumbsDownRecipe}
-                      toggleThumbsUpRecipe={this.toggleThumbsUpRecipe}
-                      style={{
-                        width: '50%',
-                        position: 'relative',
-                        margin: '0 auto'
-                      }}
-                    />
+                  <div className="col-md-6">
+                    <h5>Description</h5>
+                    {recipe.description}
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <h5>Description</h5>
-                  {recipe.description}
+                <br />
+
+                <div className="row">
+
+                  <div className="col-md-6">
+                    <h5>Ingredients</h5>
+                    <ul style={{ fontSize: 20 }}>
+                      {
+                        recipe.ingredients
+                          .map((step, index) => <li key={index}>{step}</li>)
+                      }
+                    </ul>
+                  </div>
+
+                  <div className="col-md-6">
+                    <h5>Steps</h5>
+                    <ul style={{ fontSize: 20 }}>
+                      {
+                        recipe.steps
+                          .map((step, index) => <li key={index}>{step}</li>)
+                      }
+                    </ul>
+                  </div>
                 </div>
+
+                <div className="row">
+
+                  <div className="col-md-6">
+                    <CreateReview history={this.props.history}
+                      recipeId={this.state.recipe.id}
+                      onChange={this.onChange}
+                      reviewBody={this.state.reviewBody}
+                      reviewRecipe={this.reviewRecipe}
+                    />
+                  </div>
+                  <div className="col-md-6" />
+
+                </div><br />
+
+                <div>
+                  <h6 className="text-center"
+                    style={{
+                      color: 'orange',
+                      margin: '5 0 10 0',
+                      fontSize: 16
+                    }}
+                  >What People Said
+                  </h6>
+                </div>
+                {recipe.reviews
+                  .map(review => <Review key={review.id} review={review}/>)}
               </div>
-              <br />
-
-              <div className="row">
-
-                <div className="col-md-6">
-                  <h5>Ingredients</h5>
-                  <ul style={{ fontSize: 20 }}>
-                    {
-                      recipe.ingredients
-                        .map((step, index) => <li key={index}>{step}</li>)
-                    }
-                  </ul>
-                </div>
-
-                <div className="col-md-6">
-                  <h5>Steps</h5>
-                  <ul style={{ fontSize: 20 }}>
-                    {
-                      recipe.steps
-                        .map((step, index) => <li key={index}>{step}</li>)
-                    }
-                  </ul>
-                </div>
-              </div>
-
-              <div className="row">
-
-                <div className="col-md-6">
-                  <CreateReview history={this.props.history}
-                    recipeId={this.state.recipe.id}
-                    onChange={this.onChange}
-                    reviewBody={this.state.reviewBody}
-                    reviewRecipe={this.reviewRecipe}
-                  />
-                </div>
-                <div className="col-md-6" />
-
-              </div><br />
-
-              <div>
-                <h6 className="text-center"
-                  style={{
-                    color: 'orange',
-                    margin: '5 0 10 0',
-                    fontSize: 16
-                  }}
-                >What People Said
-                </h6>
-              </div>
-              {recipe.reviews
-                .map(review => <Review key={review.id} review={review}/>)}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-              <button className="auth-button"
-                onClick={this.viewMoreReviews}
-              >
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <button className="auth-button"
+                  onClick={this.viewMoreReviews}
+                >
             View More
-              </button>
-              <Link to="/" onClick={(event => {
-                event.preventDefault();
-                $('html, body').animate({
-                  scrollTop: $("#body").offset().top
-                }, 1000);
-              })}>Go Up</Link>
-            </div>
-            <Loader loaded={this.state.reviewsLoaded}/>
-            <EditModal recipe={recipe} editRecipe={this.props.editRecipe}/>
-            <DeleteModal id={recipe.id} onDelete={this.props.onDelete}/>
-          </main>
-        </div>
-      );
+                </button>
+                <Link to="/" onClick={(event => {
+                  event.preventDefault();
+                  $('html, body').animate({
+                    scrollTop: $("#body").offset().top
+                  }, 1000);
+                })}>Go Up</Link>
+              </div>
+              <Loader loaded={this.state.reviewsLoaded}/>
+              <EditModal recipe={recipe} editRecipe={this.props.editRecipe}/>
+              <DeleteModal id={recipe.id} onDelete={this.deleteRecipe}/>
+            </main>
+          </div>
+        );
+      }
+      return (<Exclamation style={{ marginTop: '200px' }}>
+        <p className="text-muted text-center">
+          Recipe not found
+        </p>
+      </Exclamation>);
     }
     return (<p className="text-center">The recipe is loading ...</p>);
   }
@@ -291,7 +316,8 @@ const propTypes = {
   editRecipe: PropTypes.func.isRequired,
   getRecipe: PropTypes.func.isRequired,
   getRecipeReviews: PropTypes.func.isRequired,
-  reviewRecipe: PropTypes.func.isRequired
+  reviewRecipe: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired
 };
 
 RecipeDetail.propTypes = propTypes;
@@ -318,6 +344,7 @@ export default connect(mapStateToProps, {
   toggleThumbsDownRecipe,
   getRecipeReviews,
   reviewRecipe,
-  editRecipe
+  editRecipe,
+  deleteRecipe
 })(RecipeDetail);
 

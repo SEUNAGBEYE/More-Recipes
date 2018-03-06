@@ -107,11 +107,11 @@ ShallowWrapper {
               </div>
               <div
                 className="dropdown"
+                id="user-drop-down"
               >
                 <Link
                   className="nav-link dropdown-toggle"
                   data-toggle="dropdown"
-                  id="user-drop-down"
                   replace={false}
                   to="#"
                 >
@@ -123,6 +123,7 @@ ShallowWrapper {
                 >
                   <Link
                     className="dropdown-item"
+                    id="all-recipes"
                     replace={false}
                     to="/recipes"
                   >
@@ -234,11 +235,11 @@ ShallowWrapper {
               </div>
               <div
                 className="dropdown"
+                id="user-drop-down"
               >
                 <Link
                   className="nav-link dropdown-toggle"
                   data-toggle="dropdown"
-                  id="user-drop-down"
                   replace={false}
                   to="#"
                 >
@@ -250,6 +251,7 @@ ShallowWrapper {
                 >
                   <Link
                     className="dropdown-item"
+                    id="all-recipes"
                     replace={false}
                     to="/recipes"
                   >
@@ -358,11 +360,11 @@ ShallowWrapper {
                 </div>
                 <div
                   className="dropdown"
+                  id="user-drop-down"
                 >
                   <Link
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
-                    id="user-drop-down"
                     replace={false}
                     to="#"
                   >
@@ -374,6 +376,7 @@ ShallowWrapper {
                   >
                     <Link
                       className="dropdown-item"
+                      id="all-recipes"
                       replace={false}
                       to="/recipes"
                     >
@@ -504,11 +507,11 @@ ShallowWrapper {
                   </div>
                   <div
                     className="dropdown"
+                    id="user-drop-down"
                   >
                     <Link
                       className="nav-link dropdown-toggle"
                       data-toggle="dropdown"
-                      id="user-drop-down"
                       replace={false}
                       to="#"
                     >
@@ -520,6 +523,7 @@ ShallowWrapper {
                     >
                       <Link
                         className="dropdown-item"
+                        id="all-recipes"
                         replace={false}
                         to="/recipes"
                       >
@@ -621,11 +625,11 @@ ShallowWrapper {
                     </div>,
                     <div
                       className="dropdown"
+                      id="user-drop-down"
                     >
                       <Link
                         className="nav-link dropdown-toggle"
                         data-toggle="dropdown"
-                        id="user-drop-down"
                         replace={false}
                         to="#"
                       >
@@ -637,6 +641,7 @@ ShallowWrapper {
                       >
                         <Link
                           className="dropdown-item"
+                          id="all-recipes"
                           replace={false}
                           to="/recipes"
                         >
@@ -745,7 +750,6 @@ ShallowWrapper {
                         <Link
                           className="nav-link dropdown-toggle"
                           data-toggle="dropdown"
-                          id="user-drop-down"
                           replace={false}
                           to="#"
                         >
@@ -757,6 +761,7 @@ ShallowWrapper {
                         >
                           <Link
                             className="dropdown-item"
+                            id="all-recipes"
                             replace={false}
                             to="/recipes"
                           >
@@ -796,6 +801,7 @@ ShallowWrapper {
                         </div>,
                       ],
                       "className": "dropdown",
+                      "id": "user-drop-down",
                     },
                     "ref": null,
                     "rendered": Array [
@@ -807,7 +813,6 @@ ShallowWrapper {
                           "children": "Seun",
                           "className": "nav-link dropdown-toggle",
                           "data-toggle": "dropdown",
-                          "id": "user-drop-down",
                           "replace": false,
                           "to": "#",
                         },
@@ -824,6 +829,7 @@ ShallowWrapper {
                           "children": Array [
                             <Link
                               className="dropdown-item"
+                              id="all-recipes"
                               replace={false}
                               to="/recipes"
                             >
@@ -872,6 +878,7 @@ ShallowWrapper {
                             "props": Object {
                               "children": "All Recipes",
                               "className": "dropdown-item",
+                              "id": "all-recipes",
                               "replace": false,
                               "to": "/recipes",
                             },
@@ -1028,11 +1035,11 @@ ShallowWrapper {
                 </div>
                 <div
                   className="dropdown"
+                  id="user-drop-down"
                 >
                   <Link
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
-                    id="user-drop-down"
                     replace={false}
                     to="#"
                   >
@@ -1044,6 +1051,7 @@ ShallowWrapper {
                   >
                     <Link
                       className="dropdown-item"
+                      id="all-recipes"
                       replace={false}
                       to="/recipes"
                     >
@@ -1155,11 +1163,11 @@ ShallowWrapper {
                 </div>
                 <div
                   className="dropdown"
+                  id="user-drop-down"
                 >
                   <Link
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
-                    id="user-drop-down"
                     replace={false}
                     to="#"
                   >
@@ -1171,6 +1179,7 @@ ShallowWrapper {
                   >
                     <Link
                       className="dropdown-item"
+                      id="all-recipes"
                       replace={false}
                       to="/recipes"
                     >
@@ -1279,11 +1288,11 @@ ShallowWrapper {
                   </div>
                   <div
                     className="dropdown"
+                    id="user-drop-down"
                   >
                     <Link
                       className="nav-link dropdown-toggle"
                       data-toggle="dropdown"
-                      id="user-drop-down"
                       replace={false}
                       to="#"
                     >
@@ -1295,6 +1304,7 @@ ShallowWrapper {
                     >
                       <Link
                         className="dropdown-item"
+                        id="all-recipes"
                         replace={false}
                         to="/recipes"
                       >
@@ -1425,11 +1435,11 @@ ShallowWrapper {
                     </div>
                     <div
                       className="dropdown"
+                      id="user-drop-down"
                     >
                       <Link
                         className="nav-link dropdown-toggle"
                         data-toggle="dropdown"
-                        id="user-drop-down"
                         replace={false}
                         to="#"
                       >
@@ -1441,6 +1451,7 @@ ShallowWrapper {
                       >
                         <Link
                           className="dropdown-item"
+                          id="all-recipes"
                           replace={false}
                           to="/recipes"
                         >
@@ -1542,11 +1553,11 @@ ShallowWrapper {
                       </div>,
                       <div
                         className="dropdown"
+                        id="user-drop-down"
                       >
                         <Link
                           className="nav-link dropdown-toggle"
                           data-toggle="dropdown"
-                          id="user-drop-down"
                           replace={false}
                           to="#"
                         >
@@ -1558,6 +1569,7 @@ ShallowWrapper {
                         >
                           <Link
                             className="dropdown-item"
+                            id="all-recipes"
                             replace={false}
                             to="/recipes"
                           >
@@ -1666,7 +1678,6 @@ ShallowWrapper {
                           <Link
                             className="nav-link dropdown-toggle"
                             data-toggle="dropdown"
-                            id="user-drop-down"
                             replace={false}
                             to="#"
                           >
@@ -1678,6 +1689,7 @@ ShallowWrapper {
                           >
                             <Link
                               className="dropdown-item"
+                              id="all-recipes"
                               replace={false}
                               to="/recipes"
                             >
@@ -1717,6 +1729,7 @@ ShallowWrapper {
                           </div>,
                         ],
                         "className": "dropdown",
+                        "id": "user-drop-down",
                       },
                       "ref": null,
                       "rendered": Array [
@@ -1728,7 +1741,6 @@ ShallowWrapper {
                             "children": "Seun",
                             "className": "nav-link dropdown-toggle",
                             "data-toggle": "dropdown",
-                            "id": "user-drop-down",
                             "replace": false,
                             "to": "#",
                           },
@@ -1745,6 +1757,7 @@ ShallowWrapper {
                             "children": Array [
                               <Link
                                 className="dropdown-item"
+                                id="all-recipes"
                                 replace={false}
                                 to="/recipes"
                               >
@@ -1793,6 +1806,7 @@ ShallowWrapper {
                               "props": Object {
                                 "children": "All Recipes",
                                 "className": "dropdown-item",
+                                "id": "all-recipes",
                                 "replace": false,
                                 "to": "/recipes",
                               },

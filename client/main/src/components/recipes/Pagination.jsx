@@ -21,7 +21,6 @@ const Pagination = (props) => {
                     onClick={(event) => {
                       event.preventDefault();
                       let current = document.querySelector('.page-link-active');
-                      console.log('+++++++++++++', current);
                       if ((parseInt(current.innerHTML, 10) !== 1)) {
                         Array.from(document.getElementsByClassName('page-link'))
                           .map(elem => { elem.className = 'page-link'; });

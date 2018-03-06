@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LoginForm from './LoginForm';
 import { login, forgotPassword } from '../../actions/auth/Auth';
 
@@ -122,9 +123,15 @@ class LoginPage extends Component {
   }
 }
 
-// LoginPage.propTypes = {
-//   login: React.PropTypes.func.isRequired
-// };
+const propTypes = {
+  auth: PropTypes.object,
+  history: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
+  forgotPassword: PropTypes.func,
+  login: PropTypes.func,
+};
+
+LoginPage.propTypes = propTypes;
 
 /**
  * mapStateToProps

@@ -66,7 +66,7 @@ describe('Test For Recipes Routes', () => {
           name: 'Amala',
           description: 'This is made from carbonhydrate',
           image: 'This is the image',
-          userId: 2,
+          token: 2,
           categoryId: 1
         })
         .end((error, res) => {
@@ -127,8 +127,8 @@ describe('Test For Recipes Routes', () => {
     it('should have a statusCode of 403 when a user is trying to update a recipes he/she did not create', (done) => {
       chai.request(recipeRoute)
         .put('/11')
-        .set('token', 100)
         .send({
+          token: 100,
           name: 'Amala',
           description: 'This is made from carbonhydrate',
           review: 'This is the best african food'
@@ -163,7 +163,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/11/upvotes')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -179,7 +179,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/11/upvotes')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -194,7 +194,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/11111/upvotes')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(404);
@@ -209,7 +209,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/11/downvotes')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -225,7 +225,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/11/downvotes')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -241,7 +241,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/""/downvotes')
         .send({
-          userId: 1
+          token: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
@@ -256,7 +256,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/100/downvotes')
         .send({
-          userId: 1
+          token: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(404);
@@ -271,7 +271,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({
-          userId: 1,
+          token: 1,
           reviewBody: 'Hi this is my review'
         })
         .end((error, res) => {
@@ -290,7 +290,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .post('/10000/reviews')
         .send({
-          userId: 1
+          token: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(404);
@@ -305,7 +305,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({
-          userId: 1
+          token: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
@@ -342,7 +342,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .delete('/11')
         .send({
-          userId: 2
+          token: 2
         })
         .end((error, res) => {
           expect(res).to.have.status(403);
@@ -357,7 +357,7 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .delete('/11')
         .send({
-          userId: 1
+          token: 1
         })
         .end((error, res) => {
           expect(res).to.have.status(204);

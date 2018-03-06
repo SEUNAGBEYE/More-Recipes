@@ -9,3 +9,4 @@ servergitignore
 .DS_STORE
 .coveralls.yml
 coverage
+coverage-client

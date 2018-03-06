@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @description - Component displays form for creating a review
+ * @param {any} props
+ *
+ * @returns {jsx} JSX
+ */
 const CreateReview = (props) => (
   <form className="form-group" onSubmit={props.reviewRecipe} id="form">
 
