@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+
 const decodeToken = (req, res, next, token) => {
   jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
     if (!error) {
@@ -33,6 +34,7 @@ const authMiddleware = (req, res, next) => {
 
   // Check if the route is for getting a single recipe
   if (req.method === 'GET' && req.baseUrl === '/api/v1/recipes' && req.params.id) {
+    req.token = {};
     return next();
   }
   return res.status(400).send({

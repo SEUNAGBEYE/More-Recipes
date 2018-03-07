@@ -1,6 +1,6 @@
 
 
-const modelPaginator = (model, req, res, where = {}) => {
+const modelPaginator = (model, req, res, where = {}, include = null) => {
   const { limit, page: queryPage } = req.query;
   model.findAndCountAll({ where })
     .then((modelWithCount) => {
@@ -9,7 +9,8 @@ const modelPaginator = (model, req, res, where = {}) => {
         offset: (modelWithCount.count > limit) ?
           (limit * (queryPage - 1)) : 0,
         limit,
-        where
+        where,
+        include
       })
         .then((data) => {
           const page = Math.ceil(modelWithCount.count / limit);

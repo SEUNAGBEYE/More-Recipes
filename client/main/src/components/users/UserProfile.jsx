@@ -59,7 +59,6 @@ class UserProfile extends Component {
             });
         });
       } catch (error) {
-        console.log('errors', error.response);
         this.setState({ loaded: true });
       }
     } else {

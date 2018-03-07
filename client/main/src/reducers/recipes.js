@@ -38,7 +38,7 @@ export const initialState = {
   favouriteRecipes: [],
   popularRecipes: [],
   recipeCategories: [],
-  loading: false
+  loaded: false
 };
 
 export default (state = initialState, action = {}) => {
@@ -54,7 +54,14 @@ export default (state = initialState, action = {}) => {
     };
 
   case GET_RECIPE:
-    return { ...state, ...{ singleRecipe: action.recipe } };
+    return {
+      ...state,
+      ...{
+        singleRecipe: action.recipe,
+        pagination: action.pagination,
+        loaded: true
+      }
+    };
 
   case GET_USER_RECIPES:
     return {
@@ -79,7 +86,7 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         recipeCategories: action.recipeCategories,
-        loading: true
+        loaded: true
       }
     };
   case GET_POPULAR_RECIPES:
@@ -204,10 +211,16 @@ export default (state = initialState, action = {}) => {
     singleRecipe.reviews = [...singleRecipe.reviews, ...action.reviews];
     return {
       ...state,
-      ...{ singleRecipe: singleRecipe }
+      ...{
+        singleRecipe: singleRecipe,
+        pagination: action.pagination
+      }
     };
 
-  default: return state;
+  default: return {
+    ...state,
+    ...{ loaded: true }
+  };
   }
 };
 

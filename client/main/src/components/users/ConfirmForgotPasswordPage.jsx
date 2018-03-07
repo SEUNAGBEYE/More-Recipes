@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ConfirmForgotPasswordForm from '../users/ConfirmForgotPasswordForm';
 import { confirmForgotPassword } from '../../actions/auth/Auth';
@@ -6,13 +7,13 @@ import UserValidator from '../../validators/UserValidator';
 
 
 /**
- * @class LoginPage
+ * @class ConfirmForgotPasswordPage
  * @extends Component
  */
 class ConfirmForgotPasswordPage extends Component {
   /**
    * Creates an instance of ConfirmForgotPasswordPage.
-   * @param {obj} props
+   * @param {Object} props
    * @memberof ConfirmForgotPasswordPage
    */
   constructor(props) {
@@ -38,7 +39,8 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
-   * @param {obj} nextProps
+   * @param {Object} nextProps
+   *
    * @returns {void} void
    * @memberof ConfirmForgotPasswordPage
    */
@@ -49,7 +51,8 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
-   * @param {obj} event
+   * @param {Object} event
+   *
    * @returns {void}
    * @memberof ConfirmForgotPasswordPage
    */
@@ -63,9 +66,10 @@ class ConfirmForgotPasswordPage extends Component {
     UserValidator.passwordValidator(event, self);
   }
   /**
-   * @param {obj} event
-   * @memberof ConfirmForgotPasswordPage
+   * @param {Object} event
+   *
    * @returns {void} void
+   * @memberof ConfirmForgotPasswordPage
    */
   onSubmit(event) {
     event.preventDefault();
@@ -73,7 +77,7 @@ class ConfirmForgotPasswordPage extends Component {
     const { rememberToken } = this.props.match.params;
     this.props.confirmForgotPassword(data, rememberToken)
       .then(res => {
-        toastr.success(res.data.message, 'Success');
+        toastr.success(res.message, 'Success');
         this.history.push('/login');
       })
       .catch(error => this.setState({ passwordError: error.response.data.message }));
@@ -81,7 +85,7 @@ class ConfirmForgotPasswordPage extends Component {
 
   /**
    * @return {JSX} jsx
-   * @memberOf ConfirmForgotPasswordPage
+   * @memberof ConfirmForgotPasswordPage
    */
   render() {
     return (
@@ -104,18 +108,29 @@ class ConfirmForgotPasswordPage extends Component {
   }
 }
 
-// LoginPage.propTypes = {
-//   login: React.PropTypes.func.isRequired
-// };
+const propTypes = {
+  confirmForgotPassword: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
+
+ConfirmForgotPasswordPage.propTypes = propTypes;
 
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @param {Object} state
+ *
+ * @returns {Object} Object
  */
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { confirmForgotPassword })(ConfirmForgotPasswordPage);
+export default connect(
+  mapStateToProps,
+  {
+    confirmForgotPassword
+  }
+)(ConfirmForgotPasswordPage);

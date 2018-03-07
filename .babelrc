@@ -4,7 +4,10 @@
     "react"
   ],
   "plugins": [
+    "transform-runtime",
+    "babel-polyfill",
     "transform-object-rest-spread"
+
   ],
   "env": {
     "test": {

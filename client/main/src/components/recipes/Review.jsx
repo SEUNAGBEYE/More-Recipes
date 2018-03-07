@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+/**
+ * @description - Component for displaying reviews
+ *
+ * @param {Object} props
+ *
+ * @returns {jsx} Jsx
+ */
 const Review = (props) => (
   <div className="row" style={{ marginBottom: 15 }}>
     <div className="" style={{

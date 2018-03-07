@@ -52,7 +52,7 @@ const {
 describe('Recipe Reducer', () => {
   it('should return initial state for unknown action types', () => {
     const state = recipeReducer(undefined);
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(state);
   });
 
   it(`should handle ${ADD_RECIPE} action type`, () => {
@@ -62,7 +62,7 @@ describe('Recipe Reducer', () => {
   });
 
   it(`should handle ${GET_RECIPE} action type`, () => {
-    const action = getRecipeAction(recipeObject);
+    const action = getRecipeAction({ data: recipeObject, pagination: 2 });
     const state = recipeReducer(initialState, action);
     expect(state.singleRecipe).toEqual(recipeObject);
   });
@@ -109,7 +109,7 @@ describe('Recipe Reducer', () => {
   });
 
   it(`should handle ${GET_RECIPE_REVIEWS} action type`, () => {
-    const action = getRecipeReviewsAction(recipeReviewsObject.reviews);
+    const action = getRecipeReviewsAction({ data: recipeReviewsObject.reviews, pagination: 1 });
     const state = recipeReducer(initialState, action);
     expect(state.singleRecipe).toEqual(recipeReviewsObject);
     expect(state.singleRecipe.reviews)

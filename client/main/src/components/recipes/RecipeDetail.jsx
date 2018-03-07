@@ -34,11 +34,7 @@ export class RecipeDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipe: {
-        errors: {},
-        reviews: [],
-        reviewBody: ''
-      },
+      reviewsPage: 1,
       reviewsLoaded: true,
       loading: true
     };
@@ -139,7 +135,6 @@ export class RecipeDetail extends Component {
    */
   toggleThumbsDownRecipe(event) {
     event.preventDefault();
-    event.preventDefault();
     if (this.props.isAuthenticated) {
       this.props.toggleThumbsDownRecipe(event.target.id);
       this.setState({ toggleThumbsUp: !this.state.toggleThumbsUp });
@@ -157,14 +152,16 @@ export class RecipeDetail extends Component {
    */
   viewMoreReviews(event) {
     event.preventDefault();
+    const newReviewsPage = this.state.reviewsPage + 1;
     this.setState({
       reviewsLoaded: false
     });
     const limit = 5;
-    const offset = this.props.recipe.reviews.length;
+    const offset = newReviewsPage;
     this.props.getRecipeReviews(this.props.recipe.id, limit, offset);
     this.setState({
-      reviewsLoaded: true
+      reviewsLoaded: true,
+      reviewsPage: newReviewsPage
     });
   }
 
@@ -173,7 +170,7 @@ export class RecipeDetail extends Component {
  * @memberof RecipeDetail
  */
   render() {
-    if (!this.state.loading) {
+    if (this.props.loaded) {
       const { recipe, user } = this.props;
       const isFavorited = this.props.myFavouriteRecipes
         .includes(parseInt(recipe.id, 10));
@@ -250,7 +247,7 @@ export class RecipeDetail extends Component {
 
                   <div className="col-md-6">
                     <CreateReview history={this.props.history}
-                      recipeId={this.state.recipe.id}
+                      recipeId={recipe.id}
                       onChange={this.onChange}
                       reviewBody={this.state.reviewBody}
                       reviewRecipe={this.reviewRecipe}
@@ -274,11 +271,16 @@ export class RecipeDetail extends Component {
                   .map(review => <Review key={review.id} review={review}/>)}
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <button className="auth-button"
-                  onClick={this.viewMoreReviews}
-                >
-            View More
-                </button>
+                {
+                  
+                  this.props.pagination > this.state.reviewsPage ?
+                    <button className="auth-button"
+                      onClick={this.viewMoreReviews}
+                    >
+                    View More
+                    </button> :
+                    ''
+                }
                 <Link to="/" onClick={(event => {
                   event.preventDefault();
                   $('html, body').animate({
@@ -299,7 +301,7 @@ export class RecipeDetail extends Component {
         </p>
       </Exclamation>);
     }
-    return (<p className="text-center">The recipe is loading ...</p>);
+    return (<Loader loaded={this.props.loaded}/>);
   }
 }
 
@@ -307,6 +309,7 @@ const propTypes = {
   isAuthenticated: PropTypes.bool,
   myFavouriteRecipes: PropTypes.array,
   user: PropTypes.object,
+  pagination: PropTypes.number,
   recipe: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -334,6 +337,8 @@ export const mapStateToProps = (state, props) => ({
   user: state.auth.user,
   recipe: state.recipes.singleRecipe,
   isAuthenticated: state.auth.isAuthenticated,
+  pagination: state.recipes.pagination,
+  loaded: state.recipes.loaded,
   myFavouriteRecipes: state.recipes.userFavouritedRecipeId || [],
 });
 

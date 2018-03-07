@@ -10,3 +10,4 @@ servergitignore
 .coveralls.yml
 coverage
 coverage-client
+e2ereports

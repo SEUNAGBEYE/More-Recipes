@@ -76,6 +76,7 @@ ShallowWrapper {
           >
             <form
               className="form-inline"
+              id="search-form"
               onSubmit={[Function]}
             >
               <input
@@ -204,6 +205,7 @@ ShallowWrapper {
           >
             <form
               className="form-inline"
+              id="search-form"
               onSubmit={[Function]}
             >
               <input
@@ -329,6 +331,7 @@ ShallowWrapper {
             >
               <form
                 className="form-inline"
+                id="search-form"
                 onSubmit={[Function]}
               >
                 <input
@@ -476,6 +479,7 @@ ShallowWrapper {
               "children": Array [
                 <form
                   className="form-inline"
+                  id="search-form"
                   onSubmit={[Function]}
                 >
                   <input
@@ -581,6 +585,7 @@ ShallowWrapper {
                     type="text"
                   />,
                   "className": "form-inline",
+                  "id": "search-form",
                   "onSubmit": [Function],
                 },
                 "ref": null,
@@ -1004,6 +1009,7 @@ ShallowWrapper {
             >
               <form
                 className="form-inline"
+                id="search-form"
                 onSubmit={[Function]}
               >
                 <input
@@ -1132,6 +1138,7 @@ ShallowWrapper {
             >
               <form
                 className="form-inline"
+                id="search-form"
                 onSubmit={[Function]}
               >
                 <input
@@ -1257,6 +1264,7 @@ ShallowWrapper {
               >
                 <form
                   className="form-inline"
+                  id="search-form"
                   onSubmit={[Function]}
                 >
                   <input
@@ -1404,6 +1412,7 @@ ShallowWrapper {
                 "children": Array [
                   <form
                     className="form-inline"
+                    id="search-form"
                     onSubmit={[Function]}
                   >
                     <input
@@ -1509,6 +1518,7 @@ ShallowWrapper {
                       type="text"
                     />,
                     "className": "form-inline",
+                    "id": "search-form",
                     "onSubmit": [Function],
                   },
                   "ref": null,

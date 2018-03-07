@@ -48,7 +48,7 @@ class CategoryPage extends Component {
   render() {
     return (
       <div>
-        { this.props.loading ?
+        { this.props.loaded ?
           <main style={{ marginTop: 40 }}>
             <div className="container">
               <CategoryButton />
@@ -106,7 +106,7 @@ const mapStateToProps = (state, props) => ({
   pagination: state.recipes.pagination,
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.recipes.loading,
+  loaded: state.recipes.loaded,
   category: state.recipes.recipeCategories
     .find(recipeCategory => (
       recipeCategory.name === props.match.params.categoryName
@@ -115,7 +115,7 @@ const mapStateToProps = (state, props) => ({
 
 const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
   recipes: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,

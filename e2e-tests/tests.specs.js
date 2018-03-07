@@ -6,6 +6,8 @@ import createRecipe from './createRecipe.specs';
 import editRecipe from './editRecipe.specs';
 import signOut from './signout.specs';
 import deleteRecipe from './deleteRecipe.specs';
+import searchRecipe from './searchRecipe.specs';
+import createReview from './createReview.specs';
 
 
 const clearSignInValue = (browser) => {
@@ -13,6 +15,10 @@ const clearSignInValue = (browser) => {
     .clearValue('#email')
     .click('#password')
     .clearValue('#password')
+};
+const clickRecipeCard = (browser, recipeId) => {
+  return browser
+    .click(`[data-recipe-card-id=recipe${recipeId}`)
 };
 
 const baseUrl = 'http://localhost:7000';
@@ -47,6 +53,12 @@ export default {
       .url(`${baseUrl}/my_recipes`)
     editRecipe(browser)
       .url(`${baseUrl}/my_recipes`)
+    clickRecipeCard(browser, validRecipe.id)
+    createReview(browser, validUser.reviews[0])
+    createReview(browser, validUser.reviews[1])
+    createReview(browser, validUser.reviews[2])
+    createReview(browser, validUser.reviews[3])
+      .url(`${baseUrl}/recipe/1`)
     signOut(browser)
       .pause(1000)
       .click('#not-a-member')
@@ -54,9 +66,9 @@ export default {
     signUpUser(browser, validUserTwo)
     createRecipe(browser, validRecipeTwo)
       .url(`${baseUrl}/my_recipes`)
+    searchRecipe(browser, validRecipeTwo.name)
       .click('#user-drop-down')
       .click('#all-recipes')
-      .click('[data-recipe-card-id=recipe2')
       .pause(1000)
     deleteRecipe(browser, 2)
     browser.end();
