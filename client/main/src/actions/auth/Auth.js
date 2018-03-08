@@ -71,7 +71,7 @@ function setCurrentUser(action, actionType, response, dispatch) {
  */
 export function login(data, history = {}) {
   return dispatch => axios.post('/api/v1/users/signin', data)
-    .then((response) => setCurrentUser(
+    .then(response => setCurrentUser(
       setCurrentUserAction,
       'SET_CURRENT_USER', response.data,
       dispatch
@@ -99,7 +99,7 @@ export function signUpRequest(data, history = []) {
       setCurrentUserAction, 'SET_CURRENT_USER',
       response.data, dispatch
     ))
-    .catch(error => error.responseponse.data);
+    .catch(error => error.response.data);
 }
 
 /**
@@ -118,7 +118,7 @@ export function updateProfile(data) {
       response.data,
       dispatch
     ))
-    .catch(error => error.responseponse.data);
+    .catch(error => error.response.data);
 }
 
 /**

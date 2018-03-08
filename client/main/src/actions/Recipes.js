@@ -279,8 +279,8 @@ export function getRecipeReviewsAction(data) {
  */
 export function allRecipes(page = 1, limit = 2) {
   return dispatch => axios.get(`/api/v1/recipes?limit=${limit}&page=${page}`)
-    .then((res) => {
-      const { data, pagination } = res.data;
+    .then((response) => {
+      const { data, pagination } = response.data;
       return dispatch(allRecipesAction(data, pagination));
     })
     .catch(error => error);
@@ -296,7 +296,7 @@ export function allRecipes(page = 1, limit = 2) {
  */
 export function popularRecipes(limit) {
   return dispatch => axios.get(`api/v1/recipes/popular?limit=${limit}`)
-    .then(res => dispatch(popularRecipesAction(res.data.data)))
+    .then(response => dispatch(popularRecipesAction(response.data.data)))
     .catch(error => error);
 }
 
@@ -308,7 +308,7 @@ export function popularRecipes(limit) {
  */
 export function recipeCategories() {
   return dispatch => axios.get('/api/v1/recipes/categories')
-    .then(res => dispatch(recipeCategoriesAction(res.data)));
+    .then(response => dispatch(recipeCategoriesAction(response.data)));
 }
 
 /**
@@ -323,8 +323,8 @@ export function recipeCategories() {
  */
 export function searchRecipes(search, page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/recipes/search_results?search=${search}&limit=${limit}&page=${page}`)
-    .then((res) => {
-      const { data } = res;
+    .then((response) => {
+      const { data } = response;
       dispatch(searchRecipesAction(data));
     });
 }
@@ -337,8 +337,8 @@ export function searchRecipes(search, page = 1, limit = 8) {
  */
 export function getFavouritedRecipesIds() {
   return dispatch => axios.get('/api/v1/users/fav-recipes/getIds')
-    .then((res) => {
-      const { data } = res.data;
+    .then((response) => {
+      const { data } = response.data;
       return dispatch(favouritedRecipesIdsAction(data));
     })
     .catch(error => error);
@@ -354,8 +354,8 @@ export function getFavouritedRecipesIds() {
  */
 export function getFavouritedRecipes(page = 1) {
   return dispatch => axios.get(`/api/v1/users/fav-recipes?limit=8&page=${page}`)
-    .then((res) => {
-      const { data, pagination } = res.data;
+    .then((response) => {
+      const { data, pagination } = response.data;
       return dispatch(favouritedRecipesAction(data, pagination));
     })
     .catch(error => error);
@@ -371,9 +371,9 @@ export function getFavouritedRecipes(page = 1) {
  */
 export function addRecipe(data) {
   return dispatch => axios.post('api/v1/recipes', data)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe Added', 'Success');
-      return dispatch(addRecipeAction(res.data.data));
+      return dispatch(addRecipeAction(response.data.data));
     });
 }
 
@@ -387,8 +387,8 @@ export function addRecipe(data) {
  */
 export function toggleFavouriteRecipe(id) {
   return dispatch => axios.post(`/api/v1/users/fav-recipes/${id}/add`)
-    .then((res) => {
-      const { data } = res.data;
+    .then((response) => {
+      const { data } = response.data;
       return dispatch(toggleFavouriteRecipeAction(data));
     })
     .catch(error => error);
@@ -404,7 +404,10 @@ export function toggleFavouriteRecipe(id) {
  */
 export function toggleThumbsDownRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/downvotes`)
-    .then(res => dispatch(toggleThumbsDownRecipeAction(res.data.data)))
+    .then((response) => {
+      const { data } = response.data;
+      dispatch(toggleThumbsDownRecipeAction(data));
+    })
     .catch(error => error);
 }
 
@@ -418,7 +421,7 @@ export function toggleThumbsDownRecipe(id) {
  */
 export function toggleThumbsUpRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/upvotes`)
-    .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.data)))
+    .then(response => dispatch(toggleThumbsUpRecipeAction(response.data.data)))
     .catch(error => error);
 }
 
@@ -432,7 +435,7 @@ export function toggleThumbsUpRecipe(id) {
  */
 export function deleteRecipe(id) {
   return dispatch => axios.delete(`/api/v1/recipes/${id}`)
-    .then((res) => {
+    .then(() => {
       toastr.success('Recipe Deleted', 'Success');
       return dispatch(deleteRecipeAction(id));
     })
@@ -450,9 +453,9 @@ export function deleteRecipe(id) {
  */
 export function editRecipe(id, data) {
   return dispatch => axios.put(`/api/v1/recipes/${id}`, data)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe Updated', 'Success');
-      return dispatch(editRecipeAction(res.data.data));
+      return dispatch(editRecipeAction(response.data.data));
     })
     .catch((error) => {
       if (error) {
@@ -471,7 +474,7 @@ export function editRecipe(id, data) {
  */
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
-    .then((res) => dispatch(getRecipeAction(res.data)))
+    .then(response => dispatch(getRecipeAction(response.data)))
     .catch(error => error);
 }
 
@@ -486,8 +489,8 @@ export function getRecipe(id) {
  */
 export function reviewRecipe(id, data) {
   return dispatch => axios.post(`/api/v1/recipes/${id}/reviews`, data)
-    .then((res) => {
-      dispatch(reviewRecipeAction(res.data.data));
+    .then((response) => {
+      dispatch(reviewRecipeAction(response.data.data));
       toastr.success('Review Added');
     })
     .catch(error => error);
@@ -504,10 +507,9 @@ export function reviewRecipe(id, data) {
  * @returns {Object} Object
  */
 export function getRecipeReviews(id, limit, page) {
-  return dispatch => axios.get(`/api/v1/recipes/${id}/reviews?limit=${limit}&page=${page}`)
-    .then((res) => {
-      dispatch(getRecipeReviewsAction(res.data));
-    })
+  return dispatch => axios
+    .get(`/api/v1/recipes/${id}/reviews?limit=${limit}&page=${page}`)
+    .then(response => dispatch(getRecipeReviewsAction(response.data)))
     .catch(error => error);
 }
 
@@ -521,8 +523,8 @@ export function getRecipeReviews(id, limit, page) {
  */
 export function getUserRecipes(page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/users/myrecipes?page=${page}&limit=${limit}`)
-    .then((res) => {
-      const { data } = res;
+    .then((response) => {
+      const { data } = response;
       return dispatch(userRecipesAction(data));
     })
     .catch(error => error);

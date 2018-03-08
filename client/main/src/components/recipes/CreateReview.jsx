@@ -9,9 +9,7 @@ import PropTypes from 'prop-types';
  */
 const CreateReview = (props) => (
   <form className="form-group" id="create-review-form"
-    onSubmit={props.reviewRecipe}
-  >
-
+    onSubmit={props.reviewRecipe}>
     <textarea rows="5" cols="20" className="form-control"
       placeholder="Write reviews here" name="reviewBody"
       id="review"

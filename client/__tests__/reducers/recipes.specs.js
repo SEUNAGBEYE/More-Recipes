@@ -96,7 +96,8 @@ describe('Recipe Reducer', () => {
     const action = favouritedRecipesAction(allRecipesObject);
     const state = recipeReducer(initialState, action);
     expect(state.favouriteRecipes).toEqual(allRecipesObject);
-    expect(state.favouriteRecipes).toEqual(expect.arrayContaining(allRecipesObject));
+    expect(state.favouriteRecipes)
+      .toEqual(expect.arrayContaining(allRecipesObject));
     expect(state.favouriteRecipes).toHaveLength(2);
   });
 
@@ -104,12 +105,16 @@ describe('Recipe Reducer', () => {
     const action = popularRecipesAction(allRecipesObject);
     const state = recipeReducer(initialState, action);
     expect(state.popularRecipes).toEqual(allRecipesObject);
-    expect(state.popularRecipes).toEqual(expect.arrayContaining(allRecipesObject));
+    expect(state.popularRecipes)
+      .toEqual(expect.arrayContaining(allRecipesObject));
     expect(state.popularRecipes).toHaveLength(2);
   });
 
   it(`should handle ${GET_RECIPE_REVIEWS} action type`, () => {
-    const action = getRecipeReviewsAction({ data: recipeReviewsObject.reviews, pagination: 1 });
+    const action = getRecipeReviewsAction({
+      data: recipeReviewsObject.reviews,
+      pagination: 1
+    });
     const state = recipeReducer(initialState, action);
     expect(state.singleRecipe).toEqual(recipeReviewsObject);
     expect(state.singleRecipe.reviews)

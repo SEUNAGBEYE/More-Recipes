@@ -205,14 +205,14 @@ export default (state = initialState, action = {}) => {
     singleRecipe.reviews = [action.reviewBody, ...singleRecipe.reviews];
     return {
       ...state,
-      ...{ singleRecipe: singleRecipe }
+      ...{ singleRecipe }
     };
   case GET_RECIPE_REVIEWS:
     singleRecipe.reviews = [...singleRecipe.reviews, ...action.reviews];
     return {
       ...state,
       ...{
-        singleRecipe: singleRecipe,
+        singleRecipe,
         pagination: action.pagination
       }
     };
