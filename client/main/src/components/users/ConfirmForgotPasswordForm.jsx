@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 /**
+ * @description - Confirm Forgot Modal
  *
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const ConfirmForgotPasswordForm = (props) => (
   <div>

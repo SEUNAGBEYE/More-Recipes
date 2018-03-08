@@ -29,13 +29,4 @@ describe('# Pagination', () => {
     expect(wrapper).toMatchSnapshot();
     done();
   });
-
-  // it('should call click Previous', (done) => {
-  //   const event = generateEvent()
-  //   const previous = wrapper.find('#previous').get(1)
-  //   // console.log('previous', previous.get(0))
-  //   previous.simulate('click', event);
-  //   done();
-  // });
-
 });

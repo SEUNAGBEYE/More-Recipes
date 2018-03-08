@@ -1,6 +1,13 @@
 import React from 'react';
 import Loader from 'react-loader';
-
+import PropTypes from 'prop-types';
+/**
+ * @description -  Update Profile Modal
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const UpdateProfileModal = (props) => {
   const {
     firstName,
@@ -123,5 +130,14 @@ const UpdateProfileModal = (props) => {
     </div>
   );
 };
+
+const propTypes = {
+  state: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+UpdateProfileModal.propTypes = propTypes;
 
 export default UpdateProfileModal;

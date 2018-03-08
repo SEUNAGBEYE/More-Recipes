@@ -191,6 +191,15 @@ main{
   height: 200px;
 }
 
+#recipe-detail-name{
+  width: 40%;
+  word-wrap: break-word;
+  margin: 0 auto;
+}
+
+.break-word{
+  word-wrap: break-word;
+}
 
 .recipe-icons{
   position: absolute;

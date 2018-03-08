@@ -237,23 +237,37 @@ export default class EditModal extends Component {
 
                   {ingredientFields}
                   <fieldset>
-                    <button className="btn btn-default show-input fa fa-plus"id="ingredient" onClick={this.ingredientClick}><strong>Ingredients</strong></button>
+                    <button
+                      className="btn btn-default show-input fa fa-plus"
+                      id="ingredient" onClick={this.ingredientClick}
+                    >
+                      <strong>Ingredients</strong>
+                    </button>
                   </fieldset>
 
                   {stepFields}
                   <fieldset>
-                    <button className="btn btn-default show-input fa fa-plus"id="step" onClick={this.stepClick}><strong>Steps</strong></button>
+                    <button
+                      className="btn btn-default show-input fa fa-plus"id="step"
+                      onClick={this.stepClick}
+                    >
+                      <strong>Steps</strong>
+                    </button>
                   </fieldset>
 
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
                     <button className="btn btn-secondary auth-button"
                       id={recipe.id} onClick={this.updateRecipe}
+                      disabled={!this.state.loaded}
                       data-update={`update-recipe${recipe.id}`}
                     >
                     Update
                     </button>
-                    <button type="button" className="btn btn-secondary auth-button" data-dismiss="modal">
+                    <button type="button"
+                      className="btn btn-secondary auth-button"
+                      data-dismiss="modal"
+                    >
                       Cancel
                     </button>
                   </div>

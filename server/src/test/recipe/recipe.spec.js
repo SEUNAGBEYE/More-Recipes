@@ -19,18 +19,18 @@ describe('Test For Recipes Routes', () => {
     });
   });
 
-  // describe('Test For Getting A  Single Recipe', () => {
-  //   it('should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
-  //     chai.request(recipeRoute)
-  //       .get('/11')
-  //       .end((error, res) => {
-  //         expect(res).to.have.status(200);
-  //         expect(parseInt(res.body.data.id, 10)).equal(11);
-  //         assert.isObject(res.body.data, 'respone return an object');
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('Test For Getting A  Single Recipe', () => {
+    it('should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
+      chai.request(recipeRoute)
+        .get('/11')
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(parseInt(res.body.data.id, 10)).equal(11);
+          assert.isObject(res.body.data, 'respone return an object');
+          done();
+        });
+    });
+  });
 
   describe('Test For Getting A  Single Recipe', () => {
     it('should have a statusCode of 400 when trying to get a single recipe with an invalid id', (done) => {

@@ -84,7 +84,7 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
-   * @return {JSX} jsx
+   * @return {Jsx} Jsx
    * @memberof ConfirmForgotPasswordPage
    */
   render() {

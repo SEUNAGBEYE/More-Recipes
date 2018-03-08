@@ -35,6 +35,7 @@ export class RecipeDetail extends Component {
     super(props);
     this.state = {
       reviewsPage: 1,
+      reviewBody: '',
       reviewsLoaded: true,
       loading: true
     };
@@ -184,7 +185,7 @@ export class RecipeDetail extends Component {
             <main style={{ marginTop: 100 }} id="body">
 
               <div className="container" id="form">
-                <h4 style={{ textAlign: 'center' }} className="recipe-name"
+                <h4 style={{ textAlign: 'center' }} id="recipe-detail-name"
                 >{recipe.name}
                 </h4><br /><br />
 
@@ -337,7 +338,7 @@ export const mapStateToProps = (state, props) => ({
   user: state.auth.user,
   recipe: state.recipes.singleRecipe,
   isAuthenticated: state.auth.isAuthenticated,
-  pagination: state.recipes.pagination,
+  pagination: Number(state.recipes.pagination),
   loaded: state.recipes.loaded,
   myFavouriteRecipes: state.recipes.userFavouritedRecipeId || [],
 });
