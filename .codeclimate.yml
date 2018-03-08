@@ -12,7 +12,7 @@ plugins:
     enabled: true
 exclude_patterns:
   - "node_modules/"
-  - "server/tests/"
+  - "server/src/test/"
   - "client/__tests__/"
   - "e2e-tests/"
   - "client/public/"
