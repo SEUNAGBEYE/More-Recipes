@@ -83,7 +83,7 @@ export class Navbar extends React.Component {
 
             <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
-              <form className="form-inline" onSubmit={this.search}>
+              <form className="form-inline" id="search-form" onSubmit={this.search}>
 
                 <input type="text" name="search"
                   className="form-control"

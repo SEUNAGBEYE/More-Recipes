@@ -1,5 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+/**
+ * @description - Forgot Password Modal
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const forgotPasswordModal = (props) => (
   <div className="modal fade" id="forgotPasswordModal"
     tabIndex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -57,5 +65,13 @@ const forgotPasswordModal = (props) => (
     </div>
   </div>
 );
+
+const propTypes = {
+  forgotPassword: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  resetPasswordMessage: PropTypes.string.isRequired,
+};
+
+forgotPasswordModal.propTypes = propTypes;
 
 export default forgotPasswordModal;

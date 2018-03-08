@@ -96,7 +96,7 @@ const Pagination = (props) => {
 };
 
 const propTypes = {
-  recipesPagination: PropTypes.func.isRequired,
+  recipesPagination: PropTypes.func,
   recipesCount: PropTypes.number.isRequired,
 };
 

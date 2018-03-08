@@ -1,5 +1,13 @@
 import model from '../models';
 import modelPaginator from '../helpers/modelPaginator';
+import responseTypes from '../helpers/responseTypes';
+
+const {
+  successResponse,
+  failureResponse,
+  recipeNotFoundMessage,
+  notAuthorizeMessage
+} = responseTypes;
 
 const {
   Recipe, Review, Category, User
@@ -11,88 +19,88 @@ const {
  */
 class RecipeController {
   /**
- * This handles getting all recipes
- * @param {Object} req request object
- * @param {Object} res res object
+ * @description - This handles getting all recipes
  *
- * @returns {null} json
+ * @param {Object} request request object
+ * @param {Object} response response object
+ *
+ * @returns {Object} Object
  */
-  static allRecipe(req, res) {
-    const sortBy = req.query.sort;
+  static async allRecipe(request, response) {
+    const sortBy = request.query.sort;
+    const orderBy = request.query.order;
 
-    if (sortBy) {
-      const orderBy = req.query.order.toUpperCase();
-      req.query.sort.toLowerCase();
+    if (sortBy && orderBy) {
+      sortBy.toLowerCase();
+      orderBy.toUpperCase();
 
-      Recipe.findAll({
-        where: {
-          upvotes: {
-            $ne: []
-          }
-        },
-        order: [
-          [sortBy, orderBy]
-        ],
-      })
-        .then(recipes => res.status(200).send({
-          status: 'Success',
-          data: recipes
-        }))
-        .catch(error => res.status(400).send({
-          status: 'Failure',
-          errors: error.message
-        }));
-    } else {
-      modelPaginator(Recipe, req, res);
+      try {
+        const recipes = await Recipe.findAll({
+          where: {
+            upvotes: {
+              $ne: []
+            }
+          },
+          order: [
+            [sortBy, orderBy]
+          ],
+        });
+        return successResponse(response, recipes, 200);
+      } catch (errors) {
+        return failureResponse(response, 400, undefined, { errors });
+      }
+    }
+    return modelPaginator(Recipe, request, response);
+  }
+
+  /**
+  * @description - This Handles adding a recipe
+  *
+  * @param {Object} request request object
+  * @param {Object} response response object
+  *
+  * @returns {Object} Object
+  */
+  static async addRecipe(request, response) {
+    try {
+      const recipe = await Recipe.create({
+        id: request.body.id,
+        name: request.body.name || '',
+        image: request.body.image,
+        description: request.body.description || '',
+        steps: request.body.steps || [],
+        ingredients: request.body.ingredients || [],
+        userId: request.token.userId,
+        categoryId: request.body.categoryId
+      });
+      return successResponse(response, recipe, 201);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
     }
   }
 
   /**
-  * This Handles adding a recipe
-  * @param {Object} req request object
-  * @param {Object} res res object
+  * @description - This Handles getting a recipe
   *
-  * @returns {null} json
-  */
-  static addRecipe(req, res) {
-    Recipe.create({
-      id: req.body.id,
-      name: req.body.name || '',
-      image: req.body.image,
-      description: req.body.description || '',
-      steps: req.body.steps || [],
-      ingredients: req.body.ingredients || [],
-      userId: req.token.userId,
-      categoryId: req.body.categoryId
-    })
-      .then(recipe => res.status(201).send({ status: 'Success', data: recipe }))
-      .catch((errors) => {
-        if (errors) {
-          res.status(400).send({
-            status: 'Failure',
-            message: 'Bad Request',
-            errors: errors.errors.map(recipeError => ({
-              field: recipeError.path,
-              description: recipeError.message
-            }))
-          });
-        }
-      });
-  }
-
-  /**
-  * This Handles getting a recipe
-  * @param {Object} req request object
-  * @param {Object} res res object
+  * @param {Object} request request object
+  * @param {Object} response response object
   * @param {Object} next next function
-  * @param {number} id this is the id supplied by other class method when getting a single recipe
-  * @returns {Object} json
+  * @param {Number} id this is the id supplied by other class method when getting a single recipe
+  *
+  * @returns {Object} Object
   */
-  static getRecipe(req, res) {
-    const { userId } = req.token || false;
-    Recipe.find({
+  static async getRecipe(request, response) {
+    const { userId } = request.token;
+    const reviews = await Review.findAndCountAll({
       where: {
-        id: req.params.id
+        recipeId: request.params.id
+      }
+    });
+    const reviewsCount = Math.ceil(reviews.count / 5);
+
+    const recipe = await Recipe.find({
+      where: {
+        id: request.params.id
       },
       include: [{
         model: Review,
@@ -104,267 +112,136 @@ class RecipeController {
         }],
         limit: 5
       }]
-    })
-      .then((recipe) => {
-        if (!recipe) {
-          return res.send(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
-        if (userId) {
-          if (!recipe.views) {
-            recipe.views = [];
-          }
-          if (recipe.userId === userId && !recipe.views.includes(userId)) {
-            recipe.views.push(userId);
-          } else if (recipe.userId !== userId) {
-            recipe.views.push(userId);
-          }
-          recipe.update({ views: recipe.views });
-        }
-        res.status(200).send({ status: 'Success', data: recipe });
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+    });
+
+    if (!recipe) {
+      return failureResponse(response, 404, recipeNotFoundMessage);
+    }
+    if (userId) {
+      if (!recipe.views) {
+        recipe.views = [];
+      }
+      if (recipe.userId === userId && !recipe.views.includes(userId)) {
+        recipe.views.push(userId);
+      } else if (recipe.userId !== userId) {
+        recipe.views.push(userId);
+      }
+      recipe.update({ views: recipe.views });
+    }
+    return successResponse(response, recipe, 200, reviewsCount);
   }
 
 
   /**
-  * This Handles updating a recipe
-  * @param {Object} req request object
-  * @param {Object} res res object
+  * @description -  This Handles updating a recipe
+  *
+  * @param {Object} request request object
+  * @param {Object} response response object
   * @param {Object} next next function
-  * @returns {null} json
+  *
+  * @returns {Object} Object
   */
-  static updateRecipe(req, res) {
-    Recipe.findById(req.params.id)
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
-        if (recipe.userId === req.token.userId) {
-          return recipe
-            .update(req.body, { fields: Object.keys(req.body) })
-            .then(updatedRecipe => res.status(200).send({
-              status: 'Success', data: updatedRecipe
-            }))
-            .catch(error => res.status(400).send({
-              status: 'Failure',
-              message: 'Bad Request',
-              error: error.message
-            }));
-        }
-        return res.status(403).send({
-          status: 'Failure',
-          message: 'Not Authorize'
-        });
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+  static async updateRecipe(request, response) {
+    try {
+      const recipe = await Recipe.findById(request.params.id);
+      if (!recipe) {
+        return failureResponse(response, 404, recipeNotFoundMessage);
+      }
+      if (recipe.userId === request.token.userId) {
+        const updatedRecipe = await recipe
+          .update(request.body, { fields: Object.keys(request.body) });
+        return successResponse(response, updatedRecipe, 200);
+      }
+      return failureResponse(response, 403, notAuthorizeMessage);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
+    }
   }
 
   /**
-  * This Handles reviewing a recipe
-  * @param {Object} req request object
-  * @param {Object} res res object
+  * @description - This Handles reviewing a recipe
+  *
+  * @param {Object} request request object
+  * @param {Object} response response object
   * @param {Object} next next function
-  * @returns {null} json
+  *
+  * @returns {Object} Object
   */
-  static reviewRecipe(req, res) {
-    Recipe.findById(req.params.id)
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
-        return Review.create({
-          userId: req.token.userId,
-          recipeId: recipe.id,
-          body: req.body.reviewBody
-           || ''
-        })
-          .then((review) => {
-            const { body, id } = review;
-            const newReview = { id, body };
-            newReview.user = req.token;
-            res.status(200).send({ status: 'Success', data: newReview });
-          })
-          .catch((errors) => {
-            const newErrors = errors.errors;
-            return res.status(400).send({
-              status: 'Failure',
-              errors: newErrors
-            });
-          });
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+  static async reviewRecipe(request, response) {
+    const recipe = await Recipe.findById(request.params.id);
+    if (!recipe) {
+      return failureResponse(response, 404, recipeNotFoundMessage);
+    }
+    try {
+      const review = await Review.create({
+        userId: request.token.userId,
+        recipeId: recipe.id,
+        body: request.body.reviewBody || ''
+      });
+      if (recipe && review) {
+        const { body, id } = review;
+        const newReview = { id, body };
+        newReview.user = request.token;
+        return successResponse(response, newReview, 200);
+      }
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
+    }
   }
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} request
+   * @param {Object} response
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static getReviews(req, res) {
-    const { limit, offset } = req.query;
-    Review.findAll({
-      where: {
-        recipeId: req.params.id
-      },
-      limit,
-      offset,
-      include: [{
-        model: User,
-        as: 'user',
-        attributes: ['firstName', 'lastName', 'profilePicture']
-      }],
-    })
-      .then(reviews => res.status(200).send({
-        status: 'Success',
-        data: reviews
-      }))
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        error: error.message
-      }));
+  static getReviews(request, response) {
+    const where = {
+      recipeId: request.params.id
+    };
+    const include = [{
+      model: User,
+      as: 'user',
+      attributes: ['firstName', 'lastName', 'profilePicture']
+    }];
+    return modelPaginator(Review, request, response, where, include);
   }
 
   /**
   * This Handles deletion a recipe
-  * @param {Object} req request object
-  * @param {Object} res res object
+  * @param {Object} request request object
+  * @param {Object} response response object
   * @param {Object} next next function
+  *
   * @returns {null} json
   */
-  static deleteRecipe(req, res) {
-    Recipe.findById(req.params.id)
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
+  static async deleteRecipe(request, response) {
+    const recipe = await Recipe.findById(request.params.id);
+    if (!recipe) {
+      return failureResponse(response, 404, recipeNotFoundMessage);
+    }
 
-        if (recipe.userId === req.token.userId) {
-          return recipe
-            .destroy()
-            .then(() => res.status(204).send({
-              status: 'Succuess',
-              message: 'No Content'
-            }))
-            .catch(error => res.status(400).send({
-              status: 'Failure',
-              message: 'Bad Request',
-              error: error.message
-            }));
-        }
-        return res.status(403).send({
-          status: 'Failure',
-          message: 'Not Authorize'
-        });
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+    if (recipe.userId === request.token.userId) {
+      const deletedRecipe = await recipe.destroy();
+      return successResponse(response, deletedRecipe, 204);
+    }
+
+    return failureResponse(response, 403, notAuthorizeMessage);
   }
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
-   * @returns {Object} Object
-   * @memberof RecipeController
-   */
-  static upVoteRecipe(req, res) {
-    Recipe.find({
-      where: {
-        id: req.params.id
-      },
-      include: [{
-        model: Review,
-        as: 'reviews',
-        include: [
-          {
-            model: User,
-            as: 'user',
-            attributes: ['firstName', 'lastName', 'profilePicture']
-          }],
-        limit: 5
-      }]
-    })
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
-
-        if (recipe.upvotes === null) {
-          recipe.upvotes = [];
-        }
-
-        if (!recipe.upvotes.includes(req.token.userId)) {
-          recipe.upvotes.push(req.token.userId);
-          recipe.downvotes = recipe.downvotes
-            .filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
-        } else {
-          recipe.upvotes = recipe.upvotes
-            .filter(id => parseInt(id, 10) !== parseInt(req.token.userId, 10));
-        }
-        recipe.update({
-          upvotes: recipe.upvotes,
-          downvotes: recipe.downvotes
-        })
-          .then(recipe => res.status(200).send({
-            status: 'Success', data: recipe
-          }))
-          .catch(error => res.status(400).send({
-            status: 'Failure',
-            message: 'Bad Request',
-            error: error.message
-          }));
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
-  }
-
-  /**
-   * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} request
+   * @param {Object} response
    *
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static downVoteRecipe(req, res) {
-    Recipe.find({
+  static async upVoteRecipe(request, response) {
+    const recipe = await Recipe.find({
       where: {
-        id: req.params.id
+        id: request.params.id
       },
       include: [{
         model: Review,
@@ -377,54 +254,92 @@ class RecipeController {
           }],
         limit: 5
       }]
-    })
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            status: 'Failure',
-            message: 'Recipe Not Found',
-          });
-        }
-        if (recipe.downvotes === null) {
-          recipe.downvotes = [];
-        }
+    });
+    if (!recipe) {
+      return failureResponse(response, 404, recipeNotFoundMessage);
+    }
 
-        if (!recipe.downvotes.includes(req.token.userId)) {
-          recipe.downvotes.push(req.token.userId);
-          recipe.upvotes = recipe.upvotes.filter(id => id !== req.token.userId);
-        } else {
-          recipe.downvotes = recipe.downvotes
-            .filter(id => id !== req.token.userId);
-        }
-
-        recipe.update({
-          downvotes: recipe.downvotes,
-          upvotes: recipe.upvotes
-        })
-          .then(recipe => res.status(200).send({
-            status: 'Success', data: recipe
-          }))
-          .catch(error => res.status(400).send({
-            status: 'Failure',
-            message: 'Bad Request',
-            error: error.message
-          }));
-      })
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+    if (!recipe.upvotes.includes(request.token.userId)) {
+      recipe.upvotes.push(request.token.userId);
+      recipe.downvotes = recipe.downvotes
+        .filter(id => parseInt(id, 10) !== parseInt(request.token.userId, 10));
+    } else {
+      recipe.upvotes = recipe.upvotes
+        .filter(id => parseInt(id, 10) !== parseInt(request.token.userId, 10));
+    }
+    try {
+      const updatedRecipe = await recipe.update({
+        upvotes: recipe.upvotes,
+        downvotes: recipe.downvotes
+      });
+      return successResponse(response, updatedRecipe, 200);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
+    }
   }
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} request
+   * @param {Object} response
+   *
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static popularRecipe(req, res) {
+  static async downVoteRecipe(request, response) {
+    const recipe = await Recipe.find({
+      where: {
+        id: request.params.id
+      },
+      include: [{
+        model: Review,
+        as: 'reviews',
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['firstName', 'lastName', 'profilePicture']
+          }],
+        limit: 5
+      }]
+    });
+    if (!recipe) {
+      return failureResponse(response, 404, recipeNotFoundMessage);
+    }
+    if (!recipe) {
+      return response.status(404).send({
+        status: 'Failure',
+        message: 'Recipe Not Found',
+      });
+    }
+
+    if (!recipe.downvotes.includes(request.token.userId)) {
+      recipe.downvotes.push(request.token.userId);
+      recipe.upvotes = recipe.upvotes.filter(id => id !== request.token.userId);
+    } else {
+      recipe.downvotes = recipe.downvotes
+        .filter(id => id !== request.token.userId);
+    }
+
+    try {
+      const updatedRecipe = await recipe.update({
+        upvotes: recipe.upvotes,
+        downvotes: recipe.downvotes
+      });
+      return successResponse(response, updatedRecipe, 200);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
+    }
+  }
+
+  /**
+   * @static
+   * @param {Object} request
+   * @param {Object} response
+   * @returns {Object} Object
+   * @memberof RecipeController
+   */
+  static popularRecipe(request, response) {
     Recipe.findAll({
       where: {
         upvotes: {
@@ -432,12 +347,12 @@ class RecipeController {
         }
       },
     })
-      .then(popularRecipes => res.status(200).send({
+      .then(popularRecipes => response.status(200).send({
         status: 'Success',
         data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
-          .splice(0, req.query.limit ? req.query.limit : popularRecipes.length)
+          .splice(0, request.query.limit ? request.query.limit : popularRecipes.length)
       }))
-      .catch(error => res.status(400).send({
+      .catch(error => response.status(400).send({
         status: 'Failure',
         message: 'Bad Request',
         error: error.message
@@ -446,13 +361,14 @@ class RecipeController {
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
-   * @returns {Object} objk
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} Obect
    * @memberof RecipeController
    */
-  static searchRecipes(req, res) {
-    const { search } = req.query;
+  static searchRecipes(request, response) {
+    const { search } = request.query;
     const where = {
       $or: [
         {
@@ -467,53 +383,38 @@ class RecipeController {
         }
       ]
     };
-    modelPaginator(Recipe, req, res, where);
+    return modelPaginator(Recipe, request, response, where);
   }
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} request
+   * @param {Object} response
+   *
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static getCategories(req, res) {
-    Category.findAll({
-      include: ['recipes']
-    })
-      .then(categories => res.status(200).send({
-        status: 'Success',
-        data: categories
-      }))
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+  static async getCategories(request, response) {
+    const categories = await Category.findAll({ include: ['recipes'] });
+    return successResponse(response, categories, 200);
   }
 
   /**
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} request
+   * @param {Object} response
+   *
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static getCategory(req, res) {
-    Category.findAll({
+  static async getCategory(request, response) {
+    const category = await Category.findAll({
       where: {
-        id: req.params.id
+        id: request.params.id
       },
       include: ['recipes']
-    })
-      .then(category => res.status(200).send({
-        status: 'Success',
-        data: category
-      }))
-      .catch(error => res.status(400).send({
-        status: 'Failure',
-        error: error.message
-      }));
+    });
+    return successResponse(response, category, 200);
   }
 }
 

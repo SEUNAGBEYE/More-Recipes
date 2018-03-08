@@ -13,11 +13,19 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 
  ## Installation
 
- ```
- Clone or Download this project, run npm install to install or dependency
+- Clone or Download this project, run npm install to install or dependency
 
- Setup the database in the config.js file and also specify the SECRET_KEY in your .env file and you are good to start by running npm run dev-server 
- ```
+ Setup the database in the config.js file, create ```.env file``` that look exactly like the ```.env.sample file``` and you are good to start by running npm run dev-server 
+ 
+
+ # Test
+
+Test is a very essential part of all application because it ensures codes contributed to any project do not not break it
+
+ - server side test -> ```npm run test```
+ - client side test -> ```npm run client:side:test```
+ - client & server side test -> ```npm run test:all```
+ - e2e test -> ```npm run e2e:server && npm run e2e:test```
  
 
 
@@ -129,6 +137,35 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
   </tr>
 </table>
 <br/>
+
+# Technologies
+
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Nodejs](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [Webpack](https://webpack.js.org/)
+* [Sequelize](http://docs.sequelizejs.com/)
+* [Postgresql](https://www.postgresql.org/)
+
+# Api Documentatiom
+- To access the API documentation built with swagger please check recipes-v1.herokuapp.com/api-docs/
+
+# FAQ
+
+* Who can contribute ?
+
+`Anyone`
+
+## Author 
+____
+
+Seun Agbeye [SEUNAGBEYE](https://github.com/SEUNAGBEYE/)
+
+## License 
+____
+
+This is licensed for your use, modification and distribution under the [MIT LICENSE](https://github.com/SEUNAGBEYE/More-Recipes/blob/development/LICENSE)
 
 
 checkout the UI at https://seunagbeye.github.io/More-Recipes/template/

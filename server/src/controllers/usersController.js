@@ -4,6 +4,16 @@ import model from '../models';
 import mail from '../helpers/mail';
 import jwtSigner from '../helpers/jwt';
 import modelPaginator from '../helpers/modelPaginator';
+import responseTypes from '../helpers/responseTypes';
+
+const {
+  successResponse,
+  failureResponse,
+  recipeNotFoundMessage,
+  userNotFoundMessage,
+  invalidCredentials,
+  notAuthorizeMessage
+} = responseTypes;
 
 const { User, Recipe, Review } = model;
 
@@ -56,15 +66,9 @@ class UserController {
         profilePicture,
         token,
       };
-      return response.status(201).send({ status: 'Success', data: userProfile });
-    } catch (errors) {
-      return response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        errors: errors.errors.map((registrationError => ({
-          message: registrationError.message
-        })))
-      });
+      return successResponse(response, userProfile, 201);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
     }
   }
 
@@ -92,36 +96,23 @@ class UserController {
         }
       });
       if (!user) {
-        return response.status(404).send({
-          status: 'Failure', message: 'User Not Found', data: {}
-        });
+        return failureResponse(response, 404, userNotFoundMessage);
       }
     } catch (error) {
-      return response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      });
+      return failureResponse(response, 400, undefined, error);
     }
-
+    
     try {
       const bcryptResponse = await bcrypt.compare(password, user.password);
       if (bcryptResponse) {
         const { id: userId, ...data } = user.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
-        return response.status(200).send({ status: 'Sucesss', data: { token } });
+        return successResponse(response, { token }, 200);
       }
-      return response.status(401).send({
-        status: 'Failure',
-        message: 'Invalid Password or Email'
-      });
-    } catch (errors) {
-      return response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        errors
-      });
+      return failureResponse(response, 401, invalidCredentials);
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error);
     }
   }
 
@@ -141,10 +132,8 @@ class UserController {
     // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
     if (user) {
       if (request.params.actionType === 'getIds') {
-        return response.status(200).send({
-          status: 'Success',
-          data: user.favoriteRecipe
-        });
+        const data = user.favoriteRecipe;
+        return successResponse(response, data, 200);
       }
       const where = {
         id: {
@@ -153,10 +142,7 @@ class UserController {
       };
       return modelPaginator(Recipe, request, response, where);
     }
-    return response.status(404).send({
-      status: 'Failure',
-      message: 'User Not Found'
-    });
+    return failureResponse(response, 404, userNotFoundMessage);
   }
 
   /**

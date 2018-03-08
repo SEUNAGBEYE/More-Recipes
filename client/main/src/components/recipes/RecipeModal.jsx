@@ -293,6 +293,7 @@ export default class RecipeModal extends Component {
                   <div className="modal-footer">
                     <Loader loaded={this.state.loaded} />
                     <button className="btn btn-secondary auth-button"
+                      disabled={!this.state.loaded}
                       id="submit" onClick={this.onSubmit}
                     >
                       Submit

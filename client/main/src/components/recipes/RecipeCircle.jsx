@@ -12,7 +12,7 @@ const RecipeCircle = (props) => (
           <img className ="circle" src= {props.recipe.image} />
         </div>
       </div>
-      <div>{ props.recipe.name }</div>
+      <div className="break-word">{ props.recipe.name }</div>
     </Link>
   </div>
 );

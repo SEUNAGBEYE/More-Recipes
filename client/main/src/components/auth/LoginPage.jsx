@@ -94,7 +94,9 @@ class LoginPage extends Component {
   forgotPassword(event) {
     event.preventDefault();
     this.props.forgotPassword(this.state)
-      .then(res => this.setState({ resetPasswordMessage: res.data.message }));
+      .then(res => {
+        this.setState({ resetPasswordMessage: res.message });
+      });
   }
 
   /**

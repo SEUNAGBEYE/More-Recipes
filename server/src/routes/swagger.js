@@ -12,12 +12,19 @@ const swaggerDefinition = {
   }
 };
 
+let rootFolder;
+
+if (process.env.NODE_ENV === 'production') {
+  rootFolder = 'dist';
+} else {
+  rootFolder = 'src';
+}
 // options for the swagger docs
 const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./server/src/routes/user/userRoutes.js', './server/src/routes/recipe/recipeRoutes.js'],
+  apis: [`./server/${rootFolder}/routes/user/userRoutes.js`, `./server/${rootFolder}/routes/recipe/recipeRoutes.js`],
 };
 
 // initialize swagger-jsdoc

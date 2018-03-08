@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+/**
+ * @description - Component for displaying reviews
+ *
+ * @param {Object} props
+ *
+ * @returns {jsx} Jsx
+ */
 const Review = (props) => (
   <div className="row" style={{ marginBottom: 15 }}>
     <div className="" style={{
@@ -13,9 +19,13 @@ const Review = (props) => (
         <img style={{ width: 30, height: 30, borderRadius: 80 }}
           src={props.review.user.profilePicture}/>
       </div>
-      <div className="col-md-11 review">
-        <h5 style={{ color: 'orange', marginTop: 5 }}>{
-          props.review.user.firstName}
+      <div className="col-md-11 review break-word">
+        <h5 style={{ color: 'orange', marginTop: 5 }}
+          className="break-word"
+        >
+          {
+            props.review.user.firstName
+          }
         </h5>
         {props.review.body}
       </div>

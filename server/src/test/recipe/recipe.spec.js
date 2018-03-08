@@ -19,18 +19,18 @@ describe('Test For Recipes Routes', () => {
     });
   });
 
-  // describe('Test For Getting A  Single Recipe', () => {
-  //   it('should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
-  //     chai.request(recipeRoute)
-  //       .get('/11')
-  //       .end((error, res) => {
-  //         expect(res).to.have.status(200);
-  //         expect(parseInt(res.body.data.id, 10)).equal(11);
-  //         assert.isObject(res.body.data, 'respone return an object');
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('Test For Getting A  Single Recipe', () => {
+    it('should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
+      chai.request(recipeRoute)
+        .get('/11')
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(parseInt(res.body.data.id, 10)).equal(11);
+          assert.isObject(res.body.data, 'respone return an object');
+          done();
+        });
+    });
+  });
 
   describe('Test For Getting A  Single Recipe', () => {
     it('should have a statusCode of 400 when trying to get a single recipe with an invalid id', (done) => {
@@ -94,11 +94,9 @@ describe('Test For Recipes Routes', () => {
         .end((error, res) => {
           expect(res).to.have.status(400);
           expect(res.body.status).to.equals('Failure');
-          expect(res.body.message).to.equals('Bad Request');
           expect(res.body).to.have.property('errors');
           assert.isArray(res.body.errors, 'is array of objects');
-          expect(res.body.errors[0].field).to.equals('categoryId');
-          expect(res.body.errors[0].description).to.equals('Recipe.categoryId cannot be null');
+          expect(res.body.errors[0].message).to.equals('Recipe.categoryId cannot be null');
           done();
         });
     });
@@ -286,7 +284,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Reviewing A Recipe', () => {
-    it('should have a statusCode of 200 when trying to review a recipe not in database', (done) => {
+    it('should have a statusCode of 404 when trying to review a recipe not in database', (done) => {
       chai.request(recipeRoute)
         .post('/10000/reviews')
         .send({
@@ -301,7 +299,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Reviewing A Recipe', () => {
-    it('should have a statusCode of 200 when trying to review a recipes', (done) => {
+    it('should have a statusCode of 400 when trying to review a recipes', (done) => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({

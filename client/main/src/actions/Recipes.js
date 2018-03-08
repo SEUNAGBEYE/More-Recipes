@@ -21,7 +21,11 @@ const {
 } = actionTypes;
 
 /**
+ * @description - Add Recipe Action
+ * @export - addRecipeAction
+ *
  * @param {Object} recipe
+ *
  * @return {Object} Object
  */
 export function addRecipeAction(recipe) {
@@ -32,20 +36,27 @@ export function addRecipeAction(recipe) {
 }
 
 /**
- * @export
- * @param {Object} recipe
+ * @description - Get Recipe Action
+ * @export - getRecipeAction
+ *
+ * @param {Object} data
+ *
  * @returns {Object} Object
  */
-export function getRecipeAction(recipe) {
+export function getRecipeAction(data) {
   return {
     type: GET_RECIPE,
-    recipe
+    recipe: data.data,
+    pagination: data.pagination
   };
 }
 
 /**
- * @export
+ * @description - Delete Recipe Action
+ * @export - deleteRecipeAction
+ *
  * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function deleteRecipeAction(id) {
@@ -56,8 +67,11 @@ export function deleteRecipeAction(id) {
 }
 
 /**
+ * @description - Edit Recipe Action
  * @export
+ *
  * @param {Object} recipe
+ *
  * @returns {Object} Object
  */
 export function editRecipeAction(recipe) {
@@ -68,8 +82,11 @@ export function editRecipeAction(recipe) {
 }
 
 /**
- * @export
+ * @description - Get User Recipes Action
+ * @export - userRecipeAction
+ *
  * @param {Object} data
+ *
  * @returns {Object} Object
  */
 export function userRecipesAction(data) {
@@ -81,8 +98,11 @@ export function userRecipesAction(data) {
 }
 
 /**
- * @export
+ * @description - Get User Favourited Recipes Id
+ * @export - favouritedRecipesIdsAction
+ *
  * @param {Array} favouritedRecipesIds
+ *
  * @returns {Object} Object
  */
 export function favouritedRecipesIdsAction(favouritedRecipesIds) {
@@ -93,9 +113,12 @@ export function favouritedRecipesIdsAction(favouritedRecipesIds) {
 }
 
 /**
+ * @description - Get Favourite Recipes Action
  * @export
+ *
  * @param {Object} favouriteRecipes
  * @param {Number} pagination
+ *
  * @returns {Object} Object
  */
 export function favouritedRecipesAction(favouriteRecipes, pagination) {
@@ -107,9 +130,12 @@ export function favouritedRecipesAction(favouriteRecipes, pagination) {
 }
 
 /**
- * @export
+ * @description - Getting All Recipes Action
+ * @export - allRecipesAction
+ *
  * @param {Object} data
  * @param {Number} pagination
+ *
  * @returns {Object} Object
  */
 export function allRecipesAction(data, pagination) {
@@ -121,8 +147,11 @@ export function allRecipesAction(data, pagination) {
 }
 
 /**
- * @export
+ * @description - Get Popular Recipes Action
+ * @export - popularRecipesAction
+ *
  * @param {Object} popularRecipe
+ *
  * @returns {Object} Object
  */
 export function popularRecipesAction(popularRecipe) {
@@ -133,20 +162,26 @@ export function popularRecipesAction(popularRecipe) {
 }
 
 /**
- * @export
- * @param {Object} recipeCategories
+ * @description - Get Recipe Categories Action
+ * @export - recipeCategoriesAction
+ *
+ * @param {Object} data
+ *
  * @returns {Object} Object
  */
-export function recipeCategoriesAction(recipeCategories) {
+export function recipeCategoriesAction(data) {
   return {
     type: RECIPE_CATEGORIES,
-    recipeCategories
+    recipeCategories: data.data
   };
 }
 
 /**
- * @export
+ * @description - Search Recipes Action
+ * @export - searchRecipesAction
+ *
  * @param {Object} data
+ *
  * @returns {Object} Object
  */
 export function searchRecipesAction(data) {
@@ -158,8 +193,11 @@ export function searchRecipesAction(data) {
 }
 
 /**
- * @export
+ * @description - Toggle Favourite Recipe Action
+ * @export - toggleFavouriteRecipeAction
+ *
  * @param {Object} favouritedRecipe
+ *
  * @returns {Object} Object
  */
 export function toggleFavouriteRecipeAction(favouritedRecipe) {
@@ -170,8 +208,11 @@ export function toggleFavouriteRecipeAction(favouritedRecipe) {
 }
 
 /**
- * @export
- * @param {recipe} recipe
+ * @description - Toggle Thumbs Up Recipe Action
+ * @export - toggleThumbsUpRecipeAction
+ *
+ * @param {Object} recipe
+ *
  * @returns {Object} Object
  */
 export function toggleThumbsUpRecipeAction(recipe) {
@@ -182,8 +223,11 @@ export function toggleThumbsUpRecipeAction(recipe) {
 }
 
 /**
- * @export
+ * @description - Toggle Thumbs Down Recipe Action
+ * @export - toggleThumbsDownRecipeAction
+ *
  * @param {recipe} recipe
+ *
  * @returns {Object} Object
  */
 export function toggleThumbsDownRecipeAction(recipe) {
@@ -194,8 +238,11 @@ export function toggleThumbsDownRecipeAction(recipe) {
 }
 
 /**
- * @export
+ * @description - Review Recipe Action
+ * @export - reviewRecipeAction
+ *
  * @param {Object} reviewBody
+ *
  * @returns {Object} Object
  */
 export function reviewRecipeAction(reviewBody) {
@@ -206,151 +253,189 @@ export function reviewRecipeAction(reviewBody) {
 }
 
 /**
- * @export
- * @param {Object} reviews
+ * @description - Get Recipe Review Action
+ * @export - getRecipeReviewsAction
+ *
+ * @param {Object} data
+ *
  * @returns {Object} Object
  */
-export function getRecipeReviewsAction(reviews) {
+export function getRecipeReviewsAction(data) {
   return {
     type: GET_RECIPE_REVIEWS,
-    reviews
+    reviews: data.data,
+    pagination: data.pagination
   };
 }
 
 /**
- * @export
- * @param {Object} page
- * @param {Object} limit
+ * @description - All Recipe Action Creator
+ * @export - allRecipes
+ *
+ * @param {Number} page
+ * @param {limit} limit
+ *
  * @returns {Object} Object
  */
 export function allRecipes(page = 1, limit = 2) {
   return dispatch => axios.get(`/api/v1/recipes?limit=${limit}&page=${page}`)
-    .then((res) => {
-      const { data, pagination } = res.data;
+    .then((response) => {
+      const { data, pagination } = response.data;
       return dispatch(allRecipesAction(data, pagination));
     })
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {limit} limit
+ * @description - Popular Recipe Action Creator
+ * @export - popularRecipes
+ *
+ * @param {Number} limit
+ *
  * @returns {Object} Object
  */
 export function popularRecipes(limit) {
   return dispatch => axios.get(`api/v1/recipes/popular?limit=${limit}`)
-    .then(res => dispatch(popularRecipesAction(res.data.data)))
+    .then(response => dispatch(popularRecipesAction(response.data.data)))
     .catch(error => error);
 }
 
 /**
- * @export
+ * @description - Recipe Categories Action Creator
+ * @export - recipeCategories
+ *
  * @returns {Object} Object
  */
 export function recipeCategories() {
   return dispatch => axios.get('/api/v1/recipes/categories')
-    .then(res => dispatch(recipeCategoriesAction(res.data.data)));
+    .then(response => dispatch(recipeCategoriesAction(response.data)));
 }
 
 /**
- * @export
- * @param {search} search
- * @param {page} page
- * @param {limit} limit
+ * @description - Search Recipes Action Creator
+ * @export - searchRecipes
+ *
+ * @param {String} search
+ * @param {Number} page
+ * @param {Number} limit
+ *
  * @returns {Object} Object
  */
 export function searchRecipes(search, page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/recipes/search_results?search=${search}&limit=${limit}&page=${page}`)
-    .then((res) => {
-      const { data } = res;
+    .then((response) => {
+      const { data } = response;
       dispatch(searchRecipesAction(data));
     });
 }
 
 /**
- * @export
+ * @description - Get Favourited Recipes Id's Action Creator
+ * @export - getFavouritedRecipesIds
+ *
  * @returns {Object} Object
  */
 export function getFavouritedRecipesIds() {
   return dispatch => axios.get('/api/v1/users/fav-recipes/getIds')
-    .then((res) => {
-      const { data } = res.data;
+    .then((response) => {
+      const { data } = response.data;
       return dispatch(favouritedRecipesIdsAction(data));
     })
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {Object} page
+ * @description - Get Favourited Recipes Action Creator
+ * @export - getFavouritedRecipes
+ *
+ * @param {Number} page
+ *
  * @returns {Object} Object
  */
 export function getFavouritedRecipes(page = 1) {
   return dispatch => axios.get(`/api/v1/users/fav-recipes?limit=8&page=${page}`)
-    .then((res) => {
-      const { data, pagination } = res.data;
+    .then((response) => {
+      const { data, pagination } = response.data;
       return dispatch(favouritedRecipesAction(data, pagination));
     })
     .catch(error => error);
 }
 
 /**
- * @export
+ * @description - Add Recipe Action Creator
+ * @export - addRecipe
+ *
  * @param {Object} data
+ *
  * @returns {Object} Object
  */
 export function addRecipe(data) {
   return dispatch => axios.post('api/v1/recipes', data)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe Added', 'Success');
-      return dispatch(addRecipeAction(res.data.data));
+      return dispatch(addRecipeAction(response.data.data));
     });
 }
 
 /**
- * @export
- * @param {Object} id
+ * @description - Toggle Favourited Recipe Action Creator
+ * @export - toggleFavouriteRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function toggleFavouriteRecipe(id) {
   return dispatch => axios.post(`/api/v1/users/fav-recipes/${id}/add`)
-    .then((res) => {
-      const { data } = res.data;
+    .then((response) => {
+      const { data } = response.data;
       return dispatch(toggleFavouriteRecipeAction(data));
     })
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {id} id
+ * @description - Toggle Thumbs Down Action Creator
+ * @export - toggleThumbsDownRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function toggleThumbsDownRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/downvotes`)
-    .then(res => dispatch(toggleThumbsDownRecipeAction(res.data.data)))
+    .then((response) => {
+      const { data } = response.data;
+      dispatch(toggleThumbsDownRecipeAction(data));
+    })
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {id} id
+ * @description - Toggle Thumbs Up Action Creator
+ * @export - toggleThumbsUpRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function toggleThumbsUpRecipe(id) {
   return dispatch => axios.put(`/api/v1/recipes/${id}/upvotes`)
-    .then(res => dispatch(toggleThumbsUpRecipeAction(res.data.data)))
+    .then(response => dispatch(toggleThumbsUpRecipeAction(response.data.data)))
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {Object} id
+ * @description - Delete Recipe Action Creator
+ * @export - deleteRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function deleteRecipe(id) {
-  return dispatch => axios.delete(`api/v1/recipes/${id}`)
-    .then((res) => {
+  return dispatch => axios.delete(`/api/v1/recipes/${id}`)
+    .then(() => {
       toastr.success('Recipe Deleted', 'Success');
       return dispatch(deleteRecipeAction(id));
     })
@@ -358,16 +443,19 @@ export function deleteRecipe(id) {
 }
 
 /**
- * @export
- * @param {Object} id,
+ * @description - Edit Recipe Action Creator
+ * @export - editRecipe
+ *
+ * @param {Number} id,
  * @param {Object} data
+ *
  * @returns {Object} Object
  */
 export function editRecipe(id, data) {
   return dispatch => axios.put(`/api/v1/recipes/${id}`, data)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe Updated', 'Success');
-      return dispatch(editRecipeAction(res.data.data));
+      return dispatch(editRecipeAction(response.data.data));
     })
     .catch((error) => {
       if (error) {
@@ -377,63 +465,66 @@ export function editRecipe(id, data) {
 }
 
 /**
- * @export
- * @param {Object} id
+ * @description - Get Recipe Action Creator
+ * @export - getRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {Object} Object
  */
 export function getRecipe(id) {
   return dispatch => axios.get(`/api/v1/recipes/${id}`)
-    .then((res) => {
-      dispatch(getRecipeAction(res.data.data));
-    })
+    .then(response => dispatch(getRecipeAction(response.data)))
     .catch(error => error);
 }
 
 /**
+ * @description - Review Recipe Action Creator
+ * @export - reviewRecipe
  *
- *
- * @export
- * @param {Object} id
+ * @param {Number} id
  * @param {Object} data
+ *
  * @returns {Object} Object
  */
 export function reviewRecipe(id, data) {
   return dispatch => axios.post(`/api/v1/recipes/${id}/reviews`, data)
-    .then((res) => {
-      dispatch(reviewRecipeAction(res.data.data));
+    .then((response) => {
+      dispatch(reviewRecipeAction(response.data.data));
       toastr.success('Review Added');
     })
     .catch(error => error);
 }
 
 /**
- * @export
- * @param {Object} id
- * @param {Object} limit
- * @param {Object} offset
+ * @description - Get Recipe Reviews Action Creator
+ * @export - getRecipeReviews
+ *
+ * @param {Number} id
+ * @param {Number} limit
+ * @param {Number} page
+ *
  * @returns {Object} Object
  */
-export function getRecipeReviews(id, limit, offset) {
-  return dispatch => axios.get(`/api/v1/recipes/${id}/reviews?limit=${limit}&offset=${offset}`)
-    .then((res) => {
-      dispatch(getRecipeReviewsAction(res.data.data));
-    })
+export function getRecipeReviews(id, limit, page) {
+  return dispatch => axios
+    .get(`/api/v1/recipes/${id}/reviews?limit=${limit}&page=${page}`)
+    .then(response => dispatch(getRecipeReviewsAction(response.data)))
     .catch(error => error);
 }
 
 /**
- *
- *
- * @export
- * @param {number} [page=1]
- * @param {number} [limit=8]
+ * @description - Get User Recipes Action Creator
+ * @export - getUserRecipes
+ * @param {Number} [page=1]
+ * @param {Number} [limit=8]
  *
  * @returns {Object} Object
  */
 export function getUserRecipes(page = 1, limit = 8) {
   return dispatch => axios.get(`api/v1/users/myrecipes?page=${page}&limit=${limit}`)
-    .then((res) => {
-      const { data } = res;
+    .then((response) => {
+      const { data } = response;
       return dispatch(userRecipesAction(data));
     })
     .catch(error => error);

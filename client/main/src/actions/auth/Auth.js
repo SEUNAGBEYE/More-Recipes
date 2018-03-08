@@ -9,9 +9,12 @@ const {
 } = actionTypes;
 
 /**
- * @export
- * @return {obj} obj
- * @param {obj} user
+ * @description - Set Current User Action
+ * @export - setCurrentUserAction
+ *
+ * @param {Object} user
+ *
+ * @return {Object} Object
  */
 export function setCurrentUserAction(user) {
   return {
@@ -21,9 +24,12 @@ export function setCurrentUserAction(user) {
 }
 
 /**
- * @export
- * @param {any} user
- * @returns {obj} obj
+ * @description Update Profile Action
+ * @export - updateProfileAction
+ *
+ * @param {Object} user
+ *
+ * @returns {Object} Object
  */
 export function updateProfileAction(user) {
   return {
@@ -33,15 +39,17 @@ export function updateProfileAction(user) {
 }
 
 /**
- * @param {any} action
- * @param {any} actionType
- * @param {obj} res
- * @param {obj} dispatch
+ * @description - Set Current User Action Creator
+ *
+ * @param {Object} action
+ * @param {String} actionType
+ * @param {Object} response
+ * @param {Object} dispatch
+ *
  * @returns {void}
  */
-function setCurrentUser(action, actionType, res, dispatch) {
-  console.log('>>>>>>>>>>>>Res', res.data);
-  const { token } = res.data;
+function setCurrentUser(action, actionType, response, dispatch) {
+  const { token } = response.data;
   localStorage.setItem('token', token);
   setAuthorizationToken(token);
   const decoded = jwt.decode(token);
@@ -54,15 +62,20 @@ function setCurrentUser(action, actionType, res, dispatch) {
 }
 
 /**
+ * @description - Login Action Creator
+ * @export - login
+ * @param {Object} data
+ * @param {Object} [history={}]
  *
- *
- * @param {obj} data
- * @param {obj} [history={}]
- * @returns {void}
+ * @returns {Object} Object
  */
 export function login(data, history = {}) {
   return dispatch => axios.post('/api/v1/users/signin', data)
-    .then((res) => setCurrentUser(setCurrentUserAction, 'SET_CURRENT_USER', res.data, dispatch))
+    .then(response => setCurrentUser(
+      setCurrentUserAction,
+      'SET_CURRENT_USER', response.data,
+      dispatch
+    ))
     .catch((error) => {
       if (error) {
         toastr.error('Invalid password or email', 'Error');
@@ -72,58 +85,75 @@ export function login(data, history = {}) {
 }
 
 /**
+ * @description - Sign Up Request Action Creator
+ * @export - signUpRequest
  *
+ * @param {Object} data
+ * @param {Object} history
  *
- * @export
- * @param {obj} data
- * @param {obj} history
- * @returns {obj} obj
+ * @returns {Object} Object
  */
 export function signUpRequest(data, history = []) {
   return dispatch => axios.post('/api/v1/users/signup', data)
-    .then(res => setCurrentUser(setCurrentUserAction, 'SET_CURRENT_USER', res.data, dispatch))
+    .then(response => setCurrentUser(
+      setCurrentUserAction, 'SET_CURRENT_USER',
+      response.data, dispatch
+    ))
     .catch(error => error.response.data);
 }
 
 /**
+ * @description - Update Profile Action Creator
+ * @export - updateProfile
  *
+ * @param {Object} data
  *
- * @export
- * @param {obj} data
- * @returns {obj} obj
+ * @returns {Object} Object
  */
 export function updateProfile(data) {
   return dispatch => axios.put('/api/v1/users/profile', data)
-    .then(res => setCurrentUser(updateProfileAction, 'UPDATE_PROFILE', res.data, dispatch))
+    .then(response => setCurrentUser(
+      updateProfileAction,
+      'UPDATE_PROFILE',
+      response.data,
+      dispatch
+    ))
     .catch(error => error.response.data);
 }
 
 /**
- * @export
- * @param {string} data
- * @returns {obj} obj
+ * @description - Forgot Password
+ * @export - forgotPassword
+ *
+ * @param {Object} data
+ *
+ * @returns {Object} Object
  */
 export function forgotPassword(data) {
   return dispatch => axios
     .post('/api/v1/users/forgot-password', data)
-    .then(res => res.data);
+    .then(response => response.data);
 }
 
 /**
- * @export
- * @param {string} data
- * @param {string} rememberToken
- * @returns {obj} obj
+ * @export - confirmForgotPassword
+ *
+ * @param {Object} data
+ * @param {String} rememberToken
+ *
+ * @returns {Object} Object
  */
 export function confirmForgotPassword(data, rememberToken) {
   return dispatch => axios
     .put(`/api/v1/users/forgot-password/${rememberToken}`, data)
-    .then(res => res.data);
+    .then(response => response.data);
 }
 
 /**
- * @export
- * @returns {obj} obj
+ * @description - Logout Function
+ * @export - logout
+ *
+ * @returns {Object} Object
  */
 export function logout() {
   return dispatch => {

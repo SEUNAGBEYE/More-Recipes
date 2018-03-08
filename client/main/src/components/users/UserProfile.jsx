@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, updateProfile } from '../../actions/auth/Auth';
@@ -32,7 +33,8 @@ class UserProfile extends Component {
   /**
    *
    *
-   * @param {obj} event
+   * @param {Object} event
+   *
    * @returns {void}
    * @memberof UserProfile
    */
@@ -59,7 +61,6 @@ class UserProfile extends Component {
             });
         });
       } catch (error) {
-        console.log('errors', error.response);
         this.setState({ loaded: true });
       }
     } else {
@@ -171,10 +172,20 @@ class UserProfile extends Component {
   }
 }
 
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired,
+};
+
+UserProfile.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @param {Objecy} state
+ *
+ * @returns {Object} Object
  */
 const mapStateToProps = (state) => ({
   auth: state.auth

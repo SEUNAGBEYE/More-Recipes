@@ -22,13 +22,16 @@ class CategoryPage extends Component {
   constructor(props) {
     super(props);
     this.paginateRecipes = this.paginateRecipes.bind(this);
+    this.state = {
+      loaded: false
+    };
   }
 
   /**
    * @returns {void} void
  * @memberof CategoryPage
  */
-  componentDidMount() {
+  componentWillMount() {
     this.paginateRecipes(1);
   }
 
@@ -37,8 +40,9 @@ class CategoryPage extends Component {
    * @param {any} page
    * @memberof CategoryPage
    */
-  paginateRecipes(page) {
-    this.props.recipeCategories();
+  async paginateRecipes(page) {
+    await this.props.recipeCategories();
+    this.setState({ loaded: true });
   }
 
   /**
@@ -48,7 +52,7 @@ class CategoryPage extends Component {
   render() {
     return (
       <div>
-        { this.props.loading ?
+        { this.state.loaded ?
           <main style={{ marginTop: 40 }}>
             <div className="container">
               <CategoryButton />
@@ -84,11 +88,13 @@ class CategoryPage extends Component {
                 }
               </div>
             </div>
-            <Pagination recipesCount={this.props.pagination}
-              recipesPagination={this.paginateRecipes}
-            />
+            { this.props.pagination > 1 ?
+              <Pagination recipesCount={this.props.pagination}
+                recipesPagination={this.paginateRecipes}
+              /> : ''
+            }
           </main> :
-          <Loader loaded={this.props.loading}/> }
+          <Loader loaded={this.state.loaded}/> }
       </div>
     );
   }
@@ -103,24 +109,22 @@ class CategoryPage extends Component {
  */
 const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
-  pagination: state.recipes.pagination,
+  pagination: Number(state.recipes.pagination),
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.recipes.loading,
   category: state.recipes.recipeCategories
     .find(recipeCategory => (
       recipeCategory.name === props.match.params.categoryName
-    ))
+    )) || {}
 });
 
 const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
   recipes: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
   recipeCategories: PropTypes.func.isRequired,
-  pagination: PropTypes.string.isRequired,
+  pagination: PropTypes.number.isRequired,
   history: PropTypes.object.isRequired
 
 };

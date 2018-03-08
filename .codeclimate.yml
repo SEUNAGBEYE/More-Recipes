@@ -12,6 +12,8 @@ plugins:
     enabled: true
 exclude_patterns:
   - "node_modules/"
-  - "server/tests"
-  - "client/__tests__"
-  - "client/public"
+  - "server/tests/"
+  - "client/__tests__/"
+  - "e2e-tests/"
+  - "client/public/"
+  - "template/"
