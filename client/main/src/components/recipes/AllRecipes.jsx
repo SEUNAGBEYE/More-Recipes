@@ -92,7 +92,6 @@ export class AllRecipes extends Component {
                 this.props.recipes.length > 0 ?
                   this.props.recipes.map((recipe, index) => (
                     <RecipeCard key={recipe.id}
-                      user={this.props.user}
                       recipe={recipe}
                       id={recipe.id}
                       history={this.props.history}

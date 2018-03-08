@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UserRecipes, mapStateToProps } from '../../main/src/components/recipes/UserRecipes';
+import { FavouriteRecipes, mapStateToProps } from '../../main/src/components/recipes/FavouriteRecipes';
 
 const state = {
   auth: {
@@ -33,25 +33,18 @@ const recipe = {
 
 
 const props = {
-  userRecipes: [recipe],
-  categories: state.recipes.recipeCategories,
-  pagination: 1,
-  addRecipe: (() =>new Promise((resolve, reject) => {
+  recipes: [recipe],
+  getFavouritedRecipes: (() =>new Promise((resolve, reject) => {
     recipe ? resolve(recipe) : reject('Recipe not found');
   })),
-  getUserRecipes: (() =>new Promise((resolve, reject) => {
-    recipe ? resolve(recipe) : reject('Recipe not found');
-  })),
-  recipeCategories: jest.fn(),
-  categories: [],
-  history: {
-    push: (() => {})
-  },
-  categories: [],
   user: {
     firstName: 'Seun',
     lastName: 'Agbeye'
-  }
+  },
+  location: {
+    search: 'recipe=Amala'
+  },
+  pagination: 2
 };
 
 const event = {
@@ -64,9 +57,9 @@ const event = {
   }
 }
 
-describe('# UserRecipes', () => {
+describe('# FavouriteRecipes', () => {
   const wrapper = shallow(
-      <UserRecipes {...props} />
+      <FavouriteRecipes {...props} />
   );
   it('should render successfully', (done) => {
     expect(wrapper).toBeDefined();
@@ -75,7 +68,4 @@ describe('# UserRecipes', () => {
     done();
   });
 
-  // it('should call mapStateToProps(state)', () => {
-  //   mapStateToProps(state)
-  // }); 
 });

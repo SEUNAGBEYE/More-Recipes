@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFavouritedRecipes } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
@@ -9,13 +9,16 @@ import CategoryButton from './CategoryButton';
 
 
 /**
- * @class UserRecipes
+ * @description - Favourite Recipe Component
+ * @export - FavouriteRecipes
+ * @class FavouriteRecipes
+ * @extends {Component}
  */
-export class FavoruriteRecipes extends Component {
+export class FavouriteRecipes extends Component {
   /**
    * Creates an instance of FavoruriteRecipes.
-   * @param {any} props
-   * @memberof FavoruriteRecipes
+   * @param {Object} props
+   * @memberof FavouriteRecipes
    */
   constructor(props) {
     super(props);
@@ -27,17 +30,19 @@ export class FavoruriteRecipes extends Component {
 
   /**
  *@returns {void} void
- * @memberof FavoruriteRecipes
+ * @memberof FavouriteRecipes
  */
   componentDidMount() {
     this.paginateRecipes(1);
   }
 
   /**
+   * @description - Paginate Recipes
+   *
+   * @param {Number} page
    *
    * @returns {void} void
-   * @param {any} page
-   * @memberof FavoruriteRecipes
+   * @memberof FavouriteRecipes
    */
   paginateRecipes(page) {
     this.props.getFavouritedRecipes(page)
@@ -47,9 +52,8 @@ export class FavoruriteRecipes extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @memberOf UserRecipes
-   * return {object}
+   * @returns {Jsx} Jsx
+   * @memberof FavouriteRecipes
    */
   render() {
     return (
@@ -62,29 +66,32 @@ export class FavoruriteRecipes extends Component {
 
           <div className="container">
             <div style={{ textAlign: 'center', marginTop: 100 }}>
-              <h4 className="container__myrecipes">Favourite Recipes</h4><br /><br />
+              <h4 className="container__myrecipes">Favourite Recipes</h4>
+              <br /><br />
             </div>
 
             <div className="row">
               {
                 this.state.favouritedRecipes.length > 0 ?
-                  this.props.favouritedRecipes.map((elem, index) => (<RecipeCard key={elem.id}
-                    user={this.props.user}
-                    recipe={elem}
-                    id={elem.id}
-                    onDelete={this.deleteRecipe}
-                    editRecipe={this.editRecipe}
-                    toggleFavouriteRecipe={this.toggleFavouriteRecipe}
-                  />)) :
+                  this.props
+                    .favouritedRecipes.map((elem, index) => (<RecipeCard
+                      key={elem.id}
+                      recipe={elem}
+                      history={this.props.history}
+                      id={elem.id}
+                    />)) :
                   <Exclamation>
-                    <p className="text-muted text-center">Sorry you have not favourited any recipe yet!</p>
+                    <p className="text-muted text-center">
+                      Sorry you have not favourited any recipe yet!
+                    </p>
                   </Exclamation>
               }
             </div>
           </div>
         </main>
-        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
-          recipesPagination={this.paginateRecipes}/> :
+        {this.props.pagination > 1 ?
+          <Pagination recipesCount={this.props.pagination}
+            recipesPagination={this.paginateRecipes}/> :
           ''
         }
       </div>
@@ -92,10 +99,20 @@ export class FavoruriteRecipes extends Component {
   }
 }
 
+const propTypes = {
+  pagination: PropTypes.number.isRequired,
+  history: PropTypes.object.isRequired,
+  favouritedRecipes: PropTypes.array.isRequired,
+  getFavouritedRecipes: PropTypes.func.isRequired,
+};
+
+FavouriteRecipes.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @param {Object} state
+ *
+ * @returns {Object} Object
  */
 const mapStateToProps = (state) => ({
   pagination: state.recipes.pagination,
@@ -104,5 +121,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getFavouritedRecipes
-})(FavoruriteRecipes);
+})(FavouriteRecipes);
 

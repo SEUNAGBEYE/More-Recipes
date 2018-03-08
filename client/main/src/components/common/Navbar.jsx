@@ -126,10 +126,14 @@ export class Navbar extends React.Component {
                       >
                         My Recipes
                       </Link>
-                      <Link className="dropdown-item" to="/my_favourites">
+                      <Link className="dropdown-item" to="/my_favourites"
+                        id="favourite-recipes"
+                      >
                         Favourites
                       </Link>
-                      <Link className="dropdown-item" to="/profile">
+                      <Link className="dropdown-item" to="/profile"
+                        id="profile"
+                      >
                         Profile
                       </Link>
                       <Link className="dropdown-item"

@@ -114,6 +114,7 @@ const UpdateProfileModal = (props) => {
               <div className="modal-footer">
                 <Loader loaded={props.state.loaded} />
                 <button className="btn btn-secondary auth-button"
+                  id="updateProfileButton"
                   onClick={props.onSubmit}
                 >Submit</button>
                 <button type="button"

@@ -120,8 +120,8 @@ class UserProfile extends Component {
             </h1>
             { aboutMe &&
               <div>
-                About me
-
+                <h4>About me</h4>
+                <p>{aboutMe}</p>
               </div>
             }
             <div className="row">
@@ -129,6 +129,7 @@ class UserProfile extends Component {
                 <Link to="#"
                   data-toggle="modal"
                   data-target="#editModal"
+                  data-update-profile="edit-profile"
                 >
                   <i className="fa fa-pencil icons"
                     title="Edit Profile"
@@ -137,6 +138,7 @@ class UserProfile extends Component {
                 <Link to="#"
                   data-toggle="modal"
                   data-target="#resetPasswordModal"
+                  data-reset-password="reset-password"
                 >
                   <i className="fa fa-key icons"
                     title="Change Password"
@@ -174,8 +176,6 @@ class UserProfile extends Component {
 
 const propTypes = {
   auth: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
 };
 

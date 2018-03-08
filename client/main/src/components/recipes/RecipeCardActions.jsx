@@ -29,7 +29,10 @@ const RecipeCardActions = (props) => (
           'fa-thumbs-o-down text-black': !props.isDownVoted,
           'fa-thumbs-down text-warning': props.isDownVoted
         })}
-        onClick={props.toggleThumbsDownRecipe} id={props.recipe.id} >
+        onClick={props.toggleThumbsDownRecipe}
+        data-downvote-icon={`downvote-icon-${props.recipe.id}`}
+        id={props.recipe.id}
+        >
           {props.recipe.downvotes ? props.recipe.downvotes.length : 0}
         </i>
 
@@ -37,7 +40,10 @@ const RecipeCardActions = (props) => (
           'fa-thumbs-o-up text-black': !props.isUpVoted,
           'fa-thumbs-up text-warning': props.isUpVoted
         })}
-        onClick={props.toggleThumbsUpRecipe} id={props.recipe.id} >
+        onClick={props.toggleThumbsUpRecipe} 
+        id={props.recipe.id}
+        data-upvote-icon={`upvote-icon-${props.recipe.id}`}
+        >
           {props.recipe.upvotes ? props.recipe.upvotes.length : 0}
         </i>
 
@@ -50,7 +56,9 @@ const RecipeCardActions = (props) => (
             }
           )}
           onClick={props.toggleFavouriteRecipe}
-          id={props.recipe.id} />
+          id={props.recipe.id}
+          data-favourite-icon={`favourite-icon-${props.recipe.id}`}
+        />
 
       </div>
     }

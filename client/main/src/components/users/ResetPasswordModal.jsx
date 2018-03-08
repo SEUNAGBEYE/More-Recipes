@@ -58,6 +58,7 @@ const ResetPasswordModal = (props) => (
             <div className="modal-footer">
               <Loader loaded={props.state.loaded} />
               <button className="btn btn-secondary auth-button"
+                id="resetPasswordButton"
                 onClick={props.onSubmit}
               >
                 Submit

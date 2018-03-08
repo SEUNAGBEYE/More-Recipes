@@ -11,7 +11,9 @@ import { connect } from 'react-redux';
  * @returns {jsx} JSX
  */
 const CategoryButton = (props) => (
-  <div className="dropdown" style={{ float: 'left' }}>
+  <div className="dropdown" style={{ float: 'left' }}
+    data-category-button="category-button"
+  >
     <button className="btn btn-default dropdown-toggle auth-button"
       type="button" id="about-us" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">Category
@@ -21,6 +23,7 @@ const CategoryButton = (props) => (
         props.categories.map(category =>
           (<Link className="dropdown-item"
             key={category.id} to={`/categories/${category.name}`}
+            data-category-link={`category-link-${category.name}`}
           >{category.name}</Link>))
       }
     </div>

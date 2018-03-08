@@ -43,6 +43,9 @@ const props = {
   getRecipe: (() =>new Promise((resolve, reject) => {
     recipe ? resolve(recipe) : reject('Recipe not found');
   })),
+  deleteRecipe: (() =>new Promise((resolve, reject) => {
+    recipe ? resolve(recipe) : reject('Recipe not found');
+  })),
   isAuthenticated: state.auth.isAuthenticated,
   history: {
     push: (() => {})
@@ -89,6 +92,12 @@ describe('# RecipeDetail', () => {
     const reviewRecipeSpy = jest.spyOn(wrapper.instance(), 'reviewRecipe')
     wrapper.instance().reviewRecipe(event);
     expect(reviewRecipeSpy).toHaveBeenCalledTimes(1);
+    done();
+  });
+  it('should call deleteRecipe', (done) => {
+    const deleteRecipeSpy = jest.spyOn(wrapper.instance(), 'deleteRecipe')
+    wrapper.instance().deleteRecipe(event);
+    expect(deleteRecipeSpy).toHaveBeenCalledTimes(1);
     done();
   });
 

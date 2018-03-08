@@ -1,39 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`# UserRecipes should render successfully 1`] = `
+exports[`# SearchResults should render successfully 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <UserRecipes
-    addRecipe={[Function]}
-    categories={Array []}
-    getUserRecipes={[Function]}
-    history={
+  Symbol(enzyme.__unrendered__): <SearchResults
+    getFavouritedRecipesIds={[Function]}
+    location={
       Object {
-        "push": [Function],
+        "search": "recipe=Amala",
       }
     }
-    pagination={1}
-    recipeCategories={
-      [MockFunction] {
-        "calls": Array [
-          Array [],
-        ],
-      }
-    }
-    user={
-      Object {
-        "firstName": "Seun",
-        "lastName": "Agbeye",
-      }
-    }
-    userRecipes={
+    pagination={2}
+    recipes={
       Array [
         Object {
           "image": "This is the image",
           "name": "Amala",
         },
       ]
+    }
+    searchRecipes={[Function]}
+    user={
+      Object {
+        "firstName": "Seun",
+        "lastName": "Agbeye",
+      }
     }
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -72,37 +64,19 @@ ShallowWrapper {
                 }
               }
             >
-              <Link
-                className="btn auth-button"
-                data-target="#addModal"
-                data-toggle="modal"
-                id="addRecipe"
-                replace={false}
-                to="#"
-              >
-                Add Recipe
-              </Link>
               <h4
                 className="container__myrecipes"
               >
-                My Recipes
+                Search Results
               </h4>
               <br />
               <br />
-              <RecipeModal
-                addRecipe={[Function]}
-                recipeCategories={Array []}
-              />
             </div>
             <div
               className="row"
             >
               <Connect(RecipeCard)
-                history={
-                  Object {
-                    "push": [Function],
-                  }
-                }
+                history={undefined}
                 id={undefined}
                 recipe={
                   Object {
@@ -114,9 +88,11 @@ ShallowWrapper {
             </div>
           </div>
         </main>,
-        "",
+        <Pagination
+          recipesCount={2}
+          recipesPagination={undefined}
+        />,
       ],
-      "id": "userRecipesBody",
     },
     "ref": null,
     "rendered": Array [
@@ -142,37 +118,19 @@ ShallowWrapper {
                   }
                 }
               >
-                <Link
-                  className="btn auth-button"
-                  data-target="#addModal"
-                  data-toggle="modal"
-                  id="addRecipe"
-                  replace={false}
-                  to="#"
-                >
-                  Add Recipe
-                </Link>
                 <h4
                   className="container__myrecipes"
                 >
-                  My Recipes
+                  Search Results
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
               >
                 <Connect(RecipeCard)
-                  history={
-                    Object {
-                      "push": [Function],
-                    }
-                  }
+                  history={undefined}
                   id={undefined}
                   recipe={
                     Object {
@@ -224,37 +182,19 @@ ShallowWrapper {
                     }
                   }
                 >
-                  <Link
-                    className="btn auth-button"
-                    data-target="#addModal"
-                    data-toggle="modal"
-                    id="addRecipe"
-                    replace={false}
-                    to="#"
-                  >
-                    Add Recipe
-                  </Link>
                   <h4
                     className="container__myrecipes"
                   >
-                    My Recipes
+                    Search Results
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>,
                 <div
                   className="row"
                 >
                   <Connect(RecipeCard)
-                    history={
-                      Object {
-                        "push": [Function],
-                      }
-                    }
+                    history={undefined}
                     id={undefined}
                     recipe={
                       Object {
@@ -275,27 +215,13 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <Link
-                      className="btn auth-button"
-                      data-target="#addModal"
-                      data-toggle="modal"
-                      id="addRecipe"
-                      replace={false}
-                      to="#"
-                    >
-                      Add Recipe
-                    </Link>,
                     <h4
                       className="container__myrecipes"
                     >
-                      My Recipes
+                      Search Results
                     </h4>,
                     <br />,
                     <br />,
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />,
                   ],
                   "style": Object {
                     "marginTop": 100,
@@ -307,30 +233,13 @@ ShallowWrapper {
                   Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": "Add Recipe",
-                      "className": "btn auth-button",
-                      "data-target": "#addModal",
-                      "data-toggle": "modal",
-                      "id": "addRecipe",
-                      "replace": false,
-                      "to": "#",
-                    },
-                    "ref": null,
-                    "rendered": "Add Recipe",
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "My Recipes",
+                      "children": "Search Results",
                       "className": "container__myrecipes",
                     },
                     "ref": null,
-                    "rendered": "My Recipes",
+                    "rendered": "Search Results",
                     "type": "h4",
                   },
                   Object {
@@ -351,18 +260,6 @@ ShallowWrapper {
                     "rendered": null,
                     "type": "br",
                   },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "addRecipe": [Function],
-                      "recipeCategories": Array [],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
                 ],
                 "type": "div",
               },
@@ -373,11 +270,7 @@ ShallowWrapper {
                 "props": Object {
                   "children": Array [
                     <Connect(RecipeCard)
-                      history={
-                        Object {
-                          "push": [Function],
-                        }
-                      }
+                      history={undefined}
                       id={undefined}
                       recipe={
                         Object {
@@ -396,9 +289,7 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "history": Object {
-                        "push": [Function],
-                      },
+                      "history": undefined,
                       "id": undefined,
                       "recipe": Object {
                         "image": "This is the image",
@@ -418,7 +309,18 @@ ShallowWrapper {
         ],
         "type": "main",
       },
-      "",
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "recipesCount": 2,
+          "recipesPagination": undefined,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
     ],
     "type": "div",
   },
@@ -452,37 +354,19 @@ ShallowWrapper {
                   }
                 }
               >
-                <Link
-                  className="btn auth-button"
-                  data-target="#addModal"
-                  data-toggle="modal"
-                  id="addRecipe"
-                  replace={false}
-                  to="#"
-                >
-                  Add Recipe
-                </Link>
                 <h4
                   className="container__myrecipes"
                 >
-                  My Recipes
+                  Search Results
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
               >
                 <Connect(RecipeCard)
-                  history={
-                    Object {
-                      "push": [Function],
-                    }
-                  }
+                  history={undefined}
                   id={undefined}
                   recipe={
                     Object {
@@ -494,9 +378,11 @@ ShallowWrapper {
               </div>
             </div>
           </main>,
-          "",
+          <Pagination
+            recipesCount={2}
+            recipesPagination={undefined}
+          />,
         ],
-        "id": "userRecipesBody",
       },
       "ref": null,
       "rendered": Array [
@@ -522,37 +408,19 @@ ShallowWrapper {
                     }
                   }
                 >
-                  <Link
-                    className="btn auth-button"
-                    data-target="#addModal"
-                    data-toggle="modal"
-                    id="addRecipe"
-                    replace={false}
-                    to="#"
-                  >
-                    Add Recipe
-                  </Link>
                   <h4
                     className="container__myrecipes"
                   >
-                    My Recipes
+                    Search Results
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>
                 <div
                   className="row"
                 >
                   <Connect(RecipeCard)
-                    history={
-                      Object {
-                        "push": [Function],
-                      }
-                    }
+                    history={undefined}
                     id={undefined}
                     recipe={
                       Object {
@@ -604,37 +472,19 @@ ShallowWrapper {
                       }
                     }
                   >
-                    <Link
-                      className="btn auth-button"
-                      data-target="#addModal"
-                      data-toggle="modal"
-                      id="addRecipe"
-                      replace={false}
-                      to="#"
-                    >
-                      Add Recipe
-                    </Link>
                     <h4
                       className="container__myrecipes"
                     >
-                      My Recipes
+                      Search Results
                     </h4>
                     <br />
                     <br />
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />
                   </div>,
                   <div
                     className="row"
                   >
                     <Connect(RecipeCard)
-                      history={
-                        Object {
-                          "push": [Function],
-                        }
-                      }
+                      history={undefined}
                       id={undefined}
                       recipe={
                         Object {
@@ -655,27 +505,13 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      <Link
-                        className="btn auth-button"
-                        data-target="#addModal"
-                        data-toggle="modal"
-                        id="addRecipe"
-                        replace={false}
-                        to="#"
-                      >
-                        Add Recipe
-                      </Link>,
                       <h4
                         className="container__myrecipes"
                       >
-                        My Recipes
+                        Search Results
                       </h4>,
                       <br />,
                       <br />,
-                      <RecipeModal
-                        addRecipe={[Function]}
-                        recipeCategories={Array []}
-                      />,
                     ],
                     "style": Object {
                       "marginTop": 100,
@@ -687,30 +523,13 @@ ShallowWrapper {
                     Object {
                       "instance": null,
                       "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": "Add Recipe",
-                        "className": "btn auth-button",
-                        "data-target": "#addModal",
-                        "data-toggle": "modal",
-                        "id": "addRecipe",
-                        "replace": false,
-                        "to": "#",
-                      },
-                      "ref": null,
-                      "rendered": "Add Recipe",
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "My Recipes",
+                        "children": "Search Results",
                         "className": "container__myrecipes",
                       },
                       "ref": null,
-                      "rendered": "My Recipes",
+                      "rendered": "Search Results",
                       "type": "h4",
                     },
                     Object {
@@ -731,18 +550,6 @@ ShallowWrapper {
                       "rendered": null,
                       "type": "br",
                     },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "addRecipe": [Function],
-                        "recipeCategories": Array [],
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
                   ],
                   "type": "div",
                 },
@@ -753,11 +560,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": Array [
                       <Connect(RecipeCard)
-                        history={
-                          Object {
-                            "push": [Function],
-                          }
-                        }
+                        history={undefined}
                         id={undefined}
                         recipe={
                           Object {
@@ -776,9 +579,7 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "class",
                       "props": Object {
-                        "history": Object {
-                          "push": [Function],
-                        },
+                        "history": undefined,
                         "id": undefined,
                         "recipe": Object {
                           "image": "This is the image",
@@ -798,7 +599,18 @@ ShallowWrapper {
           ],
           "type": "main",
         },
-        "",
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "recipesCount": 2,
+            "recipesPagination": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
       ],
       "type": "div",
     },
