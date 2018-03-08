@@ -57,9 +57,10 @@ ShallowWrapper {
           />
         </div>
         <div
-          className="col-md-11 review"
+          className="col-md-11 review break-word"
         >
           <h5
+            className="break-word"
             style={
               Object {
                 "color": "orange",
@@ -104,9 +105,10 @@ ShallowWrapper {
             />
           </div>,
           <div
-            className="col-md-11 review"
+            className="col-md-11 review break-word"
           >
             <h5
+              className="break-word"
               style={
                 Object {
                   "color": "orange",
@@ -174,6 +176,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <h5
+                className="break-word"
                 style={
                   Object {
                     "color": "orange",
@@ -185,7 +188,7 @@ ShallowWrapper {
               </h5>,
               "Ths is my review",
             ],
-            "className": "col-md-11 review",
+            "className": "col-md-11 review break-word",
           },
           "ref": null,
           "rendered": Array [
@@ -195,6 +198,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Seun",
+                "className": "break-word",
                 "style": Object {
                   "color": "orange",
                   "marginTop": 5,
@@ -249,9 +253,10 @@ ShallowWrapper {
             />
           </div>
           <div
-            className="col-md-11 review"
+            className="col-md-11 review break-word"
           >
             <h5
+              className="break-word"
               style={
                 Object {
                   "color": "orange",
@@ -296,9 +301,10 @@ ShallowWrapper {
               />
             </div>,
             <div
-              className="col-md-11 review"
+              className="col-md-11 review break-word"
             >
               <h5
+                className="break-word"
                 style={
                   Object {
                     "color": "orange",
@@ -366,6 +372,7 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <h5
+                  className="break-word"
                   style={
                     Object {
                       "color": "orange",
@@ -377,7 +384,7 @@ ShallowWrapper {
                 </h5>,
                 "Ths is my review",
               ],
-              "className": "col-md-11 review",
+              "className": "col-md-11 review break-word",
             },
             "ref": null,
             "rendered": Array [
@@ -387,6 +394,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Seun",
+                  "className": "break-word",
                   "style": Object {
                     "color": "orange",
                     "marginTop": 5,

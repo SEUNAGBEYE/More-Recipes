@@ -169,6 +169,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    disabled={false}
                     id="submit"
                     onClick={[Function]}
                   >
@@ -337,6 +338,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    disabled={false}
                     id="submit"
                     onClick={[Function]}
                   >
@@ -502,6 +504,7 @@ ShallowWrapper {
                   />
                   <button
                     className="btn btn-secondary auth-button"
+                    disabled={false}
                     id="submit"
                     onClick={[Function]}
                   >
@@ -662,6 +665,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      disabled={false}
                       id="submit"
                       onClick={[Function]}
                     >
@@ -873,6 +877,7 @@ ShallowWrapper {
                       />
                       <button
                         className="btn btn-secondary auth-button"
+                        disabled={false}
                         id="submit"
                         onClick={[Function]}
                       >
@@ -1006,6 +1011,7 @@ ShallowWrapper {
                         />
                         <button
                           className="btn btn-secondary auth-button"
+                          disabled={false}
                           id="submit"
                           onClick={[Function]}
                         >
@@ -1364,6 +1370,7 @@ ShallowWrapper {
                           />,
                           <button
                             className="btn btn-secondary auth-button"
+                            disabled={false}
                             id="submit"
                             onClick={[Function]}
                           >
@@ -1402,6 +1409,7 @@ ShallowWrapper {
                           "props": Object {
                             "children": "Submit",
                             "className": "btn btn-secondary auth-button",
+                            "disabled": false,
                             "id": "submit",
                             "onClick": [Function],
                           },
@@ -1596,6 +1604,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      disabled={false}
                       id="submit"
                       onClick={[Function]}
                     >
@@ -1764,6 +1773,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      disabled={false}
                       id="submit"
                       onClick={[Function]}
                     >
@@ -1929,6 +1939,7 @@ ShallowWrapper {
                     />
                     <button
                       className="btn btn-secondary auth-button"
+                      disabled={false}
                       id="submit"
                       onClick={[Function]}
                     >
@@ -2089,6 +2100,7 @@ ShallowWrapper {
                       />
                       <button
                         className="btn btn-secondary auth-button"
+                        disabled={false}
                         id="submit"
                         onClick={[Function]}
                       >
@@ -2300,6 +2312,7 @@ ShallowWrapper {
                         />
                         <button
                           className="btn btn-secondary auth-button"
+                          disabled={false}
                           id="submit"
                           onClick={[Function]}
                         >
@@ -2433,6 +2446,7 @@ ShallowWrapper {
                           />
                           <button
                             className="btn btn-secondary auth-button"
+                            disabled={false}
                             id="submit"
                             onClick={[Function]}
                           >
@@ -2791,6 +2805,7 @@ ShallowWrapper {
                             />,
                             <button
                               className="btn btn-secondary auth-button"
+                              disabled={false}
                               id="submit"
                               onClick={[Function]}
                             >
@@ -2829,6 +2844,7 @@ ShallowWrapper {
                             "props": Object {
                               "children": "Submit",
                               "className": "btn btn-secondary auth-button",
+                              "disabled": false,
                               "id": "submit",
                               "onClick": [Function],
                             },

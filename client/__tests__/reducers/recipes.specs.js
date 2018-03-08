@@ -118,7 +118,7 @@ describe('Recipe Reducer', () => {
   });
 
   it(`should handle ${RECIPE_CATEGORIES} action type`, () => {
-    const action = recipeCategoriesAction(recipeCategoriesObject);
+    const action = recipeCategoriesAction({ data: recipeCategoriesObject });
     const state = recipeReducer(initialState, action);
     expect(state.recipeCategories).toEqual(recipeCategoriesObject);
     expect(state.recipeCategories)

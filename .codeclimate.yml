@@ -14,4 +14,6 @@ exclude_patterns:
   - "node_modules/"
   - "server/tests"
   - "client/__tests__"
+  - "e2e-tests"
   - "client/public"
+  - "template"
