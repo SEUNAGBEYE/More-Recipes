@@ -277,8 +277,8 @@ export function getRecipeReviewsAction(data) {
  *
  * @returns {Object} Object
  */
-export function allRecipes(page = 1, limit = 2) {
-  return dispatch => axios.get(`/api/v1/recipes?limit=${limit}&page=${page}`)
+export function allRecipes(page = 1, limit = 2, sortBy = undefined, orderBy = undefined) {
+  return dispatch => axios.get(`/api/v1/recipes?sort=${sortBy}&order=${orderBy}&limit=${limit}&page=${page}`)
     .then((response) => {
       const { data, pagination } = response.data;
       return dispatch(allRecipesAction(data, pagination));

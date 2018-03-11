@@ -11,3 +11,4 @@ servergitignore
 coverage
 coverage-client
 e2ereports
+selenium-debug.log

@@ -219,9 +219,15 @@ main{
      padding: 1px 20px 5px 15px;
      border: 1px solid $orange;
      color: $black;
+     width: 20vw;
      margin: 7px 30px 0 0;
-     /*transition: all 1s ease;*/
+     height: 2.5rem;
+     transition: width 2s linear;
     
+ }
+
+ #search:hover{
+  width: 30vw;
  }
 
  .title-link, .title-link:hover{

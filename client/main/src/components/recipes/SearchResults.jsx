@@ -32,7 +32,7 @@ export class SearchResults extends Component {
    *@returns {void} void
    * @memberof SearchResults
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getFavouritedRecipesIds()
       .then(res => {
         this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
