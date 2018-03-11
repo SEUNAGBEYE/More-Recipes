@@ -69,7 +69,7 @@ const forgotPasswordModal = (props) => (
 const propTypes = {
   forgotPassword: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  resetPasswordMessage: PropTypes.string.isRequired,
+  resetPasswordMessage: PropTypes.string,
 };
 
 forgotPasswordModal.propTypes = propTypes;

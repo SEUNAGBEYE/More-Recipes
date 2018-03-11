@@ -94,9 +94,9 @@ export class UserRecipes extends Component {
               {
                 this.props.userRecipes.length > 0 ?
                   this.props.userRecipes.map((elem, index) => (
-                    <RecipeCard key={elem.id} user={this.props.user}
-                      recipe={elem} id={elem.id} onDelete={this.deleteRecipe}
-                      editRecipe={this.editRecipe}
+                    <RecipeCard key={elem.id} 
+                      recipe={elem} id={elem.id}
+                      history={this.props.history}
                     />)) :
                   <Exclamation>
                     <p className="text-muted">Sorry you haven't added any
@@ -119,6 +119,7 @@ const propTypes = {
   pagination: PropTypes.number.isRequired,
   categories: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   userRecipes: PropTypes.array.isRequired,
   addRecipe: PropTypes.func.isRequired,
   getUserRecipes: PropTypes.func.isRequired,

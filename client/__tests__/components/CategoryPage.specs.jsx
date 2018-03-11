@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UserRecipes, mapStateToProps } from '../../main/src/components/recipes/UserRecipes';
+import { CategoryPage, mapStateToProps } from '../../main/src/components/recipes/CategoryPage';
 
 const state = {
   auth: {
@@ -33,24 +33,19 @@ const recipe = {
 
 
 const props = {
-  userRecipes: [recipe],
+  recipes: [recipe],
+  getFavouritedRecipes: (() =>new Promise((resolve, reject) => {
+    recipe ? resolve(recipe) : reject('Recipe not found');
+  })),
   categories: state.recipes.recipeCategories,
-  pagination: 1,
-  addRecipe: (() =>new Promise((resolve, reject) => {
-    recipe ? resolve(recipe) : reject('Recipe not found');
-  })),
-  getUserRecipes: (() =>new Promise((resolve, reject) => {
-    recipe ? resolve(recipe) : reject('Recipe not found');
-  })),
   recipeCategories: jest.fn(),
-  categories: [],
-  history: {
-    push: (() => {})
-  },
-  categories: [],
-  user: {
-    firstName: 'Seun',
-    lastName: 'Agbeye'
+  isAuthenticated: !!!(state.auth.user),
+  pagination: 2,
+  history: {},
+  match: {
+    params: {
+      categoryName: 'Breakfast'
+    }
   }
 };
 
@@ -64,9 +59,9 @@ const event = {
   }
 }
 
-describe('# UserRecipes', () => {
+describe('# CategoryPage', () => {
   const wrapper = shallow(
-      <UserRecipes {...props} />
+      <CategoryPage {...props} />
   );
   it('should render successfully', (done) => {
     expect(wrapper).toBeDefined();
@@ -75,7 +70,9 @@ describe('# UserRecipes', () => {
     done();
   });
 
-  // it('should call mapStateToProps(state)', () => {
-  //   mapStateToProps(state)
-  // }); 
+  it('should call mapStateToProps(state)', (done) => {
+    mapStateToProps(state, props);
+    done();
+  }); 
+
 });

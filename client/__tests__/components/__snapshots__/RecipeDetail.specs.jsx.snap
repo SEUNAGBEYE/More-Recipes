@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <RecipeDetail
+    deleteRecipe={[Function]}
     editRecipe={[MockFunction]}
     getRecipe={[Function]}
     getRecipeReviews={[MockFunction]}

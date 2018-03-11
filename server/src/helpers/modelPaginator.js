@@ -13,6 +13,7 @@ const modelPaginator = (model, req, res, where = {}, include = null) => {
         include
       })
         .then((data) => {
+          console.log('+++++++++', data)
           const page = Math.ceil(modelWithCount.count / limit);
           res.status(200).send({
             status: 'Success',

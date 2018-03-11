@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getFavouritedRecipesIds, searchRecipes, toggleFavouriteRecipe, addRecipe, getUserRecipes, allRecipes, deleteRecipe, editRecipe } from '../../actions/Recipes';
+import { getFavouritedRecipesIds,
+  searchRecipes,
+} from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -8,10 +11,13 @@ import CategoryButton from './CategoryButton';
 
 
 /**
+ * @description - Search Results Component
+ *
+ * @export
  * @class SearchResults
  * @extends {Component}
  */
-class SearchResults extends Component {
+export class SearchResults extends Component {
   /**
    * Creates an instance of SearchResults.
    * @param {Object} props
@@ -26,7 +32,7 @@ class SearchResults extends Component {
    *@returns {void} void
    * @memberof SearchResults
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getFavouritedRecipesIds()
       .then(res => {
         this.setState({ favouritedRecipeIds: [...res.favouritedRecipesIds] });
@@ -46,8 +52,8 @@ class SearchResults extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @memberOf UserRecipes
+   * @returns {Jsx} Jsx
+   * @memberof UserRecipes
    * return {object}
    */
   render() {
@@ -70,12 +76,9 @@ class SearchResults extends Component {
                 this.props.recipes.length > 0 ?
                   this.props.recipes.map((elem, index) => (
                     <RecipeCard key={elem.id}
-                      user={this.props.user}
                       recipe={elem}
                       id={elem.id}
-                      onDelete={this.deleteRecipe}
-                      editRecipe={this.editRecipe}
-                      toggleFavouriteRecipe={this.toggleFavouriteRecipe}
+                      history={this.props.history}
                     />)) :
                   <Exclamation>
                     <p className="text-muted text-center">
@@ -86,8 +89,9 @@ class SearchResults extends Component {
             </div>
           </div>
         </main>
-        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
-          recipesPagination={this.paginateRecipes}/> :
+        {this.props.pagination > 1 ?
+          <Pagination recipesCount={this.props.pagination}
+            recipesPagination={this.paginateRecipes}/> :
           ''
         }
       </div>
@@ -95,26 +99,33 @@ class SearchResults extends Component {
   }
 }
 
+const propTypes = {
+  recipes: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  pagination: PropTypes.number.isRequired,
+  getFavouritedRecipesIds: PropTypes.func.isRequired,
+  searchRecipes: PropTypes.func.isRequired,
+};
+
+SearchResults.propTypes = propTypes;
+
 /**
  * mapStateToProps
- * @param {any} state
- * @param {props} props
- * @returns {object} object
+ * @param {Object} state
+ * @param {Object} props
+ *
+ * @returns {Object} object
  */
-const mapStateToProps = (state, props) => ({
+export const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
-  pagination: state.recipes.pagination,
+  pagination: Number(state.recipes.pagination),
   user: state.auth.user,
 });
 
 export default connect(mapStateToProps, {
   getFavouritedRecipesIds,
-  searchRecipes,
-  toggleFavouriteRecipe,
-  allRecipes,
-  addRecipe,
-  getUserRecipes,
-  deleteRecipe,
-  editRecipe
+  searchRecipes
 })(SearchResults);
 

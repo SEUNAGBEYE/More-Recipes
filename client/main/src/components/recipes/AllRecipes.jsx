@@ -13,6 +13,7 @@ import Pagination from './Pagination';
 import Exclamation from './Exclamation';
 import RecipeModal from './RecipeModal';
 import CategoryButton from './CategoryButton';
+import SortButton from './SortButton';
 
 /**
  * @export
@@ -47,9 +48,16 @@ export class AllRecipes extends Component {
    * @memberof AllRecipes
    */
   paginateRecipes(page) {
-    this.props.allRecipes(page);
+    if (typeof page === 'object') {
+      const event = page;
+      event.preventDefault();
+      const limit = 10;
+      const { sort, order } = event.target.dataset;
+      this.props.allRecipes(1, limit, sort, order);
+    } else {
+      this.props.allRecipes(page);
+    }
   }
-
 
   /**
    * @param {Object} data
@@ -76,6 +84,7 @@ export class AllRecipes extends Component {
 
           <div className="container">
             <CategoryButton/>
+            <SortButton sortRecipes={this.paginateRecipes}/>
           </div>
 
           <div className="container">
@@ -92,7 +101,6 @@ export class AllRecipes extends Component {
                 this.props.recipes.length > 0 ?
                   this.props.recipes.map((recipe, index) => (
                     <RecipeCard key={recipe.id}
-                      user={this.props.user}
                       recipe={recipe}
                       id={recipe.id}
                       history={this.props.history}

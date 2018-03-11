@@ -63,6 +63,7 @@ ShallowWrapper {
         </i>
         <i
           className="fa icons fa-thumbs-down text-warning"
+          data-downvote-icon="downvote-icon-undefined"
           id={undefined}
           onClick={[MockFunction]}
         >
@@ -70,6 +71,7 @@ ShallowWrapper {
         </i>
         <i
           className="fa icons fa-thumbs-up text-warning"
+          data-upvote-icon="upvote-icon-undefined"
           id={undefined}
           onClick={[MockFunction]}
         >
@@ -77,6 +79,7 @@ ShallowWrapper {
         </i>
         <i
           className="fa icons fa-heart text-warning"
+          data-favourite-icon="favourite-icon-undefined"
           id={undefined}
           onClick={[MockFunction]}
         />
@@ -96,6 +99,7 @@ ShallowWrapper {
           </i>,
           <i
             className="fa icons fa-thumbs-down text-warning"
+            data-downvote-icon="downvote-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           >
@@ -103,6 +107,7 @@ ShallowWrapper {
           </i>,
           <i
             className="fa icons fa-thumbs-up text-warning"
+            data-upvote-icon="upvote-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           >
@@ -110,6 +115,7 @@ ShallowWrapper {
           </i>,
           <i
             className="fa icons fa-heart text-warning"
+            data-favourite-icon="favourite-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           />,
@@ -138,6 +144,7 @@ ShallowWrapper {
           "props": Object {
             "children": 3,
             "className": "fa icons fa-thumbs-down text-warning",
+            "data-downvote-icon": "downvote-icon-undefined",
             "id": undefined,
             "onClick": [MockFunction],
           },
@@ -152,6 +159,7 @@ ShallowWrapper {
           "props": Object {
             "children": 3,
             "className": "fa icons fa-thumbs-up text-warning",
+            "data-upvote-icon": "upvote-icon-undefined",
             "id": undefined,
             "onClick": [MockFunction],
           },
@@ -165,6 +173,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "className": "fa icons fa-heart text-warning",
+            "data-favourite-icon": "favourite-icon-undefined",
             "id": undefined,
             "onClick": [MockFunction],
           },
@@ -194,6 +203,7 @@ ShallowWrapper {
           </i>
           <i
             className="fa icons fa-thumbs-down text-warning"
+            data-downvote-icon="downvote-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           >
@@ -201,6 +211,7 @@ ShallowWrapper {
           </i>
           <i
             className="fa icons fa-thumbs-up text-warning"
+            data-upvote-icon="upvote-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           >
@@ -208,6 +219,7 @@ ShallowWrapper {
           </i>
           <i
             className="fa icons fa-heart text-warning"
+            data-favourite-icon="favourite-icon-undefined"
             id={undefined}
             onClick={[MockFunction]}
           />
@@ -227,6 +239,7 @@ ShallowWrapper {
             </i>,
             <i
               className="fa icons fa-thumbs-down text-warning"
+              data-downvote-icon="downvote-icon-undefined"
               id={undefined}
               onClick={[MockFunction]}
             >
@@ -234,6 +247,7 @@ ShallowWrapper {
             </i>,
             <i
               className="fa icons fa-thumbs-up text-warning"
+              data-upvote-icon="upvote-icon-undefined"
               id={undefined}
               onClick={[MockFunction]}
             >
@@ -241,6 +255,7 @@ ShallowWrapper {
             </i>,
             <i
               className="fa icons fa-heart text-warning"
+              data-favourite-icon="favourite-icon-undefined"
               id={undefined}
               onClick={[MockFunction]}
             />,
@@ -269,6 +284,7 @@ ShallowWrapper {
             "props": Object {
               "children": 3,
               "className": "fa icons fa-thumbs-down text-warning",
+              "data-downvote-icon": "downvote-icon-undefined",
               "id": undefined,
               "onClick": [MockFunction],
             },
@@ -283,6 +299,7 @@ ShallowWrapper {
             "props": Object {
               "children": 3,
               "className": "fa icons fa-thumbs-up text-warning",
+              "data-upvote-icon": "upvote-icon-undefined",
               "id": undefined,
               "onClick": [MockFunction],
             },
@@ -296,6 +313,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "className": "fa icons fa-heart text-warning",
+              "data-favourite-icon": "favourite-icon-undefined",
               "id": undefined,
               "onClick": [MockFunction],
             },

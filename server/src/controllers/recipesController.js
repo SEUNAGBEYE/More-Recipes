@@ -28,24 +28,30 @@ class RecipeController {
  */
   static async allRecipe(request, response) {
     const sortBy = request.query.sort;
-    const orderBy = request.query.order;
+    let orderBy = request.query.order;
+    const { limit } = request.query;
 
-    if (sortBy && orderBy) {
+    if (sortBy && orderBy && sortBy !== 'undefined' && (orderBy === 'asc' || orderBy === 'desc')) {
       sortBy.toLowerCase();
-      orderBy.toUpperCase();
+      orderBy = orderBy.toUpperCase();
 
       try {
+        const where = {
+          [sortBy]: {
+            $ne: []
+          }
+        };
         const recipes = await Recipe.findAll({
-          where: {
-            upvotes: {
-              $ne: []
-            }
-          },
-          order: [
-            [sortBy, orderBy]
-          ],
+          where,
+          limit
         });
-        return successResponse(response, recipes, 200);
+        let newRecipes;
+        if (orderBy === 'DESC') {
+          newRecipes = recipes.sort((recipeA, recipeB) => recipeA[sortBy].length - recipeB[sortBy].length);
+        } else {
+          newRecipes = recipes.sort((a, b) => a[sortBy].length - b[sortBy].length);
+        }
+        return successResponse(response, newRecipes, 200);
       } catch (errors) {
         return failureResponse(response, 400, undefined, { errors });
       }
@@ -368,17 +374,20 @@ class RecipeController {
    * @memberof RecipeController
    */
   static searchRecipes(request, response) {
-    const { search } = request.query;
+    let { search } = request.query;
+    search.replace()
+    search = search.split(',');
+
     const where = {
       $or: [
         {
           name: {
-            $iLike: `%${search}%`
+            $iLike: search[0]
           },
         },
         {
           ingredients: {
-            $contains: [`${search}`]
+            $contains: search
           }
         }
       ]

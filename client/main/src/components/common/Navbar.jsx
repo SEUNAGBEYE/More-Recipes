@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import createHistory from 'history/createBrowserHistory';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth/Auth';
-import { getFavouritedRecipesIds }
+import { getFavouritedRecipesIds, searchRecipes }
   from
   '../../actions/Recipes';
 
@@ -54,8 +54,10 @@ export class Navbar extends React.Component {
  */
   search(event) {
     event.preventDefault();
+    const { search } = event.target
+    this.props.searchRecipes(search.value);
     this.props.history
-      .push(`/search_results?search=${event.target.search.value}`);
+      .push(`/search_results?search=${search.value}`);
   }
 
   /**
@@ -87,7 +89,8 @@ export class Navbar extends React.Component {
 
                 <input type="text" name="search"
                   className="form-control"
-                  placeholder="search" />
+                  id="search"
+                  placeholder="Recipe name or list of ingredients separed by ," />
 
               </form>
               {isAuthenticated ?
@@ -126,10 +129,14 @@ export class Navbar extends React.Component {
                       >
                         My Recipes
                       </Link>
-                      <Link className="dropdown-item" to="/my_favourites">
+                      <Link className="dropdown-item" to="/my_favourites"
+                        id="favourite-recipes"
+                      >
                         Favourites
                       </Link>
-                      <Link className="dropdown-item" to="/profile">
+                      <Link className="dropdown-item" to="/profile"
+                        id="profile"
+                      >
                         Profile
                       </Link>
                       <Link className="dropdown-item"
@@ -192,6 +199,7 @@ export class Navbar extends React.Component {
 const propTypes = {
   auth: PropTypes.object.isRequired,
   getFavouritedRecipesIds: PropTypes.func.isRequired,
+  searchRecipes: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   logout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
@@ -212,5 +220,6 @@ export const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   logout,
-  getFavouritedRecipesIds
+  getFavouritedRecipesIds,
+  searchRecipes
 })(Navbar);

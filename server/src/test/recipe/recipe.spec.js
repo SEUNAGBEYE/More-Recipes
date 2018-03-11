@@ -392,7 +392,7 @@ describe('Test For Recipes Routes', () => {
   describe('Test For Getting All Recipes By Votes', () => {
     it('should have a statusCode of 400 when trying to get all recipes with wrong query', (done) => {
       chai.request(recipeRoute)
-        .get('?sort=upvotes&order=a')
+        .get('?sort=up&order=asc')
         .end((error, res) => {
           expect(res.body.status).equal('Failure');
           expect(res).to.have.status(400);

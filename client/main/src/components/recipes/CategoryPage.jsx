@@ -13,7 +13,7 @@ import CategoryButton from './CategoryButton';
  * @class CategoryPage
  * @extends {Component}
  */
-class CategoryPage extends Component {
+export class CategoryPage extends Component {
   /**
    * Creates an instance of AllRecipes.
    * @param {any} props
@@ -70,19 +70,17 @@ class CategoryPage extends Component {
                   this.props.category.recipes.length > 0 ?
                     this.props.category.recipes.map((elem, index) => (
                       <RecipeCard key={elem.id}
-                        user={this.props.user}
                         recipe={elem}
                         id={elem.id}
-                        onDelete={this.deleteRecipe}
-                        editRecipe={this.editRecipe}
-                        toggleFavouriteRecipe={this.toggleFavouriteRecipe}
                         history={this.props.history}
                       />)) :
                     <Exclamation>
                       <p className="text-muted text-center">
-                      Sorry no recipe has been added to
-                        {this.props.category.name}
-                       yet, please add to get started
+                        {
+                          `Sorry no recipe has been added to 
+                        ${this.props.category.name} 
+                       yet, please add to get started`
+                        }
                       </p>
                     </Exclamation>
                 }
@@ -107,10 +105,9 @@ class CategoryPage extends Component {
  *
  * @returns {Object} object
  */
-const mapStateToProps = (state, props) => ({
+export const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
   pagination: Number(state.recipes.pagination),
-  user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
   category: state.recipes.recipeCategories
     .find(recipeCategory => (
@@ -121,7 +118,6 @@ const mapStateToProps = (state, props) => ({
 const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   recipes: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
   recipeCategories: PropTypes.func.isRequired,
   pagination: PropTypes.number.isRequired,
