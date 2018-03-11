@@ -1,6 +1,8 @@
+import path from 'path';
+
 const updateProfile = (browser, user = {}) => browser
   .waitForElementVisible('body', 5000)
-  .click('[data-edit-profile=edit-profile]')
+  .click('[data-update-profile=update-profile]')
   .pause(1000)
   .setValue('input[name=firstName]', 'Sky')
   .pause(1000)
@@ -12,9 +14,9 @@ const updateProfile = (browser, user = {}) => browser
   .pause(1000)
   .setValue('input[name=linkedInUrl]', user.linkedInUrl)
   .pause(1000)
-  .setValue('input[name=aboutMe]', user.aboutMe)
+  .setValue('#aboutMe', user.aboutMe)
   .pause(1000)
-  .setValue('input[name=profilePicture]', user.profilePicture)
+  .setValue('input[name=profilePicture]', path.resolve(user.profilePicture))
   .pause(1000)
   .execute(function () { //eslint-disable-line
     document.querySelector('#updateProfileButton').click();

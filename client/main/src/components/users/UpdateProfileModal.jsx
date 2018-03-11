@@ -96,6 +96,7 @@ const UpdateProfileModal = (props) => {
                   className="form-control"
                   defaultValue={aboutMe}
                   name="aboutMe"
+                  id="aboutMe"
                   onChange={props.onChange}
                 />
               </fieldset>

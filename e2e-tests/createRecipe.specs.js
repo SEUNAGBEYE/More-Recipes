@@ -28,7 +28,7 @@ const createRecipe = (browser, recipe = {}) => browser
   .pause(1000)
   .click('#categoryId')
   .pause(1000)
-  .click('#categoryLunch')
+  .click(`#${recipe.category}`)
   .pause(1000)
   .click('#submit')
   .pause(2000)

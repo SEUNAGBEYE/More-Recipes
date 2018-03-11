@@ -95,9 +95,11 @@ export default {
       .pause(1000)
       .click('#all-recipes')
     deleteRecipe(browser, validRecipeTwo.id)
+      .url(`${baseUrl}/recipes`)
       .click('#user-drop-down')
       .pause(1000)
       .click('#profile')
+      .pause(1000)
     updateProfile(browser, validUserTwo)
     changePassword(browser, validUserTwo)
     browser.end();

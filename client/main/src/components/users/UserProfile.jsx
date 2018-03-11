@@ -129,7 +129,7 @@ class UserProfile extends Component {
                 <Link to="#"
                   data-toggle="modal"
                   data-target="#editModal"
-                  data-update-profile="edit-profile"
+                  data-update-profile="update-profile"
                 >
                   <i className="fa fa-pencil icons"
                     title="Edit Profile"
