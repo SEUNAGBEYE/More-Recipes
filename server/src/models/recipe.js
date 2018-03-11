@@ -1,3 +1,5 @@
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
+
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
     name: {
@@ -5,12 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Name is Required'
+          msg: 'Name Is Required'
         },
         set(val) {
-          const firstChar = val.charAt(0).toUpperCase();
-          const valWithoutFirstLetter = val.slice(1).toLowerCase();
-          const name = `${firstChar}${valWithoutFirstLetter}`;
+          const name = convertToSentenceCase(val);
           this.setDataValue('name', name);
         },
       }
@@ -55,13 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Description is Required'
+          msg: 'Description Is Required'
         }
       },
       set(val) {
-        const firstChar = val.charAt(0).toUpperCase();
-        const valWithoutFirstLetter = val.slice(1).toLowerCase();
-        const description = `${firstChar}${valWithoutFirstLetter}`;
+        const description = convertToSentenceCase(val);
         this.setDataValue('description', description);
       },
     }

@@ -36,6 +36,7 @@ ShallowWrapper {
         />,
       ],
       "className": "dropdown",
+      "data-category-button": "category-button",
       "style": Object {
         "float": "left",
       },
@@ -98,6 +99,7 @@ ShallowWrapper {
           />,
         ],
         "className": "dropdown",
+        "data-category-button": "category-button",
         "style": Object {
           "float": "left",
         },

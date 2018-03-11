@@ -81,8 +81,9 @@ ShallowWrapper {
             >
               <input
                 className="form-control"
+                id="search"
                 name="search"
-                placeholder="search"
+                placeholder="Recipe name or list of ingredients separed by ,"
                 type="text"
               />
             </form>
@@ -140,6 +141,7 @@ ShallowWrapper {
                   </Link>
                   <Link
                     className="dropdown-item"
+                    id="favourite-recipes"
                     replace={false}
                     to="/my_favourites"
                   >
@@ -147,6 +149,7 @@ ShallowWrapper {
                   </Link>
                   <Link
                     className="dropdown-item"
+                    id="profile"
                     replace={false}
                     to="/profile"
                   >
@@ -210,8 +213,9 @@ ShallowWrapper {
             >
               <input
                 className="form-control"
+                id="search"
                 name="search"
-                placeholder="search"
+                placeholder="Recipe name or list of ingredients separed by ,"
                 type="text"
               />
             </form>
@@ -269,6 +273,7 @@ ShallowWrapper {
                   </Link>
                   <Link
                     className="dropdown-item"
+                    id="favourite-recipes"
                     replace={false}
                     to="/my_favourites"
                   >
@@ -276,6 +281,7 @@ ShallowWrapper {
                   </Link>
                   <Link
                     className="dropdown-item"
+                    id="profile"
                     replace={false}
                     to="/profile"
                   >
@@ -336,8 +342,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -395,6 +402,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="favourite-recipes"
                       replace={false}
                       to="/my_favourites"
                     >
@@ -402,6 +410,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="profile"
                       replace={false}
                       to="/profile"
                     >
@@ -484,8 +493,9 @@ ShallowWrapper {
                 >
                   <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />
                 </form>,
@@ -543,6 +553,7 @@ ShallowWrapper {
                       </Link>
                       <Link
                         className="dropdown-item"
+                        id="favourite-recipes"
                         replace={false}
                         to="/my_favourites"
                       >
@@ -550,6 +561,7 @@ ShallowWrapper {
                       </Link>
                       <Link
                         className="dropdown-item"
+                        id="profile"
                         replace={false}
                         to="/profile"
                       >
@@ -580,8 +592,9 @@ ShallowWrapper {
                 "props": Object {
                   "children": <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />,
                   "className": "form-inline",
@@ -595,8 +608,9 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "className": "form-control",
+                    "id": "search",
                     "name": "search",
-                    "placeholder": "search",
+                    "placeholder": "Recipe name or list of ingredients separed by ,",
                     "type": "text",
                   },
                   "ref": null,
@@ -662,6 +676,7 @@ ShallowWrapper {
                         </Link>
                         <Link
                           className="dropdown-item"
+                          id="favourite-recipes"
                           replace={false}
                           to="/my_favourites"
                         >
@@ -669,6 +684,7 @@ ShallowWrapper {
                         </Link>
                         <Link
                           className="dropdown-item"
+                          id="profile"
                           replace={false}
                           to="/profile"
                         >
@@ -782,6 +798,7 @@ ShallowWrapper {
                           </Link>
                           <Link
                             className="dropdown-item"
+                            id="favourite-recipes"
                             replace={false}
                             to="/my_favourites"
                           >
@@ -789,6 +806,7 @@ ShallowWrapper {
                           </Link>
                           <Link
                             className="dropdown-item"
+                            id="profile"
                             replace={false}
                             to="/profile"
                           >
@@ -850,6 +868,7 @@ ShallowWrapper {
                             </Link>,
                             <Link
                               className="dropdown-item"
+                              id="favourite-recipes"
                               replace={false}
                               to="/my_favourites"
                             >
@@ -857,6 +876,7 @@ ShallowWrapper {
                             </Link>,
                             <Link
                               className="dropdown-item"
+                              id="profile"
                               replace={false}
                               to="/profile"
                             >
@@ -913,6 +933,7 @@ ShallowWrapper {
                             "props": Object {
                               "children": "Favourites",
                               "className": "dropdown-item",
+                              "id": "favourite-recipes",
                               "replace": false,
                               "to": "/my_favourites",
                             },
@@ -927,6 +948,7 @@ ShallowWrapper {
                             "props": Object {
                               "children": "Profile",
                               "className": "dropdown-item",
+                              "id": "profile",
                               "replace": false,
                               "to": "/profile",
                             },
@@ -1014,8 +1036,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -1073,6 +1096,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="favourite-recipes"
                       replace={false}
                       to="/my_favourites"
                     >
@@ -1080,6 +1104,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="profile"
                       replace={false}
                       to="/profile"
                     >
@@ -1143,8 +1168,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -1202,6 +1228,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="favourite-recipes"
                       replace={false}
                       to="/my_favourites"
                     >
@@ -1209,6 +1236,7 @@ ShallowWrapper {
                     </Link>
                     <Link
                       className="dropdown-item"
+                      id="profile"
                       replace={false}
                       to="/profile"
                     >
@@ -1269,8 +1297,9 @@ ShallowWrapper {
                 >
                   <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />
                 </form>
@@ -1328,6 +1357,7 @@ ShallowWrapper {
                       </Link>
                       <Link
                         className="dropdown-item"
+                        id="favourite-recipes"
                         replace={false}
                         to="/my_favourites"
                       >
@@ -1335,6 +1365,7 @@ ShallowWrapper {
                       </Link>
                       <Link
                         className="dropdown-item"
+                        id="profile"
                         replace={false}
                         to="/profile"
                       >
@@ -1417,8 +1448,9 @@ ShallowWrapper {
                   >
                     <input
                       className="form-control"
+                      id="search"
                       name="search"
-                      placeholder="search"
+                      placeholder="Recipe name or list of ingredients separed by ,"
                       type="text"
                     />
                   </form>,
@@ -1476,6 +1508,7 @@ ShallowWrapper {
                         </Link>
                         <Link
                           className="dropdown-item"
+                          id="favourite-recipes"
                           replace={false}
                           to="/my_favourites"
                         >
@@ -1483,6 +1516,7 @@ ShallowWrapper {
                         </Link>
                         <Link
                           className="dropdown-item"
+                          id="profile"
                           replace={false}
                           to="/profile"
                         >
@@ -1513,8 +1547,9 @@ ShallowWrapper {
                   "props": Object {
                     "children": <input
                       className="form-control"
+                      id="search"
                       name="search"
-                      placeholder="search"
+                      placeholder="Recipe name or list of ingredients separed by ,"
                       type="text"
                     />,
                     "className": "form-inline",
@@ -1528,8 +1563,9 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "className": "form-control",
+                      "id": "search",
                       "name": "search",
-                      "placeholder": "search",
+                      "placeholder": "Recipe name or list of ingredients separed by ,",
                       "type": "text",
                     },
                     "ref": null,
@@ -1595,6 +1631,7 @@ ShallowWrapper {
                           </Link>
                           <Link
                             className="dropdown-item"
+                            id="favourite-recipes"
                             replace={false}
                             to="/my_favourites"
                           >
@@ -1602,6 +1639,7 @@ ShallowWrapper {
                           </Link>
                           <Link
                             className="dropdown-item"
+                            id="profile"
                             replace={false}
                             to="/profile"
                           >
@@ -1715,6 +1753,7 @@ ShallowWrapper {
                             </Link>
                             <Link
                               className="dropdown-item"
+                              id="favourite-recipes"
                               replace={false}
                               to="/my_favourites"
                             >
@@ -1722,6 +1761,7 @@ ShallowWrapper {
                             </Link>
                             <Link
                               className="dropdown-item"
+                              id="profile"
                               replace={false}
                               to="/profile"
                             >
@@ -1783,6 +1823,7 @@ ShallowWrapper {
                               </Link>,
                               <Link
                                 className="dropdown-item"
+                                id="favourite-recipes"
                                 replace={false}
                                 to="/my_favourites"
                               >
@@ -1790,6 +1831,7 @@ ShallowWrapper {
                               </Link>,
                               <Link
                                 className="dropdown-item"
+                                id="profile"
                                 replace={false}
                                 to="/profile"
                               >
@@ -1846,6 +1888,7 @@ ShallowWrapper {
                               "props": Object {
                                 "children": "Favourites",
                                 "className": "dropdown-item",
+                                "id": "favourite-recipes",
                                 "replace": false,
                                 "to": "/my_favourites",
                               },
@@ -1860,6 +1903,7 @@ ShallowWrapper {
                               "props": Object {
                                 "children": "Profile",
                                 "className": "dropdown-item",
+                                "id": "profile",
                                 "replace": false,
                                 "to": "/profile",
                               },

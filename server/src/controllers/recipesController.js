@@ -1,4 +1,6 @@
 import model from '../models';
+import mail from '../helpers/mail';
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
 import modelPaginator from '../helpers/modelPaginator';
 import responseTypes from '../helpers/responseTypes';
 
@@ -28,24 +30,30 @@ class RecipeController {
  */
   static async allRecipe(request, response) {
     const sortBy = request.query.sort;
-    const orderBy = request.query.order;
+    let orderBy = request.query.order;
+    const { limit } = request.query;
 
-    if (sortBy && orderBy) {
+    if (sortBy && orderBy && sortBy !== 'undefined' && (orderBy === 'asc' || orderBy === 'desc')) {
       sortBy.toLowerCase();
-      orderBy.toUpperCase();
+      orderBy = orderBy.toUpperCase();
 
       try {
+        const where = {
+          [sortBy]: {
+            $ne: []
+          }
+        };
         const recipes = await Recipe.findAll({
-          where: {
-            upvotes: {
-              $ne: []
-            }
-          },
-          order: [
-            [sortBy, orderBy]
-          ],
+          where,
+          limit
         });
-        return successResponse(response, recipes, 200);
+        let newRecipes;
+        if (orderBy === 'DESC') {
+          newRecipes = recipes.sort((recipeA, recipeB) => recipeA[sortBy].length - recipeB[sortBy].length);
+        } else {
+          newRecipes = recipes.sort((a, b) => a[sortBy].length - b[sortBy].length);
+        }
+        return successResponse(response, newRecipes, 200);
       } catch (errors) {
         return failureResponse(response, 400, undefined, { errors });
       }
@@ -182,6 +190,24 @@ class RecipeController {
         const { body, id } = review;
         const newReview = { id, body };
         newReview.user = request.token;
+        const { protocol, params } = request;
+        const reviewLink = `${protocol}://${request.get('host')}/recipe/${params.id}`;
+
+        const { firstName, lastName } = request.token;
+
+        const user = await recipe.getUser();
+
+        const mailOptions = {
+          context: {
+            fullName: `${firstName} ${lastName}`,
+            reviewLink,
+            recipeName: recipe.name
+          },
+          email: user.email,
+          subject: 'Someone Just Review Your Recipe',
+          template: 'recipeReview'
+        };
+        mail(mailOptions);
         return successResponse(response, newReview, 200);
       }
     } catch (error) {
@@ -339,24 +365,21 @@ class RecipeController {
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static popularRecipe(request, response) {
-    Recipe.findAll({
-      where: {
-        upvotes: {
-          $ne: []
-        }
-      },
-    })
-      .then(popularRecipes => response.status(200).send({
-        status: 'Success',
-        data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
-          .splice(0, request.query.limit ? request.query.limit : popularRecipes.length)
-      }))
-      .catch(error => response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+  static async popularRecipe(request, response) {
+    try {
+      const popularRecipes = await Recipe.findAll({
+        where: {
+          upvotes: {
+            $ne: []
+          }
+        },
+      });
+      const data = popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
+        .splice(0, request.query.limit ? request.query.limit : popularRecipes.length);
+      return successResponse(response, data, 200);
+    } catch (error) {
+      return failureResponse(response, 500, undefined, error);
+    }
   }
 
   /**
@@ -368,17 +391,23 @@ class RecipeController {
    * @memberof RecipeController
    */
   static searchRecipes(request, response) {
-    const { search } = request.query;
+    let { search } = request.query;
+    search = search.split(',');
+    search = search.map((query) => {
+      query = convertToSentenceCase(query);
+      return query.trim();
+    });
+
     const where = {
       $or: [
         {
           name: {
-            $iLike: `%${search}%`
+            $iLike: search[0]
           },
         },
         {
           ingredients: {
-            $contains: [`${search}`]
+            $contains: search
           }
         }
       ]

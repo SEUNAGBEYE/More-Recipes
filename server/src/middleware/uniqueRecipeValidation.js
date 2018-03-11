@@ -1,26 +1,43 @@
 import model from '../models';
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
+import responseTypes from '../helpers/responseTypes';
+
+const { failureResponse, recipeExistMessage } = responseTypes;
 
 const { Recipe } = model;
 
 /**
- * @param {any} req
- * @param {any} res
- * @param {any} next
- * @returns {obj} obj
+ * @description - Unique Recipe Validation
+ *
+ * @param {Object} request
+ * @param {Object} response
+ * @param {Function} next
+ *
+ * @returns {Object} Object
  */
-function uniqueRecipeValidation(req, res, next) {
-  Recipe.find({
+const uniqueRecipeValidation = async (request, response, next) => {
+  const { token, body: { name } } = request;
+
+  const recipeName = convertToSentenceCase(name);
+  
+  const recipe = await Recipe.find({
     where: {
-      userId: req.token.userId,
-      name: req.body.name
+      userId: token.userId,
+      name: recipeName,
     }
-  })
-    .then((recipe) => {
-      if (recipe) {
-        return res.status(400).send({ status: 'Failure', errors: [{ message: 'You Already added A Recipe With This Name' }] });
-      }
-      next();
-    });
-}
+  });
+
+  if (recipe) {
+    if (request.method === 'PUT' && recipe.name === recipeName && recipe.id !== Number(request.params.id)) {
+      const error = [{ message: recipeExistMessage }];
+      return failureResponse(response, 400, undefined, error);
+    } else if (request.method === 'POST' && recipe.name === recipeName) {
+      const error = [{ message: recipeExistMessage }];
+      return failureResponse(response, 400, undefined, error);
+    }
+    return next();
+  }
+  next();
+};
 
 export default uniqueRecipeValidation;

@@ -695,119 +695,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": <form>
-                  <fieldset
-                    className="form-group"
-                  >
-                    <label
-                      className="form-inline"
-                      htmlFor="name"
-                    >
-                      Name
-                    </label>
-                    <input
-                      className="form-control"
-                      defaultValue="Recipe Name"
-                      id="recipeName"
-                      name="name"
-                      onChange={[Function]}
-                      type="text"
-                    />
-                  </fieldset>
-                  <fieldset
-                    className="form-group"
-                  >
-                    <label
-                      className="form-inline"
-                      htmlFor="recipeDescription"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      className="form-control"
-                      cols="50"
-                      defaultValue={undefined}
-                      id="description"
-                      name="description"
-                      onChange={[Function]}
-                      rows="5"
-                    />
-                  </fieldset>
-                  <fieldset
-                    className="form-group"
-                  >
-                    <label
-                      className="form-inline"
-                      htmlFor="image"
-                    >
-                      Picture
-                    </label>
-                    The maximum file size allowed is 4mb
-                    <input
-                      className="form-control"
-                      id="recipePicture1"
-                      name="image"
-                      type="file"
-                    />
-                  </fieldset>
-                  <fieldset>
-                    <button
-                      className="btn btn-default show-input fa fa-plus"
-                      id="ingredient"
-                      onClick={[Function]}
-                    >
-                      <strong>
-                        Ingredients
-                      </strong>
-                    </button>
-                  </fieldset>
-                  <fieldset>
-                    <button
-                      className="btn btn-default show-input fa fa-plus"
-                      id="step"
-                      onClick={[Function]}
-                    >
-                      <strong>
-                        Steps
-                      </strong>
-                    </button>
-                  </fieldset>
-                  <div
-                    className="modal-footer"
-                  >
-                    <Unknown
-                      component="div"
-                      loaded={true}
-                      loadedClassName="loadedContent"
-                      parentClassName="loader"
-                    />
-                    <button
-                      className="btn btn-secondary auth-button"
-                      data-update="update-recipe1"
-                      disabled={false}
-                      id={1}
-                      onClick={[Function]}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="btn btn-secondary auth-button"
-                      data-dismiss="modal"
-                      type="button"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>,
-                "className": "modal-body",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
+                "children": Array [
+                  Array [],
+                  <form>
                     <fieldset
                       className="form-group"
                     >
@@ -825,7 +715,7 @@ ShallowWrapper {
                         onChange={[Function]}
                         type="text"
                       />
-                    </fieldset>,
+                    </fieldset>
                     <fieldset
                       className="form-group"
                     >
@@ -844,7 +734,7 @@ ShallowWrapper {
                         onChange={[Function]}
                         rows="5"
                       />
-                    </fieldset>,
+                    </fieldset>
                     <fieldset
                       className="form-group"
                     >
@@ -861,8 +751,7 @@ ShallowWrapper {
                         name="image"
                         type="file"
                       />
-                    </fieldset>,
-                    Array [],
+                    </fieldset>
                     <fieldset>
                       <button
                         className="btn btn-default show-input fa fa-plus"
@@ -873,8 +762,7 @@ ShallowWrapper {
                           Ingredients
                         </strong>
                       </button>
-                    </fieldset>,
-                    Array [],
+                    </fieldset>
                     <fieldset>
                       <button
                         className="btn btn-default show-input fa fa-plus"
@@ -885,7 +773,7 @@ ShallowWrapper {
                           Steps
                         </strong>
                       </button>
-                    </fieldset>,
+                    </fieldset>
                     <div
                       className="modal-footer"
                     >
@@ -911,23 +799,28 @@ ShallowWrapper {
                       >
                         Cancel
                       </button>
-                    </div>,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
+                    </div>
+                  </form>,
+                ],
+                "className": "modal-body",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <fieldset
+                        className="form-group"
+                      >
                         <label
                           className="form-inline"
                           htmlFor="name"
                         >
                           Name
-                        </label>,
+                        </label>
                         <input
                           className="form-control"
                           defaultValue="Recipe Name"
@@ -935,56 +828,17 @@ ShallowWrapper {
                           name="name"
                           onChange={[Function]}
                           type="text"
-                        />,
-                      ],
-                      "className": "form-group",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Name",
-                          "className": "form-inline",
-                          "htmlFor": "name",
-                        },
-                        "ref": null,
-                        "rendered": "Name",
-                        "type": "label",
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "className": "form-control",
-                          "defaultValue": "Recipe Name",
-                          "id": "recipeName",
-                          "name": "name",
-                          "onChange": [Function],
-                          "type": "text",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": "input",
-                      },
-                    ],
-                    "type": "fieldset",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
+                        />
+                      </fieldset>,
+                      <fieldset
+                        className="form-group"
+                      >
                         <label
                           className="form-inline"
                           htmlFor="recipeDescription"
                         >
                           Description
-                        </label>,
+                        </label>
                         <textarea
                           className="form-control"
                           cols="50"
@@ -993,200 +847,58 @@ ShallowWrapper {
                           name="description"
                           onChange={[Function]}
                           rows="5"
-                        />,
-                      ],
-                      "className": "form-group",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Description",
-                          "className": "form-inline",
-                          "htmlFor": "recipeDescription",
-                        },
-                        "ref": null,
-                        "rendered": "Description",
-                        "type": "label",
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "className": "form-control",
-                          "cols": "50",
-                          "defaultValue": undefined,
-                          "id": "description",
-                          "name": "description",
-                          "onChange": [Function],
-                          "rows": "5",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": "textarea",
-                      },
-                    ],
-                    "type": "fieldset",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
+                        />
+                      </fieldset>,
+                      <fieldset
+                        className="form-group"
+                      >
                         <label
                           className="form-inline"
                           htmlFor="image"
                         >
                           Picture
-                        </label>,
-                        "The maximum file size allowed is 4mb",
+                        </label>
+                        The maximum file size allowed is 4mb
                         <input
                           className="form-control"
                           id="recipePicture1"
                           name="image"
                           type="file"
-                        />,
-                      ],
-                      "className": "form-group",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Picture",
-                          "className": "form-inline",
-                          "htmlFor": "image",
-                        },
-                        "ref": null,
-                        "rendered": "Picture",
-                        "type": "label",
-                      },
-                      "The maximum file size allowed is 4mb",
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "className": "form-control",
-                          "id": "recipePicture1",
-                          "name": "image",
-                          "type": "file",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": "input",
-                      },
-                    ],
-                    "type": "fieldset",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": <button
-                        className="btn btn-default show-input fa fa-plus"
-                        id="ingredient"
-                        onClick={[Function]}
+                        />
+                      </fieldset>,
+                      Array [],
+                      <fieldset>
+                        <button
+                          className="btn btn-default show-input fa fa-plus"
+                          id="ingredient"
+                          onClick={[Function]}
+                        >
+                          <strong>
+                            Ingredients
+                          </strong>
+                        </button>
+                      </fieldset>,
+                      Array [],
+                      <fieldset>
+                        <button
+                          className="btn btn-default show-input fa fa-plus"
+                          id="step"
+                          onClick={[Function]}
+                        >
+                          <strong>
+                            Steps
+                          </strong>
+                        </button>
+                      </fieldset>,
+                      <div
+                        className="modal-footer"
                       >
-                        <strong>
-                          Ingredients
-                        </strong>
-                      </button>,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <strong>
-                          Ingredients
-                        </strong>,
-                        "className": "btn btn-default show-input fa fa-plus",
-                        "id": "ingredient",
-                        "onClick": [Function],
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Ingredients",
-                        },
-                        "ref": null,
-                        "rendered": "Ingredients",
-                        "type": "strong",
-                      },
-                      "type": "button",
-                    },
-                    "type": "fieldset",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": <button
-                        className="btn btn-default show-input fa fa-plus"
-                        id="step"
-                        onClick={[Function]}
-                      >
-                        <strong>
-                          Steps
-                        </strong>
-                      </button>,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <strong>
-                          Steps
-                        </strong>,
-                        "className": "btn btn-default show-input fa fa-plus",
-                        "id": "step",
-                        "onClick": [Function],
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Steps",
-                        },
-                        "ref": null,
-                        "rendered": "Steps",
-                        "type": "strong",
-                      },
-                      "type": "button",
-                    },
-                    "type": "fieldset",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
                         <Unknown
                           component="div"
                           loaded={true}
                           loadedClassName="loadedContent"
                           parentClassName="loader"
-                        />,
+                        />
                         <button
                           className="btn btn-secondary auth-button"
                           data-update="update-recipe1"
@@ -1195,69 +907,362 @@ ShallowWrapper {
                           onClick={[Function]}
                         >
                           Update
-                        </button>,
+                        </button>
                         <button
                           className="btn btn-secondary auth-button"
                           data-dismiss="modal"
                           type="button"
                         >
                           Cancel
-                        </button>,
-                      ],
-                      "className": "modal-footer",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "component": "div",
-                          "loaded": true,
-                          "loadedClassName": "loadedContent",
-                          "parentClassName": "loader",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
+                        </button>
+                      </div>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="name"
+                          >
+                            Name
+                          </label>,
+                          <input
+                            className="form-control"
+                            defaultValue="Recipe Name"
+                            id="recipeName"
+                            name="name"
+                            onChange={[Function]}
+                            type="text"
+                          />,
+                        ],
+                        "className": "form-group",
                       },
-                      Object {
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Name",
+                            "className": "form-inline",
+                            "htmlFor": "name",
+                          },
+                          "ref": null,
+                          "rendered": "Name",
+                          "type": "label",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "defaultValue": "Recipe Name",
+                            "id": "recipeName",
+                            "name": "name",
+                            "onChange": [Function],
+                            "type": "text",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "input",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="recipeDescription"
+                          >
+                            Description
+                          </label>,
+                          <textarea
+                            className="form-control"
+                            cols="50"
+                            defaultValue={undefined}
+                            id="description"
+                            name="description"
+                            onChange={[Function]}
+                            rows="5"
+                          />,
+                        ],
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Description",
+                            "className": "form-inline",
+                            "htmlFor": "recipeDescription",
+                          },
+                          "ref": null,
+                          "rendered": "Description",
+                          "type": "label",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "cols": "50",
+                            "defaultValue": undefined,
+                            "id": "description",
+                            "name": "description",
+                            "onChange": [Function],
+                            "rows": "5",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "textarea",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <label
+                            className="form-inline"
+                            htmlFor="image"
+                          >
+                            Picture
+                          </label>,
+                          "The maximum file size allowed is 4mb",
+                          <input
+                            className="form-control"
+                            id="recipePicture1"
+                            name="image"
+                            type="file"
+                          />,
+                        ],
+                        "className": "form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Picture",
+                            "className": "form-inline",
+                            "htmlFor": "image",
+                          },
+                          "ref": null,
+                          "rendered": "Picture",
+                          "type": "label",
+                        },
+                        "The maximum file size allowed is 4mb",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "id": "recipePicture1",
+                            "name": "image",
+                            "type": "file",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "input",
+                        },
+                      ],
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <button
+                          className="btn btn-default show-input fa fa-plus"
+                          id="ingredient"
+                          onClick={[Function]}
+                        >
+                          <strong>
+                            Ingredients
+                          </strong>
+                        </button>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
                         "instance": null,
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "Update",
-                          "className": "btn btn-secondary auth-button",
-                          "data-update": "update-recipe1",
-                          "disabled": false,
-                          "id": 1,
+                          "children": <strong>
+                            Ingredients
+                          </strong>,
+                          "className": "btn btn-default show-input fa fa-plus",
+                          "id": "ingredient",
                           "onClick": [Function],
                         },
                         "ref": null,
-                        "rendered": "Update",
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Ingredients",
+                          },
+                          "ref": null,
+                          "rendered": "Ingredients",
+                          "type": "strong",
+                        },
                         "type": "button",
                       },
-                      Object {
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <button
+                          className="btn btn-default show-input fa fa-plus"
+                          id="step"
+                          onClick={[Function]}
+                        >
+                          <strong>
+                            Steps
+                          </strong>
+                        </button>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
                         "instance": null,
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "Cancel",
-                          "className": "btn btn-secondary auth-button",
-                          "data-dismiss": "modal",
-                          "type": "button",
+                          "children": <strong>
+                            Steps
+                          </strong>,
+                          "className": "btn btn-default show-input fa fa-plus",
+                          "id": "step",
+                          "onClick": [Function],
                         },
                         "ref": null,
-                        "rendered": "Cancel",
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Steps",
+                          },
+                          "ref": null,
+                          "rendered": "Steps",
+                          "type": "strong",
+                        },
                         "type": "button",
                       },
-                    ],
-                    "type": "div",
-                  },
-                ],
-                "type": "form",
-              },
+                      "type": "fieldset",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <Unknown
+                            component="div"
+                            loaded={true}
+                            loadedClassName="loadedContent"
+                            parentClassName="loader"
+                          />,
+                          <button
+                            className="btn btn-secondary auth-button"
+                            data-update="update-recipe1"
+                            disabled={false}
+                            id={1}
+                            onClick={[Function]}
+                          >
+                            Update
+                          </button>,
+                          <button
+                            className="btn btn-secondary auth-button"
+                            data-dismiss="modal"
+                            type="button"
+                          >
+                            Cancel
+                          </button>,
+                        ],
+                        "className": "modal-footer",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "component": "div",
+                            "loaded": true,
+                            "loadedClassName": "loadedContent",
+                            "parentClassName": "loader",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Update",
+                            "className": "btn btn-secondary auth-button",
+                            "data-update": "update-recipe1",
+                            "disabled": false,
+                            "id": 1,
+                            "onClick": [Function],
+                          },
+                          "ref": null,
+                          "rendered": "Update",
+                          "type": "button",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Cancel",
+                            "className": "btn btn-secondary auth-button",
+                            "data-dismiss": "modal",
+                            "type": "button",
+                          },
+                          "ref": null,
+                          "rendered": "Cancel",
+                          "type": "button",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                  ],
+                  "type": "form",
+                },
+              ],
               "type": "div",
             },
           ],
@@ -1941,119 +1946,9 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": <form>
-                    <fieldset
-                      className="form-group"
-                    >
-                      <label
-                        className="form-inline"
-                        htmlFor="name"
-                      >
-                        Name
-                      </label>
-                      <input
-                        className="form-control"
-                        defaultValue="Recipe Name"
-                        id="recipeName"
-                        name="name"
-                        onChange={[Function]}
-                        type="text"
-                      />
-                    </fieldset>
-                    <fieldset
-                      className="form-group"
-                    >
-                      <label
-                        className="form-inline"
-                        htmlFor="recipeDescription"
-                      >
-                        Description
-                      </label>
-                      <textarea
-                        className="form-control"
-                        cols="50"
-                        defaultValue={undefined}
-                        id="description"
-                        name="description"
-                        onChange={[Function]}
-                        rows="5"
-                      />
-                    </fieldset>
-                    <fieldset
-                      className="form-group"
-                    >
-                      <label
-                        className="form-inline"
-                        htmlFor="image"
-                      >
-                        Picture
-                      </label>
-                      The maximum file size allowed is 4mb
-                      <input
-                        className="form-control"
-                        id="recipePicture1"
-                        name="image"
-                        type="file"
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <button
-                        className="btn btn-default show-input fa fa-plus"
-                        id="ingredient"
-                        onClick={[Function]}
-                      >
-                        <strong>
-                          Ingredients
-                        </strong>
-                      </button>
-                    </fieldset>
-                    <fieldset>
-                      <button
-                        className="btn btn-default show-input fa fa-plus"
-                        id="step"
-                        onClick={[Function]}
-                      >
-                        <strong>
-                          Steps
-                        </strong>
-                      </button>
-                    </fieldset>
-                    <div
-                      className="modal-footer"
-                    >
-                      <Unknown
-                        component="div"
-                        loaded={true}
-                        loadedClassName="loadedContent"
-                        parentClassName="loader"
-                      />
-                      <button
-                        className="btn btn-secondary auth-button"
-                        data-update="update-recipe1"
-                        disabled={false}
-                        id={1}
-                        onClick={[Function]}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className="btn btn-secondary auth-button"
-                        data-dismiss="modal"
-                        type="button"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>,
-                  "className": "modal-body",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
+                  "children": Array [
+                    Array [],
+                    <form>
                       <fieldset
                         className="form-group"
                       >
@@ -2071,7 +1966,7 @@ ShallowWrapper {
                           onChange={[Function]}
                           type="text"
                         />
-                      </fieldset>,
+                      </fieldset>
                       <fieldset
                         className="form-group"
                       >
@@ -2090,7 +1985,7 @@ ShallowWrapper {
                           onChange={[Function]}
                           rows="5"
                         />
-                      </fieldset>,
+                      </fieldset>
                       <fieldset
                         className="form-group"
                       >
@@ -2107,8 +2002,7 @@ ShallowWrapper {
                           name="image"
                           type="file"
                         />
-                      </fieldset>,
-                      Array [],
+                      </fieldset>
                       <fieldset>
                         <button
                           className="btn btn-default show-input fa fa-plus"
@@ -2119,8 +2013,7 @@ ShallowWrapper {
                             Ingredients
                           </strong>
                         </button>
-                      </fieldset>,
-                      Array [],
+                      </fieldset>
                       <fieldset>
                         <button
                           className="btn btn-default show-input fa fa-plus"
@@ -2131,7 +2024,7 @@ ShallowWrapper {
                             Steps
                           </strong>
                         </button>
-                      </fieldset>,
+                      </fieldset>
                       <div
                         className="modal-footer"
                       >
@@ -2157,23 +2050,28 @@ ShallowWrapper {
                         >
                           Cancel
                         </button>
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
+                      </div>
+                    </form>,
+                  ],
+                  "className": "modal-body",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <fieldset
+                          className="form-group"
+                        >
                           <label
                             className="form-inline"
                             htmlFor="name"
                           >
                             Name
-                          </label>,
+                          </label>
                           <input
                             className="form-control"
                             defaultValue="Recipe Name"
@@ -2181,56 +2079,17 @@ ShallowWrapper {
                             name="name"
                             onChange={[Function]}
                             type="text"
-                          />,
-                        ],
-                        "className": "form-group",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Name",
-                            "className": "form-inline",
-                            "htmlFor": "name",
-                          },
-                          "ref": null,
-                          "rendered": "Name",
-                          "type": "label",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "className": "form-control",
-                            "defaultValue": "Recipe Name",
-                            "id": "recipeName",
-                            "name": "name",
-                            "onChange": [Function],
-                            "type": "text",
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": "input",
-                        },
-                      ],
-                      "type": "fieldset",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
+                          />
+                        </fieldset>,
+                        <fieldset
+                          className="form-group"
+                        >
                           <label
                             className="form-inline"
                             htmlFor="recipeDescription"
                           >
                             Description
-                          </label>,
+                          </label>
                           <textarea
                             className="form-control"
                             cols="50"
@@ -2239,200 +2098,58 @@ ShallowWrapper {
                             name="description"
                             onChange={[Function]}
                             rows="5"
-                          />,
-                        ],
-                        "className": "form-group",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Description",
-                            "className": "form-inline",
-                            "htmlFor": "recipeDescription",
-                          },
-                          "ref": null,
-                          "rendered": "Description",
-                          "type": "label",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "className": "form-control",
-                            "cols": "50",
-                            "defaultValue": undefined,
-                            "id": "description",
-                            "name": "description",
-                            "onChange": [Function],
-                            "rows": "5",
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": "textarea",
-                        },
-                      ],
-                      "type": "fieldset",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
+                          />
+                        </fieldset>,
+                        <fieldset
+                          className="form-group"
+                        >
                           <label
                             className="form-inline"
                             htmlFor="image"
                           >
                             Picture
-                          </label>,
-                          "The maximum file size allowed is 4mb",
+                          </label>
+                          The maximum file size allowed is 4mb
                           <input
                             className="form-control"
                             id="recipePicture1"
                             name="image"
                             type="file"
-                          />,
-                        ],
-                        "className": "form-group",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Picture",
-                            "className": "form-inline",
-                            "htmlFor": "image",
-                          },
-                          "ref": null,
-                          "rendered": "Picture",
-                          "type": "label",
-                        },
-                        "The maximum file size allowed is 4mb",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "className": "form-control",
-                            "id": "recipePicture1",
-                            "name": "image",
-                            "type": "file",
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": "input",
-                        },
-                      ],
-                      "type": "fieldset",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <button
-                          className="btn btn-default show-input fa fa-plus"
-                          id="ingredient"
-                          onClick={[Function]}
+                          />
+                        </fieldset>,
+                        Array [],
+                        <fieldset>
+                          <button
+                            className="btn btn-default show-input fa fa-plus"
+                            id="ingredient"
+                            onClick={[Function]}
+                          >
+                            <strong>
+                              Ingredients
+                            </strong>
+                          </button>
+                        </fieldset>,
+                        Array [],
+                        <fieldset>
+                          <button
+                            className="btn btn-default show-input fa fa-plus"
+                            id="step"
+                            onClick={[Function]}
+                          >
+                            <strong>
+                              Steps
+                            </strong>
+                          </button>
+                        </fieldset>,
+                        <div
+                          className="modal-footer"
                         >
-                          <strong>
-                            Ingredients
-                          </strong>
-                        </button>,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <strong>
-                            Ingredients
-                          </strong>,
-                          "className": "btn btn-default show-input fa fa-plus",
-                          "id": "ingredient",
-                          "onClick": [Function],
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Ingredients",
-                          },
-                          "ref": null,
-                          "rendered": "Ingredients",
-                          "type": "strong",
-                        },
-                        "type": "button",
-                      },
-                      "type": "fieldset",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <button
-                          className="btn btn-default show-input fa fa-plus"
-                          id="step"
-                          onClick={[Function]}
-                        >
-                          <strong>
-                            Steps
-                          </strong>
-                        </button>,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <strong>
-                            Steps
-                          </strong>,
-                          "className": "btn btn-default show-input fa fa-plus",
-                          "id": "step",
-                          "onClick": [Function],
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Steps",
-                          },
-                          "ref": null,
-                          "rendered": "Steps",
-                          "type": "strong",
-                        },
-                        "type": "button",
-                      },
-                      "type": "fieldset",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
                           <Unknown
                             component="div"
                             loaded={true}
                             loadedClassName="loadedContent"
                             parentClassName="loader"
-                          />,
+                          />
                           <button
                             className="btn btn-secondary auth-button"
                             data-update="update-recipe1"
@@ -2441,69 +2158,362 @@ ShallowWrapper {
                             onClick={[Function]}
                           >
                             Update
-                          </button>,
+                          </button>
                           <button
                             className="btn btn-secondary auth-button"
                             data-dismiss="modal"
                             type="button"
                           >
                             Cancel
-                          </button>,
-                        ],
-                        "className": "modal-footer",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "component": "div",
-                            "loaded": true,
-                            "loadedClassName": "loadedContent",
-                            "parentClassName": "loader",
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
+                          </button>
+                        </div>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="name"
+                            >
+                              Name
+                            </label>,
+                            <input
+                              className="form-control"
+                              defaultValue="Recipe Name"
+                              id="recipeName"
+                              name="name"
+                              onChange={[Function]}
+                              type="text"
+                            />,
+                          ],
+                          "className": "form-group",
                         },
-                        Object {
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Name",
+                              "className": "form-inline",
+                              "htmlFor": "name",
+                            },
+                            "ref": null,
+                            "rendered": "Name",
+                            "type": "label",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "defaultValue": "Recipe Name",
+                              "id": "recipeName",
+                              "name": "name",
+                              "onChange": [Function],
+                              "type": "text",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="recipeDescription"
+                            >
+                              Description
+                            </label>,
+                            <textarea
+                              className="form-control"
+                              cols="50"
+                              defaultValue={undefined}
+                              id="description"
+                              name="description"
+                              onChange={[Function]}
+                              rows="5"
+                            />,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Description",
+                              "className": "form-inline",
+                              "htmlFor": "recipeDescription",
+                            },
+                            "ref": null,
+                            "rendered": "Description",
+                            "type": "label",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "cols": "50",
+                              "defaultValue": undefined,
+                              "id": "description",
+                              "name": "description",
+                              "onChange": [Function],
+                              "rows": "5",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "textarea",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <label
+                              className="form-inline"
+                              htmlFor="image"
+                            >
+                              Picture
+                            </label>,
+                            "The maximum file size allowed is 4mb",
+                            <input
+                              className="form-control"
+                              id="recipePicture1"
+                              name="image"
+                              type="file"
+                            />,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Picture",
+                              "className": "form-inline",
+                              "htmlFor": "image",
+                            },
+                            "ref": null,
+                            "rendered": "Picture",
+                            "type": "label",
+                          },
+                          "The maximum file size allowed is 4mb",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "id": "recipePicture1",
+                              "name": "image",
+                              "type": "file",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                        ],
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <button
+                            className="btn btn-default show-input fa fa-plus"
+                            id="ingredient"
+                            onClick={[Function]}
+                          >
+                            <strong>
+                              Ingredients
+                            </strong>
+                          </button>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
                           "instance": null,
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "Update",
-                            "className": "btn btn-secondary auth-button",
-                            "data-update": "update-recipe1",
-                            "disabled": false,
-                            "id": 1,
+                            "children": <strong>
+                              Ingredients
+                            </strong>,
+                            "className": "btn btn-default show-input fa fa-plus",
+                            "id": "ingredient",
                             "onClick": [Function],
                           },
                           "ref": null,
-                          "rendered": "Update",
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Ingredients",
+                            },
+                            "ref": null,
+                            "rendered": "Ingredients",
+                            "type": "strong",
+                          },
                           "type": "button",
                         },
-                        Object {
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <button
+                            className="btn btn-default show-input fa fa-plus"
+                            id="step"
+                            onClick={[Function]}
+                          >
+                            <strong>
+                              Steps
+                            </strong>
+                          </button>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
                           "instance": null,
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "Cancel",
-                            "className": "btn btn-secondary auth-button",
-                            "data-dismiss": "modal",
-                            "type": "button",
+                            "children": <strong>
+                              Steps
+                            </strong>,
+                            "className": "btn btn-default show-input fa fa-plus",
+                            "id": "step",
+                            "onClick": [Function],
                           },
                           "ref": null,
-                          "rendered": "Cancel",
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Steps",
+                            },
+                            "ref": null,
+                            "rendered": "Steps",
+                            "type": "strong",
+                          },
                           "type": "button",
                         },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": "form",
-                },
+                        "type": "fieldset",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <Unknown
+                              component="div"
+                              loaded={true}
+                              loadedClassName="loadedContent"
+                              parentClassName="loader"
+                            />,
+                            <button
+                              className="btn btn-secondary auth-button"
+                              data-update="update-recipe1"
+                              disabled={false}
+                              id={1}
+                              onClick={[Function]}
+                            >
+                              Update
+                            </button>,
+                            <button
+                              className="btn btn-secondary auth-button"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                              Cancel
+                            </button>,
+                          ],
+                          "className": "modal-footer",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "class",
+                            "props": Object {
+                              "component": "div",
+                              "loaded": true,
+                              "loadedClassName": "loadedContent",
+                              "parentClassName": "loader",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": [Function],
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Update",
+                              "className": "btn btn-secondary auth-button",
+                              "data-update": "update-recipe1",
+                              "disabled": false,
+                              "id": 1,
+                              "onClick": [Function],
+                            },
+                            "ref": null,
+                            "rendered": "Update",
+                            "type": "button",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Cancel",
+                              "className": "btn btn-secondary auth-button",
+                              "data-dismiss": "modal",
+                              "type": "button",
+                            },
+                            "ref": null,
+                            "rendered": "Cancel",
+                            "type": "button",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                    ],
+                    "type": "form",
+                  },
+                ],
                 "type": "div",
               },
             ],

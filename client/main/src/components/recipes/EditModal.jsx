@@ -28,7 +28,7 @@ export default class EditModal extends Component {
       image,
       ingredients,
       steps,
-      errors: {},
+      errors: [],
       stepsTimes: '',
       ingredientsTimes: [],
       loaded: true,
@@ -126,32 +126,35 @@ export default class EditModal extends Component {
    *  @returns {void} void
    * @memberof EditModal
    */
-  updateRecipe(event) {
+  async updateRecipe(event) {
     event.preventDefault();
     const { id } = event.target;
+    this.setState({ loaded: false });
     const file = document.getElementById(`recipePicture${id}`).files[0];
     if (file) {
-      if (file.size > 4000000) {
-        return toastr.warning('File too Large');
-      } else {
-        this.setState({ loaded: false });
-        imageUpload(file)
-          .then(res => {
-            this.setState({ image: res.data.secure_url }, () => {
-              setAuthorizationToken(localStorage.token);
-              this.props.editRecipe(this.props.recipe.id, this.state);
-              this.setState({ loaded: true });
-              $('.modal').modal('hide');
-            });
-          })
-          .catch(error => {
+      try {
+        const image = await imageUpload(file);
+        this.setState({ image: image.data.secure_url }, async () => {
+          setAuthorizationToken(localStorage.token);
+          const response = await this.props.editRecipe(id, this.state);
+          if (response.status !== 'Failure') {
+            $('.modal').modal('hide');
             this.setState({ loaded: true });
-          });
+          } else {
+            this.setState({ errors: response.errors, loaded: true });
+          }
+        });
+      } catch (error) {
+        this.setState({ loaded: true });
       }
     } else {
-      this.setState({ loaded: true, image: this.props.recipe.image });
-      this.props.editRecipe(this.props.recipe.id, this.state);
-      $('.modal').modal('hide');
+      const response = await this.props.editRecipe(id, this.state);
+      if (response.status !== 'Failure') {
+        $('.modal').modal('hide');
+        this.setState({ loaded: true });
+      } else {
+        this.setState({ errors: response.errors, loaded: true });
+      }
     }
   }
 
@@ -184,7 +187,7 @@ export default class EditModal extends Component {
         removeInput={this.removeIngredientsInput}
       />
     ));
-
+    const { errors } = this.state;
     return (
       <div>
         <div className="modal fade" id={`editModal${recipe.id}`}
@@ -203,6 +206,11 @@ export default class EditModal extends Component {
               </div>
 
               <div className="modal-body">
+                {errors.map(error => (
+                  <ul key={uuid()}>
+                    <li className="text-danger">{error.message}</li>
+                  </ul>))
+                }
                 <form>
                   <fieldset className="form-group">
                     <label htmlFor="name" className="form-inline">Name</label>

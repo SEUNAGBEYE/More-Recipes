@@ -87,7 +87,8 @@ class LoginPage extends Component {
   }
 
   /**
-   * @param {obj} event
+   * @param {Object} event
+   *
    * @returns {void} void
    * @memberof LoginPage
    */

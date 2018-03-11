@@ -27,21 +27,25 @@ const responseTypes = {
    * @param {object} data object
    * @param {Number} statusCode
    * @param {Number} [pagination=undefined]
+   * @param {String} [message=undefined]
    *
    * @returns {Object} Object
    */
-  successResponse(response, data, statusCode, pagination = undefined) {
+  successResponse(response, data, statusCode, pagination = undefined, message = undefined) {
     return response.status(statusCode)
       .send({
         status: 'Success',
+        message,
         data,
-        pagination
+        pagination,
       });
   },
   recipeNotFoundMessage: 'Recipe Not Found',
   userNotFoundMessage: 'User Not Found',
   notAuthorizeMessage: 'Not Authorize',
-  invalidCredentials: 'Invalid Password or Email'
+  invalidCredentials: 'Invalid Password or Email',
+  passwordChangedMessage: 'Password Changes',
+  recipeExistMessage: 'You Already added A Recipe With This Name'
 };
 
 

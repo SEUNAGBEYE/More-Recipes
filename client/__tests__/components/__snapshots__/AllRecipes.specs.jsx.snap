@@ -61,6 +61,9 @@ ShallowWrapper {
             className="container"
           >
             <Connect(CategoryButton) />
+            <SortButton
+              sortRecipes={[Function]}
+            />
           </div>
           <div
             className="container"
@@ -80,10 +83,6 @@ ShallowWrapper {
               </h4>
               <br />
               <br />
-              <RecipeModal
-                addRecipe={[Function]}
-                recipeCategories={Array []}
-              />
             </div>
             <div
               className="row"
@@ -113,6 +112,9 @@ ShallowWrapper {
               className="container"
             >
               <Connect(CategoryButton) />
+              <SortButton
+                sortRecipes={[Function]}
+              />
             </div>,
             <div
               className="container"
@@ -132,10 +134,6 @@ ShallowWrapper {
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
@@ -161,19 +159,37 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": <Connect(CategoryButton) />,
+              "children": Array [
+                <Connect(CategoryButton) />,
+                <SortButton
+                  sortRecipes={[Function]}
+                />,
+              ],
               "className": "container",
             },
             "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "sortRecipes": [Function],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
             "type": "div",
           },
           Object {
@@ -197,10 +213,6 @@ ShallowWrapper {
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>,
                 <div
                   className="row"
@@ -231,10 +243,6 @@ ShallowWrapper {
                     </h4>,
                     <br />,
                     <br />,
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />,
                   ],
                   "style": Object {
                     "marginTop": 100,
@@ -272,18 +280,6 @@ ShallowWrapper {
                     "ref": null,
                     "rendered": null,
                     "type": "br",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "addRecipe": [Function],
-                      "recipeCategories": Array [],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
                   },
                 ],
                 "type": "div",
@@ -359,6 +355,9 @@ ShallowWrapper {
               className="container"
             >
               <Connect(CategoryButton) />
+              <SortButton
+                sortRecipes={[Function]}
+              />
             </div>
             <div
               className="container"
@@ -378,10 +377,6 @@ ShallowWrapper {
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
@@ -411,6 +406,9 @@ ShallowWrapper {
                 className="container"
               >
                 <Connect(CategoryButton) />
+                <SortButton
+                  sortRecipes={[Function]}
+                />
               </div>,
               <div
                 className="container"
@@ -430,10 +428,6 @@ ShallowWrapper {
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>
                 <div
                   className="row"
@@ -459,19 +453,37 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": <Connect(CategoryButton) />,
+                "children": Array [
+                  <Connect(CategoryButton) />,
+                  <SortButton
+                    sortRecipes={[Function]}
+                  />,
+                ],
                 "className": "container",
               },
               "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "sortRecipes": [Function],
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
               "type": "div",
             },
             Object {
@@ -495,10 +507,6 @@ ShallowWrapper {
                     </h4>
                     <br />
                     <br />
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />
                   </div>,
                   <div
                     className="row"
@@ -529,10 +537,6 @@ ShallowWrapper {
                       </h4>,
                       <br />,
                       <br />,
-                      <RecipeModal
-                        addRecipe={[Function]}
-                        recipeCategories={Array []}
-                      />,
                     ],
                     "style": Object {
                       "marginTop": 100,
@@ -570,18 +574,6 @@ ShallowWrapper {
                       "ref": null,
                       "rendered": null,
                       "type": "br",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "addRecipe": [Function],
-                        "recipeCategories": Array [],
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
                     },
                   ],
                   "type": "div",
