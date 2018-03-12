@@ -393,16 +393,13 @@ class RecipeController {
   static searchRecipes(request, response) {
     let { search } = request.query;
     search = search.split(',');
-    search = search.map((query) => {
-      query = convertToSentenceCase(query);
-      return query.trim();
-    });
+    search = search.map(query => query.trim());
 
     const where = {
       $or: [
         {
           name: {
-            $iLike: search[0]
+            $iLike: convertToSentenceCase(search[0])
           },
         },
         {
