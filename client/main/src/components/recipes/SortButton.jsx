@@ -26,14 +26,14 @@ const sortBy = [
  * @description - Component for selecting category to display
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const SortButton = (props) => (
   <div className="dropdown" style={{ float: 'right' }}
     data-category-button="category-button"
   >
     <button className="btn btn-default dropdown-toggle auth-button"
-      type="button" id="about-us" data-toggle="dropdown"
+      type="button" id="sort-button" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">Sort By
     </button>
     <div className="dropdown-menu" aria-labelledby="about-us">

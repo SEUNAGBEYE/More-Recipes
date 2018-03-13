@@ -32,8 +32,9 @@ const mailer = (mailData) => {
       template,
       context
     };
+    const viewPath = 'server/src/email-templates';
     transporter.use('compile', handleBars({
-      viewPath: 'server/src/email-templates',
+      viewPath,
       extName: '.hbs'
     }));
 

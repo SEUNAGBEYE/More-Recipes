@@ -1,46 +1,65 @@
 import jwt from 'jsonwebtoken';
+import responseTypes from '../helpers/responseTypes';
 
+const {
+  failureResponse,
+  tokenNotValidMessage,
+  sendATokenMessage
+} = responseTypes;
 
-const decodeToken = (req, res, next, token) => {
+/**
+ * @description - use for decoding token
+ *
+ * @param {Object} request
+ * @param {Object} response
+ * @param {Function} next
+ * @param {String} token
+ *
+ * @returns {Object} Object
+ */
+const decodeToken = (request, response, next, token) => {
   jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
     if (!error) {
-      req.token = decode;
+      request.token = decode;
       return next();
     }
-    return res.status(400).send({
-      status: 'Bad Request',
-      message: 'Token Not Valid'
-    });
+    return failureResponse(response, 400, tokenNotValidMessage);
   });
 };
 
-const authMiddleware = (req, res, next) => {
-  let token = req.headers['x-access-token'] || req.headers.token || req.body.token || req.params.token;
+/**
+ * @description - User's Authentication Middleware
+ *
+ * @param {Object} request
+ * @param {Object} response
+ * @param {Function} next
+ *
+ * @returns {Object} Object
+ */
+const authMiddleware = (request, response, next) => {
+  let token = request.headers['x-access-token'] || request.headers.token || request.body.token || request.params.token;
   if (process.env.NODE_ENV === 'test') {
     if (!token) {
       token = 1;
     }
     if (typeof token === 'number') {
-      req.token = { userId: token };
+      request.token = { userId: token };
       return next();
     } else if (typeof token === 'string') {
-      return decodeToken(req, res, next, token);
+      return decodeToken(request, response, next, token);
     }
   }
 
   if (token) {
-    return decodeToken(req, res, next, token);
+    return decodeToken(request, response, next, token);
   }
 
   // Check if the route is for getting a single recipe
-  if (req.method === 'GET' && req.baseUrl === '/api/v1/recipes' && req.params.id) {
-    req.token = {};
+  if (request.method === 'GET' && request.baseUrl === '/api/v1/recipes' && request.params.id) {
+    request.token = {};
     return next();
   }
-  return res.status(400).send({
-    status: 'Bad Request',
-    message: 'Please send a token!'
-  });
+  return failureResponse(response, 400, sendATokenMessage);
 };
 
 export default authMiddleware;
