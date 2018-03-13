@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ForgotPasswordModal from '../users/ForgotPasswordModal';
 
+/**
+ * @description - Renders SignUpForm
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const SignUpForm = (props) => (
   <div>
     <form className="auth-form" id="signFormContainer">
@@ -52,7 +59,9 @@ const SignUpForm = (props) => (
       </fieldset>
 
       <fieldset className="form-group">
-        <label htmlFor="confirmPassword" className="form-inline">Confirm Password</label>
+        <label htmlFor="confirmPassword" className="form-inline">
+          Confirm Password
+        </label>
         <input type="password" className="form-control"
           name="confirmPassword"
           id="confirmPassword"
@@ -64,7 +73,8 @@ const SignUpForm = (props) => (
         <div className="errors">
           <ul>
             {
-              props.state.errors.map((error, index) => (<li key={index}>{error.message}</li>))
+              props.state.errors
+                .map((error, index) => (<li key={index}>{error.message}</li>))
             }
           </ul>
         </div>
@@ -76,7 +86,11 @@ const SignUpForm = (props) => (
           onClick={props.onSubmit}
         >Signup</button>
         <Link to="/login" style={{ paddingTop: 10 }}>Already a member</Link>
-        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</Link>
+        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal"
+          data-target="#forgotPasswordModal"
+        >
+        Forgot Password
+        </Link>
       </div>
     </form><br />
     <ForgotPasswordModal onChange={props.onChange}

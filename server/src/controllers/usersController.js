@@ -13,6 +13,7 @@ const {
   userNotFoundMessage,
   invalidCredentials,
   notAuthorizeMessage,
+  passwordNotMatchMessage,
   passwordChangedMessage
 } = responseTypes;
 
@@ -257,39 +258,38 @@ class UserController {
    * @memberof UserController
    */
   static async updateProfile(request, response) {
+    const { oldPassword } = request.body;
     const user = await User.findById(request.token.userId, {
       attributes: {
-        exclude: ['password', 'createdAt', 'updatedAt', 'rememberToken']
+        exclude: ['createdAt', 'updatedAt', 'rememberToken']
       }
     });
 
     if (!user) {
-      return response.status(404).send({
-        status: 'Failure',
-        message: 'User Not Found'
-      });
+      return failureResponse(response, 404, userNotFoundMessage);
+    }
+
+    if (oldPassword) {
+      const bcryptResponse = await bcrypt.compare(oldPassword, user.password);
+      if (!bcryptResponse) {
+        return failureResponse(response, 400, passwordNotMatchMessage);
+      }
     }
 
     if (user.id === request.token.userId) {
       try {
         const updatedUser = await user
           .update(request.body, { fields: Object.keys(request.body) });
-        const { id: userId, ...data } = updatedUser.get();
+        // clone everything in the user object except password and id
+        const { id: userId, password, ...data } = updatedUser.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
         response.status(200).send({ status: 'Success', data: { token } });
       } catch (errors) {
-        return response.status(400).send({
-          status: 'Failure',
-          message: 'Bad Request',
-          errors: errors.message
-        });
+        return failureResponse(response, 400, undefined, [errors]);
       }
-      return response.status(403).send({
-        status: 'Failure',
-        message: 'Not Authorize'
-      });
     }
+    return failureResponse(response, 400, notAuthorizeMessage);
   }
 
   /**
@@ -355,34 +355,31 @@ class UserController {
     if (!user) {
       return failureResponse(response, 404, userNotFoundMessage);
     }
-    if (user.rememberToken === rememberToken) {
-      try {
-        await user
-          .update(request.body, { fields: Object.keys(request.body) });
-        const { protocol } = request;
-        const welcomeLink = `${protocol}://${request.get('host')}`;
-        const mailOptions = {
-          context: {
-            fullName: `${user.firstName} ${user.lastName}`,
-            welcomeLink
-          },
-          email: user.email,
-          subject: 'Password Changed',
-          template: 'resetPasswordSuccessful'
-        };
-        mail(mailOptions);
-        return successResponse(
-          response,
-          {},
-          200,
-          undefined,
-          passwordChangedMessage
-        );
-      } catch (error) {
-        return failureResponse(response, 400, undefined, error.message);
-      }
+    try {
+      await user
+        .update(request.body, { fields: Object.keys(request.body) });
+      const { protocol } = request;
+      const welcomeLink = `${protocol}://${request.get('host')}`;
+      const mailOptions = {
+        context: {
+          fullName: `${user.firstName} ${user.lastName}`,
+          welcomeLink
+        },
+        email: user.email,
+        subject: 'Password Changed',
+        template: 'resetPasswordSuccessful'
+      };
+      mail(mailOptions);
+      return successResponse(
+        response,
+        {},
+        200,
+        undefined,
+        passwordChangedMessage
+      );
+    } catch (error) {
+      return failureResponse(response, 400, undefined, error.message);
     }
-    return failureResponse(response, 403, notAuthorizeMessage);
   }
 }
 

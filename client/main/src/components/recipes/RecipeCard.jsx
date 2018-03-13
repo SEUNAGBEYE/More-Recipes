@@ -53,7 +53,7 @@ export class RecipeCard extends Component {
    * @returns {void} void
    * @memberof RecipeCard
    */
-  componentWillMount() {
+  componentDidMount() {
     const { recipe, user } = this.props;
     this.setState({
       recipe,

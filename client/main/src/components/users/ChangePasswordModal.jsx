@@ -8,7 +8,7 @@ import Loader from 'react-loader';
  *
  * @returns {Jsx} Jsx
  */
-const ResetPasswordModal = (props) => (
+const ChangePasswordModal = (props) => (
   <div className="modal fade" id="resetPasswordModal"
     tabIndex="-1" role="dialog" aria-labelledby="modalLabel"
     aria-hidden="true"
@@ -24,11 +24,26 @@ const ResetPasswordModal = (props) => (
           </button>
           <h4 className="modal-title" id="modalLabel"
             style={{ color: 'orange' }}
-          >Reset Password</h4>
+          >Change Password</h4>
         </div>
 
         <div className="modal-body">
-          <form>
+          {
+            props.state.errors &&
+                <p className="text-danger">
+                  {props.state.errors}
+                </p>
+          }
+          <form id="change-password-modal">
+            <fieldset className="form-group">
+              <label htmlFor="new_password" className="form-inline">
+                Old Password
+              </label>
+              <input type="password" className="form-control"
+                name="oldPassword"
+                onChange={props.onChange}
+              />
+            </fieldset>
             <fieldset className="form-group">
               <label htmlFor="new_password" className="form-inline">
                 New Password
@@ -60,6 +75,7 @@ const ResetPasswordModal = (props) => (
               <button className="btn btn-secondary auth-button"
                 id="resetPasswordButton"
                 onClick={props.onSubmit}
+                disabled={!props.state.loaded}
               >
                 Submit
               </button>
@@ -83,6 +99,6 @@ const propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-ResetPasswordModal.propTypes = propTypes;
+ChangePasswordModal.propTypes = propTypes;
 
-export default ResetPasswordModal;
+export default ChangePasswordModal;

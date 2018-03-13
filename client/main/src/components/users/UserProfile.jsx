@@ -6,7 +6,7 @@ import { logout, updateProfile } from '../../actions/auth/Auth';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
 import UpdateProfileModal from './UpdateProfileModal';
-import ResetPasswordModal from './ResetPasswordModal';
+import ChangePasswordModal from './ChangePasswordModal';
 import UserValidator from '../../validators/UserValidator';
 
 /**
@@ -48,14 +48,14 @@ class UserProfile extends Component {
         this.setState({ profilePicture: image.data.secure_url }, () => {
           setAuthorizationToken(localStorage.token);
           this.props.updateProfile(this.state)
-            .then(res => {
+            .then(response => {
               this.setState({ loaded: true });
               $('.modal').modal('hide');
               document.getElementById('form').reset();
             })
             .catch(error => {
               this.setState({
-                errors: error.response.data.errors,
+                errors: error.message,
                 loaded: true
               });
             });
@@ -65,12 +65,21 @@ class UserProfile extends Component {
       }
     } else {
       this.props.updateProfile(this.state)
-        .then(res => {
-          this.setState({ loaded: true });
-          $('.modal').modal('hide');
-          document.getElementById('form').reset();
+        .then(response => {
+          if (response && response.status === 'Failure') {
+            this.setState({
+              loaded: true,
+              errors: response.message,
+            });
+          } else {
+            this.setState({
+              loaded: true,
+            });
+            $('.modal').modal('hide');
+            document.getElementById('change-password-modal').reset();
+          }
         });
-      document.getElementById('form').reset();
+      document.getElementById('change-password-modal').reset();
     }
   }
 
@@ -163,7 +172,7 @@ class UserProfile extends Component {
             state={this.state}
             onSubmit={this.onSubmit}
           />
-          <ResetPasswordModal
+          <ChangePasswordModal
             onChange={this.onChange}
             onSubmit={this.onSubmit}
             state={this.state}

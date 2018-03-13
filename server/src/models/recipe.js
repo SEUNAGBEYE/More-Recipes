@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      defaultValue: 'https://res.cloudinary.com/seun/image/upload/v1512979224/ctvqx5p0wu3rp0gcozsj.png'
+      defaultValue: 'https://res.cloudinary.com/seun/image/upload/v1520968351/au4wpwe6xafxbpoechuy.jpg'
     },
     views: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),

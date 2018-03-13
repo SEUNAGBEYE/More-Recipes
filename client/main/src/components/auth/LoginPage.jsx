@@ -11,8 +11,13 @@ import { login, forgotPassword } from '../../actions/auth/Auth';
  */
 class LoginPage extends Component {
   /**
-   * Creates an instance of LoginPage.
-   * @param {obj} props
+   * @description - Creates an instance of LoginPage.
+   *
+   * @method contructor
+   *
+   * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof LoginPage
    */
   constructor(props) {
@@ -30,6 +35,9 @@ class LoginPage extends Component {
   }
 
   /**
+   * @description - Checks if user is authenticated
+   *
+   * @method componentWillMount
    *
    * @returns {void} void
    * @memberof LoginPage
@@ -41,7 +49,12 @@ class LoginPage extends Component {
   }
 
   /**
-   * @param {obj} nextProps
+   * @description - Checks if there's are new props
+   *
+   * @method componentWillReceiveProps
+   *
+   * @param {Object} nextProps
+   *
    * @returns {void} void
    * @memberof LoginPage
    */
@@ -57,7 +70,12 @@ class LoginPage extends Component {
   }
 
   /**
-   * @param {obj} event
+   * @description - Change values in the state
+   *
+   * @method onChange
+   *
+   * @param {Object} event
+   *
    * @returns {void}
    * @memberof LoginPage
    */
@@ -69,7 +87,12 @@ class LoginPage extends Component {
     });
   }
   /**
-   * @param {obj} event
+   * @description - Submit data
+   *
+   * @method onSubmit
+   *
+   * @param {Object} event
+   *
    * @memberof LoginPage
    * @returns {void} void
    */
@@ -87,6 +110,9 @@ class LoginPage extends Component {
   }
 
   /**
+   * @description - Makes forgot password request
+   *
+   * @method forgotPassword
    * @param {Object} event
    *
    * @returns {void} void
@@ -101,8 +127,12 @@ class LoginPage extends Component {
   }
 
   /**
-   * @return {JSX} jsx
-   * @memberOf LoginPage
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @return {Jsx} Jsx
+   * @memberof LoginPage
    */
   render() {
     return (
@@ -138,8 +168,8 @@ LoginPage.propTypes = propTypes;
 
 /**
  * mapStateToProps
- * @param {any} state
- * @returns {object} object
+ * @param {Object} state
+ * @returns {Object} Object
  */
 const mapStateToProps = (state) => ({
   auth: state.auth,

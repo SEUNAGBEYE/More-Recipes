@@ -13,7 +13,10 @@ import Input from './Input';
  */
 export default class RecipeModal extends Component {
   /**
-   * Creates an instance of RecipeModal.
+   * @description - Creates an instance of RecipeModal.
+   *
+   * @method contructor
+   *
    * @param {Object} props
    * @memberof RecipeModal
    */
@@ -29,7 +32,9 @@ export default class RecipeModal extends Component {
   }
 
   /**
+ * @description - Initial State
  *
+ * @method initialState
  *
  * @returns {Object} state
  * @memberof RecipeModal
@@ -49,6 +54,9 @@ export default class RecipeModal extends Component {
 
   /**
    * @description - Add forms to add steps
+   *
+   * @method stepClick
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -61,6 +69,9 @@ export default class RecipeModal extends Component {
 
   /**
    * @description - Add forms to add ingredients
+   *
+   * @method ingredientClick
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -72,8 +83,11 @@ export default class RecipeModal extends Component {
   }
 
   /**
-   *@description - Remove form to add ingredients
-   * @param {any} event
+   * @description - Remove form to add ingredients
+   *
+   * @method removeIngredientsInput
+   *
+   * @param {Object} event
    *
    * @returns {void} void
    * @memberof RecipeModal
@@ -82,12 +96,16 @@ export default class RecipeModal extends Component {
     const { ingredients } = this.state;
     const { index: eventIndex } = event.target.dataset;
     const newIngredients = ingredients
-      .filter((ingredient, index) => parseInt(eventIndex, 10) !== parseInt(index, 10));
+      .filter((ingredient, index) =>
+        parseInt(eventIndex, 10) !== parseInt(index, 10));
     this.setState({ ingredients: newIngredients });
   }
 
   /**
    * @description - Remove form to add a step
+   *
+   * @method removeStepsInput
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -97,13 +115,17 @@ export default class RecipeModal extends Component {
     const { steps } = this.state;
     const { index: eventIndex } = event.target.dataset;
     const newSteps = steps
-      .filter((step, index) => parseInt(eventIndex, 10) !== parseInt(index, 10));
+      .filter((step, index) =>
+        parseInt(eventIndex, 10) !== parseInt(index, 10));
     this.setState({ steps: newSteps });
   }
 
 
   /**
    * @description - Submit a recipe
+   *
+   * @method onSubmit
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -141,6 +163,9 @@ export default class RecipeModal extends Component {
   }
 
   /**
+   * @description - Change state values
+   *
+   * @method onChange
    *
    * @param {Object} event
    *
@@ -168,7 +193,11 @@ export default class RecipeModal extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof RecipeModal
    */
   render() {

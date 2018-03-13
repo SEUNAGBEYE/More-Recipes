@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 /**
  * @description - Component displays form for creating a review
+ *
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const CreateReview = (props) => (
   <form className="form-group" id="create-review-form"

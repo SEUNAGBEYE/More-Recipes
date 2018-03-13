@@ -44,7 +44,7 @@ export function updateProfileAction(user) {
  * @param {Object} action
  * @param {String} actionType
  * @param {Object} response
- * @param {Object} dispatch
+ * @param {Function} dispatch
  *
  * @returns {void}
  */
@@ -64,6 +64,7 @@ function setCurrentUser(action, actionType, response, dispatch) {
 /**
  * @description - Login Action Creator
  * @export - login
+ *
  * @param {Object} data
  * @param {Object} [history={}]
  *

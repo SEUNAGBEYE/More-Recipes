@@ -45,6 +45,7 @@ const responseTypes = {
   notAuthorizeMessage: 'Not Authorize',
   invalidCredentials: 'Invalid Password or Email',
   passwordChangedMessage: 'Password Changes',
+  passwordNotMatchMessage: 'Old Password Is Incorrect',
   recipeExistMessage: 'You Already added A Recipe With This Name',
   tokenNotValidMessage: 'Token Not Valid',
   sendATokenMessage: 'Please send a token!'

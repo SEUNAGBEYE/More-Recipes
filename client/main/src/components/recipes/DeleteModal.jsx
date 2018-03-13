@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  *
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const DeleteModal = (props) => (
   <div>

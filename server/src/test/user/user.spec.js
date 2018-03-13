@@ -6,7 +6,7 @@ import { userRoute } from '../../routes/index';
 chai.use(chaiHtpp);
 describe('Test For Users Routes', () => {
   describe('Test For Creating A User', () => {
-    it('should have a statusCode of 400 when a user sends a password lesser than six characters when trying to signup', (done) => {
+    it('should not register a user with a password lesser than six characters', (done) => {
       chai.request(userRoute)
         .post('/signup')
         .send({
@@ -28,7 +28,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Creating A User', () => {
-    it('should have a statusCode of 400 when a user did not input his/her email', (done) => {
+    it('should not register a user without an email', (done) => {
       chai.request(userRoute)
         .post('/signup')
         .send({
@@ -43,13 +43,14 @@ describe('Test For Users Routes', () => {
           expect(res).to.have.status(400);
           expect(res.body.errors[0].message).to.equal('Please provide a valid email address');
           assert.isArray(res.body.errors, 'response is an array of object');
+          expect(res.body.errors.length).to.equals(1);
           done();
         });
     });
   });
 
   describe('Test For Creating A User', () => {
-    it('should have a statusCode of 201 when a user is created', (done) => {
+    it('should successfully create a user with correct credentials', (done) => {
       chai.request(userRoute)
         .post('/signup')
         .send({
@@ -78,7 +79,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('should return a body containing the user token and it should have a statusCode of 200 when a user is logged in', (done) => {
+    it('should sign in a user with correct credentials', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -96,7 +97,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('should have a statusCode of 401 with a message "Invalid Password or Email" when trying to login with wrong credentials', (done) => {
+    it('should not sign in a user with wrong credentials', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -114,7 +115,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User', () => {
-    it('should have a statusCode of 401 when a user provides only an email when logging in', (done) => {
+    it('should not sign in a user when only email is provided', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -133,7 +134,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Authenticating A User 404', () => {
-    it('should have a statusCode of 404 when a user trys logging in with an email not in database', (done) => {
+    it('should not sign in a user when email provided is not in the database', (done) => {
       chai.request(userRoute)
         .post('/signin')
         .send({
@@ -153,7 +154,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For User To Add A Recipe To Favorited Recipes', () => {
-    it('should have a statusCode of 200 when a user makes a recipe their favorite', (done) => {
+    it('should add a recipe to a user\'s favorited recipes', (done) => {
       chai.request(userRoute)
         .post('/fav-recipes/12/add')
         .end((error, res) => {
@@ -178,7 +179,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For User To Remove A Recipe From Favorited Recipes', () => {
-    it('should have a statusCode of 200 when a user remove a recipe from favorite recipes by hitting the same route again', (done) => {
+    it('should remove a recipe from user\'s favorited recipes when the same route is hit again after favoriting', (done) => {
       chai.request(userRoute)
         .post('/fav-recipes/12/add')
         .end((error, res) => {
@@ -203,7 +204,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For User To Add A Recipe To Favorited Recipes', () => {
-    it('should have a statusCode of 400 when a user trys to make a recipe their favorite with invalid token', (done) => {
+    it('should not favorite a recipe when a wrong token is provided', (done) => {
       chai.request(userRoute)
         .post('/fav-recipes/12/add')
         .send({
@@ -218,7 +219,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For User To Add A Recipe To Favorited Recipes', () => {
-    it('should have a statusCode of 400 when a user trys to make a recipe their favorite with wrong recipe id', (done) => {
+    it('should not favorite a recipe when a wrong recipe id is provided', (done) => {
       chai.request(userRoute)
         .post('/fav-recipes/wwww/add')
         .send({
@@ -233,7 +234,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For User To Remove A Recipe From Favorited Recipes', () => {
-    it('should have a statusCode of 404 when a user trys to favorite a recipe not in database', (done) => {
+    it('should not favorite a recipe that does not exist in the database', (done) => {
       chai.request(userRoute)
         .post('/fav-recipes/100/add')
         .end((error, res) => {
@@ -246,19 +247,20 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should return a body of an array, and it should have a statusCode of 200 when a user get their favorited recipe', (done) => {
+    it('should return user\'s favorited recipes', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'is an array of objects');
+          expect(res.body.data.length).to.equals(0);
           done();
         });
     });
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 400 when a user trys to get their favorited recipe with a wrong token', (done) => {
+    it('should not return user\'s favorited recipe when a wrong token is provided', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/')
         .set('token', 'aaaa')
@@ -271,19 +273,20 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 200 when a user get their favorited recipes id', (done) => {
+    it('should return user\'s favorited recipes id when token is valid', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/getIds')
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'is an array of objects');
+          expect(res.body.data.length).to.equals(1);
           done();
         });
     });
   });
 
   describe('Test For Getting User Favourites Recipes', () => {
-    it('should have a statusCode of 400 when a user get their favorited recipes id with a wrong token', (done) => {
+    it('should not return user\'s favorited recipes id when a wrong token is provided', (done) => {
       chai.request(userRoute)
         .get('/fav-recipes/getIds')
         .set('token', 'aaaa')
@@ -296,19 +299,20 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Recipes', () => {
-    it('should have a statusCode of 200 when a user get their recipes', (done) => {
+    it('should return user\'s recipes when a valid token is provided', (done) => {
       chai.request(userRoute)
         .get('/myrecipes/')
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'is an array of object');
+          expect(res.body.data.length).to.equals(23);
           done();
         });
     });
   });
 
   describe('Test For Getting User Recipes', () => {
-    it('should be an array and it should have a statusCode of 400 when a user not in database tries to get their recipe', (done) => {
+    it('should not return user\'s recipes when an invalid token is provided', (done) => {
       chai.request(userRoute)
         .get('/myrecipes/')
         .set('token', 'aaaa')
@@ -321,7 +325,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Getting User Profile', () => {
-    it('should have a statusCode of 400 when a user not in database tries to access their profile', (done) => {
+    it('should not return user\'s profile when an invalid token is provided', (done) => {
       chai.request(userRoute)
         .get('/profile')
         .set('token', 'aaaa')
@@ -335,7 +339,7 @@ describe('Test For Users Routes', () => {
 
 
   describe('Test For Getting User Profile', () => {
-    it('should have a statusCode of 200 when a user access their profile', (done) => {
+    it('should return user\'s profile when a valid token is provided', (done) => {
       chai.request(userRoute)
         .get('/profile')
         .end((error, res) => {
@@ -349,7 +353,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Updating User Profile', () => {
-    it('should have a statusCode of 200 when a user update their profile', (done) => {
+    it('should return user\'s updated profile when a valid token is provided', (done) => {
       chai.request(userRoute)
         .put('/profile')
         .send({
@@ -367,7 +371,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Forget Password', () => {
-    it('should have a statusCode of 404 when a request is made to forget password controller with an email that do not exist in database', (done) => {
+    it('should not send a mail to the user\'s email when user\'s email does not exist in the database', (done) => {
       chai.request(userRoute)
         .post('/forgot-password')
         .send({
@@ -382,7 +386,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Forget Password', () => {
-    it('should have a statusCode of 404 when a user hit forget password controller', (done) => {
+    it('should send a mail to the user\'s email when user\'s email exist in the database', (done) => {
       chai.request(userRoute)
         .post('/forgot-password')
         .send({
@@ -397,7 +401,7 @@ describe('Test For Users Routes', () => {
   });
 
   describe('Test For Confirm Forget Password', () => {
-    it('should have a statusCode of 404 when a user hit forget password controller', (done) => {
+    it('should not reset user\'s password when rememberToken is invalid', (done) => {
       chai.request(userRoute)
         .put('/forgot-password/qwertyhnbgfdswerfgh')
         .end((error, res) => {

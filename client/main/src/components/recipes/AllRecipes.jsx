@@ -21,8 +21,13 @@ import SortButton from './SortButton';
  */
 export class AllRecipes extends Component {
   /**
-   * Creates an instance of AllRecipes.
+   * @deprecated - Creates an instance of AllRecipes.
+   *
+   * @method contructor
+   *
    * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof AllRecipes
    */
   constructor(props) {
@@ -31,16 +36,25 @@ export class AllRecipes extends Component {
     this.paginateRecipes = this.paginateRecipes.bind(this);
   }
 
+
   /**
+   * @description - Get component data
+   *
+   * @method componentDidMount
+   *
    * @returns {void} void
- * @memberof AllRecipes
- */
+   * @memberof AllRecipes
+   */
   componentDidMount() {
     this.props.recipeCategories();
     this.paginateRecipes(1);
   }
 
   /**
+   * @description - Get all recipes
+   *
+   * @method paginateRecipe
+   *
    * @param {Number} page
    *
    * @returns {void} void
@@ -59,6 +73,10 @@ export class AllRecipes extends Component {
   }
 
   /**
+   * @description - Submit add recipe data
+   *
+   * @method onSubmit
+   *
    * @param {Object} data
    *
    * @returns {void} void
@@ -72,9 +90,12 @@ export class AllRecipes extends Component {
   }
 
   /**
-   * @memberOf UserRecipes
-   * @returns {jsx} JSX
-   * return {object}
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @memberof AllRecipes
+   * @returns {Jsx} Jsx
    */
   render() {
     return (
@@ -110,8 +131,10 @@ export class AllRecipes extends Component {
             </div>
           </div>
         </main>
-        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
-          recipesPagination={this.paginateRecipes}/> :
+        {this.props.pagination > 1 ?
+          <Pagination
+            recipesCount={this.props.pagination}
+            recipesPagination={this.paginateRecipes}/> :
           ''
         }
       </div>

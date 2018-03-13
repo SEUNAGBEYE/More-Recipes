@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ForgotPasswordModal from '../users/ForgotPasswordModal';
-
+/**
+ * @description - Renders LoginForm Component
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const LoginForm = (props) => (
   <div>
     <form className="auth-form" onSubmit={props.onSubmit}>

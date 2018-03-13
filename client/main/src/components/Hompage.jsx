@@ -12,7 +12,12 @@ import RecipeCircle from './recipes/RecipeCircle';
  * @extends {Component}
  */
 export class Homepage extends Component {
-  /**@returns {void} void
+
+  /**
+   * @description - Get Homepage data
+   * @method componentDidMount
+   *
+   * @returns {void} void
    * @memberof Homepage
    */
   componentDidMount() {
@@ -23,7 +28,10 @@ export class Homepage extends Component {
 
 
   /**
-   *@returns {jsx} JSX
+   * @description - Render react component
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof Homepage
    */
   render() {
