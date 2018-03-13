@@ -24,7 +24,7 @@ const Input = (props) => (
 
 const propTypes = {
   name: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   removeInput: PropTypes.func.isRequired,

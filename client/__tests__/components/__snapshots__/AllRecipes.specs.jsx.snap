@@ -83,10 +83,6 @@ ShallowWrapper {
               </h4>
               <br />
               <br />
-              <RecipeModal
-                addRecipe={[Function]}
-                recipeCategories={Array []}
-              />
             </div>
             <div
               className="row"
@@ -138,10 +134,6 @@ ShallowWrapper {
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
@@ -221,10 +213,6 @@ ShallowWrapper {
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>,
                 <div
                   className="row"
@@ -255,10 +243,6 @@ ShallowWrapper {
                     </h4>,
                     <br />,
                     <br />,
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />,
                   ],
                   "style": Object {
                     "marginTop": 100,
@@ -296,18 +280,6 @@ ShallowWrapper {
                     "ref": null,
                     "rendered": null,
                     "type": "br",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "addRecipe": [Function],
-                      "recipeCategories": Array [],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
                   },
                 ],
                 "type": "div",
@@ -405,10 +377,6 @@ ShallowWrapper {
                 </h4>
                 <br />
                 <br />
-                <RecipeModal
-                  addRecipe={[Function]}
-                  recipeCategories={Array []}
-                />
               </div>
               <div
                 className="row"
@@ -460,10 +428,6 @@ ShallowWrapper {
                   </h4>
                   <br />
                   <br />
-                  <RecipeModal
-                    addRecipe={[Function]}
-                    recipeCategories={Array []}
-                  />
                 </div>
                 <div
                   className="row"
@@ -543,10 +507,6 @@ ShallowWrapper {
                     </h4>
                     <br />
                     <br />
-                    <RecipeModal
-                      addRecipe={[Function]}
-                      recipeCategories={Array []}
-                    />
                   </div>,
                   <div
                     className="row"
@@ -577,10 +537,6 @@ ShallowWrapper {
                       </h4>,
                       <br />,
                       <br />,
-                      <RecipeModal
-                        addRecipe={[Function]}
-                        recipeCategories={Array []}
-                      />,
                     ],
                     "style": Object {
                       "marginTop": 100,
@@ -618,18 +574,6 @@ ShallowWrapper {
                       "ref": null,
                       "rendered": null,
                       "type": "br",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "addRecipe": [Function],
-                        "recipeCategories": Array [],
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
                     },
                   ],
                   "type": "div",

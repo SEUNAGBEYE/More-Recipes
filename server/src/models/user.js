@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -10,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Firstname is Required'
         },
         set(val) {
-          const firstChar = val.charAt(0).toUpperCase();
-          const valWithoutFirstLetter = val.slice(1).toLowerCase();
-          const firstName = `${firstChar}${valWithoutFirstLetter}`;
+          const firstName = convertToSentenceCase(val);
           this.setDataValue('firstName', firstName);
         },
       }
@@ -26,9 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       set(val) {
-        const firstChar = val.charAt(0).toUpperCase();
-        const valWithoutFirstLetter = val.slice(1).toLowerCase();
-        const lastName = `${firstChar}${valWithoutFirstLetter}`;
+        const lastName = convertToSentenceCase(val);
         this.setDataValue('lastName', lastName);
       },
     },
@@ -56,7 +53,8 @@ module.exports = (sequelize, DataTypes) => {
     aboutMe: {
       type: DataTypes.STRING,
       set(val) {
-        this.setDataValue('aboutMe', val.toLowerCase());
+        const aboutMe = convertToSentenceCase(val);
+        this.setDataValue('aboutMe', aboutMe);
       }
     },
 

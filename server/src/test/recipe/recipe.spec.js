@@ -144,13 +144,29 @@ describe('Test For Recipes Routes', () => {
       chai.request(recipeRoute)
         .put('/244444')
         .send({
-          name: 'Amala',
+          name: 'Amal',
           description: 'This is made from carbonhydrate',
           review: 'This is the best african food'
         })
         .end((error, res) => {
           expect(res).to.have.status(404);
           expect(res.body.message).equal('Recipe Not Found');
+          done();
+        });
+    });
+  });
+  describe('Test For Updating A  Single Recipe Not In Memory', () => {
+    it('should have a statusCode of 400 when trying update a recipe with in the same name', (done) => {
+      chai.request(recipeRoute)
+        .put('/244444')
+        .send({
+          name: 'Amala',
+          description: 'This is made from carbonhydrate',
+          review: 'This is the best african food'
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors[0].message).equal('You Already added A Recipe With This Name');
           done();
         });
     });

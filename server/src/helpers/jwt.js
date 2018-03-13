@@ -1,9 +1,12 @@
 import jwt from 'jsonwebtoken';
 
 /**
- * @param {obj} payload
- * @param {obj} expiresIn
- * @returns {obj} token
+ * @description - Jwt Signer
+ *
+ * @param {Object} payload
+ * @param {Object} expiresIn
+ *
+ * @returns {Object} token
  */
 function jwtSigner(payload) {
   return jwt.sign(payload, process.env.SECRET_KEY);

@@ -1,3 +1,5 @@
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
+
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
     userId: DataTypes.INTEGER,
@@ -12,9 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       set(val) {
-        const firstChar = val.charAt(0).toUpperCase();
-        const valWithoutFirstLetter = val.slice(1).toLowerCase();
-        const body = `${firstChar}${valWithoutFirstLetter}`;
+        const body = convertToSentenceCase(val);
         this.setDataValue('body', body);
       },
     }

@@ -1,4 +1,6 @@
 import model from '../models';
+import mail from '../helpers/mail';
+import convertToSentenceCase from '../helpers/convertToSentenceCase';
 import modelPaginator from '../helpers/modelPaginator';
 import responseTypes from '../helpers/responseTypes';
 
@@ -31,7 +33,8 @@ class RecipeController {
     let orderBy = request.query.order;
     const { limit } = request.query;
 
-    if (sortBy && orderBy && sortBy !== 'undefined' && (orderBy === 'asc' || orderBy === 'desc')) {
+    if (sortBy && orderBy && sortBy !== 'undefined'
+     && (orderBy === 'asc' || orderBy === 'desc')) {
       sortBy.toLowerCase();
       orderBy = orderBy.toUpperCase();
 
@@ -47,9 +50,11 @@ class RecipeController {
         });
         let newRecipes;
         if (orderBy === 'DESC') {
-          newRecipes = recipes.sort((recipeA, recipeB) => recipeA[sortBy].length - recipeB[sortBy].length);
+          newRecipes = recipes.sort((recipeA, recipeB) =>
+            recipeA[sortBy].length - recipeB[sortBy].length);
         } else {
-          newRecipes = recipes.sort((a, b) => a[sortBy].length - b[sortBy].length);
+          newRecipes = recipes.sort((a, b) =>
+            a[sortBy].length - b[sortBy].length);
         }
         return successResponse(response, newRecipes, 200);
       } catch (errors) {
@@ -60,12 +65,14 @@ class RecipeController {
   }
 
   /**
-  * @description - This Handles adding a recipe
+  * @description - This handles adding a recipe
+  * @static
   *
   * @param {Object} request request object
   * @param {Object} response response object
   *
   * @returns {Object} Object
+  * @memberof RecipeController
   */
   static async addRecipe(request, response) {
     try {
@@ -86,7 +93,8 @@ class RecipeController {
   }
 
   /**
-  * @description - This Handles getting a recipe
+  * @description - This handles getting a recipe
+  * @static
   *
   * @param {Object} request request object
   * @param {Object} response response object
@@ -94,6 +102,7 @@ class RecipeController {
   * @param {Number} id this is the id supplied by other class method when getting a single recipe
   *
   * @returns {Object} Object
+  * @memberof RecipeController
   */
   static async getRecipe(request, response) {
     const { userId } = request.token;
@@ -124,9 +133,6 @@ class RecipeController {
       return failureResponse(response, 404, recipeNotFoundMessage);
     }
     if (userId) {
-      if (!recipe.views) {
-        recipe.views = [];
-      }
       if (recipe.userId === userId && !recipe.views.includes(userId)) {
         recipe.views.push(userId);
       } else if (recipe.userId !== userId) {
@@ -139,13 +145,15 @@ class RecipeController {
 
 
   /**
-  * @description -  This Handles updating a recipe
+  * @description -  This handles updating a recipe
+  * @static
   *
   * @param {Object} request request object
   * @param {Object} response response object
   * @param {Object} next next function
   *
   * @returns {Object} Object
+  * @memberof RecipeController
   */
   static async updateRecipe(request, response) {
     try {
@@ -165,13 +173,15 @@ class RecipeController {
   }
 
   /**
-  * @description - This Handles reviewing a recipe
+  * @description - This handles reviewing a recipe
+  * @static
   *
   * @param {Object} request request object
   * @param {Object} response response object
   * @param {Object} next next function
   *
   * @returns {Object} Object
+  * @memberof RecipeController
   */
   static async reviewRecipe(request, response) {
     const recipe = await Recipe.findById(request.params.id);
@@ -188,6 +198,24 @@ class RecipeController {
         const { body, id } = review;
         const newReview = { id, body };
         newReview.user = request.token;
+        const { protocol, params } = request;
+        const reviewLink = `${protocol}://${request.get('host')}/recipe/${params.id}`;
+
+        const { firstName, lastName } = request.token;
+
+        const user = await recipe.getUser();
+
+        const mailOptions = {
+          context: {
+            fullName: `${firstName} ${lastName}`,
+            reviewLink,
+            recipeName: recipe.name
+          },
+          email: user.email,
+          subject: 'Someone Just Review Your Recipe',
+          template: 'recipeReview'
+        };
+        mail(mailOptions);
         return successResponse(response, newReview, 200);
       }
     } catch (error) {
@@ -196,9 +224,12 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles get reviews for a recipe
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
+   *
    * @returns {Object} Object
    * @memberof RecipeController
    */
@@ -215,12 +246,15 @@ class RecipeController {
   }
 
   /**
-  * This Handles deletion a recipe
+  * @description - This handles deleting a recipe
+  * @static
+  *
   * @param {Object} request request object
   * @param {Object} response response object
   * @param {Object} next next function
   *
-  * @returns {null} json
+  * @returns {Oject} Object
+  * @memberof RecipeController
   */
   static async deleteRecipe(request, response) {
     const recipe = await Recipe.findById(request.params.id);
@@ -237,7 +271,9 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles upvoting a recipe
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
    *
@@ -285,7 +321,9 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles downvoting a recipe
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
    *
@@ -339,34 +377,36 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles getting popular recipes
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
+   *
    * @returns {Object} Object
    * @memberof RecipeController
    */
-  static popularRecipe(request, response) {
-    Recipe.findAll({
-      where: {
-        upvotes: {
-          $ne: []
-        }
-      },
-    })
-      .then(popularRecipes => response.status(200).send({
-        status: 'Success',
-        data: popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
-          .splice(0, request.query.limit ? request.query.limit : popularRecipes.length)
-      }))
-      .catch(error => response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+  static async popularRecipe(request, response) {
+    try {
+      const popularRecipes = await Recipe.findAll({
+        where: {
+          upvotes: {
+            $ne: []
+          }
+        },
+      });
+      const data = popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
+        .splice(0, request.query.limit ? request.query.limit : popularRecipes.length);
+      return successResponse(response, data, 200);
+    } catch (error) {
+      return failureResponse(response, 500, undefined, error);
+    }
   }
 
   /**
+   * @description - This handles searching for recipes
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
    *
@@ -375,14 +415,14 @@ class RecipeController {
    */
   static searchRecipes(request, response) {
     let { search } = request.query;
-    search.replace()
     search = search.split(',');
+    search = search.map(query => query.trim());
 
     const where = {
       $or: [
         {
           name: {
-            $iLike: search[0]
+            $iLike: convertToSentenceCase(search[0])
           },
         },
         {
@@ -396,7 +436,9 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles getting recipe categories
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
    *
@@ -409,7 +451,9 @@ class RecipeController {
   }
 
   /**
+   * @description - This handles getting a category
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
    *

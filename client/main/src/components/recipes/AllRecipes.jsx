@@ -11,7 +11,6 @@ import {
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
-import RecipeModal from './RecipeModal';
 import CategoryButton from './CategoryButton';
 import SortButton from './SortButton';
 
@@ -90,10 +89,6 @@ export class AllRecipes extends Component {
           <div className="container">
             <div style={{ textAlign: 'center', marginTop: 100 }}>
               <h4 className="container__myrecipes">All Recipes</h4><br /><br />
-              <RecipeModal
-                addRecipe={this.onSubmit}
-                recipeCategories={this.props.categories}
-              />
             </div>
 
             <div className="row">

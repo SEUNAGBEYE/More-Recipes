@@ -12,7 +12,8 @@ const {
   recipeNotFoundMessage,
   userNotFoundMessage,
   invalidCredentials,
-  notAuthorizeMessage
+  notAuthorizeMessage,
+  passwordChangedMessage
 } = responseTypes;
 
 const { User, Recipe, Review } = model;
@@ -23,8 +24,7 @@ const { User, Recipe, Review } = model;
  */
 class UserController {
   /**
-  * @description - This Handles User Registration
-  *
+  * @description - This handles users registration
   * @static
   *
   * @param {Object} request Request Object
@@ -66,6 +66,18 @@ class UserController {
         profilePicture,
         token,
       };
+      const { protocol } = request;
+      const welcomeLink = `${protocol}://${request.get('host')}`;
+      const mailData = {
+        context: {
+          fullName: `${firstName} ${lastName}`,
+          welcomeLink
+        },
+        subject: 'Welome to Recipes',
+        email,
+        template: 'signupSuccess'
+      };
+      mail(mailData);
       return successResponse(response, userProfile, 201);
     } catch (error) {
       return failureResponse(response, 400, undefined, error);
@@ -73,8 +85,7 @@ class UserController {
   }
 
   /**
-  * @description - This Handles User Authentication
-  *
+  * @description - This handles users authentication
   * @static
   *
   * @param {Object} request Request Object
@@ -101,7 +112,7 @@ class UserController {
     } catch (error) {
       return failureResponse(response, 400, undefined, error);
     }
-    
+
     try {
       const bcryptResponse = await bcrypt.compare(password, user.password);
       if (bcryptResponse) {
@@ -117,8 +128,7 @@ class UserController {
   }
 
   /**
-   * @description - Get user favorite recipes
-   *
+   * @description - This handles getting user's favorited recipes
    * @static
    *
    * @param {Object} request
@@ -129,7 +139,8 @@ class UserController {
    */
   static async getFavoriteRecipes(request, response) {
     const user = await User.findById(request.token.userId);
-    // Am Getting the User Favourited Recipe Id's Here When the actionType === 'getIds'
+
+    // I'm Getting the User Favorited Recipe Id's Here When the actionType === 'getIds'
     if (user) {
       if (request.params.actionType === 'getIds') {
         const data = user.favoriteRecipe;
@@ -146,8 +157,7 @@ class UserController {
   }
 
   /**
-   * @description - Add a recipe to user favorited recipes
-   *
+   * @description - This handles adding a recipe to user's favorited recipes
    * @static
    *
    * @param {Object} request
@@ -156,80 +166,52 @@ class UserController {
    * @returns {Object} Object
    * @memberof UserController
    */
-  static addFavoriteRecipe(request, response) {
-    User.findById(request.token.userId)
-      .then((user) => {
-        Recipe.find({
-          where: {
-            id: request.params.id
-          },
+  static async addFavoriteRecipe(request, response) {
+    try {
+      const user = await User.findById(request.token.userId);
+      const recipe = await Recipe.find({
+        where: {
+          id: request.params.id
+        },
+        include: [{
+          model: Review,
+          as: 'reviews',
           include: [{
-            model: Review,
-            as: 'reviews',
-            include: [{
-              model: User,
-              as: 'user',
-              attributes: ['firstName', 'lastName', 'profilePicture']
-            }],
-            limit: 5
-          }]
-        })
-          .then((recipe) => {
-            if (!recipe) {
-              return response.status(404).send({
-                status: 'Failure',
-                message: 'Recipe Not Found',
-              });
-            } else if (user.favoriteRecipe === null) {
-              user.update({
-                favoriteRecipe: [recipe.id]
-              })
-                .then(() => response.status(200).send({
-                  status: 'Success',
-                  data: recipe
-                }));
-            } else {
-              if (!user.favoriteRecipe.includes(recipe.id)) {
-                user.favoriteRecipe.push(recipe.id);
-              } else {
-                // Refactor Me
-                parseInt(recipe.id, 10);
-                user.favoriteRecipe = user.favoriteRecipe
-                  .filter(id => id !== recipe.id);
-              }
-
-              user.update({
-                favoriteRecipe: user.favoriteRecipe
-              })
-                .then(() => {
-                  response.status(200).send({ status: 'Success', data: recipe });
-                })
-                .catch(error => response.status(400).send({
-                  status: 'Failure',
-                  message: 'Bad Request',
-                  error: error.message
-                }));
-            }
-          })
-          .catch(error => response.status(400).send({
-            status: 'Failure',
-            message: 'Bad Request',
-            error: error.message
-          }));
-      })
-      .catch(errors => response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        errors: errors.message
-      }));
+            model: User,
+            as: 'user',
+            attributes: ['firstName', 'lastName', 'profilePicture']
+          }],
+          limit: 5
+        }]
+      });
+      if (!recipe) {
+        return failureResponse(response, 404, recipeNotFoundMessage);
+      }
+      if (!user.favoriteRecipe.includes(recipe.id)) {
+        user.favoriteRecipe.push(recipe.id);
+      } else {
+        parseInt(recipe.id, 10);
+        user.favoriteRecipe = user.favoriteRecipe
+          .filter(id => id !== recipe.id);
+      }
+      await user.update({
+        favoriteRecipe: user.favoriteRecipe
+      });
+      return successResponse(response, recipe, 200);
+    } catch (error) {
+      return failureResponse(response, 500, undefined, error.message);
+    }
   }
 
   /**
+   * @description - This handles getting user's recipes
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
-   * @memberof UserController
+   *
    * @returns {Object} Object
+   * @memberof UserController
    */
   static getRecipes(request, response) {
     const where = {
@@ -239,14 +221,12 @@ class UserController {
   }
 
   /**
-   * @description - Get User Profile
-   * @static
+   * @description - This handles get user's profile
    *
    * @param {Object} request
    * @param {Object} response
    *
    * @returns {Object} Response Object
-   *
    * @memberof UserController
    */
   static async myProfile(request, response) {
@@ -267,7 +247,7 @@ class UserController {
   }
 
   /**
-   *@description - Update User Profile
+   *@description - This handles updating user's profile
    * @static
    *
    * @param {Object} request
@@ -292,7 +272,8 @@ class UserController {
 
     if (user.id === request.token.userId) {
       try {
-        const updatedUser = await user.update(request.body, { fields: Object.keys(request.body) });
+        const updatedUser = await user
+          .update(request.body, { fields: Object.keys(request.body) });
         const { id: userId, ...data } = updatedUser.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
@@ -312,94 +293,96 @@ class UserController {
   }
 
   /**
+ * @description - This handles requesting to reset password when forgotten
+ * @static
+ *
  * @param {Object} request
  * @param {Object} response
- * @returns {void} void
+ *
+ * @returns {Object} Object
  * @memberof UserController
  */
-  static forgetPassword(request, response) {
+  static async forgetPassword(request, response) {
     const { email } = request.body;
-    User.find({
+    const user = await User.find({
       where: {
         email
       }
-    })
-      .then((user) => {
-        if (!user) {
-          return response.status(404).send({
-            status: 'Failure',
-            message: 'User Not Found'
-          });
-        }
+    });
+    if (!user) {
+      return failureResponse(response, 404, userNotFoundMessage);
+    }
 
-        const { firstName, lastName } = user;
-        const fullName = `${firstName} ${lastName}`;
-        const rememberToken = uuid();
-        user.update({ rememberToken });
-        const { protocol, path } = request;
-        const resetLink = `${protocol}://${request.get('host')}${path}/${rememberToken}`;
-        const message = 'A Message has been sent to the email provided kindly read to mail to reset your password';
-        mail(email, resetLink, fullName);
-        return response.status(200).send({
-          status: 'Success',
-          message
-        });
-      })
-      .catch(error => response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+    const { firstName, lastName } = user;
+    const fullName = `${firstName} ${lastName}`;
+    const rememberToken = uuid();
+    await user.update({ rememberToken });
+    const { protocol, path } = request;
+    const resetLink = `${protocol}://${request.get('host')}${path}/${rememberToken}`;
+    const message = 'A Message has been sent to the email provided kindly read to mail to reset your password';
+    const mailData = {
+      email,
+      subject: 'Forgot Password',
+      template: 'resetPassword',
+      context: {
+        fullName,
+        resetLink
+      }
+    };
+
+    mail(mailData);
+    return successResponse(response, {}, 200, undefined, message);
   }
 
   /**
-   *
-   *
+   * @description - This handles confirming password when forgotten
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
-   * @returns {Object} Object
+   *
    * @memberof UserController
+   * @returns {Object} Object
    */
-  static confirmForgetPassword(request, response) {
+  static async confirmForgetPassword(request, response) {
     const { rememberToken } = request.params;
-    User.find({
+    const user = await User.find({
       where: {
         rememberToken
       }
-    })
-      .then((user) => {
-        if (!user) {
-          return response.status(404).send({
-            status: 'Failure',
-            message: 'User Not Found',
-          });
-        }
-        if (user.rememberToken === rememberToken) {
-          return user
-            .update(request.body, { fields: Object.keys(request.body) })
-            .then(() => {
-              response.status(200).send({
-                status: 'Success',
-                message: 'Password Changed'
-              });
-            })
-            .catch(errors => response.status(400).send({
-              status: 'Failure',
-              message: 'Bad Request',
-              errors: errors.message
-            }));
-        }
-        return response.status(403).send({
-          status: 'Failure',
-          message: 'Not Authorize'
-        });
-      })
-      .catch(error => response.status(400).send({
-        status: 'Failure',
-        message: 'Bad Request',
-        error: error.message
-      }));
+    });
+
+    if (!user) {
+      return failureResponse(response, 404, userNotFoundMessage);
+    }
+    if (user.rememberToken === rememberToken) {
+      try {
+        await user
+          .update(request.body, { fields: Object.keys(request.body) });
+        const { protocol } = request;
+        const welcomeLink = `${protocol}://${request.get('host')}`;
+        const mailOptions = {
+          context: {
+            fullName: `${user.firstName} ${user.lastName}`,
+            welcomeLink
+          },
+          email: user.email,
+          subject: 'Password Changed',
+          template: 'resetPasswordSuccessful'
+        };
+        mail(mailOptions);
+        return successResponse(
+          response,
+          {},
+          200,
+          undefined,
+          passwordChangedMessage
+        );
+      } catch (error) {
+        return failureResponse(response, 400, undefined, error.message);
+      }
+    }
+    return failureResponse(response, 403, notAuthorizeMessage);
   }
 }
 

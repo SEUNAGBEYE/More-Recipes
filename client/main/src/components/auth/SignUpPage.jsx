@@ -72,7 +72,7 @@ class SignUpPage extends Component {
     event.preventDefault();
     this.props.signUpRequest(this.state)
       .then(signUpResponse => {
-        if (signUpResponse.errors) {
+        if (signUpResponse && signUpResponse.errors) {
           this.setState({ errors: signUpResponse.errors });
         } else {
           this.history.push('/');

@@ -116,27 +116,27 @@ export default class RecipeModal extends Component {
     if (file) {
       try {
         const image = await imageUpload(file);
-        this.setState({ image: image.data.secure_url }, () => {
+        this.setState({ image: image.data.secure_url }, async () => {
           setAuthorizationToken(localStorage.token);
-          this.props.addRecipe(this.state)
-            .then(res => {
-              $('.modal').modal('hide');
-              this.setState(RecipeModal.initialState());
-            })
-            .catch(error => {
-              this.setState(RecipeModal.initialState());
-              this.setState({ errors: error.response.data.errors });
-            });
+          const response = await this.props.addRecipe(this.state);
+          if (response.status !== 'Failure') {
+            $('.modal').modal('hide');
+            this.setState(RecipeModal.initialState());
+          } else {
+            this.setState({ errors: response.errors, loaded: true });
+          }
         });
       } catch (error) {
         this.setState(RecipeModal.initialState());
       }
     } else {
-      this.props.addRecipe(this.state)
-        .then(res => {
-          $('.modal').modal('hide');
-          this.setState(RecipeModal.initialState());
-        });
+      const response = await this.props.addRecipe(this.state);
+      if (response.status !== 'Failure') {
+        $('.modal').modal('hide');
+        this.setState(RecipeModal.initialState());
+      } else {
+        this.setState({ errors: response.errors, loaded: true });
+      }
     }
   }
 
@@ -214,8 +214,8 @@ export default class RecipeModal extends Component {
 
               <div className="modal-body">
                 {errors.map(error => (
-                  <ul>
-                    <li className="text-danger">{error.description}</li>
+                  <ul key={uuid()}>
+                    <li className="text-danger">{error.message}</li>
                   </ul>))
                 }
                 <form id="form">

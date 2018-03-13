@@ -132,7 +132,8 @@ export function updateProfile(data) {
 export function forgotPassword(data) {
   return dispatch => axios
     .post('/api/v1/users/forgot-password', data)
-    .then(response => response.data);
+    .then(response => response.data)
+    .catch(error => error.response.data);
 }
 
 /**

@@ -273,11 +273,13 @@ export function getRecipeReviewsAction(data) {
  * @export - allRecipes
  *
  * @param {Number} page
- * @param {limit} limit
+ * @param {Number} limit
+ * @param {String} sortBy
+ * @param {String} orderBy
  *
  * @returns {Object} Object
  */
-export function allRecipes(page = 1, limit = 2, sortBy = undefined, orderBy = undefined) {
+export function allRecipes(page = 1, limit = 8, sortBy = undefined, orderBy = undefined) {
   return dispatch => axios.get(`/api/v1/recipes?sort=${sortBy}&order=${orderBy}&limit=${limit}&page=${page}`)
     .then((response) => {
       const { data, pagination } = response.data;
@@ -374,7 +376,8 @@ export function addRecipe(data) {
     .then((response) => {
       toastr.success('Recipe Added', 'Success');
       return dispatch(addRecipeAction(response.data.data));
-    });
+    })
+    .catch(error => error.response.data);
 }
 
 /**
@@ -457,11 +460,7 @@ export function editRecipe(id, data) {
       toastr.success('Recipe Updated', 'Success');
       return dispatch(editRecipeAction(response.data.data));
     })
-    .catch((error) => {
-      if (error) {
-        return error.response;
-      }
-    });
+    .catch(error => error.response.data);
 }
 
 /**

@@ -228,7 +228,7 @@ recipeRoute.route('/:id')
    *         schema:
    *           $ref: '#/definitions/Recipe'
    */
-  .put(authMiddleware, validateId, RecipeController.updateRecipe)
+  .put(authMiddleware, validateId, uniqueRecipeValidation, RecipeController.updateRecipe)
 /**
    * @swagger
    * /api/v1/recipes/{id}:

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Get Your Recipe</title>
+
+  <style>
+    .card {
+    position: relative;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    width: 40vw;
+    min-height: 60vh;
+    max-height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    }
+    .button{
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: #fff;
+    background-color: orange;
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    font-size: 18px;
+    margin: 2rem;
+    }
+
+    .card-header{
+      color: white;
+      background: orange;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      width: 100%;
+    }
+    
+    .card-body{
+      margin: 7rem; 
+    }
+
+    a{
+      text-decoration: none;
+    }
+
+    @media (max-width: 321px){
+      .card{
+        width: 90vw;
+      }
+      .card-body{
+        margin: 2rem;
+      }
+    }
+
+
+  @media (min-width: 360px) and (max-width: 768px){
+    .card{
+      width: 70vw;
+    }
+    .card-body{
+      margin: 2rem;
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+	<main style="margin-top: 130px;">
+    <div>
+      <div>
+        <div class="card">
+            <div class="card-header"><h5>Someone Just Review Your Recipe</h5></div>
+            <div class="card-body">
+              <h5>Dear {{ fullName }},</h5>
+              <div class="card-text">Someone just left a review for <strong>{{ recipeName }}</strong> Click the link below to see the review.</div>
+              <a href={{ reviewLink }} class="button">Click Here</a>
+            </div>
+            <div>
+              <div>Yours Faithly <br/>
+                <p>Recipes</p>
+              </div>
+            </div>
+      </div>
+    </div>
+	</main>
+
+</body>
+</html>

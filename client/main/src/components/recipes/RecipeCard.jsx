@@ -129,7 +129,7 @@ export class RecipeCard extends Component {
    * @memberof RecipeCard
    */
   editRecipe(id, recipe) {
-    this.props.editRecipe(id, recipe);
+    return this.props.editRecipe(id, recipe);
   }
 
   /**

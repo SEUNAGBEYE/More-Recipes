@@ -81,8 +81,9 @@ ShallowWrapper {
             >
               <input
                 className="form-control"
+                id="search"
                 name="search"
-                placeholder="search"
+                placeholder="Recipe name or list of ingredients separed by ,"
                 type="text"
               />
             </form>
@@ -212,8 +213,9 @@ ShallowWrapper {
             >
               <input
                 className="form-control"
+                id="search"
                 name="search"
-                placeholder="search"
+                placeholder="Recipe name or list of ingredients separed by ,"
                 type="text"
               />
             </form>
@@ -340,8 +342,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -490,8 +493,9 @@ ShallowWrapper {
                 >
                   <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />
                 </form>,
@@ -588,8 +592,9 @@ ShallowWrapper {
                 "props": Object {
                   "children": <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />,
                   "className": "form-inline",
@@ -603,8 +608,9 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "className": "form-control",
+                    "id": "search",
                     "name": "search",
-                    "placeholder": "search",
+                    "placeholder": "Recipe name or list of ingredients separed by ,",
                     "type": "text",
                   },
                   "ref": null,
@@ -1030,8 +1036,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -1161,8 +1168,9 @@ ShallowWrapper {
               >
                 <input
                   className="form-control"
+                  id="search"
                   name="search"
-                  placeholder="search"
+                  placeholder="Recipe name or list of ingredients separed by ,"
                   type="text"
                 />
               </form>
@@ -1289,8 +1297,9 @@ ShallowWrapper {
                 >
                   <input
                     className="form-control"
+                    id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Recipe name or list of ingredients separed by ,"
                     type="text"
                   />
                 </form>
@@ -1439,8 +1448,9 @@ ShallowWrapper {
                   >
                     <input
                       className="form-control"
+                      id="search"
                       name="search"
-                      placeholder="search"
+                      placeholder="Recipe name or list of ingredients separed by ,"
                       type="text"
                     />
                   </form>,
@@ -1537,8 +1547,9 @@ ShallowWrapper {
                   "props": Object {
                     "children": <input
                       className="form-control"
+                      id="search"
                       name="search"
-                      placeholder="search"
+                      placeholder="Recipe name or list of ingredients separed by ,"
                       type="text"
                     />,
                     "className": "form-inline",
@@ -1552,8 +1563,9 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "className": "form-control",
+                      "id": "search",
                       "name": "search",
-                      "placeholder": "search",
+                      "placeholder": "Recipe name or list of ingredients separed by ,",
                       "type": "text",
                     },
                     "ref": null,
