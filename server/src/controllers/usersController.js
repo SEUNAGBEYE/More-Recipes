@@ -24,8 +24,7 @@ const { User, Recipe, Review } = model;
  */
 class UserController {
   /**
-  * @description - This Handles User Registration
-  *
+  * @description - This handles users registration
   * @static
   *
   * @param {Object} request Request Object
@@ -86,8 +85,7 @@ class UserController {
   }
 
   /**
-  * @description - This Handles User Authentication
-  *
+  * @description - This handles users authentication
   * @static
   *
   * @param {Object} request Request Object
@@ -130,8 +128,7 @@ class UserController {
   }
 
   /**
-   * @description - Get user favorite recipes
-   *
+   * @description - This handles getting user's favorited recipes
    * @static
    *
    * @param {Object} request
@@ -142,7 +139,8 @@ class UserController {
    */
   static async getFavoriteRecipes(request, response) {
     const user = await User.findById(request.token.userId);
-    // Am Getting the User Favorited Recipe Id's Here When the actionType === 'getIds'
+
+    // I'm Getting the User Favorited Recipe Id's Here When the actionType === 'getIds'
     if (user) {
       if (request.params.actionType === 'getIds') {
         const data = user.favoriteRecipe;
@@ -159,8 +157,7 @@ class UserController {
   }
 
   /**
-   * @description - Add a recipe to user favorited recipes
-   *
+   * @description - This handles adding a recipe to user's favorited recipes
    * @static
    *
    * @param {Object} request
@@ -207,11 +204,14 @@ class UserController {
   }
 
   /**
+   * @description - This handles getting user's recipes
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
-   * @memberof UserController
+   *
    * @returns {Object} Object
+   * @memberof UserController
    */
   static getRecipes(request, response) {
     const where = {
@@ -221,14 +221,12 @@ class UserController {
   }
 
   /**
-   * @description - Get User Profile
-   * @static
+   * @description - This handles get user's profile
    *
    * @param {Object} request
    * @param {Object} response
    *
    * @returns {Object} Response Object
-   *
    * @memberof UserController
    */
   static async myProfile(request, response) {
@@ -249,7 +247,7 @@ class UserController {
   }
 
   /**
-   *@description - Update User Profile
+   *@description - This handles updating user's profile
    * @static
    *
    * @param {Object} request
@@ -274,7 +272,8 @@ class UserController {
 
     if (user.id === request.token.userId) {
       try {
-        const updatedUser = await user.update(request.body, { fields: Object.keys(request.body) });
+        const updatedUser = await user
+          .update(request.body, { fields: Object.keys(request.body) });
         const { id: userId, ...data } = updatedUser.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
@@ -294,9 +293,13 @@ class UserController {
   }
 
   /**
+ * @description - This handles requesting to reset password when forgotten
+ * @static
+ *
  * @param {Object} request
  * @param {Object} response
- * @returns {void} void
+ *
+ * @returns {Object} Object
  * @memberof UserController
  */
   static async forgetPassword(request, response) {
@@ -332,13 +335,14 @@ class UserController {
   }
 
   /**
-   *
-   *
+   * @description - This handles confirming password when forgotten
    * @static
+   *
    * @param {Object} request
    * @param {Object} response
-   * @returns {Object} Object
+   *
    * @memberof UserController
+   * @returns {Object} Object
    */
   static async confirmForgetPassword(request, response) {
     const { rememberToken } = request.params;
@@ -367,7 +371,13 @@ class UserController {
           template: 'resetPasswordSuccessful'
         };
         mail(mailOptions);
-        return successResponse(response, {}, 200, undefined, passwordChangedMessage);
+        return successResponse(
+          response,
+          {},
+          200,
+          undefined,
+          passwordChangedMessage
+        );
       } catch (error) {
         return failureResponse(response, 400, undefined, error.message);
       }

@@ -7,14 +7,16 @@ import downvoteRecipe from './downvoteRecipe.specs';
 import categorizeRecipe from './categorizeRecipe.specs';
 import updateProfile from './updateProfile.specs';
 import changePassword from './changePassword.specs';
+import sortRecipe from './sortRecipe.specs';
 
 export { deleteRecipe,
   searchRecipe,
+  sortRecipe,
   createReview,
   favouriteRecipe,
   upvoteRecipe,
   downvoteRecipe,
   categorizeRecipe,
   updateProfile,
-  changePassword
+  changePassword,
 };

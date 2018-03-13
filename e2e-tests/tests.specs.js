@@ -8,6 +8,7 @@ import signOut from './signout.specs';
 import { deleteRecipe,
   searchRecipe,
   createReview,
+  sortRecipe,
   favouriteRecipe,
   upvoteRecipe,
   downvoteRecipe,
@@ -55,6 +56,8 @@ export default {
       .assert.containsText('.categories', 'Categories');
     createRecipe(browser, validRecipe)
       .url(`${baseUrl}/my_recipes`);
+    createRecipe(browser, validRecipe)
+      .url(`${baseUrl}/my_recipes`);
     editRecipe(browser)
       .url(`${baseUrl}/my_recipes`);
     clickRecipeCard(browser, validRecipe.id);
@@ -85,6 +88,10 @@ export default {
       .pause(1000)
       .click('#favourite-recipes')
       .pause(1000)
+      .url(`${baseUrl}/recipes`)
+    sortRecipe(browser, 'views')
+    sortRecipe(browser, 'upvotes')
+    sortRecipe(browser, 'downvotes')
     categorizeRecipe(browser, 'Breakfast')
     categorizeRecipe(browser, 'Lunch')
     categorizeRecipe(browser, 'Dinner')

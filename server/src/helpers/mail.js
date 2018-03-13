@@ -32,8 +32,15 @@ const mailer = (mailData) => {
       template,
       context
     };
+    let viewPath;
+
+    if (process.env.NODE_ENV === 'production') {
+      viewPath = 'server/dist/email-templates';
+    } else {
+      viewPath = 'server/src/email-templates';
+    }
     transporter.use('compile', handleBars({
-      viewPath: 'server/src/email-templates',
+      viewPath,
       extName: '.hbs'
     }));
 

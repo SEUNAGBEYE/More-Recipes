@@ -45,6 +45,29 @@
       margin: 7rem; 
     }
 
+    a{
+      text-decoration: none;
+    }
+
+    @media (max-width: 321px){
+      .card{
+        width: 90vw;
+      }
+      .card-body{
+        margin: 2rem;
+      }
+    }
+
+
+  @media (min-width: 360px) and (max-width: 768px){
+    .card{
+      width: 70vw;
+    }
+    .card-body{
+      margin: 2rem;
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -56,7 +79,7 @@
             <div class="card-header"><h5>Welcome to Recipes</h5></div>
             <div class="card-body">
               <h5>Dear {{ fullName }},</h5>
-              <div class="card-text">Share your amazing recipes here and connect. We bring the recipe you need to your finger tips. Click the link below to get started.</div>
+              <p class="card-text">Share your amazing recipes here and connect. We bring the recipe you need to your finger tips. Click the link below to get started.</p>
               <a href={{ welcomeLink }} class="button">Click Here</a>
             </div>
             <div>
