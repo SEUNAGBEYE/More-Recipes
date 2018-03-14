@@ -62,6 +62,8 @@ export class CategoryPage extends Component {
   /**
    * @description - Renders react component
    *
+   * @method render
+   *
    * @returns {Jsx} Jsx
    * @memberof CategoryPage
    */

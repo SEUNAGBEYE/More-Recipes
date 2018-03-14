@@ -4,13 +4,14 @@ import config from '../src/config/config';
 const { cloudinaryUploadUrl, cloudinaryUploadPreset } = config;
 
 /**
- * @param {any} file
- * @returns {obj} obj
+ * @description - Upload Media
+ *
+ * @param {Object} file
+ * @returns {Promise} Promise
  */
 function imageUpload(file) {
   const imageData = new FormData();
   imageData.append('file', file);
-  // imageData.append('public_id', )
   imageData.append('upload_preset', cloudinaryUploadPreset);
 
   delete axios.defaults.headers.common['x-access-token'];

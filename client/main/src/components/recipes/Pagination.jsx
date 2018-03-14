@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-
+/**
+ * @description - Pagination Component
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const Pagination = (props) => {
   // recipe count is the page count, recipePagination is a function
   const { recipesPagination, recipesCount } = props;

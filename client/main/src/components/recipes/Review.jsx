@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
  *
  * @param {Object} props
  *
- * @returns {jsx} Jsx
+ * @returns {Jsx} Jsx
  */
 const Review = (props) => (
   <div className="row" style={{ marginBottom: 15 }}>

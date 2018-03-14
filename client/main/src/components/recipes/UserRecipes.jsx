@@ -20,8 +20,14 @@ import CategoryButton from './CategoryButton';
  */
 export class UserRecipes extends Component {
   /**
-   * Creates an instance of UserRecipes.
-   * @param {any} props
+   * @description - Creates an instance of UserRecipes.
+   *
+   * @method constructor
+   *
+   * @param {Object} props
+   *
+   * @returns {void}
+   *
    * @memberof UserRecipes
    */
   constructor(props) {
@@ -41,16 +47,25 @@ export class UserRecipes extends Component {
     this.paginateRecipe = this.paginateRecipe.bind(this);
   }
 
+
   /**
-  * @returns {void} void
-  * @memberof UserRecipes
-  */
+   * @description - Fetch Component Data
+   *
+   * @method componentDidMount
+   *
+   * @returns {void} void
+   * @memberof UserRecipes
+   */
   componentDidMount() {
     this.props.recipeCategories();
     this.paginateRecipe();
   }
 
   /**
+   * @description - Paginate Component Data
+   *
+   * @method paginateRecipe
+   *
    * @param {Number} [page=1]
    *
    * @returns {void} void
@@ -67,7 +82,11 @@ export class UserRecipes extends Component {
 
 
   /**
-   * @returns {JSX} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof UserRecipes
    */
   render() {
@@ -94,7 +113,7 @@ export class UserRecipes extends Component {
               {
                 this.props.userRecipes.length > 0 ?
                   this.props.userRecipes.map((elem, index) => (
-                    <RecipeCard key={elem.id} 
+                    <RecipeCard key={elem.id}
                       recipe={elem} id={elem.id}
                       history={this.props.history}
                     />)) :
@@ -106,8 +125,9 @@ export class UserRecipes extends Component {
             </div>
           </div>
         </main>
-        {this.props.pagination > 1 ? <Pagination recipesCount={this.props.pagination}
-          recipesPagination={this.paginateRecipes}/> :
+        {this.props.pagination > 1 ?
+          <Pagination recipesCount={this.props.pagination}
+            recipesPagination={this.paginateRecipes}/> :
           ''
         }
       </div>

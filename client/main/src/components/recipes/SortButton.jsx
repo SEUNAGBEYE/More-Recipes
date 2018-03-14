@@ -24,6 +24,7 @@ const sortBy = [
 
 /**
  * @description - Component for selecting category to display
+ *
  * @param {Object} props
  *
  * @returns {Jsx} Jsx

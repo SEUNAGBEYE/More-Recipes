@@ -27,8 +27,13 @@ import Exclamation from './Exclamation';
  */
 export class RecipeDetail extends Component {
   /**
-   * Creates an instance of RecipeDetail.
-   * @param {any} props
+   * @description - Creates an instance of RecipeDetail.
+   *
+   * @method constructor
+   *
+   * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof RecipeDetail
    */
   constructor(props) {
@@ -49,6 +54,10 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Get Recipe Detail Data
+   *
+   * @method componentDidMount
+   *
    * @returns {void} void
    * @memberof RecipeDetail
    */
@@ -59,6 +68,9 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Change state values
+   *
+   * @method onChange
    *
    * @param {Object} event
    *
@@ -73,6 +85,10 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Delete a recipe
+   *
+   * @method deleteRecipe
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -86,6 +102,10 @@ export class RecipeDetail extends Component {
 
 
   /**
+   * @description - Add review to a recipe
+   *
+   * @method reviewRecipe
+   *
    * @param {Object} event
    *
    * @returns {void}
@@ -100,6 +120,10 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Toggle Favorite Recipe
+   *
+   * @method toggleFavouriteRecipe
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -114,9 +138,13 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Toggle Thumbs Up
+   *
+   * @method toggleThumbsUpRecipe
+   *
    * @param {Object} event
    *
-   *@returns {void} void
+   * @returns {void} void
    * @memberof RecipeDetail
    */
   toggleThumbsUpRecipe(event) {
@@ -129,6 +157,10 @@ export class RecipeDetail extends Component {
   }
 
   /**
+   * @description - Toggle Thumbs Down
+   *
+   * @method toggleThumbsDownRecipe
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -145,6 +177,10 @@ export class RecipeDetail extends Component {
 
 
   /**
+   * @description - Fetch more reviews
+   *
+   * @method viewMoreReviews
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -167,7 +203,11 @@ export class RecipeDetail extends Component {
   }
 
   /**
- * @returns {jsx} JSX
+ * @description - Renders react component
+ *
+ * @method render
+ *
+ * @returns {Jsx} Jsx
  * @memberof RecipeDetail
  */
   render() {
@@ -273,7 +313,7 @@ export class RecipeDetail extends Component {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 {
-                  
+
                   this.props.pagination > this.state.reviewsPage ?
                     <button className="auth-button"
                       onClick={this.viewMoreReviews}

@@ -15,7 +15,10 @@ import UserValidator from '../../validators/UserValidator';
  */
 class UserProfile extends Component {
   /**
-   * Creates an instance of UserProfile.
+   * @description - Creates an instance of UserProfile.
+   *
+   * @method constructor
+   *
    * @param {any} props
    *
    * @returns {void} void
@@ -31,7 +34,9 @@ class UserProfile extends Component {
   }
 
   /**
+   * @description - Submit data
    *
+   * @method onSubmit
    *
    * @param {Object} event
    *
@@ -85,9 +90,12 @@ class UserProfile extends Component {
 
 
   /**
+   * @description - Change state values
    *
+   * @method onChange
    *
    * @param {obj} event
+   *
    * @returns {void}
    * @memberof UserProfile
    */
@@ -99,8 +107,13 @@ class UserProfile extends Component {
     const self = this;
     UserValidator.passwordValidator(event, self);
   }
+
   /**
-   * @returns {jsx} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof UserProfile
    */
   render() {
@@ -192,7 +205,7 @@ UserProfile.propTypes = propTypes;
 
 /**
  * mapStateToProps
- * @param {Objecy} state
+ * @param {Object} state
  *
  * @returns {Object} Object
  */

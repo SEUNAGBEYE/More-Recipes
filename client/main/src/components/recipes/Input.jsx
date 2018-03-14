@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @description - Input Component
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const Input = (props) => (
   <div>
     <fieldset>

@@ -16,8 +16,13 @@ import CategoryButton from './CategoryButton';
  */
 export class FavouriteRecipes extends Component {
   /**
-   * Creates an instance of FavoruriteRecipes.
+   * @description - Creates an instance of FavoruriteRecipes.
+   *
+   * @method constructor
+   *
    * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof FavouriteRecipes
    */
   constructor(props) {
@@ -29,15 +34,21 @@ export class FavouriteRecipes extends Component {
   }
 
   /**
- *@returns {void} void
- * @memberof FavouriteRecipes
- */
+   * @description - Fetch Component Data
+   *
+   * @method componentDidMount
+   *
+   * @returns {void} void
+   * @memberof FavouriteRecipes
+   */
   componentDidMount() {
     this.paginateRecipes(1);
   }
 
   /**
    * @description - Paginate Recipes
+   *
+   * @method paginateRecipe
    *
    * @param {Number} page
    *
@@ -52,6 +63,10 @@ export class FavouriteRecipes extends Component {
   }
 
   /**
+   * @description - Renders react component
+   *
+   * @method render
+   *
    * @returns {Jsx} Jsx
    * @memberof FavouriteRecipes
    */

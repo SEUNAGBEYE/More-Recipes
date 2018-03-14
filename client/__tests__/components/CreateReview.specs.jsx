@@ -15,7 +15,5 @@ describe('# Review', () => {
   );
   it('should render successfully', () => {
     expect(wrapper).toBeDefined();
-    // expect(wrapper.getElement().type).toBe('form');
-    // expect(wrapper).toMatchSnapshot()
   });
 });

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+/**
+ * @description - Recipe Circle Component
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const RecipeCircle = (props) => (
   <div className="col-sm-6 col-md-4"
     style={{ fontWeight: 'bold', textAlign: 'center' }}

@@ -138,13 +138,17 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{
-        favouriteRecipes: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id) ?
+        favouriteRecipes: !state.userFavouritedRecipeId
+          .includes(action.favouritedRecipe.id) ?
           [...state.favouriteRecipes, action.favouritedRecipe] :
-          state.favouriteRecipes.filter(recipe => recipe.id != action.favouritedRecipe.id),
+          state.favouriteRecipes
+            .filter(recipe => recipe.id != action.favouritedRecipe.id),
 
-        userFavouritedRecipeId: !state.userFavouritedRecipeId.includes(action.favouritedRecipe.id) ?
+        userFavouritedRecipeId: !state.userFavouritedRecipeId
+          .includes(action.favouritedRecipe.id) ?
           state.userFavouritedRecipeId.concat(action.favouritedRecipe.id) :
-          state.userFavouritedRecipeId.filter(id => id !== action.favouritedRecipe.id),
+          state.userFavouritedRecipeId
+            .filter(id => id !== action.favouritedRecipe.id),
         singleRecipe: action.favouritedRecipe
       }
     };

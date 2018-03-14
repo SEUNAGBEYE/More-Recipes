@@ -5,8 +5,10 @@
 export default class UserValidator {
   /**
    * @static
-   * @param {obj} event
-   * @param {obj} that
+   *
+   * @param {Object} event
+   * @param {Object} that
+   *
    * @returns {void} void
    * @memberof UserValidator
    */

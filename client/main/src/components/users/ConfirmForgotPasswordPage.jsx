@@ -12,8 +12,13 @@ import UserValidator from '../../validators/UserValidator';
  */
 class ConfirmForgotPasswordPage extends Component {
   /**
-   * Creates an instance of ConfirmForgotPasswordPage.
+   * @description - Creates an instance of ConfirmForgotPasswordPage.
+   *
+   * @method constructor
+   *
    * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof ConfirmForgotPasswordPage
    */
   constructor(props) {
@@ -28,6 +33,9 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
+   * @description - Fetch Component Data
+   *
+   * @method componentDidMount
    *
    * @returns {void} void
    * @memberof ConfirmForgotPasswordPage
@@ -39,6 +47,10 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
+   * @description - Manage component new props
+   *
+   * @method componentWillReceiveProps
+   *
    * @param {Object} nextProps
    *
    * @returns {void} void
@@ -51,6 +63,10 @@ class ConfirmForgotPasswordPage extends Component {
   }
 
   /**
+   * @description - Change state values
+   *
+   * @method onChange
+   *
    * @param {Object} event
    *
    * @returns {void}
@@ -65,7 +81,12 @@ class ConfirmForgotPasswordPage extends Component {
     const self = this;
     UserValidator.passwordValidator(event, self);
   }
+
   /**
+   * @description - Submit data
+   *
+   * @method onSubmit
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -80,10 +101,15 @@ class ConfirmForgotPasswordPage extends Component {
         toastr.success(res.message, 'Success');
         this.history.push('/login');
       })
-      .catch(error => this.setState({ passwordError: error.response.data.message }));
+      .catch(error =>
+        this.setState({ passwordError: error.response.data.message }));
   }
 
   /**
+   * @description - Renders react component
+   *
+   * @method render
+   *
    * @return {Jsx} Jsx
    * @memberof ConfirmForgotPasswordPage
    */
