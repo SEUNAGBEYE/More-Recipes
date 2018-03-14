@@ -10,7 +10,7 @@ const {
 
 /**
  * @description - Set Current User Action
- * @export - setCurrentUserAction
+ * @export setCurrentUserAction
  *
  * @param {Object} user
  *
@@ -25,7 +25,7 @@ export function setCurrentUserAction(user) {
 
 /**
  * @description Update Profile Action
- * @export - updateProfileAction
+ * @export updateProfileAction
  *
  * @param {Object} user
  *
@@ -53,7 +53,7 @@ function setCurrentUser(action, actionType, response, dispatch) {
   localStorage.setItem('token', token);
   setAuthorizationToken(token);
   const decoded = jwt.decode(token);
-  if (actionType === 'SET_CURRENT_USER') {
+  if (actionType === SET_CURRENT_USER) {
     toastr.success(`${decoded.firstName} ${decoded.lastName}`, 'Welcome');
   } else {
     toastr.success('Profile Updated', 'Success!');
@@ -63,18 +63,18 @@ function setCurrentUser(action, actionType, response, dispatch) {
 
 /**
  * @description - Login Action Creator
- * @export - login
+ * @export login
  *
  * @param {Object} data
  * @param {Object} [history={}]
  *
- * @returns {Object} Object
+ * @returns {String} String
  */
 export function login(data, history = {}) {
   return dispatch => axios.post('/api/v1/users/signin', data)
     .then(response => setCurrentUser(
       setCurrentUserAction,
-      'SET_CURRENT_USER', response.data,
+      SET_CURRENT_USER, response.data,
       dispatch
     ))
     .catch((error) => {
@@ -87,7 +87,7 @@ export function login(data, history = {}) {
 
 /**
  * @description - Sign Up Request Action Creator
- * @export - signUpRequest
+ * @export signUpRequest
  *
  * @param {Object} data
  * @param {Object} history
@@ -97,7 +97,7 @@ export function login(data, history = {}) {
 export function signUpRequest(data, history = []) {
   return dispatch => axios.post('/api/v1/users/signup', data)
     .then(response => setCurrentUser(
-      setCurrentUserAction, 'SET_CURRENT_USER',
+      setCurrentUserAction, SET_CURRENT_USER,
       response.data, dispatch
     ))
     .catch(error => error.response.data);
@@ -105,7 +105,7 @@ export function signUpRequest(data, history = []) {
 
 /**
  * @description - Update Profile Action Creator
- * @export - updateProfile
+ * @export updateProfile
  *
  * @param {Object} data
  *
@@ -115,7 +115,7 @@ export function updateProfile(data) {
   return dispatch => axios.put('/api/v1/users/profile', data)
     .then(response => setCurrentUser(
       updateProfileAction,
-      'UPDATE_PROFILE',
+      UPDATE_PROFILE,
       response.data,
       dispatch
     ))
@@ -124,7 +124,7 @@ export function updateProfile(data) {
 
 /**
  * @description - Forgot Password
- * @export - forgotPassword
+ * @export forgotPassword
  *
  * @param {Object} data
  *
@@ -138,7 +138,8 @@ export function forgotPassword(data) {
 }
 
 /**
- * @export - confirmForgotPassword
+ * @description - Confirm password
+ * @export confirmForgotPassword
  *
  * @param {Object} data
  * @param {String} rememberToken
@@ -153,7 +154,7 @@ export function confirmForgotPassword(data, rememberToken) {
 
 /**
  * @description - Logout Function
- * @export - logout
+ * @export logout
  *
  * @returns {Object} Object
  */

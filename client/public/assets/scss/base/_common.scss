@@ -14,19 +14,24 @@ a, a:hover {
 	color: $orange;
 }
 
-.auth-form{
+.auth-form {
   position: relative;
   margin: 200px 0 35px 0;
 }
 
-#brand{
+.auth-link {
+  padding-top: 10px;
+  text-align: center; 
+}
+
+#brand {
 	color: $orange;
 	margin-left: 10px;
     font-weight: bold;
     font-size: 2em;
 }
 
-.center-exclamation{
+.center-exclamation {
   color: orange;
   font-size: 150px;
   margin: 0 auto;

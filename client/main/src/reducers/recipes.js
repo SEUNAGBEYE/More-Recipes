@@ -77,7 +77,8 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         allRecipes: action.recipes,
-        pagination: action.pagination
+        pagination: action.pagination,
+        loaded: true
       }
     };
 
@@ -93,7 +94,8 @@ export default (state = initialState, action = {}) => {
     return {
       ...state,
       ...{
-        popularRecipes: [...action.popularRecipe]
+        popularRecipes: [...action.popularRecipe],
+        loaded: true
       }
     };
 

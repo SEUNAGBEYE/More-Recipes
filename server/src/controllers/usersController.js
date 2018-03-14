@@ -53,7 +53,6 @@ class UserController {
       } = user;
       const payload = {
         userId,
-        email,
         firstName,
         lastName,
         favoriteRecipe,
@@ -117,7 +116,7 @@ class UserController {
     try {
       const bcryptResponse = await bcrypt.compare(password, user.password);
       if (bcryptResponse) {
-        const { id: userId, ...data } = user.get();
+        const { id: userId, password: userPassword, ...data } = user.get();
         const userProfile = { userId, ...data };
         const token = jwtSigner(userProfile);
         return successResponse(response, { token }, 200);
@@ -269,7 +268,7 @@ class UserController {
       return failureResponse(response, 404, userNotFoundMessage);
     }
 
-    if (oldPassword) {
+    if (oldPassword || oldPassword === '') {
       const bcryptResponse = await bcrypt.compare(oldPassword, user.password);
       if (!bcryptResponse) {
         return failureResponse(response, 400, passwordNotMatchMessage);

@@ -35,10 +35,10 @@ const LoginForm = (props) => (
         >
          Login
         </button>
-        <Link to="/signup" style={{ paddingTop: 10 }} id="not-a-member">
+        <Link to="/signup" className="auth-link" id="not-a-member">
           Not a member
         </Link>
-        <Link to="#" style={{ paddingTop: 10 }}
+        <Link to="#" className="auth-link"
           data-toggle="modal"
           data-target="#forgotPasswordModal"
         >

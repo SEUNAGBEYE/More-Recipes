@@ -12,7 +12,7 @@ const mailer = (mailData) => {
   const {
     email: to, subject, template, context
   } = mailData;
-  nodemailer.createTestAccount((err, account) => {
+  nodemailer.createTestAccount(() => {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',

@@ -13,8 +13,8 @@ function imageUpload(file) {
   const imageData = new FormData();
   imageData.append('file', file);
   imageData.append('upload_preset', cloudinaryUploadPreset);
-
-  delete axios.defaults.headers.common['x-access-token'];
+  
+  Reflect.deleteProperty(axios.defaults.headers.common, 'x-access-token');
 
   return axios({
     url: cloudinaryUploadUrl,

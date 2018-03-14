@@ -19,7 +19,7 @@ class UserProfile extends Component {
    *
    * @method constructor
    *
-   * @param {any} props
+   * @param {Object} props
    *
    * @returns {void} void
    * @memberof UserProfile
@@ -46,25 +46,27 @@ class UserProfile extends Component {
   async onSubmit(event) {
     event.preventDefault();
     this.setState({ loaded: false });
+    if (event.target.id === 'resetPasswordButton' && !this.state.oldPassword) {
+      await this.setState({ oldPassword: '' });
+    }
     const file = document.getElementById('profilePicture').files[0];
     if (file) {
       try {
         const image = await imageUpload(file);
-        this.setState({ profilePicture: image.data.secure_url }, () => {
-          setAuthorizationToken(localStorage.token);
-          this.props.updateProfile(this.state)
-            .then(response => {
-              this.setState({ loaded: true });
-              $('.modal').modal('hide');
-              document.getElementById('form').reset();
-            })
-            .catch(error => {
-              this.setState({
-                errors: error.message,
-                loaded: true
-              });
+        await this.setState({ profilePicture: image.data.secure_url });
+        setAuthorizationToken(localStorage.token);
+        this.props.updateProfile(this.state)
+          .then(response => {
+            this.setState({ loaded: true });
+            $('.modal').modal('hide');
+            document.getElementById('form').reset();
+          })
+          .catch(error => {
+            this.setState({
+              errors: error.message,
+              loaded: true
             });
-        });
+          });
       } catch (error) {
         this.setState({ loaded: true });
       }

@@ -395,7 +395,8 @@ class RecipeController {
           }
         },
       });
-      const data = popularRecipes.sort((a, b) => b.upvotes.length - a.upvotes.length)
+      const data = popularRecipes
+        .sort((a, b) => b.upvotes.length - a.upvotes.length)
         .splice(0, request.query.limit ? request.query.limit : popularRecipes.length);
       return successResponse(response, data, 200);
     } catch (error) {

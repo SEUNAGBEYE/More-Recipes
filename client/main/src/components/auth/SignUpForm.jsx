@@ -85,8 +85,8 @@ const SignUpForm = (props) => (
           id="signUpSubmit"
           onClick={props.onSubmit}
         >Signup</button>
-        <Link to="/login" style={{ paddingTop: 10 }}>Already a member</Link>
-        <Link to="#" style={{ paddingTop: 10 }} data-toggle="modal"
+        <Link to="/login" className="auth-link">Already a member</Link>
+        <Link to="#" className="auth-link" data-toggle="modal"
           data-target="#forgotPasswordModal"
         >
         Forgot Password
