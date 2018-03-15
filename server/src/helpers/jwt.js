@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
  * @description - Jwt Signer
  *
  * @param {Object} payload
- * @param {Object} expiresIn
  *
  * @returns {Object} token
  */

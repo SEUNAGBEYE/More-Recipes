@@ -149,11 +149,13 @@ Test is a very essential part of all application because it ensures codes contri
 * [Postgresql](https://www.postgresql.org/)
 
 # Api Documentatiom
-- To access the API documentation built with swagger please check recipes-v1.herokuapp.com/api-docs/
+- To access the API documentation built with swagger please check [API DOCS](https://recipes-v1.herokuapp.com/api-docs)
 
 # FAQ
 
 * Who can contribute ?
+
+Check the [CONTRIBUTING.md](https://github.com/SEUNAGBEYE/More-Recipes/blob/development/CONTRIBUTING.md) file to see how to contribute. Thank you
 
 `Anyone`
 

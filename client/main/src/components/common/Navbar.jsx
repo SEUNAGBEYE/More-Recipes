@@ -14,8 +14,13 @@ import { getFavouritedRecipesIds, searchRecipes }
  */
 export class Navbar extends React.Component {
   /**
-   * Creates an instance of Navbar.
+   * @description - Creates an instance of Navbar.
+   *
+   * @method contructor
+   *
    * @param {any} props
+   *
+   * @returns {void} void
    * @memberof Navbar
    */
   constructor(props) {
@@ -24,12 +29,16 @@ export class Navbar extends React.Component {
     this.search = this.search.bind(this);
     this.history = createHistory;
   }
+
   /**
+ * @description - Get Navbar data
+ *
+ * @method componentDidMount
  *
  * @returns {void} void
  * @memberof Navbar
  */
-  componentWillMount() {
+  componentDidMount() {
     const { isAuthenticated } = this.props.auth;
     if (isAuthenticated) {
       this.props.getFavouritedRecipesIds();
@@ -37,15 +46,22 @@ export class Navbar extends React.Component {
   }
 
   /**
-* @returns {void}
+ * @description - Log out a user
+ *
+ * @method logout
+ *
+ * @returns {void}
  * @memberof Navbar
  */
   logout() {
     this.props.logout();
     this.props.history.push('/login');
   }
+
   /**
+ * @description - Search for recipes
  *
+ * @method search
  *
  * @param {Object} event
  *
@@ -54,15 +70,19 @@ export class Navbar extends React.Component {
  */
   search(event) {
     event.preventDefault();
-    const { search } = event.target
+    const { search } = event.target;
     this.props.searchRecipes(search.value);
     this.props.history
       .push(`/search_results?search=${search.value}`);
   }
 
   /**
+   * @description - Renders react component
+   *
+   * @method render
+   *
    * @returns {jsx} JSX
-   * @memberOf Navbar
+   * @memberof Navbar
    */
   render() {
     const { isAuthenticated } = this.props.auth;
@@ -83,14 +103,18 @@ export class Navbar extends React.Component {
               <span className="navbar-toggler-icon" />
             </button>
 
-            <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <div className="collapse navbar-collapse justify-content-end"
+              id="navbarSupportedContent"
+            >
 
-              <form className="form-inline" id="search-form" onSubmit={this.search}>
+              <form className="form-inline" id="search-form"
+                onSubmit={this.search}
+              >
 
                 <input type="text" name="search"
                   className="form-control"
                   id="search"
-                  placeholder="Recipe name or list of ingredients separed by ," />
+                  placeholder="Recipe name or list of ingredients separed by ,"/>
 
               </form>
               {isAuthenticated ?
@@ -180,10 +204,14 @@ export class Navbar extends React.Component {
                     </div>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/login" id="signIn">Sign In</Link>
+                    <Link className="nav-link" to="/login" id="signIn">
+                      Sign In
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/signup" id="signUp">Sign Up</Link>
+                    <Link className="nav-link" to="/signup" id="signUp">
+                      Sign Up
+                    </Link>
                   </li>
                 </ul>
               }

@@ -12,8 +12,13 @@ import imageUpload from '../../../utils/ImageUploader';
  */
 export default class EditModal extends Component {
   /**
-  * Creates an instance of EditModal.
-  * @param {obj} props
+  * @description - Creates an instance of EditModal.
+  *
+  * @method constructor
+  *
+  * @param {Object} props
+  *
+  * @returns {void} void
   * @memberof EditModal
   */
   constructor(props) {
@@ -42,10 +47,14 @@ export default class EditModal extends Component {
   }
 
   /**
+   * @description - Add input for steps
+   *
+   * @method stepClick
+   *
    * @param {Object} event
    *
    * @returns {void} void
-   * * @memberof EditModal
+   * @memberof EditModal
    */
   stepClick(event) {
     event.preventDefault();
@@ -53,9 +62,13 @@ export default class EditModal extends Component {
   }
 
   /**
+   * @description - Add input for ingredients
+   *
+   * @method ingredientClick
+   *
    * @param {Object} event
    *
-   *  @returns {void} void
+   * @returns {void} void
    * @memberof EditModal
    */
   ingredientClick(event) {
@@ -64,7 +77,10 @@ export default class EditModal extends Component {
   }
 
   /**
-   *@description - Remove form to add ingredients
+   * @description - Remove form to add ingredients
+   *
+   * @method removeIngredientsInput
+   *
    * @param {any} event
    *
    * @returns {void} void
@@ -80,6 +96,9 @@ export default class EditModal extends Component {
 
   /**
    * @description - Remove form to add a step
+   *
+   * @method removeStepsInput
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -95,9 +114,13 @@ export default class EditModal extends Component {
 
 
   /**
+   * @description - Change state value
+   *
    * @param {Object} event
    *
-   *  @returns {void} void
+   * @method onChange
+   *
+   * @returns {void} void
    * @memberof EditModal
    */
   onChange(event) {
@@ -121,9 +144,13 @@ export default class EditModal extends Component {
   }
 
   /**
+   * @description - Submit recipe data
+   *
    * @param {Object} event
    *
-   *  @returns {void} void
+   * @method updateRecipe
+   *
+   * @returns {void} void
    * @memberof EditModal
    */
   async updateRecipe(event) {
@@ -159,7 +186,11 @@ export default class EditModal extends Component {
   }
 
   /**
-   * @returns {jsx} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof EditModal
    */
   render() {

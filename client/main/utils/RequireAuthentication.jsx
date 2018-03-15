@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import checkAuth from '../utils/CheckAuth';
 
 /**
+ * @description - Higher order component for forcing authentication
  *
+ * @param {Component} AuthComponent
  *
- * @export
- * @returns {void} void
- * @param {any} AuthComponent
+ * @returns {Component} React component
  */
 function requireAuthentication(AuthComponent) {
   /**
@@ -16,6 +17,9 @@ function requireAuthentication(AuthComponent) {
    */
   class AuthenticatedComponent extends Component {
     /**
+     * @description - Check if user is authenticated
+     * @method componentWillMount
+     *
      * @returns {void} void
      * @memberof AuthenticatedComponent
      */
@@ -24,7 +28,10 @@ function requireAuthentication(AuthComponent) {
     }
 
     /**
-     * @returns {JSX } jsx
+     * @description - Renders react component
+     * @method render
+     *
+     * @returns {Jsx } Jsx
      * @memberof AuthenticatedComponent
      */
     render() {
@@ -39,11 +46,19 @@ function requireAuthentication(AuthComponent) {
     }
   }
 
+  const propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
+  };
+
+  AuthenticatedComponent.propTypes = propTypes;
+
   /**
  * mapStateToProps
- * @param {any} state
- * @param {any} props
- * @return {object} object
+ * @param {Object} state
+ * @param {Oject} props
+ *
+ * @return {Object} object
  */
   const mapStateToProps = (state, props) => ({
     isAuthenticated: state.auth.isAuthenticated,

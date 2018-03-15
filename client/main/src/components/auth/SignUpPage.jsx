@@ -11,8 +11,13 @@ import UserValidator from '../../validators/UserValidator';
  */
 class SignUpPage extends Component {
   /**
-   * Creates an instance of SignUpPage.
+   * @description - Creates an instance of SignUpPage.
+   *
+   * @method constructor
+   *
    * @param {any} props
+   *
+   * @returns {void} void
    * @memberof SignUpPage
    */
   constructor(props) {
@@ -35,6 +40,10 @@ class SignUpPage extends Component {
   }
 
   /**
+   * @description - Checks if user is authenticated
+   *
+   * @method componentWillMount
+   *
    * @returns {void} void
    * @memberof SignUpPage
    */
@@ -45,7 +54,11 @@ class SignUpPage extends Component {
   }
 
   /**
- * @param {obj} event
+ * @description - Change state values
+ *
+ * @method onChange
+ *
+ * @param {Object} event
  *
  * @returns {void} void
  * @memberof SignUpPage
@@ -62,10 +75,13 @@ class SignUpPage extends Component {
 
 
   /**
+* @description - Submit data
+*
+* @method onSubmit
 *
 * @param {Object} event
 *
-*@returns {void} void
+* @returns {void} void
 * @memberof SignUpPage
 */
   onSubmit(event) {
@@ -81,7 +97,12 @@ class SignUpPage extends Component {
   }
 
   /**
-   * @param {obj} event
+   * @description - Makes forgot password request
+   *
+   * @method forgotPassword
+   *
+   * @param {Object} event
+   *
    * @returns {void} void
    * @memberof SignUpPage
    */
@@ -92,7 +113,11 @@ class SignUpPage extends Component {
   }
 
   /**
-   * @returns {JSX} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof SignUpPage
    */
   render() {
@@ -136,4 +161,7 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { signUpRequest, forgotPassword })(SignUpPage);
+export default connect(mapStateToProps, {
+  signUpRequest,
+  forgotPassword
+})(SignUpPage);

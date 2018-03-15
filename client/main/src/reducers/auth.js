@@ -16,8 +16,10 @@ export const initialState = {
 export const setUser = (action) => ({
   isAuthenticated: !isEmpty(action.user),
   user: action.user,
-  userFavouritedRecipeId: !isEmpty(action.user && action.user.favoriteRecipe) ? [...action.user.favoriteRecipe.map(elem => elem.id)] : [],
-  favouriteRecipes: !isEmpty(action.user && action.user.favoriteRecipe) ? [...action.user.favoriteRecipe] : []
+  userFavouritedRecipeId: !isEmpty(action.user && action.user.favoriteRecipe) ?
+    [...action.user.favoriteRecipe.map(elem => elem.id)] : [],
+  favouriteRecipes: !isEmpty(action.user && action.user.favoriteRecipe) ?
+    [...action.user.favoriteRecipe] : []
 });
 
 export default (state = initialState, action = {}) => {

@@ -6,9 +6,10 @@ import { connect } from 'react-redux';
 
 /**
  * @description - Component for selecting category to display
+ *
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const CategoryButton = (props) => (
   <div className="dropdown" style={{ float: 'left' }}

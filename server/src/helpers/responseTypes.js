@@ -1,6 +1,8 @@
 
 const responseTypes = {
   /**
+   * @description - Failure response
+   *
    * @param {Object} response
    * @param {Number} statusCode
    * @param {String} [message=undefined]
@@ -23,8 +25,10 @@ const responseTypes = {
   },
 
   /**
+   * @description Success response
+   *
    * @param {Object} response
-   * @param {object} data object
+   * @param {Object} data
    * @param {Number} statusCode
    * @param {Number} [pagination=undefined]
    * @param {String} [message=undefined]
@@ -45,6 +49,7 @@ const responseTypes = {
   notAuthorizeMessage: 'Not Authorize',
   invalidCredentials: 'Invalid Password or Email',
   passwordChangedMessage: 'Password Changes',
+  passwordNotMatchMessage: 'Old Password Is Incorrect',
   recipeExistMessage: 'You Already added A Recipe With This Name',
   tokenNotValidMessage: 'Token Not Valid',
   sendATokenMessage: 'Please send a token!'

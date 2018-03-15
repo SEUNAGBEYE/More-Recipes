@@ -75,8 +75,6 @@ describe('# EditModal', () => {
     const event = generateEvent('');
     const updateRecipeSpy = jest.spyOn(wrapper.instance(), 'updateRecipe');
     const file = wrapper.find(`recipePicture${props.recipe.id}`);
-    // expect(file.length).toEqual(1)
-    // wrapper.instance().updateRecipe(event);
     expect(updateRecipeSpy).toHaveBeenCalledTimes(0)
     done();
   });

@@ -12,7 +12,7 @@ const mailer = (mailData) => {
   const {
     email: to, subject, template, context
   } = mailData;
-  nodemailer.createTestAccount((err, account) => {
+  nodemailer.createTestAccount(() => {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -32,13 +32,7 @@ const mailer = (mailData) => {
       template,
       context
     };
-    let viewPath;
-
-    if (process.env.NODE_ENV === 'production') {
-      viewPath = 'server/dist/email-templates';
-    } else {
-      viewPath = 'server/src/email-templates';
-    }
+    const viewPath = 'server/src/email-templates';
     transporter.use('compile', handleBars({
       viewPath,
       extName: '.hbs'

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 /**
  * @description - Component for displaying 404, and resource not found
+ *
  * @param {Object} props
  *
- * @returns  {jsx} JSX
+ * @returns  {Jsx} Jsx
  */
 const Exclamation = (props) => (
   <div className="text-center exclamation-container" style={props.style}>
@@ -15,7 +16,8 @@ const Exclamation = (props) => (
 );
 
 const propTypes = {
-  children: PropTypes.object
+  children: PropTypes.object,
+  style: PropTypes.object,
 };
 
 Exclamation.propTypes = propTypes;

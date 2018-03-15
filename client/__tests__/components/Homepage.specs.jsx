@@ -29,6 +29,7 @@ const props = {
   allRecipes: jest.fn(),
   recipeCategories: jest.fn(),
   categories: [],
+  loaded: true,
   history: {
     push: (() => {})
   },
@@ -59,7 +60,7 @@ describe('# Hompage', () => {
   it('should render successfully', (done) => {
     expect(wrapper).toBeDefined();
     expect(wrapper.getElement().type).toBe('div');
-    // expect(wrapper.instance().props).toEqual(props)
+    expect(wrapper.instance().props).toEqual(props)
     expect(wrapper).toMatchSnapshot()
     done();
   });

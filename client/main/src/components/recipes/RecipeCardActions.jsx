@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 /**
- *@description - Component for recipe actions i.e upvote/downvotes, edit recipe, delete recipe
+ * @description - Component for recipe actions i.e upvote/downvotes, edit recipe, delete recipe
+ *
  * @param {Object} props
  *
- * @returns {jsx} JSX
+ * @returns {Jsx} Jsx
  */
 const RecipeCardActions = (props) => (
   <div>

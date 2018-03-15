@@ -15,8 +15,13 @@ import CategoryButton from './CategoryButton';
  */
 export class CategoryPage extends Component {
   /**
-   * Creates an instance of AllRecipes.
+   * @description - Creates an instance of AllRecipes.
+   *
+   * @method contructor
+   *
    * @param {any} props
+   *
+   * @returns {void} void
    * @memberof AllRecipes
    */
   constructor(props) {
@@ -28,16 +33,25 @@ export class CategoryPage extends Component {
   }
 
   /**
+   * @description - Get component data
+   *
+   * @method componentDidMount
+   *
    * @returns {void} void
- * @memberof CategoryPage
- */
-  componentWillMount() {
+   * @memberof CategoryPage
+   */
+  componentDidMount() {
     this.paginateRecipes(1);
   }
 
   /**
+   * @description - Get all recipes
+   *
+   * @method paginateRecipe
+   *
+   * @param {Number} page
+   *
    * @returns {void} void
-   * @param {any} page
    * @memberof CategoryPage
    */
   async paginateRecipes(page) {
@@ -46,8 +60,12 @@ export class CategoryPage extends Component {
   }
 
   /**
-   * @returns {jsx} JSX
-   * @memberOf CategoryPage
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
+   * @memberof CategoryPage
    */
   render() {
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { allRecipes, recipeCategories, popularRecipes } from '../actions/Recipes';
@@ -12,7 +13,12 @@ import RecipeCircle from './recipes/RecipeCircle';
  * @extends {Component}
  */
 export class Homepage extends Component {
-  /**@returns {void} void
+  /**
+   * @description - Get Component Data
+   *
+   * @method componentDidMount
+   *
+   * @returns {void} void
    * @memberof Homepage
    */
   componentDidMount() {
@@ -23,66 +29,72 @@ export class Homepage extends Component {
 
 
   /**
-   *@returns {jsx} JSX
+   * @description - Render react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof Homepage
    */
   render() {
     return (
-      <div>
-        <main>
-          <section className="banner">
-            <div className="overlay">
-              <h3 className="overlay__h3">
+      this.props.loaded ?
+        <div>
+          <main>
+            <section className="banner">
+              <div className="overlay">
+                <h3 className="overlay__h3">
               Welcome To Recipes. All About Reciping
-              </h3>
-            </div>
-          </section>
-
-          <section>
-            <div className="container">
-
-              <h3 className="title"
-                style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
-                <Link to="/recipes" className="title__link">Recipes</Link>
-              </h3>
-
-              <div className="row">
-                {
-                  this.props.recipes.map((recipe) =>
-                    <RecipeCircle key={recipe.id} recipe={recipe} />)
-                }
+                </h3>
               </div>
+            </section>
 
-              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
-                <Link to="#" className="title-link">
+            <section>
+              <div className="container">
+
+                <h3 className="title"
+                  style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                  <Link to="/recipes" className="title__link">Recipes</Link>
+                </h3>
+
+                <div className="row">
+                  {
+                    this.props.recipes.map((recipe) =>
+                      <RecipeCircle key={recipe.id} recipe={recipe} />)
+                  }
+                </div>
+
+                <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                  <Link to="#" className="title-link">
                 Categories</Link>
-              </h3>
+                </h3>
 
-              <div className="row">
-                {
-                  this.props.categories
-                    .map((category) =>
-                      (<RecipeCircle key={category.id} recipe={category}
-                        to={`/categories/${category.name}`} />))
-                }
+                <div className="row">
+                  {
+                    this.props.categories
+                      .map((category) =>
+                        (<RecipeCircle key={category.id} recipe={category}
+                          to={`/categories/${category.name}`} />))
+                  }
+                </div>
+                <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
+                  <Link to="#" className="title-link">Popular</Link>
+                </h3>
+
+                <div className="row">
+                  {
+                    this.props.popularRecipe
+                      .map((recipe) => (<RecipeCircle
+                        key={recipe.id} recipe={recipe} />))
+                  }
+                </div>
+
               </div>
-              <h3 style={{ textAlign: 'center', marginTop: 40, fontSize: 32 }}>
-                <Link to="#" className="title-link">Popular</Link>
-              </h3>
+            </section>
 
-              <div className="row">
-                {
-                  this.props.popularRecipe
-                    .map((recipe) => (<RecipeCircle
-                      key={recipe.id} recipe={recipe} />))
-                }
-              </div>
-
-            </div>
-          </section>
-
-        </main>
-      </div>
+          </main>
+        </div> :
+        <Loader loaded={this.props.loaded} />
     );
   }
 }
@@ -93,7 +105,8 @@ const propTypes = {
   allRecipes: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   popularRecipes: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  loaded: PropTypes.bool.isRequired
 };
 
 Homepage.propTypes = propTypes;
@@ -108,7 +121,8 @@ Homepage.propTypes = propTypes;
 export const mapStateToProps = (state) => ({
   recipes: state.recipes.allRecipes,
   popularRecipe: state.recipes.popularRecipes,
-  categories: state.recipes.recipeCategories
+  categories: state.recipes.recipeCategories,
+  loaded: state.recipes.loaded
 });
 
 export default connect(mapStateToProps, {

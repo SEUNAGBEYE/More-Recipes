@@ -23,7 +23,8 @@ const clearSignInValue = browser => browser
   .click('#password')
   .clearValue('#password');
 const clickRecipeCard = (browser, recipeId) => browser
-  .click(`[data-recipe-card-id=recipe${recipeId}`);
+  .click(`[data-recipe-card-id=recipe${recipeId}]`)
+  .pause(2000)
 
 const baseUrl = 'http://localhost:7000';
 
@@ -36,7 +37,8 @@ export default {
       .assert.title('Get Your Recipe')
       .assert.containsText('#signIn', 'Sign In')
       .assert.containsText('#signUp', 'Sign Up')
-      .assert.containsText('.overlay__h3', 'Welcome To Recipes. All About Reciping')
+      .assert
+      .containsText('.overlay__h3', 'Welcome To Recipes. All About Reciping')
       .assert.containsText('.title__link', 'Recipes')
       .assert.containsText('#brand', 'Recipes')
       .assert.containsText('.categories', 'Categories');
@@ -50,7 +52,8 @@ export default {
       .url(baseUrl)
       .waitForElementVisible('body', 5000)
       .assert.title('Get Your Recipe')
-      .assert.containsText('.overlay__h3', 'Welcome To Recipes. All About Reciping')
+      .assert
+      .containsText('.overlay__h3', 'Welcome To Recipes. All About Reciping')
       .assert.containsText('.title__link', 'Recipes')
       .assert.containsText('#brand', 'Recipes')
       .assert.containsText('.categories', 'Categories');
@@ -101,6 +104,7 @@ export default {
       .click('#user-drop-down')
       .pause(1000)
       .click('#all-recipes')
+      .pause(1000)
     deleteRecipe(browser, validRecipeTwo.id)
       .url(`${baseUrl}/recipes`)
       .click('#user-drop-down')

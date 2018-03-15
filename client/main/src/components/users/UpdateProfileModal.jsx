@@ -1,6 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader';
 import PropTypes from 'prop-types';
+
 /**
  * @description -  Update Profile Modal
  *

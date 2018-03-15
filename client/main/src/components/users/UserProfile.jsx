@@ -6,7 +6,7 @@ import { logout, updateProfile } from '../../actions/auth/Auth';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
 import imageUpload from '../../../utils/ImageUploader';
 import UpdateProfileModal from './UpdateProfileModal';
-import ResetPasswordModal from './ResetPasswordModal';
+import ChangePasswordModal from './ChangePasswordModal';
 import UserValidator from '../../validators/UserValidator';
 
 /**
@@ -15,8 +15,11 @@ import UserValidator from '../../validators/UserValidator';
  */
 class UserProfile extends Component {
   /**
-   * Creates an instance of UserProfile.
-   * @param {any} props
+   * @description - Creates an instance of UserProfile.
+   *
+   * @method constructor
+   *
+   * @param {Object} props
    *
    * @returns {void} void
    * @memberof UserProfile
@@ -31,7 +34,9 @@ class UserProfile extends Component {
   }
 
   /**
+   * @description - Submit data
    *
+   * @method onSubmit
    *
    * @param {Object} event
    *
@@ -41,44 +46,58 @@ class UserProfile extends Component {
   async onSubmit(event) {
     event.preventDefault();
     this.setState({ loaded: false });
+    if (event.target.id === 'resetPasswordButton' && !this.state.oldPassword) {
+      await this.setState({ oldPassword: '' });
+    }
     const file = document.getElementById('profilePicture').files[0];
     if (file) {
       try {
         const image = await imageUpload(file);
-        this.setState({ profilePicture: image.data.secure_url }, () => {
-          setAuthorizationToken(localStorage.token);
-          this.props.updateProfile(this.state)
-            .then(res => {
-              this.setState({ loaded: true });
-              $('.modal').modal('hide');
-              document.getElementById('form').reset();
-            })
-            .catch(error => {
-              this.setState({
-                errors: error.response.data.errors,
-                loaded: true
-              });
+        await this.setState({ profilePicture: image.data.secure_url });
+        setAuthorizationToken(localStorage.token);
+        this.props.updateProfile(this.state)
+          .then(response => {
+            this.setState({ loaded: true });
+            $('.modal').modal('hide');
+            document.getElementById('form').reset();
+          })
+          .catch(error => {
+            this.setState({
+              errors: error.message,
+              loaded: true
             });
-        });
+          });
       } catch (error) {
         this.setState({ loaded: true });
       }
     } else {
       this.props.updateProfile(this.state)
-        .then(res => {
-          this.setState({ loaded: true });
-          $('.modal').modal('hide');
-          document.getElementById('form').reset();
+        .then(response => {
+          if (response && response.status === 'Failure') {
+            this.setState({
+              loaded: true,
+              errors: response.message,
+            });
+          } else {
+            this.setState({
+              loaded: true,
+            });
+            $('.modal').modal('hide');
+            document.getElementById('change-password-modal').reset();
+          }
         });
-      document.getElementById('form').reset();
+      document.getElementById('change-password-modal').reset();
     }
   }
 
 
   /**
+   * @description - Change state values
    *
+   * @method onChange
    *
    * @param {obj} event
+   *
    * @returns {void}
    * @memberof UserProfile
    */
@@ -90,8 +109,13 @@ class UserProfile extends Component {
     const self = this;
     UserValidator.passwordValidator(event, self);
   }
+
   /**
-   * @returns {jsx} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof UserProfile
    */
   render() {
@@ -163,7 +187,7 @@ class UserProfile extends Component {
             state={this.state}
             onSubmit={this.onSubmit}
           />
-          <ResetPasswordModal
+          <ChangePasswordModal
             onChange={this.onChange}
             onSubmit={this.onSubmit}
             state={this.state}
@@ -183,7 +207,7 @@ UserProfile.propTypes = propTypes;
 
 /**
  * mapStateToProps
- * @param {Objecy} state
+ * @param {Object} state
  *
  * @returns {Object} Object
  */

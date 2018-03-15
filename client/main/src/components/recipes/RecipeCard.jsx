@@ -53,7 +53,7 @@ export class RecipeCard extends Component {
    * @returns {void} void
    * @memberof RecipeCard
    */
-  componentWillMount() {
+  componentDidMount() {
     const { recipe, user } = this.props;
     this.setState({
       recipe,
@@ -81,6 +81,10 @@ export class RecipeCard extends Component {
   }
 
   /**
+   * @description - Toggle Favorite Recipe
+   *
+   * @method toggleFavouriteRecipe
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -96,7 +100,11 @@ export class RecipeCard extends Component {
   }
 
   /**
-   * @param {any} event
+   * @description - Toggle Thumbs Up
+   *
+   * @method toggleThumbsUpRecipe
+   *
+   * @param {Object} event
    *
    * @returns {void} void
    * @memberof RecipeCard
@@ -111,6 +119,10 @@ export class RecipeCard extends Component {
   }
 
   /**
+   * @description - Delete a recipe
+   *
+   * @method deleteRecipe
+   *
    * @param {Object} event
    *
    * @returns {void} void
@@ -122,6 +134,10 @@ export class RecipeCard extends Component {
   }
 
   /**
+   * @description - Edit Recipe
+   *
+   * @method editRecipe
+   *
    * @param {Number} id
    * @param {Object} recipe
    *
@@ -133,9 +149,13 @@ export class RecipeCard extends Component {
   }
 
   /**
+   * @description - Toggle Thumbs Down
+   *
+   * @method toggleThumbsDownRecipe
+   *
    * @param {Object} event
    *
-   * @returns {Object} object
+   * @returns {void} void
    * @memberof RecipeCard
    */
   toggleThumbsDownRecipe(event) {
@@ -149,7 +169,11 @@ export class RecipeCard extends Component {
 
 
   /**
-   * @returns {JSX} jsx
+   * @description - Renders react component
+   *
+   * @method render
+   *
+   * @returns {Jsx} Jsx
    * @memberof RecipeCard
    */
   render() {
@@ -222,7 +246,8 @@ RecipeCard.propTypes = propTypes;
 export const mapStateToProps = (state) => ({
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
-  myFavouriteRecipes: state.auth.isAuthenticated ? state.recipes.userFavouritedRecipeId : []
+  myFavouriteRecipes: state.auth.isAuthenticated ?
+    state.recipes.userFavouritedRecipeId : []
 
 });
 

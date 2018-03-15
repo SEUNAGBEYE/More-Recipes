@@ -10,7 +10,5 @@ global.localStorage = {
   removeItem: () => null
 };
 global.document = {
-  getElementById: ((id) => {
-    ({ reset: (() => null), id });
-  })
+  getElementById: (id => ({ id }))
 };

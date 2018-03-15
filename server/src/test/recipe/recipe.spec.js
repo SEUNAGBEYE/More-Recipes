@@ -8,19 +8,20 @@ import { recipeRoute } from '../../routes/index';
 chai.use(chaiHtpp);
 describe('Test For Recipes Routes', () => {
   describe('Test Getting all recipes', () => {
-    it('should return an array of objects and it should have a statusCode of 200 when trying to get all recipes', (done) => {
+    it('should return return all recipes', (done) => {
       chai.request(recipeRoute)
         .get('/')
         .end((error, res) => {
           expect(res).to.have.status(200);
           assert.isArray(res.body.data, 'is an array of objects');
+          expect(res.body.data.length).to.equals(24);
           done();
         });
     });
   });
 
   describe('Test For Getting A  Single Recipe', () => {
-    it('should be an object and it should have a statusCode of 200 when trying to get a recipe', (done) => {
+    it('should return a recipe', (done) => {
       chai.request(recipeRoute)
         .get('/11')
         .end((error, res) => {
@@ -33,7 +34,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting A  Single Recipe', () => {
-    it('should have a statusCode of 400 when trying to get a single recipe with an invalid id', (done) => {
+    it('should not return a recipe when an invalid recipe id is provided', (done) => {
       chai.request(recipeRoute)
         .get('/aaaaaa')
         .end((error, res) => {
@@ -46,19 +47,19 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting A  Single Recipe Not The Memory', () => {
-    it('should have a statusCode of 404 when trying to get a recipe not in database', (done) => {
+    it('should not return a recipe that is not in the database', (done) => {
       chai.request(recipeRoute)
         .get('/2333333')
         .end((error, res) => {
           expect(res).to.have.status(404);
-          // expect(res.body.data.message).equal('Recipe Not Foundj');
+          expect(res.body.message).equal('Recipe Not Found');
           done();
         });
     });
   });
 
   describe('Test For Adding A  Single Recipe', () => {
-    it('should return an object and it should have a statusCode of 201 when a recipe is created', (done) => {
+    it('should create a recipe when inputs are cleaned and a valid token is provided', (done) => {
       chai.request(recipeRoute)
         .post('/')
         .send({
@@ -82,7 +83,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Adding A  Single Recipe', () => {
-    it('should have a statusCode of 400 when trying to add a recipe without all required properties', (done) => {
+    it('should not create a recipe when all required properties are not provided', (done) => {
       chai.request(recipeRoute)
         .post('/')
         .send({
@@ -96,6 +97,7 @@ describe('Test For Recipes Routes', () => {
           expect(res.body.status).to.equals('Failure');
           expect(res.body).to.have.property('errors');
           assert.isArray(res.body.errors, 'is array of objects');
+          expect(res.body.errors.length).to.equals(1);
           expect(res.body.errors[0].message).to.equals('Recipe.categoryId cannot be null');
           done();
         });
@@ -103,7 +105,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Updating A  Single Recipe', () => {
-    it('should have a statusCode of 200 when a recipe is updated', (done) => {
+    it('should update a recipe when inputs are cleaned and token is valid', (done) => {
       chai.request(recipeRoute)
         .put('/11')
         .send({
@@ -122,7 +124,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Updating A  Single Recipe', () => {
-    it('should have a statusCode of 403 when a user is trying to update a recipes he/she did not create', (done) => {
+    it('should not update a recipe when the user is unauthorize', (done) => {
       chai.request(recipeRoute)
         .put('/11')
         .send({
@@ -140,7 +142,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Updating A  Single Recipe Not In Memory', () => {
-    it('should have a statusCode of 404 when trying update a recipe not in database', (done) => {
+    it('should not update a recipe that does not exist in the database', (done) => {
       chai.request(recipeRoute)
         .put('/244444')
         .send({
@@ -156,7 +158,7 @@ describe('Test For Recipes Routes', () => {
     });
   });
   describe('Test For Updating A  Single Recipe Not In Memory', () => {
-    it('should have a statusCode of 400 when trying update a recipe with in the same name', (done) => {
+    it('should not update a recipe, when a recipe with the same name is already created by the user', (done) => {
       chai.request(recipeRoute)
         .put('/244444')
         .send({
@@ -173,7 +175,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 200 when a recipe is upvoted', (done) => {
+    it('should upvote a recipe when token is valid', (done) => {
       chai.request(recipeRoute)
         .put('/11/upvotes')
         .send({
@@ -189,7 +191,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 200 when a recipe is removed from upvoted recipes', (done) => {
+    it('should remove a recipe from the user\'s upvoted recipes when the same route is hitted again', (done) => {
       chai.request(recipeRoute)
         .put('/11/upvotes')
         .send({
@@ -204,7 +206,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 404 when trying to upvote a recipe not in database', (done) => {
+    it('should not upvote a recipe that does not exist in the database', (done) => {
       chai.request(recipeRoute)
         .put('/11111/upvotes')
         .send({
@@ -219,7 +221,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 200 when a recipe is downvoted', (done) => {
+    it('should downvote a recipe when token is valid', (done) => {
       chai.request(recipeRoute)
         .put('/11/downvotes')
         .send({
@@ -235,7 +237,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 200 when a recipe removed from downvoted recipes', (done) => {
+    it('should remove a recipe from the user\'s downvoted recipes when the same route is hitted again', (done) => {
       chai.request(recipeRoute)
         .put('/11/downvotes')
         .send({
@@ -251,7 +253,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 400 when trying to downvote a recipe with invalid recipeId', (done) => {
+    it('should not downvote a recipe with invalid recipe id', (done) => {
       chai.request(recipeRoute)
         .put('/""/downvotes')
         .send({
@@ -266,7 +268,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Voting A Recipe', () => {
-    it('should have a statusCode of 404 when trying to downvote a recipe not in database', (done) => {
+    it('should not downvote a recipe that does not exist in the database', (done) => {
       chai.request(recipeRoute)
         .put('/100/downvotes')
         .send({
@@ -281,7 +283,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Reviewing A Recipe', () => {
-    it('should have a statusCode of 200 when a recipe is reviewed', (done) => {
+    it('should review a recipe when token is valid', (done) => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({
@@ -300,7 +302,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Reviewing A Recipe', () => {
-    it('should have a statusCode of 404 when trying to review a recipe not in database', (done) => {
+    it('should not review a recipe that does not exist in the database', (done) => {
       chai.request(recipeRoute)
         .post('/10000/reviews')
         .send({
@@ -315,7 +317,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Reviewing A Recipe', () => {
-    it('should have a statusCode of 400 when trying to review a recipes', (done) => {
+    it('should not review a recipe when review body is not present', (done) => {
       chai.request(recipeRoute)
         .post('/10/reviews')
         .send({
@@ -323,13 +325,16 @@ describe('Test For Recipes Routes', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
+          expect(res.body.errors).to.be.an('array');
+          expect(res.body.errors.length).to.equals(1);
+          expect(res.body.errors[0].message).to.equals('Body Is Required');
           done();
         });
     });
   });
 
   describe('Test For Getting Reviews For A Recipe', () => {
-    it('should return an object and it should have a statusCode of 200 when trying to review a recipes', (done) => {
+    it('should return a review that belongs to recipe', (done) => {
       chai.request(recipeRoute)
         .get('/10/reviews')
         .end((error, res) => {
@@ -340,7 +345,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting Reviews For A Recipe', () => {
-    it('should return an object and it should have a statusCode of 400 when trying to review a recipes', (done) => {
+    it('should not return a review when query strings are invalid', (done) => {
       chai.request(recipeRoute)
         .get('/10/reviews?limit=aaa')
         .end((error, res) => {
@@ -352,7 +357,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Deleting A  Single Recipe In Memory When Not Authorized', () => {
-    it('should have a statusCode of 403 when trying to delete a recipe if the user is not the one who created the recipe', (done) => {
+    it('should not delete a recipe if the user is not the one who created the recipe', (done) => {
       chai.request(recipeRoute)
         .delete('/11')
         .send({
@@ -367,7 +372,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Deleting A  Single Recipe In Memory', () => {
-    it('should have a statusCode of 200 when trying to delete a recipe in memory', (done) => {
+    it('should delete a recipe when the recipe is created by the user', (done) => {
       chai.request(recipeRoute)
         .delete('/11')
         .send({
@@ -382,7 +387,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Deleting A  Single Recipe Not In Memory', () => {
-    it('should have a statusCode of 404 when trying to delete a recipe not in memory', (done) => {
+    it('should not delete a recipe that does not exist in the database', (done) => {
       chai.request(recipeRoute)
         .delete('/2222')
         .end((error, res) => {
@@ -394,7 +399,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting All Recipes By Votes', () => {
-    it('should have a statusCode of 200 when trying to get all recipes by votes', (done) => {
+    it('should return all recipes when query strings are valid', (done) => {
       chai.request(recipeRoute)
         .get('?sort=upvotes&order=desc')
         .end((error, res) => {
@@ -406,7 +411,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting All Recipes By Votes', () => {
-    it('should have a statusCode of 400 when trying to get all recipes with wrong query', (done) => {
+    it('should not return all recipes when query strings are invalid', (done) => {
       chai.request(recipeRoute)
         .get('?sort=up&order=asc')
         .end((error, res) => {
@@ -419,19 +424,20 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Getting All Recipes By Votes', () => {
-    it('should have a statusCode of 200 when trying to get popular recipes', (done) => {
+    it('should return popular recipes', (done) => {
       chai.request(recipeRoute)
         .get('/popular')
         .end((error, res) => {
           expect(res).to.have.status(200);
           expect(res.body.data).to.be.an('array');
+          expect(res.body.data.length).to.equals(23);
           done();
         });
     });
   });
 
   describe('Test For Getting All Recipes Categories', () => {
-    it('should have a statusCode of 200 when trying to get all categories', (done) => {
+    it('should return all categories', (done) => {
       chai.request(recipeRoute)
         .get('/categories')
         .end((error, res) => {
@@ -443,7 +449,7 @@ describe('Test For Recipes Routes', () => {
   });
 
   describe('Test For Searching For Recipes', () => {
-    it('should return an object and it should have a statusCode of 200 when trying to search for recipes', (done) => {
+    it('should return recipes that either their names or ingredients match the query string', (done) => {
       chai.request(recipeRoute)
         .get('/search_results?search=Amala')
         .end((error, res) => {
@@ -452,6 +458,7 @@ describe('Test For Recipes Routes', () => {
           expect(res.body.data[0].image).to.equal('This is the image');
           expect(res.body.data[0].description).to.equal('This is made from carbonhydrate');
           assert.isArray(res.body.data);
+          expect(res.body.data.length).to.equals(1);
           done();
         });
     });

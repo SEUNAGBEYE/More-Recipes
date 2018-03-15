@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ForgotPasswordModal from '../users/ForgotPasswordModal';
-
+/**
+ * @description - Renders LoginForm Component
+ *
+ * @param {Object} props
+ *
+ * @returns {Jsx} Jsx
+ */
 const LoginForm = (props) => (
   <div>
     <form className="auth-form" onSubmit={props.onSubmit}>
@@ -29,10 +35,10 @@ const LoginForm = (props) => (
         >
          Login
         </button>
-        <Link to="/signup" style={{ paddingTop: 10 }} id="not-a-member">
+        <Link to="/signup" className="auth-link" id="not-a-member">
           Not a member
         </Link>
-        <Link to="#" style={{ paddingTop: 10 }}
+        <Link to="#" className="auth-link"
           data-toggle="modal"
           data-target="#forgotPasswordModal"
         >

@@ -30,6 +30,7 @@ ShallowWrapper {
         "push": [Function],
       }
     }
+    loaded={true}
     popularRecipe={Array []}
     popularRecipes={
       [MockFunction] {

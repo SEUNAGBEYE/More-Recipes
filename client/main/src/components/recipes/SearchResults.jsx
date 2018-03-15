@@ -19,17 +19,26 @@ import CategoryButton from './CategoryButton';
  */
 export class SearchResults extends Component {
   /**
-   * Creates an instance of SearchResults.
+   * @description - Creates an instance of SearchResults.
+   *
+   * @method constructor
+   *
    * @param {Object} props
+   *
+   * @returns {void} void
    * @memberof SearchResults
    */
   constructor(props) {
     super(props);
     this.searchRecipes = this.searchRecipes.bind(this);
   }
+
   /**
+   * @description - Fetch Component Data
    *
-   *@returns {void} void
+   * @method componentDidMount
+   *
+   * @returns {void} void
    * @memberof SearchResults
    */
   componentDidMount() {
@@ -41,6 +50,10 @@ export class SearchResults extends Component {
   }
 
   /**
+   * @description - Search for recipes
+   *
+   * @method searchRecipes
+   *
    * @param {Number} page
    *
    * @returns {void} void
@@ -52,9 +65,12 @@ export class SearchResults extends Component {
   }
 
   /**
+   * @description - Renders react component
+   *
+   * @method render
+   *
    * @returns {Jsx} Jsx
-   * @memberof UserRecipes
-   * return {object}
+   * @memberof SearchResults
    */
   render() {
     return (
