@@ -23,10 +23,15 @@ const CategoryButton = (props) => (
       {
         props.categories.map(category =>
           (<Link className="dropdown-item"
+            onClick={props.onClick}
             key={category.id} to={`/categories/${category.name}`}
             data-category-link={`category-link-${category.name}`}
+            data-category={`${category.name}`}
           >{category.name}</Link>))
       }
+      <Link className="dropdown-item"
+        to={`/recipes`}
+      > All Recipes</Link>
     </div>
   </div>
 );

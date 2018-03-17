@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { allRecipes, recipeCategories, popularRecipes } from '../actions/Recipes';
+import { allRecipes, popularRecipes } from '../actions/Recipes';
 import RecipeCircle from './recipes/RecipeCircle';
 
 
@@ -23,7 +23,6 @@ export class Homepage extends Component {
    */
   componentDidMount() {
     this.props.popularRecipes(3);
-    this.props.recipeCategories();
     this.props.allRecipes(1, 3);
   }
 
@@ -101,7 +100,6 @@ export class Homepage extends Component {
 
 const propTypes = {
   recipes: PropTypes.array.isRequired,
-  recipeCategories: PropTypes.func.isRequired,
   allRecipes: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   popularRecipes: PropTypes.func.isRequired,
@@ -127,6 +125,5 @@ export const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   allRecipes,
-  recipeCategories,
   popularRecipes
 })(Homepage);

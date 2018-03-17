@@ -10,6 +10,7 @@ const {
   GET_POPULAR_RECIPES,
   GET_RECIPE_REVIEWS,
   RECIPE_CATEGORIES,
+  RECIPE_CATEGORY,
   SEARCH_RECIPES,
   ADD_RECIPE,
   DELETE_RECIPE,
@@ -175,6 +176,21 @@ export function recipeCategoriesAction(data) {
     recipeCategories: data.data
   };
 }
+/**
+ * @description - Get Recipe Categories Action
+ * @export recipeCategoryAction
+ *
+ * @param {Object} data
+ *
+ * @returns {Object} Object
+ */
+export function recipeCategoryAction(data) {
+  return {
+    type: RECIPE_CATEGORY,
+    recipeCategory: data.data,
+    pagination: data.pagination
+  };
+}
 
 /**
  * @description - Search Recipes Action
@@ -312,6 +328,21 @@ export function popularRecipes(limit) {
 export function recipeCategories() {
   return dispatch => axios.get('/api/v1/recipes/categories')
     .then(response => dispatch(recipeCategoriesAction(response.data)));
+}
+
+/**
+ * @description - Recipe Categories Action Creator
+ * @export recipeCategory
+ *
+ * @param {Number} page
+ * @param {Number} id
+ *
+ * @returns {Object} Object
+ */
+export function recipeCategory(page, id) {
+  const limit = 8;
+  return dispatch => axios.get(`/api/v1/recipes/categories/${id}?limit=${limit}&page=${page}`)
+    .then(response => dispatch(recipeCategoryAction(response.data)));
 }
 
 /**

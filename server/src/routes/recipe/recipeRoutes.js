@@ -121,7 +121,7 @@ recipeRoute.route('/categories')
    */
   .get(RecipeController.getCategories);
 
-recipeRoute.route('/categories/:id')
+recipeRoute.route('/categories/:query')
 /**
    * @swagger
    * /api/v1/recipes/categories/{id}:
@@ -140,7 +140,7 @@ recipeRoute.route('/categories/:id')
    *         schema:
    *           $ref: '#/definitions/RecipeCategory'
    */
-  .get(validateId, RecipeController.getCategory);
+  .get(RecipeController.getCategory);
 
 recipeRoute.route('/search_results')
   .get(RecipeController.searchRecipes);

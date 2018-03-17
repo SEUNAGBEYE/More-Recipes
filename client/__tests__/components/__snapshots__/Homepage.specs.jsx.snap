@@ -41,13 +41,7 @@ ShallowWrapper {
         ],
       }
     }
-    recipeCategories={
-      [MockFunction] {
-        "calls": Array [
-          Array [],
-        ],
-      }
-    }
+    recipeCategories={[MockFunction]}
     recipes={Array []}
   />,
   Symbol(enzyme.__renderer__): Object {

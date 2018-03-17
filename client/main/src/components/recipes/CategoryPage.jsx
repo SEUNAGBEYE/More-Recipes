@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import Loader from 'react-loader';
-import { recipeCategories } from '../../actions/Recipes';
+import { recipeCategory, recipeCategories } from '../../actions/Recipes';
 import RecipeCard from './RecipeCard';
 import Pagination from './Pagination';
 import Exclamation from './Exclamation';
@@ -49,13 +49,20 @@ export class CategoryPage extends Component {
    *
    * @method paginateRecipe
    *
-   * @param {Number} page
+   * @param {any} page
    *
    * @returns {void} void
    * @memberof CategoryPage
    */
   async paginateRecipes(page) {
-    await this.props.recipeCategories();
+    let { categoryName } = this.props.match.params;
+    if (typeof page === 'object') {
+      const event = page;
+      categoryName = event.target.dataset.category;
+      await this.props.recipeCategory(1, categoryName);
+    } else {
+      await this.props.recipeCategory(page, categoryName);
+    }
     this.setState({ loaded: true });
   }
 
@@ -73,7 +80,7 @@ export class CategoryPage extends Component {
         { this.state.loaded ?
           <main style={{ marginTop: 40 }}>
             <div className="container">
-              <CategoryButton />
+              <CategoryButton onClick={this.paginateRecipes}/>
             </div>
 
             <div className="container">
@@ -127,17 +134,15 @@ export const mapStateToProps = (state, props) => ({
   recipes: state.recipes.allRecipes,
   pagination: Number(state.recipes.pagination),
   isAuthenticated: state.auth.isAuthenticated,
-  category: state.recipes.recipeCategories
-    .find(recipeCategory => (
-      recipeCategory.name === props.match.params.categoryName
-    )) || {}
+  category: state.recipes.recipeCategory,
 });
 
 const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   recipes: PropTypes.array.isRequired,
   category: PropTypes.object.isRequired,
-  recipeCategories: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  recipeCategory: PropTypes.func.isRequired,
   pagination: PropTypes.number.isRequired,
   history: PropTypes.object.isRequired
 
@@ -145,5 +150,5 @@ const propTypes = {
 
 CategoryPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, { recipeCategories })(CategoryPage);
+export default connect(mapStateToProps, { recipeCategory, recipeCategories })(CategoryPage);
 

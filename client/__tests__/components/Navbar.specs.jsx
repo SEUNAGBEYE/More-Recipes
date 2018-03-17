@@ -19,6 +19,7 @@ const props = {
   logout: jest.fn(),
   getFavouritedRecipesIds: jest.fn(),
   searchRecipes: jest.fn(),
+  recipeCategories: jest.fn(),
   history: {
     push: (() => {})
   },

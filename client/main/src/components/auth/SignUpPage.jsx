@@ -35,7 +35,6 @@ class SignUpPage extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
     this.history = this.props.history;
   }
 
@@ -94,22 +93,6 @@ class SignUpPage extends Component {
           this.history.push('/');
         }
       });
-  }
-
-  /**
-   * @description - Makes forgot password request
-   *
-   * @method forgotPassword
-   *
-   * @param {Object} event
-   *
-   * @returns {void} void
-   * @memberof SignUpPage
-   */
-  forgotPassword(event) {
-    event.preventDefault();
-    this.props.forgotPassword(this.state)
-      .then(res => this.setState({ resetPasswordMessage: res.data.message }));
   }
 
   /**

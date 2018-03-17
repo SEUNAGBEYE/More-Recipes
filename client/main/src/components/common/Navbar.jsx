@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import createHistory from 'history/createBrowserHistory';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth/Auth';
-import { getFavouritedRecipesIds, searchRecipes }
+import { getFavouritedRecipesIds, searchRecipes, recipeCategories }
   from
   '../../actions/Recipes';
 
@@ -40,6 +40,7 @@ export class Navbar extends React.Component {
  */
   componentDidMount() {
     const { isAuthenticated } = this.props.auth;
+    this.props.recipeCategories();
     if (isAuthenticated) {
       this.props.getFavouritedRecipesIds();
     }
@@ -170,24 +171,15 @@ export class Navbar extends React.Component {
                 </ul> :
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <div className="dropdown">
-                      <Link className="nav-link dropdown-toggle" to="#"
-                        id="recipesNav" data-toggle="dropdown">
-                        Recipes
-                      </Link>
-                      <div className="dropdown-menu dropdown-menu-nav"
-                        aria-labelledby="about-us">
-                        <Link className="dropdown-item"
-                          id="allRecipesNav"
-                          to="/recipes">
+                    <Link className="nav-link" to="recipes"
+                      id="recipesNav">
                         All Recipes
-                        </Link>
-                      </div>
-                    </div>
+                    </Link>
                   </li>
                   <li>
                     <div className="dropdown">
                       <Link className="nav-link dropdown-toggle categories" to="#"
+                        id="categories-down-down"
                         data-toggle="dropdown">
                         Categories
                       </Link>
@@ -227,6 +219,7 @@ export class Navbar extends React.Component {
 const propTypes = {
   auth: PropTypes.object.isRequired,
   getFavouritedRecipesIds: PropTypes.func.isRequired,
+  recipeCategories: PropTypes.func.isRequired,
   searchRecipes: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   logout: PropTypes.func.isRequired,
@@ -249,5 +242,6 @@ export const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   logout,
   getFavouritedRecipesIds,
-  searchRecipes
+  searchRecipes,
+  recipeCategories
 })(Navbar);

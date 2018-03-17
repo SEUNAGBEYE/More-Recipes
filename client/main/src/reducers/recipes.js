@@ -16,28 +16,32 @@ const {
   TOGGLE_FAVOURITE_RECIPE,
   TOGGLE_THUMBS_UP_RECIPE,
   TOGGLE_THUMBS_DOWN_RECIPE,
-  REVIEW_RECIPE
+  REVIEW_RECIPE,
+  RECIPE_CATEGORY
 } = actionTypes;
+
+const singleRecipe =  {
+  id: '',
+  name: '',
+  image: '',
+  categoryId: '',
+  userId: '',
+  upvotes: [],
+  downvotes: [],
+  views: [],
+  description: '',
+  reviews: []
+};
 
 export const initialState = {
   allRecipes: [],
-  singleRecipe: {
-    id: '',
-    name: '',
-    image: '',
-    categoryId: '',
-    userId: '',
-    upvotes: [],
-    downvotes: [],
-    views: [],
-    description: '',
-    reviews: []
-  },
+  singleRecipe,
   pagination: '',
   userFavouritedRecipeId: [],
   favouriteRecipes: [],
   popularRecipes: [],
   recipeCategories: [],
+  recipeCategory: { recipes: singleRecipe },
   loaded: false
 };
 
@@ -87,6 +91,15 @@ export default (state = initialState, action = {}) => {
       ...state,
       ...{
         recipeCategories: action.recipeCategories,
+        loaded: true
+      }
+    };
+  case RECIPE_CATEGORY:
+    return {
+      ...state,
+      ...{
+        recipeCategory: action.recipeCategory,
+        pagination: action.pagination,
         loaded: true
       }
     };
