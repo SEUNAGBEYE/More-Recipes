@@ -265,27 +265,33 @@ export class RecipeDetail extends Component {
 
                   <div className="col-md-6">
                     <h5>Ingredients</h5>
-                    <ul style={{ fontSize: 20 }}>
-                      {
-                        recipe.ingredients
-                          .map((step, index) => <li key={index}>{step}</li>)
-                      }
-                    </ul>
+                    { recipe.ingredients.length > 0 ?
+                      <ul style={{ fontSize: 20 }}>
+                        {
+                          recipe.steps
+                            .map((ingredient, index) => <li key={index}>{ingredient}</li>)
+                        }
+                      </ul> :
+                      <p className="text-muted"> User has not add any ingredients yet</p>
+                    }
                   </div>
 
                   <div className="col-md-6">
                     <h5>Steps</h5>
-                    <ul style={{ fontSize: 20 }}>
-                      {
-                        recipe.steps
-                          .map((step, index) => <li key={index}>{step}</li>)
-                      }
-                    </ul>
+                    { recipe.steps.length > 0 ?
+                      <ul style={{ fontSize: 20 }}>
+                        {
+                          recipe.steps
+                            .map((step, index) => <li key={index}>{step}</li>)
+                        }
+                      </ul> :
+                      <p className="text-muted"> User has not add any steps yet</p>
+                    }
                   </div>
                 </div>
 
-                <div className="row">
-
+                <h5 className="text-center" style={{ marginTop: "2rem" }}> Add Review </h5>
+                <div className="row" style={{ marginTop: "2rem" }}>
                   <div className="col-md-6">
                     <CreateReview history={this.props.history}
                       recipeId={recipe.id}
@@ -298,18 +304,22 @@ export class RecipeDetail extends Component {
 
                 </div><br />
 
-                <div>
-                  <h6 className="text-center"
-                    style={{
-                      color: 'orange',
-                      margin: '5 0 10 0',
-                      fontSize: 16
-                    }}
-                  >What People Said
-                  </h6>
-                </div>
-                {recipe.reviews
-                  .map(review => <Review key={review.id} review={review}/>)}
+                <h4 className="text-center">Reviews</h4>
+                {
+                  recipe.reviews.length > 0 ?
+                    <div>
+                      {
+                        recipe.reviews
+                          .map(review => <Review key={review.id} review={review}/>)
+                      }
+                    </div> :
+                    <Exclamation style={{ marginTop: '2rem' }}>
+                      <p className="text-muted text-center">
+                        No reviews yet
+                      </p>
+                    </Exclamation>
+
+                }
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 {

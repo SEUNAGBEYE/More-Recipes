@@ -18,7 +18,13 @@ const sortBy = [
     id: 3,
     name: 'Most Viewed',
     sort: 'views',
-    order: 'desc',
+    order: 'asc',
+  },
+  {
+    id: 4,
+    name: 'All Recipes',
+    sort: 'none',
+    order: 'none',
   },
 ];
 

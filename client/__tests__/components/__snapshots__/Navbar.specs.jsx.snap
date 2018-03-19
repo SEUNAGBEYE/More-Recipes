@@ -28,6 +28,13 @@ ShallowWrapper {
       }
     }
     logout={[MockFunction]}
+    recipeCategories={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+      }
+    }
     searchRecipes={[MockFunction]}
   />,
   Symbol(enzyme.__renderer__): Object {

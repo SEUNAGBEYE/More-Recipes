@@ -86,17 +86,8 @@ const SignUpForm = (props) => (
           onClick={props.onSubmit}
         >Signup</button>
         <Link to="/login" className="auth-link">Already a member</Link>
-        <Link to="#" className="auth-link" data-toggle="modal"
-          data-target="#forgotPasswordModal"
-        >
-        Forgot Password
-        </Link>
       </div>
     </form><br />
-    <ForgotPasswordModal onChange={props.onChange}
-      forgotPassword={props.forgotPassword}
-      resetPasswordMessage={props.state.resetPasswordMessage}
-    />
   </div>
 );
 

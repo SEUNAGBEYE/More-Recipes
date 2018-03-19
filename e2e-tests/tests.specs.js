@@ -22,9 +22,10 @@ const clearSignInValue = browser => browser
   .clearValue('#email')
   .click('#password')
   .clearValue('#password');
+
 const clickRecipeCard = (browser, recipeId) => browser
   .click(`[data-recipe-card-id=recipe${recipeId}]`)
-  .pause(2000)
+  .pause(2000);
 
 const baseUrl = 'http://localhost:7000';
 

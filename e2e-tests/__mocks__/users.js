@@ -1,4 +1,4 @@
-const profilePicture = 'file:///Users/seunagbeye/Desktop/Screen%20Shot%202018-03-04%20at%202.49.12%20PM.png';
+const profilePicture = "file:///Users/seunagbeye/Downloads/Seun's%20picture.jpg";
 
 const validUser = {
   firstName: 'Seun',

@@ -33,7 +33,15 @@ ShallowWrapper {
         <div
           aria-labelledby="about-us"
           className="dropdown-menu"
-        />,
+        >
+          <Link
+            className="dropdown-item"
+            replace={false}
+            to="/recipes"
+          >
+             All Recipes
+          </Link>
+        </div>,
       ],
       "className": "dropdown",
       "data-category-button": "category-button",
@@ -66,11 +74,35 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "aria-labelledby": "about-us",
-          "children": Array [],
+          "children": Array [
+            Array [],
+            <Link
+              className="dropdown-item"
+              replace={false}
+              to="/recipes"
+            >
+               All Recipes
+            </Link>,
+          ],
           "className": "dropdown-menu",
         },
         "ref": null,
-        "rendered": Array [],
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": " All Recipes",
+              "className": "dropdown-item",
+              "replace": false,
+              "to": "/recipes",
+            },
+            "ref": null,
+            "rendered": " All Recipes",
+            "type": [Function],
+          },
+        ],
         "type": "div",
       },
     ],
@@ -96,7 +128,15 @@ ShallowWrapper {
           <div
             aria-labelledby="about-us"
             className="dropdown-menu"
-          />,
+          >
+            <Link
+              className="dropdown-item"
+              replace={false}
+              to="/recipes"
+            >
+               All Recipes
+            </Link>
+          </div>,
         ],
         "className": "dropdown",
         "data-category-button": "category-button",
@@ -129,11 +169,35 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "aria-labelledby": "about-us",
-            "children": Array [],
+            "children": Array [
+              Array [],
+              <Link
+                className="dropdown-item"
+                replace={false}
+                to="/recipes"
+              >
+                 All Recipes
+              </Link>,
+            ],
             "className": "dropdown-menu",
           },
           "ref": null,
-          "rendered": Array [],
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": " All Recipes",
+                "className": "dropdown-item",
+                "replace": false,
+                "to": "/recipes",
+              },
+              "ref": null,
+              "rendered": " All Recipes",
+              "type": [Function],
+            },
+          ],
           "type": "div",
         },
       ],

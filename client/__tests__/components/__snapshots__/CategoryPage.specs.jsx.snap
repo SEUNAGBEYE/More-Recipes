@@ -24,13 +24,7 @@ ShallowWrapper {
       }
     }
     pagination={2}
-    recipeCategories={
-      [MockFunction] {
-        "calls": Array [
-          Array [],
-        ],
-      }
-    }
+    recipeCategories={[MockFunction]}
     recipes={
       Array [
         Object {

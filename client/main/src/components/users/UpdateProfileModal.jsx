@@ -37,7 +37,7 @@ const UpdateProfileModal = (props) => {
             <form id="form">
               <fieldset className="form-group">
                 <label htmlFor="first_name" className="form-inline">
-                        First Name
+                  First Name
                 </label>
                 <input type="text" className="form-control"
                   defaultValue={firstName}
@@ -57,7 +57,7 @@ const UpdateProfileModal = (props) => {
 
               <fieldset className="form-group">
                 <label htmlFor="first_name" className="form-inline">
-                       Facebook Url
+                  Facebook Url
                 </label>
                 <input type="text" className="form-control"
                   defaultValue={facebookUrl}
@@ -68,7 +68,7 @@ const UpdateProfileModal = (props) => {
 
               <fieldset className="form-group">
                 <label htmlFor="first_name" className="form-inline">
-                        Twitter User
+                  Twitter User
                 </label>
                 <input type="text" className="form-control"
                   defaultValue={twitterUrl}
@@ -79,7 +79,7 @@ const UpdateProfileModal = (props) => {
 
               <fieldset className="form-group">
                 <label htmlFor="first_name" className="form-inline">
-                        LinkedIn Url
+                  LinkedIn Url
                 </label>
                 <input type="text" className="form-control"
                   defaultValue={linkedInUrl}
@@ -90,7 +90,7 @@ const UpdateProfileModal = (props) => {
 
               <fieldset className="form-group">
                 <label htmlFor="aboutMe" className="form-inline">
-                        About Me
+                  About Me
                 </label>
                 <textarea type="text"
                   rows="5" cols="20"
@@ -105,7 +105,7 @@ const UpdateProfileModal = (props) => {
 
               <fieldset className="form-group">
                 <label htmlFor="last_name" className="form-inline">
-                        Picture
+                  Picture
                 </label>
                 <input type="file" className="form-control"
                   id="profilePicture" name="profilePicture"

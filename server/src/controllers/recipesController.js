@@ -53,8 +53,8 @@ class RecipeController {
           newRecipes = recipes.sort((recipeA, recipeB) =>
             recipeA[sortBy].length - recipeB[sortBy].length);
         } else {
-          newRecipes = recipes.sort((a, b) =>
-            a[sortBy].length - b[sortBy].length);
+          newRecipes = recipes.sort((recipeA, recipeB) =>
+            recipeB[sortBy].length - recipeA[sortBy].length);
         }
         return successResponse(response, newRecipes, 200);
       } catch (errors) {
@@ -447,7 +447,7 @@ class RecipeController {
    * @memberof RecipeController
    */
   static async getCategories(request, response) {
-    const categories = await Category.findAll({ include: ['recipes'] });
+    const categories = await Category.findAll();
     return successResponse(response, categories, 200);
   }
 
@@ -462,13 +462,29 @@ class RecipeController {
    * @memberof RecipeController
    */
   static async getCategory(request, response) {
-    const category = await Category.findAll({
-      where: {
-        id: request.params.id
+    const { query } = request.params;
+    const { limit, page } = request.query;
+    const where = {
+      name: {
+        $iLike: convertToSentenceCase(query)
       },
-      include: ['recipes']
+    };
+    const category = await Category.find({
+      where,
+      include: [{
+        model: Recipe,
+        as: 'recipes',
+        limit,
+        offset: (page - 1) * limit
+      }]
     });
-    return successResponse(response, category, 200);
+    let recipesCount = await Recipe.findAndCountAll({
+      where: {
+        categoryId: category.id
+      }
+    });
+    recipesCount = Math.ceil(recipesCount.count / limit);
+    return successResponse(response, category, 200, recipesCount);
   }
 }
 

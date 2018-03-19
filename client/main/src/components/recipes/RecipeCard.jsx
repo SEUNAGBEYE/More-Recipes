@@ -44,8 +44,8 @@ export class RecipeCard extends Component {
         upvotes: [],
         downvotes: []
       },
-      isDownVoted: '',
-      isUpVoted: ''
+      isDownVoted: false,
+      isUpVoted: false
     };
   }
 
