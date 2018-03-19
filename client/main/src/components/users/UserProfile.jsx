@@ -126,7 +126,10 @@ class UserProfile extends Component {
       firstName,
       lastName,
       profilePicture,
-      aboutMe
+      aboutMe,
+      facebookUrl,
+      twitterUrl,
+      linkedInUrl
     } = this.props.auth.user;
     return (
       <div>
@@ -169,9 +172,15 @@ class UserProfile extends Component {
                     data-toggle="tooltip" /></Link>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12">
-                <Link to="#" target="_blank" className="fa fa-twitter icons" />
-                <Link to="#" target="_blank" className="fa fa-linkedin icons" />
-                <Link to="#" target="_blank" className="fa fa-facebook icons" />
+                <Link to={twitterUrl || '#'} target="_blank"
+                  className="fa fa-twitter icons" 
+                />
+                <Link to={linkedInUrl || '#'} target="_blank"
+                  className="fa fa-linkedin icons" 
+                />
+                <Link to={facebookUrl || '#'} target="_blank"
+                  className="fa fa-facebook icons" 
+                />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12"
                 style={{ marginTop: 20 }}

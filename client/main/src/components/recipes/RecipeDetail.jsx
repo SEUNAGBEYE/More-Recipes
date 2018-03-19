@@ -212,7 +212,7 @@ export class RecipeDetail extends Component {
  */
   render() {
     if (this.props.loaded) {
-      const { recipe, user, isAuthenticated } = this.props;
+      const { recipe, user } = this.props;
       const isFavorited = this.props.myFavouriteRecipes
         .includes(parseInt(recipe.id, 10));
       const isUpVoted = recipe.upvotes
@@ -293,17 +293,12 @@ export class RecipeDetail extends Component {
                 <h5 className="text-center" style={{ marginTop: "2rem" }}> Add Review </h5>
                 <div className="row" style={{ marginTop: "2rem" }}>
                   <div className="col-md-6">
-                    { isAuthenticated ?
-                      <CreateReview history={this.props.history}
-                        recipeId={recipe.id}
-                        onChange={this.onChange}
-                        reviewBody={this.state.reviewBody}
-                        reviewRecipe={this.reviewRecipe}
-                      /> :
-                      <p className="text-muted text-center">
-                        Please login to add a review
-                      </p>
-                    }
+                    <CreateReview history={this.props.history}
+                      recipeId={recipe.id}
+                      onChange={this.onChange}
+                      reviewBody={this.state.reviewBody}
+                      reviewRecipe={this.reviewRecipe}
+                    />
                   </div>
                   <div className="col-md-6" />
 
