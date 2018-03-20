@@ -14,7 +14,7 @@ import NotFoundPage from '../components/common/NotFoundPage';
 import NavBar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import CategoryPage from '../components/recipes/CategoryPage';
-import requireAuthentication from '../../utils/RequireAuthentication';
+import requireAuthentication from '../../utils/requireAuthentication';
 import ConfirmForgotPasswordPage from '../components/users/ConfirmForgotPasswordPage';
 
 const history = createHistory();

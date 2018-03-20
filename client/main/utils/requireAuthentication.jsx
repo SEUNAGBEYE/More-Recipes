@@ -10,7 +10,7 @@ import checkAuth from '../utils/checkAuth';
  *
  * @returns {Component} React component
  */
-function requireAuthentication(AuthComponent) {
+const requireAuthentication = (AuthComponent) => {
   /**
    * @class AuthenticatedComponent
    * @extends {Component}

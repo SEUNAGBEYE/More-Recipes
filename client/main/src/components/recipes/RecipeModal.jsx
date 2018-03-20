@@ -3,7 +3,7 @@ import Loader from 'react-loader';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
-import imageUpload from '../../../utils/ImageUploader';
+import imageUpload from '../../../utils/imageUploader';
 import Input from './Input';
 
 /**

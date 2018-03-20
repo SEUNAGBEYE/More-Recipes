@@ -7,8 +7,6 @@ import jwt from 'jsonwebtoken';
  *
  * @returns {Object} token
  */
-function jwtSigner(payload) {
-  return jwt.sign(payload, process.env.SECRET_KEY);
-}
+const jwtSigner = payload => jwt.sign(payload, process.env.SECRET_KEY);
 
 export default jwtSigner;

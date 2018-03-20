@@ -8,7 +8,7 @@
  *
  * @returns {Object} Object
  */
-const passwordValidator = (request, response, next) => {
+const passwordValidation = (request, response, next) => {
   if (!request.body.password || request.body.password.length < 6) {
     return response.status(400).send({
       status: 'Failure',
@@ -21,4 +21,4 @@ const passwordValidator = (request, response, next) => {
   return next();
 };
 
-export default passwordValidator;
+export default passwordValidation;

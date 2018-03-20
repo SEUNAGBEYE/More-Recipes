@@ -3,7 +3,7 @@ import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import checkAuth from '../../../utils/CheckAuth';
+import checkAuth from '../../../utils/checkAuth';
 import CreateReview from '../recipes/CreateReview';
 import Review from '../recipes/Review';
 import DeleteModal from './DeleteModal';

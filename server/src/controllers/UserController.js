@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import uuid from 'uuid/v4';
 import model from '../models';
-import mail from '../helpers/mail';
-import jwtSigner from '../helpers/jwt';
+import mailer from '../helpers/mailer';
+import jwtSigner from '../helpers/jwtSigner';
 import modelPaginator from '../helpers/modelPaginator';
 import responseTypes from '../helpers/responseTypes';
 
@@ -77,7 +77,7 @@ class UserController {
         email,
         template: 'signupSuccess'
       };
-      mail(mailData);
+      mailer(mailData);
       return successResponse(response, userProfile, 201);
     } catch (error) {
       return failureResponse(response, 400, undefined, error);
@@ -329,7 +329,7 @@ class UserController {
       }
     };
 
-    mail(mailData);
+    mailer(mailData);
     return successResponse(response, {}, 200, undefined, message);
   }
 
@@ -368,7 +368,7 @@ class UserController {
         subject: 'Password Changed',
         template: 'resetPasswordSuccessful'
       };
-      mail(mailOptions);
+      mailer(mailOptions);
       return successResponse(
         response,
         {},
