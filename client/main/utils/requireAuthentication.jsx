@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import checkAuth from '../utils/CheckAuth';
+import checkAuth from '../utils/checkAuth';
 
 /**
  * @description - Higher order component for forcing authentication
