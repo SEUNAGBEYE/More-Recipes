@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, updateProfile } from '../../actions/auth/Auth';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
-import imageUpload from '../../../utils/ImageUploader';
+import imageUpload from '../../../utils/imageUploader';
 import UpdateProfileModal from './UpdateProfileModal';
 import ChangePasswordModal from './ChangePasswordModal';
 import UserValidator from '../../validators/UserValidator';

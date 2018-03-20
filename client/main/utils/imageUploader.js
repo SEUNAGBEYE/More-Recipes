@@ -9,7 +9,7 @@ const { cloudinaryUploadUrl, cloudinaryUploadPreset } = config;
  * @param {Object} file
  * @returns {Promise} Promise
  */
-function imageUpload(file) {
+const imageUploader = (file) => {
   const imageData = new FormData();
   imageData.append('file', file);
   imageData.append('upload_preset', cloudinaryUploadPreset);
@@ -26,6 +26,6 @@ function imageUpload(file) {
     data: imageData,
     return_delete_token: 1
   });
-}
+};
 
-export default imageUpload;
+export default imageUploader;

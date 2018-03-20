@@ -4,7 +4,7 @@ import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import setAuthorizationToken from '../../../utils/setAuthorizationToken';
-import imageUpload from '../../../utils/ImageUploader';
+import imageUpload from '../../../utils/imageUploader';
 /**
  * @export
  * @class EditModal

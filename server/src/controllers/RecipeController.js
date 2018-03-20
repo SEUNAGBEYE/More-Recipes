@@ -1,5 +1,5 @@
 import model from '../models';
-import mail from '../helpers/mail';
+import mailer from '../helpers/mailer';
 import convertToSentenceCase from '../helpers/convertToSentenceCase';
 import modelPaginator from '../helpers/modelPaginator';
 import responseTypes from '../helpers/responseTypes';
@@ -215,7 +215,7 @@ class RecipeController {
           subject: 'Someone Just Review Your Recipe',
           template: 'recipeReview'
         };
-        mail(mailOptions);
+        mailer(mailOptions);
         return successResponse(response, newReview, 200);
       }
     } catch (error) {

@@ -1,7 +1,7 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import UserController from '../../controllers/usersController';
-import passwordValidator from '../../middleware/passwordValidator';
+import UserController from '../../controllers/UserController';
+import passwordValidation from '../../middleware/passwordValidation';
 import authMiddleware from '../../middleware/authMiddleware';
 import validateId from '../../middleware/recipeIdValidation';
 
@@ -75,7 +75,7 @@ userRoute.route('/signup')
    *         schema:
    *           $ref: '#/definitions/User'
    */
-  .post(passwordValidator, UserController.signUp);
+  .post(passwordValidation, UserController.signUp);
 
 
 userRoute.route('/signin')

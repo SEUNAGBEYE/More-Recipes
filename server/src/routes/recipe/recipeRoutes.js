@@ -1,6 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import RecipeController from '../../controllers/recipesController';
+import RecipeController from '../../controllers/RecipeController';
 import authMiddleware from '../../middleware/authMiddleware';
 import validateId from '../../middleware/recipeIdValidation';
 import uniqueRecipeValidation from '../../middleware/uniqueRecipeValidation';

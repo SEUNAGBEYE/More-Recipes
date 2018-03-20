@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
-import checkAuth from '../../../utils/CheckAuth';
+import checkAuth from '../../../utils/checkAuth';
 import RecipeCardActions from '../recipes/RecipeCardActions';
 
 import {
